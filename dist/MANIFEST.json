@@ -334,8 +334,8 @@
       "sha256": "8ab13d7aebc82a005a92df13b39dd66022907fcd57c87d81bb123ba37976e9de"
     },
     "tools/build.py": {
-      "bytes": 6789,
-      "sha256": "a3ec815bb8c8116d413947eae7333f9820b390de6da61e9b897740edc46884df"
+      "bytes": 6931,
+      "sha256": "996155780fded17df6a37ef405d1aebcac53b59f38270e47eeacb1c8ec0e2782"
     },
     "tools/check.py": {
       "bytes": 4482,
