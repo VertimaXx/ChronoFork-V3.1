@@ -101,9 +101,10 @@ def build():
     with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as z:
         for p in sorted(files, key=lambda p: p.relative_to(ROOT).as_posix()):
             info = zipfile.ZipInfo(p.relative_to(ROOT).as_posix(), date_time=(2026, 10, 22, 0, 0, 0))
+            info.create_system = 3  # Fix the ZIP creator field across Windows and Unix.
             info.compress_type = zipfile.ZIP_DEFLATED
             info.external_attr = 0o100644 << 16
-            z.writestr(info, p.read_bytes())
+            z.writestr(info, p.read_bytes(), compress_type=zipfile.ZIP_DEFLATED, compresslevel=9)
     downloads = ROOT / 'site/downloads'
     downloads.mkdir(exist_ok=True)
     for p in sorted(dist.iterdir()):
