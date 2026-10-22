@@ -1,6 +1,8 @@
 <p align="center"><img src="site/assets/banner.svg" alt="ChronoFork V3.1 — checked contacts for competitive Roblox games" width="100%"></p>
 
-<p align="center"><strong>ChronoFork · V3.1.0 · Roblox / Luau · MIT</strong><br>
+<p align="center"><img src="site/assets/project-badges.svg" alt="Version 3.1.0 · Roblox / Luau · MIT license · AI-assisted development" width="600"></p>
+
+<p align="center"><strong>Your movement. Your moves. Checked contact evidence.</strong><br>
 <a href="https://vertimaxx.github.io/ChronoFork-V3.1/">Documentation website</a> · <a href="docs/start-here.md">Start here</a> · <a href="docs/comparison.md">Original vs fork</a> · <a href="docs/benchmarks.md">Benchmarks</a> · <a href="CREDITS.md">Credits</a></p>
 
 # ChronoFork V3.1
