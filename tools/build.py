@@ -24,7 +24,7 @@ def nodes(folder, name):
         if init.exists():
             row['source'] = init.read_text(encoding='utf-8-sig').replace('\r\n', '\n')
         rows.append(row)
-        for p in sorted(directory.iterdir()):
+        for p in sorted(directory.iterdir(), key=lambda p: p.name):
             if p.is_dir():
                 walk(p, path + [p.name])
             elif p.suffix == '.luau' and p.name != 'init.luau':
@@ -94,12 +94,12 @@ def build():
     files += [p for p in (ROOT / 'site').rglob('*') if p.is_file() and 'downloads' not in p.parts]
     manifest = {'version': VERSION, 'sourceDate': '2026-10-21', 'packagedDate': '2026-10-22', 'upstreamComparisonRevision': UPSTREAM,
                 'scope': 'V3.1 code only; historical comparison data retain earlier labels',
-                'files': {p.relative_to(ROOT).as_posix(): {'bytes': len(p.read_bytes()), 'sha256': hashlib.sha256(p.read_bytes()).hexdigest()} for p in sorted(files)}}
+                'files': {p.relative_to(ROOT).as_posix(): {'bytes': len(p.read_bytes()), 'sha256': hashlib.sha256(p.read_bytes()).hexdigest()} for p in sorted(files, key=lambda p: p.relative_to(ROOT).as_posix())}}
     (dist / 'MANIFEST.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8', newline='\n')
     files.append(dist / 'MANIFEST.json')
     archive = dist / f'ChronoFork-{VERSION}.zip'
     with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as z:
-        for p in sorted(files):
+        for p in sorted(files, key=lambda p: p.relative_to(ROOT).as_posix()):
             info = zipfile.ZipInfo(p.relative_to(ROOT).as_posix(), date_time=(2026, 10, 22, 0, 0, 0))
             info.compress_type = zipfile.ZIP_DEFLATED
             info.external_attr = 0o100644 << 16
