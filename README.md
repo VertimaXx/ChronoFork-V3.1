@@ -1,4 +1,4 @@
-<p align="center"><img src="site/assets/banner.svg" alt="ChronoFork V3.1 — checked contacts for competitive Roblox games" width="100%"></p>
+<p align="center"><img src="site/assets/banner.svg?v=3.1-style" alt="ChronoFork V3.1 — checked contacts for competitive Roblox games" width="100%"></p>
 
 <p align="center"><img src="site/assets/project-badges.svg" alt="Version 3.1.0 · Roblox / Luau · MIT license · AI-assisted development" width="600"></p>
 
