@@ -1,1 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="390" viewBox="0 0 1280 390" role="img" aria-labelledby="title desc"><title id="title">ChronoFork V3.1</title><desc id="desc">Checked gameplay contacts for competitive Roblox games. Unofficial Chrono fork. Original: Parihsz and contributors. Developed with OpenAI Codex AI under VertimaXx direction.</desc><rect width="1280" height="390" rx="20" fill="#122c32"/><g fill="none" stroke="#32535b"><path d="M850 0v390M950 0v390M1050 0v390M1150 0v390M750 70h530M750 170h530M750 270h530M750 370h530"/><rect x="892" y="95" width="160" height="160" rx="8" stroke="#9cdec0" stroke-width="3"/><circle cx="1071" cy="203" r="72" stroke="#75a4fa" stroke-width="3"/><path d="m1008 197 23 23 48-53" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></g><g font-family="system-ui,Segoe UI,Arial,sans-serif"><text x="56" y="66" font-size="13" letter-spacing="3" fill="#9cdec0">ROBLOX / LUAU · UNOFFICIAL CHRONO FORK</text><text x="51" y="150" font-size="66" font-weight="750" letter-spacing="-2" fill="#fff">ChronoFork <tspan fill="#9cdec0">V3.1</tspan></text><text x="56" y="202" font-size="23" fill="#e1ece7">Checked contacts. Game-owned rules.</text><text x="56" y="246" font-size="17" fill="#bdd0ce">A server contact-validation branch for competitive Roblox games.</text><path d="M56 280h650" stroke="#32535b"/><text x="56" y="318" font-size="14" fill="#bdd0ce">Original: Parihsz &amp; Chrono contributors · MIT</text><text x="56" y="345" font-size="14" fill="#bdd0ce">Developed with OpenAI Codex / AI · Directed by VertimaXx</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="440" viewBox="0 0 1280 440" role="img" aria-labelledby="title desc">
+  <title id="title">ChronoFork V3.1</title>
+  <desc id="desc">Checked contact evidence for competitive Roblox games. An unofficial Chrono fork. Original credit: Parihsz and Chrono contributors. Developed with OpenAI Codex AI under VertimaXx direction.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0b1627"/><stop offset="1" stop-color="#102f3b"/></linearGradient>
+    <linearGradient id="accent"><stop stop-color="#7cafff"/><stop offset="1" stop-color="#8ce5c0"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#2677bd" stop-opacity=".35"/><stop offset="1" stop-color="#2677bd" stop-opacity="0"/></radialGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0v32" fill="none" stroke="#b3d5f4" stroke-opacity=".07"/></pattern>
+    <clipPath id="clip"><rect width="1280" height="440" rx="20"/></clipPath>
+  </defs>
+  <g clip-path="url(#clip)">
+    <rect width="1280" height="440" fill="url(#bg)"/>
+    <rect width="1280" height="440" fill="url(#grid)"/>
+    <ellipse cx="1050" cy="160" rx="400" ry="350" fill="url(#glow)"/>
+    <path d="M0 1h1280" stroke="url(#accent)" stroke-width="3"/>
+    <g fill="none" transform="translate(1010 199)">
+      <circle r="154" stroke="#8ab8d8" stroke-opacity=".17"/>
+      <circle r="124" stroke="#8ab8d8" stroke-opacity=".2" stroke-dasharray="3 12"/>
+      <path d="M-154 0h308M0-154v308" stroke="#a0cce5" stroke-opacity=".16"/>
+      <path d="M-70-99a121 121 0 0 1 188 126" stroke="#76acff" stroke-width="3"/>
+      <path d="M66 103A121 121 0 0 1-117-28" stroke="#88e1bc" stroke-width="3"/>
+      <path d="m-72-66 110-31 57 58-110 32z" fill="#5e9bfa" fill-opacity=".09" stroke="#8cbaff" stroke-width="2"/>
+      <path d="M-72-66v109L-15 102V-7M95-39V70L-15 102M-72 43 38 12 95 70M38-97V12" stroke="#8cbaff" stroke-width="2"/>
+      <circle cx="53" cy="32" r="51" fill="#72d8b7" fill-opacity=".12" stroke="#90ecc5" stroke-width="2"/>
+      <path d="m32 32 15 16 30-35" stroke="#d8fff0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="-118" cy="-28" r="5" fill="#9be6c6" stroke="#102d39" stroke-width="3"/>
+      <circle cx="118" cy="27" r="5" fill="#8bb9ff" stroke="#102d39" stroke-width="3"/>
+    </g>
+    <g font-family="system-ui,Segoe UI,Arial,sans-serif">
+      <rect x="52" y="36" width="270" height="28" rx="14" fill="#8cdabb" fill-opacity=".1" stroke="#8cdabb" stroke-opacity=".25"/>
+      <circle cx="68" cy="50" r="3" fill="#9debc8"/>
+      <text x="81" y="54" font-size="10" font-weight="700" letter-spacing="1.9" fill="#b8e9d5">UNOFFICIAL CHRONO FORK</text>
+      <text x="49" y="151" font-size="78" font-weight="750" letter-spacing="-3" fill="#f3f8ff">ChronoFork</text>
+      <rect x="507" y="97" width="126" height="52" rx="12" fill="#8cdabb" fill-opacity=".12" stroke="#9de9c9" stroke-opacity=".4"/>
+      <text x="525" y="133" font-size="32" font-weight="650" fill="#a8efd0">V3.1</text>
+      <text x="54" y="201" font-size="25" font-weight="500" fill="#d4e4ed">Make contact. <tspan fill="#99e7c6">Check the evidence.</tspan></text>
+      <text x="54" y="239" font-size="16" fill="#9fb7c7">Game-owned moves. Server-supplied positions. Explicit results.</text>
+      <g font-size="10" font-weight="650" letter-spacing="1.2" fill="#a9c1d2">
+        <path d="M55 280h28M55 288h17" stroke="#8eb9ff" stroke-width="2"/><text x="96" y="289">FIVE QUERY SHAPES</text>
+        <path d="M321 278h15v14h-15zM327 273h15v14" stroke="#8ae4bd" stroke-width="1.5" fill="none"/><text x="354" y="289">GUIDED STUDIO SETUP</text>
+        <path d="m590 282 6 6 10-13" stroke="#8eb9ff" stroke-width="2" fill="none"/><text x="618" y="289">OPEN SOURCE</text>
+      </g>
+      <path d="M54 331h1172" stroke="#8fb7cc" stroke-opacity=".2"/>
+      <text x="54" y="365" font-size="14" fill="#bccfdb">Original: Parihsz &amp; Chrono contributors <tspan fill="#7497aa">· MIT</tspan></text>
+      <text x="54" y="393" font-size="14" fill="#bccfdb">Developed with <tspan fill="#9ee6c7">OpenAI Codex / AI</tspan> · Directed by VertimaXx</text>
+      <text x="1227" y="391" text-anchor="end" font-size="10" letter-spacing="2" fill="#7497aa">ROBLOX / LUAU</text>
+    </g>
+  </g>
+</svg>
