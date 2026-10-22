@@ -210,8 +210,8 @@
       "sha256": "ac083ac3ab2c31b977cde5c87e2424bb251e36c88739b6071b110da7cfc84abb"
     },
     "site/assets/style.css": {
-      "bytes": 25483,
-      "sha256": "9ad1c3a28cd70288022786e3d61149c0a4b5a930b53a04c761a4fddd6e6ee25e"
+      "bytes": 25624,
+      "sha256": "0d08ecd4e8b607a208b77c105bbea66336f88091de6c7eeeaa705557835dec7c"
     },
     "site/assets/words-3.1.jpg": {
       "bytes": 257787,
@@ -219,35 +219,35 @@
     },
     "site/benchmarks.html": {
       "bytes": 17741,
-      "sha256": "050981e62b773e92ff5edc021e30e961666d8dd22bb8bd9870035d80a2faeb78"
+      "sha256": "a087d54ff3d6258d907862e5a97fadf316fcc83ac6eff6bb0193b9c5b5aa5931"
     },
     "site/comparison.html": {
       "bytes": 10113,
-      "sha256": "3cd0b3ac049240387eaf8c30ce0f5c5deb16d14b7eb7971eb2544c8be4b5862c"
+      "sha256": "cf7ba89c72d5ca65de0c8f278fcd8d6fc0a989f83caa372b38b8a2dd1ed58657"
     },
     "site/credits.html": {
       "bytes": 4935,
-      "sha256": "532f15f7a19103e6d1305bf804fec1844f3af567c7b235b724c02799d0ea3bbd"
+      "sha256": "60ce82b9b744bf760f70048df658ff8727d4c2adf69de9cbb570ad8dcfcaafba"
     },
     "site/faq.html": {
       "bytes": 7630,
-      "sha256": "254985fbd69c2b461239a8b9cfd2fcf5531096c204bd627381ab780eb257d1d4"
+      "sha256": "e204cc2e1c9b4780624900928ec03c6ec893da379ab40cc3e18721cfcf7465ff"
     },
     "site/game-integration.html": {
       "bytes": 9886,
-      "sha256": "4e4319aa2646ecec75f08259aeb334a4075139e12e673c9b784b7dc0c39720af"
+      "sha256": "5c10629faa1a11e0c98a2c512175faf59fbd4750ec1f971715a4cc98d2e881a9"
     },
     "site/help.html": {
       "bytes": 41483,
-      "sha256": "e7c4e62a50d5e67aef5cb9bfe6dfe4f832f62673283b0fadbfdceb7b7cec7d1f"
+      "sha256": "b9080554c10facaec6063725e28cd09bf00cf49c1455bd80416b534e33f27879"
     },
     "site/index.html": {
       "bytes": 7610,
-      "sha256": "1e1150be53508fc529e4c4d1457ffc49a92c0d0f3e6e81b097f4ec90e07eb69f"
+      "sha256": "f738da59bb067d1c03e5dbf39475f6c6276f6e0caad813e718a3ebde754b4eec"
     },
     "site/integration.html": {
       "bytes": 15508,
-      "sha256": "4d08b03e38e905ed12c94046907e8f31f4d7964cebe496c5c90909cab0bf81bb"
+      "sha256": "fe649088bc51a448c629831fb2c38df10f7d42f19e0c8428a67652dabc2b897c"
     },
     "site/license.txt": {
       "bytes": 1064,
@@ -255,11 +255,11 @@
     },
     "site/math-and-limits.html": {
       "bytes": 10742,
-      "sha256": "5466d14cfa402e70a21f936d446564761ae89cbcff4359f734dec30a1cda54d5"
+      "sha256": "c62c05dc137ad097ea0c430eacf458966acd3e4e748aa86d26840fbeb77e8130"
     },
     "site/start-here.html": {
       "bytes": 15689,
-      "sha256": "2ae93f65f0c1454af953a53f398563ced5613660a03f67c389d964f8804f8338"
+      "sha256": "2555401e28e6fc1bf26ce84a52d0bdeccbeba275533b4ebe99684a9f7a211971"
     },
     "src/Contract.luau": {
       "bytes": 1312,
