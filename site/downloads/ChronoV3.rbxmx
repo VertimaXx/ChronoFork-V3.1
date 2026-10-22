@@ -1,0 +1,788 @@
+<?xml version='1.0' encoding='utf-8'?>
+<roblox version="4"><Item class="ModuleScript" referent="CF0"><Properties><string name="Name">ChronoV3</string><ProtectedString name="Source">--!strict
+-- Chrono V3: server historical contact evidence. No automatic gameplay/network side effects.
+local Guard=require(script.Guard)
+local Contract=require(script.Contract)
+local History=require(script.History)
+local Shapes=require(script.Shapes)
+local Types=require(script.Types)
+local API={Shapes=Shapes,Version="3.1.0"}
+-- Optional explanation helper. It never changes the result or runs a hit check.
+function API.Explain(reason: (string | {reason: string})?): Types.Explanation return require(script.Help).Explain(reason) end
+local Methods={} Methods.__index=Methods
+local private=setmetatable({}, {__mode="k"})
+local function session(self)
+	local s=assert(private[self],"This Chrono instance was destroyed, or the call used the wrong object.")
+	assert(not s.inCallback,"Do not call Chrono again from inside a position or rule function. Return its data first.")
+	return s
+end
+local function call(s,callback,...)
+	s.inCallback=true
+	local out=table.pack(Contract.Call(callback,...))
+	s.inCallback=false
+	return table.unpack(out,1,out.n)
+end
+local function bounded(n,lo,hi) return Guard.Number(n) and n&gt;=lo and n&lt;=hi end
+local function name(n) return type(n)=="string" and #n&gt;0 and #n&lt;=64 end
+local function frozenResult(ok,reason,fields)
+	local out=fields or {} out.ok=ok out.reason=reason
+	if not out.contacts then out.contacts=table.freeze({}) end
+	return table.freeze(out)
+end
+local function failure(s,reason,fields)
+	s.stats.rejected+=1 s.stats.lastRejection=reason
+	return frozenResult(false,reason,fields)
+end
+local function fresh(s)
+	local ok,now=call(s,s.clock)
+	if not ok or not Guard.Number(now) then return nil,"clock_fault" end
+	if not s.time then return nil,"capture_required" end
+	if now&lt;s.time-1e-6 then return nil,"clock_reversed" end
+	if now-s.time&gt;s.maxGap then return nil,"capture_stale" end
+	return now
+end
+function API.new(options: Types.Options?): Types.Service
+	assert(game:GetService("RunService"):IsServer(),"Chrono V3 runs on the server")
+	local o=options or {}
+	local seconds,rate,gap=o.seconds or 0.6,o.rate or 60,o.maxGap or 0.075
+	assert(bounded(seconds,0.05,10) and bounded(rate,1,240) and bounded(gap,0.001,1),"Use seconds=0.05 to 10, rate=1 to 240, and maxGap=0.001 to 1. These control saved-position storage.")
+	assert(bounded(o.maxRewind or 0,0,seconds),"maxRewind must be zero or a positive number no greater than seconds (the time you keep past positions).")
+	assert(o.clock==nil or type(o.clock)=="function","clock must be a function that returns server time in seconds, or leave it unset.")
+	assert(o.resolveRewind==nil or type(o.resolveRewind)=="function","resolveRewind must be a function that returns an approved earlier-time delay, or leave it unset.")
+	assert(o.world==nil or type(o.world)=="function","world must be an obstacle-check function, or leave it unset.")
+	local self=setmetatable({},Methods)
+	private[self]={clock=o.clock or function() return workspace:GetServerTimeNow() end,
+		seconds=seconds,capacity=math.ceil(rate*seconds)+2,maxGap=gap,maxRewind=o.maxRewind or 0,
+		resolveRewind=o.resolveRewind,world=o.world,actors={},actions={},actionCount=0,roster=0,
+		stats={captures=0,queries=0,accepted=0,rejected=0,contacts=0,providerFaults=0,lastRejection="none"}}
+	return self :: any -- Public method types help Studio autocomplete; checks above still run.
+end
+function Methods:Track(id,binding)
+	local s=session(self)
+	assert(name(id) and type(binding)=="table" and name(binding.kind),"Track needs short text id and kind names. Example: id='player-12', kind='player'.")
+	assert(not s.actors[id],"This id is already tracked. Call Untrack before deliberately registering a replacement.")
+	assert(type(binding.capture)=="function","Track needs capture=function(time) ... end to supply the object's position, hitboxes and game values.")
+	assert(bounded(binding.maxSpeed,0,4096) and bounded(binding.maxRadius,0.001,512),"Set maxSpeed from 0 to 4096 studs/second and maxRadius from 0.001 to 512 studs. They must describe your allowed movement and hitbox extent.")
+	local trust=binding.trust or "unverified"
+	assert(trust=="unverified" or trust=="serverValidated" or trust=="serverSimulated","Use trust='unverified', 'serverValidated' or 'serverSimulated'. Choose a trusted label only after your server actually checks or calculates the data.")
+	local count=0 for _ in s.actors do count+=1 end assert(count&lt;256,"This instance already tracks 256 objects. Remove objects no longer needed before adding another.")
+	s.actors[id]={id=id,kind=binding.kind,capture=binding.capture,trust=trust,status="awaiting_capture",faults=0,
+		history=History.new({seconds=s.seconds,capacity=s.capacity,maxGap=s.maxGap,maxSpeed=binding.maxSpeed,maxRadius=binding.maxRadius})}
+	s.roster+=1
+end
+function Methods:Untrack(id)
+	local s=session(self) if not s.actors[id] then return false end
+	s.actors[id]=nil s.roster+=1 return true
+end
+function Methods:Discontinuity(id,reason)
+	local s=session(self) local actor=assert(s.actors[id],"actor not tracked")
+	local ok,now=call(s,s.clock) assert(ok and Guard.Number(now),"clock fault")
+	actor.history:Break(math.max(now,s.time or now)) actor.status=reason or "discontinuity" actor.quarantined=false
+end
+-- Invoke after your authoritative simulation. All providers must describe the same instant.
+-- An optional timestamp supports a fixed-step server simulation using this clock domain.
+function Methods:Capture(time)
+	local s=session(self)
+	local ok,now=call(s,s.clock)
+	if not ok or not Guard.Number(now) then return frozenResult(false,"clock_fault") end
+	time=time or now
+	if not Guard.Number(time) or time&gt;now+1e-6 or now-time&gt;s.maxGap then return frozenResult(false,"invalid_capture_time") end
+	if s.time and time&lt;=s.time then return frozenResult(false,"non_monotonic") end
+	s.time=time s.stats.captures+=1
+	local faults={}
+	for id,actor in s.actors do
+		if actor.quarantined then table.insert(faults,table.freeze({id=id,reason="quarantined"})) continue end
+		local called,snapshot=call(s,actor.capture,time)
+		local pushed,reason=false,"provider_fault"
+		if called then
+			-- Validation itself can encounter an erroneous table metamethod from an adapter.
+			local validated,accepted,why=call(s,function() return actor.history:Push(time,snapshot) end)
+			pushed=validated and accepted==true
+			reason=if validated then why else "invalid_snapshot"
+		end
+		if not pushed then
+			actor.history:Break(time) actor.faults+=1 s.stats.providerFaults+=1
+			actor.status=reason actor.quarantined=true table.insert(faults,table.freeze({id=id,reason=reason}))
+		else actor.status="captured" end
+	end
+	for token,action in s.actions do
+		if time&gt;action.started+action.close or action.roster~=s.roster then s.actions[token]=nil s.actionCount-=1 end
+	end
+	return frozenResult(#faults==0,if #faults==0 then "captured" else "capture_fault",{time=time,faults=table.freeze(faults)})
+end
+-- Call only after your existing server move/action service authorizes the action.
+-- No client-facing RemoteEvent is created. Context is consumed only by YOUR timing resolver.
+function Methods:BeginAction(actorId,profile,approvedContext)
+	local s=session(self) local now,err=fresh(s)
+	if not now then return nil,err end
+	local actor=s.actors[actorId] if not actor then return nil,"actor_missing" end
+	if actor.trust=="unverified" then return nil,"unverified_source" end
+	if type(profile)~="table" then return nil,"invalid_profile" end
+	local shape=Shapes.Copy(profile.shape)
+	local opening,closing=profile.opens or 0,profile.closes or 0.25
+	if not shape or not bounded(opening,0,10) or not bounded(closing,opening,10)
+		or not bounded(profile.maxReach or 32,0,4096) or Shapes.Reach(shape)&gt;(profile.maxReach or 32)
+		or not Guard.Integer(profile.maxTargets or 1,1,256) then return nil,"invalid_profile" end
+	if profile.eligible~=nil and type(profile.eligible)~="function" then return nil,"invalid_profile" end
+	if profile.world~=nil and type(profile.world)~="boolean" then return nil,"invalid_profile" end
+	if profile.world and (not s.world or shape.kind~="sweep") then return nil,"world_provider_or_shape" end
+	if type(profile.targets)~="table" then return nil,"target_kinds_required" end
+	local kinds,count={},0
+	for _,kind in profile.targets do
+		if not name(kind) then return nil,"invalid_target_kind" end kinds[kind]=true count+=1
+	end
+	if count==0 or count&gt;32 then return nil,"target_kinds_required" end
+	local rewind=0
+	if s.resolveRewind then
+		local resolved,value=call(s,s.resolveRewind,actorId,approvedContext,s.time)
+		if not resolved or not bounded(value,0,s.maxRewind) then return nil,"rewind_rejected" end rewind=value
+	end
+	local source,reason=actor.history:Sample(s.time-rewind,now)
+	if not source then return nil,"source_"..reason end
+	local actorActions=0 for _,a in s.actions do if a.actor==actorId then actorActions+=1 end end
+	if s.actionCount&gt;=512 or actorActions&gt;=4 then return nil,"action_capacity" end
+	local token=table.freeze({})
+	s.actions[token]={actor=actorId,epoch=actor.history.epoch,roster=s.roster,started=s.time,
+		open=opening,close=closing,shape=shape,kinds=table.freeze(kinds),eligible=profile.eligible,
+		world=profile.world==true,maxTargets=profile.maxTargets or 1,rewind=rewind,hit={},totalHits=0}
+	s.actionCount+=1
+	return token
+end
+function Methods:EndAction(token)
+	local s=session(self) if not s.actions[token] then return false end
+	s.actions[token]=nil s.actionCount-=1 return true
+end
+function Methods:Query(token)
+	local s=session(self) s.stats.queries+=1
+	local action=s.actions[token] if not action then return failure(s,"invalid_action") end
+	local now,err=fresh(s) if not now then return failure(s,err) end
+	if action.roster~=s.roster then return failure(s,"roster_changed") end
+	local actor=s.actors[action.actor]
+	if not actor or actor.history.epoch~=action.epoch then return failure(s,"source_epoch_changed") end
+	local elapsed=s.time-action.started
+	if elapsed&lt;action.open then return failure(s,"not_active") end
+	if elapsed&gt;action.close then return failure(s,"action_expired") end
+	if action.lastTime==s.time then return failure(s,"duplicate_query") end
+	if action.totalHits&gt;=action.maxTargets then return failure(s,"action_spent") end
+	local time=s.time-action.rewind
+	local source,reason=actor.history:Sample(time,now)
+	if not source then return failure(s,"source_"..reason) end
+	local transformed,query=Contract.Call(Shapes.At,action.shape,source.root)
+	if not transformed then return failure(s,"shape_out_of_bounds") end
+	local fraction=1 local blocked=false
+	if action.world then
+		local called,cover=call(s,s.world,time,now,query)
+		if not called or type(cover)~="table" or cover.covered~=true or type(cover.blocked)~="boolean"
+			or not bounded(cover.fraction,0,1) then return failure(s,"world_unknown") end
+		blocked=cover.blocked fraction=if blocked then cover.fraction else 1
+	end
+	local contacts={}
+	for id,target in s.actors do
+		if id==action.actor or not action.kinds[target.kind] or action.hit[id] then continue end
+		-- A missing target can hide a closer contact. Never return a partial success.
+		if target.trust=="unverified" then return failure(s,"unverified_target",{actor=id}) end
+		local snapshot,why=target.history:Sample(time,now)
+		if not snapshot then return failure(s,"target_"..why,{actor=id}) end
+		if action.eligible then
+			local called,allowed=call(s,action.eligible,source.state,snapshot.state,id,target.kind)
+			if not called or type(allowed)~="boolean" then return failure(s,"rules_fault",{actor=id}) end
+			if not allowed then continue end
+		end
+		local best,zoneName=nil,nil
+		for zone,volume in snapshot.zones do
+			local t=Shapes.Intersect(query,volume)
+			-- Cover wins exact ties. With no cover callback, include sweep endpoint tangency.
+			if t and (t&lt;fraction or (not blocked and t&lt;=fraction)) and (not best or t&lt;best or (t==best and zone&lt;zoneName)) then best=t zoneName=zone end
+		end
+		if best then
+			local distance=if query.kind=="sweep" then (query.finish-query.start).Magnitude*best else 0
+			table.insert(contacts,table.freeze({id=id,kind=target.kind,zone=zoneName,distance=distance,fraction=best,
+				time=time,epoch=snapshot.epoch,state=snapshot.state,root=snapshot.root}))
+		end
+	end
+	table.sort(contacts,function(a,b) if a.fraction~=b.fraction then return a.fraction&lt;b.fraction end return a.id&lt;b.id end)
+	while #contacts&gt;action.maxTargets-action.totalHits do table.remove(contacts) end
+	-- Commit duplicate suppression only after every relevant provider/rule/world check passed.
+	for _,contact in contacts do action.hit[contact.id]=true end
+	action.totalHits+=#contacts action.lastTime=s.time
+	s.stats.accepted+=1 s.stats.contacts+=#contacts
+	return frozenResult(true,"covered",{time=time,capturedAt=s.time,rewind=action.rewind,source=source,
+		contacts=table.freeze(contacts),shape=query})
+end
+function Methods:Inspect()
+	local s=session(self) local actors={}
+	for id,a in s.actors do
+		local row=a.history:Latest()
+		table.insert(actors,table.freeze({id=id,kind=a.kind,declaredTrust=a.trust,status=a.status,
+			captured=row~=nil,latest=if row then row.time else nil,epoch=a.history.epoch,faults=a.faults}))
+	end
+	table.sort(actors,function(a,b) return a.id&lt;b.id end)
+	return table.freeze({version=API.Version,time=s.time,actors=table.freeze(actors),activeActions=s.actionCount,
+		stats=table.freeze(table.clone(s.stats)),worldEnabled=s.world~=nil,maxRewind=s.maxRewind})
+end
+function Methods:Destroy() session(self) private[self]=nil end
+return table.freeze(API)
+</ProtectedString></Properties><Item class="ModuleScript" referent="CF1"><Properties><string name="Name">Contract</string><ProtectedString name="Source">--!strict
+-- These guards contain yielding adapters. They cannot preempt an infinite CPU loop.
+local Guard = require(script.Parent.Guard)
+local Contract = {}
+function Contract.Call(callback, ...)
+	if type(callback) ~= "function" then return false, "callback_missing" end
+	local thread = coroutine.create(callback)
+	local result = table.pack(coroutine.resume(thread, ...))
+	if not result[1] then return false, tostring(result[2]) end
+	if coroutine.status(thread) ~= "dead" then
+		coroutine.close(thread)
+		return false, "callback_yielded"
+	end
+	return true, table.unpack(result, 2, result.n)
+end
+function Contract.State(state)
+	if type(state) ~= "table" then return nil end
+	local result, count = {}, 0
+	for key, value in state do
+		count += 1
+		if count &gt; 32 or type(key) ~= "string" or #key &gt; 64 then return nil end
+		if type(value) == "number" then
+			if not Guard.Number(value) or math.abs(value) &gt; 1e12 then return nil end
+		elseif type(value) == "string" then
+			if #value &gt; 128 then return nil end
+		elseif type(value) ~= "boolean" then return nil end
+		result[key] = value
+	end
+	return table.freeze(result)
+end
+function Contract.SameState(a, b)
+	for k, v in a do if b[k] ~= v then return false end end
+	for k in b do if a[k] == nil then return false end end
+	return true
+end
+return table.freeze(Contract)
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF2"><Properties><string name="Name">Geometry</string><ProtectedString name="Source">--!strict
+local Guard = require(script.Parent.Guard)
+local Geometry = {}
+local EPSILON = 1e-9
+
+function Geometry.SegmentDistanceSquared(start: Vector3,finish: Vector3,point: Vector3): number
+	local delta=finish-start
+	local lengthSquared=delta:Dot(delta)
+	local alpha=if lengthSquared&gt;1e-12 then math.clamp((point-start):Dot(delta)/lengthSquared,0,1) else 0
+	local offset=point-(start+delta*alpha)
+	return offset:Dot(offset)
+end
+
+function Geometry.RayOBB(origin: Vector3, direction: Vector3, length: number, frame: CFrame, size: Vector3): number?
+	if not Guard.Vector(origin) or not Guard.Unit(direction) or not Guard.Number(length) or length &lt; 0
+		or not Guard.Frame(frame) or not Guard.Size(size) then return nil end
+	local o, d, half = frame:PointToObjectSpace(origin), frame:VectorToObjectSpace(direction), size * 0.5
+	local enter, leave = 0, length
+	for _, axis in {"X", "Y", "Z"} do
+		local start, delta, extent = o[axis], d[axis], half[axis]
+		if math.abs(delta) &lt; EPSILON then
+			if math.abs(start) &gt; extent then return nil end
+		else
+			local a, b = (-extent - start) / delta, (extent - start) / delta
+			if a &gt; b then a, b = b, a end
+			enter, leave = math.max(enter, a), math.min(leave, b)
+			if enter &gt; leave then return nil end
+		end
+	end
+	return enter
+end
+
+-- Exact moving sphere vs a stationary OBB, including rounded edges/corners.
+-- Split the ray at box-plane crossings; point-to-box distance is quadratic on each interval.
+function Geometry.SphereSweepOBB(start: Vector3, finish: Vector3, radius: number, frame: CFrame, size: Vector3): number?
+	if not Guard.Vector(start) or not Guard.Vector(finish) or not Guard.Number(radius) or radius &lt; 0 or radius &gt; 32
+		or not Guard.Frame(frame) or not Guard.Size(size) then return nil end
+	local origin = frame:PointToObjectSpace(start)
+	local delta = frame:VectorToObjectSpace(finish - start)
+	local half = size * 0.5
+	local cuts = {0, 1}
+	for _, axis in {"X", "Y", "Z"} do
+		if math.abs(delta[axis]) &gt; EPSILON then
+			for _, sign in {-1, 1} do
+				local t = (sign * half[axis] - origin[axis]) / delta[axis]
+				if t &gt; 0 and t &lt; 1 then table.insert(cuts, t) end
+			end
+		end
+	end
+	table.sort(cuts)
+	for i = 1, #cuts - 1 do
+		local lower, upper = cuts[i], cuts[i + 1]
+		local midpoint = (lower + upper) * 0.5
+		local a, b, c = 0, 0, -radius * radius
+		for _, axis in {"X", "Y", "Z"} do
+			local p = origin[axis] + delta[axis] * midpoint
+			if math.abs(p) &gt; half[axis] then
+				local offset = origin[axis] - (if p &gt; 0 then half[axis] else -half[axis])
+				a += delta[axis] * delta[axis]
+				b += 2 * delta[axis] * offset
+				c += offset * offset
+			end
+		end
+		if (a * lower + b) * lower + c &lt;= EPSILON then return lower end
+		if a &gt; EPSILON then
+			local discriminant = b * b - 4 * a * c
+			if discriminant &gt;= -EPSILON then
+				local root = (-b - math.sqrt(math.max(discriminant, 0))) / (2 * a)
+				if root &gt;= lower - EPSILON and root &lt;= upper + EPSILON then return math.clamp(root, lower, upper) end
+			end
+		end
+	end
+	return nil
+end
+
+return table.freeze(Geometry)
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF3"><Properties><string name="Name">Guard</string><ProtectedString name="Source">--!strict
+local Guard = {}
+
+function Guard.Number(value: any): boolean
+	return type(value) == "number" and value == value and math.abs(value) &lt; math.huge
+end
+
+function Guard.Integer(value: any, minimum: number, maximum: number): boolean
+	return Guard.Number(value) and value % 1 == 0 and value &gt;= minimum and value &lt;= maximum
+end
+
+function Guard.Vector(value: any, limit: number?): boolean
+	if typeof(value) ~= "Vector3" then return false end
+	local bound = limit or 1e7
+	return Guard.Number(value.X) and Guard.Number(value.Y) and Guard.Number(value.Z)
+		and math.abs(value.X) &lt;= bound and math.abs(value.Y) &lt;= bound and math.abs(value.Z) &lt;= bound
+end
+
+function Guard.Frame(value: any, limit: number?): boolean
+	if typeof(value) ~= "CFrame" or not Guard.Vector(value.Position, limit) then return false end
+	for _, component in {value:GetComponents()} do
+		if not Guard.Number(component) then return false end
+	end
+	-- CFrame.new accepts explicit matrix entries. Reject scaled/sheared/reflected matrices.
+	local x,y,z=value.RightVector,value.UpVector,value.ZVector
+	return math.abs(x.Magnitude-1)&lt;1e-4 and math.abs(y.Magnitude-1)&lt;1e-4
+		and math.abs(z.Magnitude-1)&lt;1e-4 and math.abs(x:Dot(y))&lt;1e-4
+		and math.abs(y:Dot(z))&lt;1e-4 and math.abs(z:Dot(x))&lt;1e-4
+		and x:Cross(y):Dot(z)&gt;0.9999
+end
+
+function Guard.Size(value: any, maximum: number?): boolean
+	return Guard.Vector(value, maximum or 512) and value.X &gt; 0 and value.Y &gt; 0 and value.Z &gt; 0
+end
+
+function Guard.Unit(value: any): boolean
+	return Guard.Vector(value, 1.01) and math.abs(value.Magnitude - 1) &lt;= 0.001
+end
+
+return table.freeze(Guard)
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF4"><Properties><string name="Name">Help</string><ProtectedString name="Source">-- Help text only. Looking up a message never changes a hit check or trusts a position.
+local Help={}
+local terms={
+	{"authoritative","Server decides","The server makes or checks the value used to decide a hit. A player cannot make a position valid just by sending it.","A tackle uses a position your server movement code has checked."},
+	{"server","Server","The computer running the shared game rules for all players. In Studio Play, you can switch between the server and a player's client.","The server decides who gets the ball."},
+	{"client","Client","One player's running copy of the game. It handles input, the camera and what that player sees.","A LocalScript reads the tackle button."},
+	{"history","Saved past positions","A short list of earlier positions, hitboxes and game values, with the time of each record. Chrono keeps these in memory and later removes old records.","Keep the last 0.6 seconds so a check can use an earlier position."},
+	{"snapshot","One saved record","The position, hitboxes and game values of one object at one time.","At time 10.2, the ball was here and the player was on team 2."},
+	{"actor","Tracked object","Anything Chrono checks: a player, a ball, an NPC or another game object. It does not have to be a character.","Register the football as kind ball."},
+	{"provider","Function that supplies data","A function you write. Chrono calls it to get an object's position, hitboxes and game values.","Read a ball position calculated by your server and return a sphere around it."},
+	{"adapter","Connection to your game code","A small piece of code that connects Chrono calls to the scripts your game already uses. Bindings is the generated module for these connections.","When your move script accepts a tackle, start a Chrono action."},
+	{"bindings","Connections to your game code","The functions that connect your players, moves and rules to Chrono. The setup creates a Bindings module for you to edit.","Call Bindings.Track when your game adds a player."},
+	{"callback","Function given to another function","A function Chrono calls when it needs data or a rule result. The function must finish without task.wait or waiting for an event.","eligible = function(source, target) return source.team ~= target.team end"},
+	{"root","Reference position","The main position and direction from which an object's hitboxes are measured. It is a CFrame value; it need not be a part named HumanoidRootPart.","For a ball, its center can be the root."},
+	{"cframe","Position and direction (CFrame)","A Roblox value that stores both where something is and which way it faces.","CFrame.new(0, 0, -3) places a local hitbox 3 studs in front."},
+	{"local space","Relative to an object","Measure a shape from the object's reference position and facing direction. It moves with that object.","A tackle box stays 3 studs in front of the player."},
+	{"world space","Position in the map","Measure a shape in the map's coordinate system, rather than from one object.","A provider returns the ball hitbox at the ball's map position."},
+	{"state","Game values saved with a position","Small values your hit rules need at that time. Use true/false, numbers or short text. Do not put Instances or nested tables here.","{active=true, team=2, invulnerable=false}"},
+	{"eligible","Allowed by your game rules","A target can count only if the rules you supply allow it. Your game must also check its current rules before applying the result.","A teammate or an invulnerable player may be excluded."},
+	{"hitbox","Shape used to check contact","An invisible shape your gameplay uses to decide whether a move reaches an object. It may be simpler than the visible model.","A sphere can represent a football."},
+	{"capsule","Cylinder with round ends","A shape like a cylinder with a half-sphere at each end. Height includes both round ends and must be at least twice the radius.","A simple body hitbox can have radius 1.5 and total height 5 studs."},
+	{"radius","Center-to-edge distance","The distance from the center of a ball or circular part to its edge. Diameter is twice this value.","Radius 1.5 means a ball is 3 studs wide."},
+	{"ray","Line check","A line from a start point to an end point. It has no thickness.","A straight instant-shot check can use a ray."},
+	{"sweep","Shape checked along a path","Check a ball all along a straight line, rather than only at its final position. Other objects are held at the one saved time being checked.","A thick straight attack can use a swept sphere."},
+	{"interpolation","Estimate between saved positions","If the requested time lies between two records, Chrono estimates a position between them. It refuses to guess across a large gap or an uncertain change.","Records at 10.0 and 10.05 can estimate a pose at 10.025."},
+	{"coverage","Enough saved data for the requested time","Chrono has suitable records around that time and its time, change and shape checks pass. This does not prove your supplied positions were honest.","A covered check with zero contacts means a checked miss."},
+	{"rewind","Check an earlier position","Use saved records from before the latest update. This is off by default and needs a timing rule supplied by your server.","Your approved timing rule may allow checking 0.08 seconds earlier."},
+	{"lag compensation","Use earlier data to account for delay","A game policy that can let an input use an earlier position because messages took time to travel. Chrono does not choose a fair time automatically.","Decide how much delay your game allows before rejecting an old request."},
+	{"latency","Message travel delay","The time a message takes to travel. Ping usually measures a round trip, not one direction.","50 ms each way adds about 100 ms to a round trip."},
+	{"epoch","Position-record version","A number that changes when tracking is reset. Older records cannot silently be used after that reset.","A respawn starts a new version of the player's position records."},
+	{"discontinuity","Approved tracking reset","A real change where earlier positions must no longer connect to later ones. Your game reports it with Discontinuity after approving the change.","Teleport, respawn, or a change in who simulates an object."},
+	{"quarantine","Pause one object's recording","Chrono stops using an object's records after its data function fails or returns bad data. Fix the cause, report the approved reset, then record again.","Do not reset tracking repeatedly just to hide a faulty data function."},
+	{"network ownership","Who calculates Roblox physics","Roblox can let a player's client calculate an object's physics. Reading that result on the server alone does not prove it was a legal move.","Your server still needs to check player movement used to decide competitive hits."},
+	{"stud","Roblox distance unit","A unit for size and distance in Roblox Studio.","A default Part is 4 studs wide along its X axis."},
+	{"hz","Updates per second (Hz)","How often something is updated each second. Chrono's rate setting sizes its storage; your script still calls Capture.","60 Hz means 60 updates in one second."},
+	{"handle","Move reference returned by Chrono","The value BeginAction returns after it accepts a move. Keep it and pass it to Query and EndAction. Do not create your own table as a replacement.","local move, reason = chrono:BeginAction(playerId, profile)"},
+	{"capture","Save one update","Capture asks each registered object's data function for a position record. Your game calls it after all participating objects finish the same server update.","chrono:Capture()"},
+	{"query","Check a move","Query checks the move reference you kept from BeginAction. It returns allowed contacts or a reason explaining why the check could not complete.","local result = chrono:Query(move)"},
+	{"profile","Settings for one move","A plain Luau table describing the shape, target types, timing, target limit and rules for a move.","The generated Actions.Contact table is one profile."},
+	{"contact","One returned target","A tracked object whose saved hitbox touched the move's shape and passed the supplied rules. Your game still decides whether to apply its current result.","result.contacts[1].id is the first returned object id."},
+	{"active window","Time when the move may hit","The time from opens to closes, counted after your server starts the move.","opens=0.12 and closes=0.35 allow checks from 120 to 350 ms after the start."},
+	{"id","One object's name in your code","A stable short text label for a particular registered object. Keep it unique while that object is tracked.","player-12 is an id; player is its kind."},
+	{"kind","Group name for similar objects","A short text label for an object type. A move's targets list uses these labels to choose which groups to check.","Register a ball with kind='ball'; use targets={'ball'} to check that group."},
+	{"unverified","Data not approved for hits","The default label for positions whose server-side calculation or validation has not been established. Chrono refuses gameplay checks that need them.","Selecting a Part in Studio creates only an unverified reference."},
+	{"serverSimulated","Data calculated by your server","Use this trust label only when your own server code actually calculates the positions used for hit checks.","A server-owned ball simulation supplies its position."},
+	{"serverValidated","Data checked by your server","Use this trust label only after your server actually verifies the supplied positions and hitboxes against the rules your game requires.","Your existing movement checks reject impossible client moves before their data reaches Chrono."},
+	{"ModuleScript","A reusable code file","A Roblox code file that returns a value when another script calls require on it. Installing the generated main module does not automatically connect it to your game.","local startChrono = require(game.ServerScriptService.ChronoV3Integration)"},
+	{"boolean","True or false","A value with only two choices. Useful for saved rules such as whether a player is active or invulnerable.","state = {active=true, invulnerable=false}"},
+	{"hitscan","Instant line check","Check a straight line immediately. There is no simulated bullet flying along that path over later frames.","The Instant line check preset creates a ray-shaped query."},
+	{"source","Object doing the move","The registered object whose saved position and facing direction place the move's hitbox.","The tackling player is the source; the player or ball being checked is a target."},
+	{"target","Object the move may touch","A registered object of a kind listed in the move's targets. Its saved hitbox is checked against the move.","A kick can target the ball kind."},
+	{"jitter","Changing message delay","Messages do not all take the same time to arrive. This makes updates arrive at uneven intervals.","Studio's Network Simulator can add different jitter in each direction."},
+	{"packet loss","Dropped network packets","Some small pieces of network data do not arrive. Reliable messages can be resent, which adds delay; unreliable updates may stay missing.","0.5% means half of one percent, not 50%."},
+}
+for _,entry in terms do table.freeze(entry) end
+Help.Terms=table.freeze(terms)
+local messages={
+	captured={"Positions saved","The supplied positions passed the recording checks.","Continue updating the game, then call Capture again after the next update."},
+	covered={"Hitbox check completed","There was enough saved data for this check. Zero returned contacts means nothing was touched.","Use the returned contacts only after checking your game's current rules."},
+	capture_required={"No positions saved yet","Chrono needs a recorded starting position before it can start a move.","Register your objects with Track. Call Capture once before accepting move requests, then after each game update."},
+	capture_stale={"Positions are not recent enough","The game has not saved a recent enough update for this check.","Call Capture after every required server update. Check for stopped loops or functions that wait."},
+	clock_fault={"The time function failed","The clock did not return a usable number.","Use the default clock, or return time in seconds from one consistent server clock."},
+	clock_reversed={"Time moved backwards","The clock is earlier than the latest saved update.","Use the same server clock for saving positions and checking moves. Do not mix different clocks."},
+	invalid_capture_time={"Cannot record this time","The supplied time is too far behind the clock, in the future, or not a valid number.","Use Capture() with its default time first. For a fixed-step simulation, pass a recent server time in the same clock system."},
+	non_monotonic={"This update is not newer","Chrono already saved this time or a later time.","Record once per simulation step, in increasing time order. Do not record the same step twice."},
+	actor_missing={"Object is not registered","The move's source id was not found.","Call Track for this id before starting the move. Keep the same id spelling in both calls."},
+	unverified_source={"The move's position is not approved","The object's data is marked unverified, so it cannot be used to decide gameplay.","Connect data your server actually calculates or validates. Only then choose the matching trust label. Changing the label alone does not validate movement."},
+	unverified_target={"A target's position is not approved","One object of a target kind is marked unverified. Chrono refuses a partial result.","Supply checked data for that target kind, or correct which kinds the move should check. Selected Studio references stay unverified."},
+	invalid_profile={"Move settings are not usable","A shape, distance limit, active time, target count or rule function is invalid.","Check the Actions module. Times must be ordered, dimensions positive, and maxReach large enough for the full shape."},
+	target_kinds_required={"Choose which object types to check","The move needs at least one target kind.","Set targets to a list such as {\"player\", \"ball\"}. Use the kind names passed to Track."},
+	invalid_target_kind={"An object type name is invalid","A target kind must be a short nonempty string.","Use the same short kind names in Track and the move's targets list."},
+	world_provider_or_shape={"The obstacle check is not connected","world=true needs an obstacle-data function and a ray or moving-ball query.","Connect the world function for a sweep. For an overlap move, implement your game's obstruction rule. Do not disable an obstacle rule just to make a failed check pass."},
+	rewind_rejected={"The earlier check time was refused","Your server timing function failed or requested more time than allowed.","Return a delay between zero and maxRewind from your server timing rule. Check request age and never trust a client's time without validation."},
+	action_capacity={"Too many moves are still open","This object or service has reached its limit for open move references.","Call EndAction when a move ends or is cancelled. Continue Capture so old moves are removed."},
+	invalid_action={"The move reference is no longer valid","It was ended, removed, expired, or was not created by this Chrono instance.","Keep the value BeginAction returns. Start a new move only after your server accepts a new move request."},
+	roster_changed={"The tracked object list changed","An object was added or removed after this move started. This version cancels older move references for safety.","End the old move. Let your game decide whether a new move can start after the next saved update."},
+	source_epoch_changed={"The moving object was reset","A teleport, respawn or data error changed its position-record version.","End the old move. Fix data errors if present, save the new position, then let your server authorize another move."},
+	not_active={"It is too early for this move to hit","The move's hit period has not started yet.","Keep saving positions. Query again during opens to closes, or correct those times in Actions."},
+	action_expired={"The move's hit period has ended","This move can no longer return a contact.","Call EndAction. Start a new move only when your game authorizes one."},
+	duplicate_query={"This update was already checked","This move already completed a check using the latest saved update.","Wait for your game's next update and Capture before querying this move again. Do not apply the same result twice."},
+	action_spent={"The move reached its contact limit","It already returned the total number of targets allowed for this move.","End this move or wait for its normal cancellation. Change maxTargets only if your game is meant to allow more contacts."},
+	shape_out_of_bounds={"The hitbox is outside the supported range","The shape could not be placed safely at the recorded root position.","Check its position, size and distance from the root. Very large map coordinates also need a precision review."},
+	world_unknown={"Obstacle data is missing or uncertain","The optional obstacle function could not prove what was clear or blocked at this time.","Check your world function and its saved obstacle data. It must report covered, blocked and fraction. Include a check for starting inside an obstacle."},
+	rules_fault={"The target rule function failed","eligible must finish immediately and return exactly true or false.","Check the function in Actions. Remove waiting calls and fix its errors. Save needed rule values in the snapshot state."},
+	capture_fault={"Some positions were not saved","One or more object functions failed or returned unusable data. See the faults list for object ids and reasons.","Explain each item in result.faults. Fix its cause, then report an approved tracking reset for that object."},
+	provider_fault={"The position function failed","The function given to Track threw an error or tried to wait.","Check that function for errors. Return root, zones and state immediately. Do not use task.wait or wait for events inside it."},
+	quarantined={"Recording for this object is paused","An earlier position function failed. Chrono keeps refusing it until you deliberately reset tracking.","Find and fix the first error. Then call Discontinuity for that object and Capture again. Do not reset every frame."},
+	invalid_snapshot={"The position record is not usable","The supplied table or a value it contains could not be read safely.","Return a plain table with root=CFrame, zones={...}, and optional flat state={...}. Check the data function for errors."},
+	invalid_state={"Saved game values are not usable","State must contain only true/false values, finite numbers or short text, with string keys.","Save values such as team=2 and active=true. Do not save Instances, nested tables or NaN numbers in state."},
+	invalid_zones={"The hitbox list is not usable","There are too many zones or a zone name is invalid.","Return 1 to 32 named shapes. Zone names must be strings up to 64 bytes."},
+	invalid_zone={"One hitbox is not usable","A target zone must be a valid box, sphere or capsule.","Build it with Core.Shapes.Box, Sphere or Capsule. Check frame, size, radius and height."},
+	empty_zones={"The object has no hitbox","At least one target shape is required in each saved record.","Return a named hitbox in zones, such as zones={Body=S.Sphere(frame,1)}."},
+	zone_out_of_bounds={"A hitbox is too far from its object","Its root-to-shape distance plus full outside extent exceeds maxRadius.","Check the world-space hitbox position. Increase maxRadius only to match the real maximum extent your game allows."},
+	speed_bound={"The object moved farther than allowed","The root travelled farther than maxSpeed allows between saved updates.","Check your movement data and speed setting. For a game-approved teleport, explicitly reset tracking. Do not raise the limit to accept unexplained movement."},
+	empty={"No position records are available","There is no usable record for this object yet.","Track it, supply a valid position function and call Capture before querying it."},
+	too_old={"The requested position was not kept","The requested time is before the oldest stored record.","Use a more recent approved time. Check seconds, rate, capture frequency and how long messages are delayed."},
+	not_recorded={"That time has not been recorded","The requested time is later than this object's latest saved position.","Check provider faults and simulation order. Capture the shared game update before querying it."},
+	expired={"The requested time is too old","The requested time exceeds the configured age limit.","Reject or retry according to your game rules. Only increase the age limit after choosing a fair delay policy."},
+	future={"The requested time is in the future","The requested position is later than the server's current clock.","Use a consistent server clock and validate any client-reported times."},
+	invalid_time={"The time value is not usable","A time is not a finite number.","Pass time in seconds from the same server clock used by Capture."},
+	epoch_changed={"Earlier position records were reset","The requested exact record belongs to an older tracking version.","Do not use records from before a teleport, respawn or approved reset. Capture the new state before a new move."},
+	discontinuity={"The requested time crosses a reset","Chrono cannot connect records across a teleport, respawn or tracking failure.","Use a time wholly within the current tracking version. Do not guess a path through the reset."},
+	sample_gap={"Saved positions are too far apart","There is too much missing time between the two records needed for this check.","Check capture frequency and stalled updates. Refuse the uncertain check rather than treating it as a miss or a hit."},
+	state_boundary={"A game value changed between records","For example, invulnerability changed between the two saved times. Chrono cannot prove its value at the requested time.","Record transitions at their actual server time. Expect uncertain in-between requests to be refused."},
+	geometry_boundary={"A hitbox changed between records","A zone was added, removed, resized or changed shape between those times.","Record shape changes at their actual time. Do not interpolate a different shape through the change."},
+}
+for _,entry in messages do table.freeze(entry) end
+Help.Messages=table.freeze(messages)
+function Help.Explain(value)
+	local code=if type(value)=="table" then value.reason else value
+	if type(code)~="string" then code="unknown" end
+	local key,subject=code,nil
+	if code:sub(1,7)=="source_" and messages[code]==nil then key=code:sub(8) subject="Object doing the move"
+	elseif code:sub(1,7)=="target_" and messages[code]==nil then key=code:sub(8) subject="Possible target" end
+	local entry=messages[key]
+	return table.freeze({code=code,known=entry~=nil,subject=subject,
+		title=if entry then entry[1] else "More information is needed",
+		meaning=if entry then entry[2] else "This message is not in the built-in help list. Keep the original code when reporting it.",
+		fix=if entry then entry[3] else "Check Studio Output and the documentation. Include the original message and a small example when asking for help."})
+end
+function Help.FindTerms(query)
+	local result={} local q=string.lower(if type(query)=="string" then query else "")
+	for _,entry in terms do if q=="" or (string.lower(table.concat(entry," "))):find(q,1,true) then table.insert(result,entry) end end
+	return result
+end
+return table.freeze(Help)
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF5"><Properties><string name="Name">History</string><ProtectedString name="Source">--!strict
+local Guard=require(script.Parent.Guard)
+local Contract=require(script.Parent.Contract)
+local Shapes=require(script.Parent.Shapes)
+local H={} H.__index=H
+function H.new(options)
+	return setmetatable({rows=table.create(options.capacity),head=1,count=0,capacity=options.capacity,
+		epoch=1,maxAge=options.seconds,maxGap=options.maxGap,maxSpeed=options.maxSpeed,
+		maxRadius=options.maxRadius,boundary=-math.huge},H)
+end
+function H:_at(i) return self.rows[(self.head+i-2)%self.capacity+1] end
+function H:Latest() return if self.count&gt;0 then self:_at(self.count) else nil end
+function H:Break(time)
+	self.epoch+=1 self.boundary=time
+end
+function H:Push(time,snapshot)
+	if type(snapshot)~="table" or not Guard.Frame(snapshot.root) or type(snapshot.zones)~="table" then return false,"invalid_snapshot" end
+	local state=Contract.State(snapshot.state or {})
+	if not state then return false,"invalid_state" end
+	local zones,count={},0
+	for name,shape in snapshot.zones do
+		count+=1
+		if count&gt;32 or type(name)~="string" or #name&gt;64 then return false,"invalid_zones" end
+		local zone=Shapes.Copy(shape,true)
+		if not zone then return false,"invalid_zone" end
+		if (zone.frame.Position-snapshot.root.Position).Magnitude+Shapes.Radius(zone)&gt;self.maxRadius+1e-5 then return false,"zone_out_of_bounds" end
+		zones[name]=zone
+	end
+	if count==0 then return false,"empty_zones" end
+	local latest=self:Latest()
+	if time&lt;self.boundary or (latest and time&lt;=latest.time) then return false,"non_monotonic" end
+	if latest and latest.epoch==self.epoch and (snapshot.root.Position-latest.root.Position).Magnitude&gt;self.maxSpeed*(time-latest.time)+1e-4 then return false,"speed_bound" end
+	local row=table.freeze({time=time,root=snapshot.root,zones=table.freeze(zones),state=state,epoch=self.epoch})
+	if self.count&lt;self.capacity then self.count+=1 self.rows[(self.head+self.count-2)%self.capacity+1]=row
+	else self.rows[self.head]=row self.head=self.head%self.capacity+1 end
+	return true
+end
+function H:Sample(time,now)
+	if not Guard.Number(time) or not Guard.Number(now) then return nil,"invalid_time" end
+	if time&gt;now+1e-6 then return nil,"future" end
+	if now-time&gt;self.maxAge then return nil,"expired" end
+	if self.count==0 then return nil,"empty" end
+	if time&lt;self:_at(1).time then return nil,"too_old" end
+	if time&gt;self:Latest().time then return nil,"not_recorded" end
+	local low,high=1,self.count
+	while low&lt;=high do local mid=(low+high)//2 if self:_at(mid).time&lt;time then low=mid+1 else high=mid-1 end end
+	local after=self:_at(low)
+	if after.time==time then
+		if after.epoch~=self.epoch then return nil,"epoch_changed" end
+		return after
+	end
+	local before=self:_at(low-1)
+	if before.epoch~=after.epoch or after.epoch~=self.epoch then return nil,"discontinuity" end
+	if after.time-before.time&gt;self.maxGap then return nil,"sample_gap" end
+	if not Contract.SameState(before.state,after.state) then return nil,"state_boundary" end
+	local alpha=(time-before.time)/(after.time-before.time)
+	local zones={}
+	for name,zone in before.zones do
+		local nextZone=after.zones[name]
+		if not nextZone or not Shapes.SameDimensions(zone,nextZone) then return nil,"geometry_boundary" end
+		zones[name]=Shapes.Lerp(zone,nextZone,alpha)
+	end
+	for name in after.zones do if not before.zones[name] then return nil,"geometry_boundary" end end
+	return table.freeze({time=time,root=before.root:Lerp(after.root,alpha),state=before.state,
+		zones=table.freeze(zones),epoch=before.epoch})
+end
+return H
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF6"><Properties><string name="Name">Shapes</string><ProtectedString name="Source">--!strict
+-- Geometry uses studs, seconds, world CFrames, and closed volumes (tangency counts).
+local Guard = require(script.Parent.Guard)
+local G = require(script.Parent.Geometry)
+local S = {}
+local EPS = 1e-7
+local function positive(v, maximum)
+	return Guard.Number(v) and v &gt; 0 and v &lt;= maximum
+end
+function S.Copy(s, targetOnly)
+	if type(s) ~= "table" then return nil end
+	if s.kind == "box" and Guard.Frame(s.frame) and Guard.Size(s.size, 512) then
+		return table.freeze({kind="box", frame=s.frame, size=s.size})
+	elseif s.kind == "sphere" and Guard.Frame(s.frame) and positive(s.radius,32) then
+		return table.freeze({kind="sphere", frame=s.frame, radius=s.radius})
+	elseif s.kind == "capsule" and Guard.Frame(s.frame) and positive(s.radius,32)
+		and positive(s.height,512) and s.height &gt;= s.radius*2 then
+		return table.freeze({kind="capsule", frame=s.frame, radius=s.radius, height=s.height})
+	elseif not targetOnly and s.kind == "sweep" and Guard.Vector(s.start) and Guard.Vector(s.finish)
+		and Guard.Number(s.radius) and s.radius &gt;= 0 and s.radius &lt;= 32
+		and (s.finish-s.start).Magnitude &lt;= 4096 then
+		return table.freeze({kind="sweep", start=s.start, finish=s.finish, radius=s.radius})
+	end
+	return nil
+end
+local function checked(s) return assert(S.Copy(s), "invalid Chrono shape") end
+function S.Box(frame, size) return checked({kind="box",frame=frame,size=size}) end
+function S.Sphere(frame, radius) return checked({kind="sphere",frame=frame,radius=radius}) end
+function S.Capsule(frame, radius, height) return checked({kind="capsule",frame=frame,radius=radius,height=height}) end
+function S.Sweep(start, finish, radius) return checked({kind="sweep",start=start,finish=finish,radius=radius}) end
+function S.Ray(start, finish) return S.Sweep(start,finish,0) end
+function S.At(shape, frame)
+	assert(Guard.Frame(frame), "invalid reference frame")
+	local out = table.clone(shape)
+	if out.kind == "sweep" then
+		out.start, out.finish = frame:PointToWorldSpace(out.start), frame:PointToWorldSpace(out.finish)
+	else out.frame = frame*out.frame end
+	return checked(out)
+end
+function S.Radius(s)
+	if s.kind == "box" then return s.size.Magnitude*0.5 end
+	if s.kind == "capsule" then return s.height*0.5 end
+	return s.radius
+end
+function S.Reach(s)
+	if s.kind == "sweep" then return math.max(s.start.Magnitude,s.finish.Magnitude)+s.radius end
+	return s.frame.Position.Magnitude+S.Radius(s)
+end
+function S.SameDimensions(a,b)
+	return a.kind==b.kind and a.size==b.size and a.radius==b.radius and a.height==b.height
+end
+function S.Lerp(a,b,alpha)
+	local out=table.clone(a) out.frame=a.frame:Lerp(b.frame,alpha)
+	return table.freeze(out)
+end
+local function ends(c)
+	local offset=c.frame.UpVector*(c.height*0.5-c.radius)
+	return c.frame.Position-offset,c.frame.Position+offset
+end
+-- Closest distance between two closed segments, including zero length segments.
+local function segmentPair(p1,q1,p2,q2)
+	local d1,d2,r=q1-p1,q2-p2,p1-p2
+	local a,e,f=d1:Dot(d1),d2:Dot(d2),d2:Dot(r)
+	local s,t=0,0
+	if a&lt;=1e-12 and e&lt;=1e-12 then return r:Dot(r) end
+	if a&lt;=1e-12 then t=math.clamp(f/e,0,1)
+	else
+		local c=d1:Dot(r)
+		if e&lt;=1e-12 then s=math.clamp(-c/a,0,1)
+		else
+			local b=d1:Dot(d2) local denominator=a*e-b*b
+			if denominator&gt;1e-12 then s=math.clamp((b*f-c*e)/denominator,0,1) end
+			t=(b*s+f)/e
+			if t&lt;0 then t=0 s=math.clamp(-c/a,0,1)
+			elseif t&gt;1 then t=1 s=math.clamp((b-c)/a,0,1) end
+		end
+	end
+	local delta=r+d1*s-d2*t
+	return delta:Dot(delta)
+end
+local function raySphere(p,q,center,radius)
+	local d,m=q-p,p-center
+	local a,c=d:Dot(d),m:Dot(m)-radius*radius
+	if c&lt;=EPS then return 0 end
+	if a&lt;1e-12 then return nil end
+	local b=m:Dot(d) local h=b*b-a*c
+	if h&lt;0 then return nil end
+	local t=(-b-math.sqrt(h))/a
+	if t&gt;=0 and t&lt;=1 then return t end
+	return nil
+end
+-- Point swept against a capsule. Split where projection onto its axis clamps.
+-- On each piece, squared distance to the segment is a quadratic in t.
+local function rayCapsule(p,q,a,b,radius)
+	local axis,d,m=b-a,q-p,p-a
+	local length2=axis:Dot(axis)
+	if length2&lt;1e-12 then return raySphere(p,q,a,radius) end
+	local u0,du=m:Dot(axis)/length2,d:Dot(axis)/length2
+	local cuts={0,1}
+	if math.abs(du)&gt;1e-12 then
+		for _,u in {0,1} do local t=(u-u0)/du if t&gt;0 and t&lt;1 then table.insert(cuts,t) end end
+	end
+	table.sort(cuts)
+	for i=1,#cuts-1 do
+		local lower,upper=cuts[i],cuts[i+1]
+		local u=u0+du*(lower+upper)*0.5
+		local v,w
+		if u&lt;0 then v,w=m,d elseif u&gt;1 then v,w=p-b,d
+		else v,w=m-axis*u0,d-axis*du end
+		local aa,bb,cc=w:Dot(w),2*v:Dot(w),v:Dot(v)-radius*radius
+		if (aa*lower+bb)*lower+cc&lt;=EPS then return lower end
+		if aa&gt;1e-12 then
+			local discriminant=bb*bb-4*aa*cc
+			if discriminant&gt;=0 then
+				local t=(-bb-math.sqrt(discriminant))/(2*aa)
+				if t&gt;=lower-EPS and t&lt;=upper+EPS then return math.clamp(t,lower,upper) end
+			end
+		end
+	end
+	return nil
+end
+local function boxBox(a,b)
+	local aa={a.frame.RightVector,a.frame.UpVector,a.frame.ZVector}
+	local ba={b.frame.RightVector,b.frame.UpVector,b.frame.ZVector}
+	local axes={aa[1],aa[2],aa[3],ba[1],ba[2],ba[3]}
+	for _,u in aa do for _,v in ba do table.insert(axes,u:Cross(v)) end end
+	local halfA,halfB=a.size*0.5,b.size*0.5
+	local dimsA,dimsB={halfA.X,halfA.Y,halfA.Z},{halfB.X,halfB.Y,halfB.Z}
+	local delta=b.frame.Position-a.frame.Position
+	for _,axis in axes do
+		if axis.Magnitude&gt;1e-7 then
+			axis=axis.Unit local ra,rb=0,0
+			for i=1,3 do ra+=dimsA[i]*math.abs(axis:Dot(aa[i])) rb+=dimsB[i]*math.abs(axis:Dot(ba[i])) end
+			if math.abs(delta:Dot(axis))&gt;ra+rb+EPS then return false end
+		end
+	end
+	return true
+end
+-- Returns the first travel fraction for a sweep, or zero for volume overlap.
+-- This is exact for supplied primitives at one time; it is not continuous actor motion.
+function S.Intersect(a,b)
+	if a.kind=="sweep" then
+		if b.kind=="box" then return G.SphereSweepOBB(a.start,a.finish,a.radius,b.frame,b.size) end
+		if b.kind=="sphere" then return raySphere(a.start,a.finish,b.frame.Position,a.radius+b.radius) end
+		local p,q=ends(b) return rayCapsule(a.start,a.finish,p,q,a.radius+b.radius)
+	end
+	local hit=false
+	if a.kind=="box" and b.kind=="box" then hit=boxBox(a,b)
+	elseif a.kind=="sphere" and b.kind=="sphere" then
+		hit=(a.frame.Position-b.frame.Position).Magnitude&lt;=a.radius+b.radius+EPS
+	elseif a.kind=="capsule" and b.kind=="capsule" then
+		local p,q=ends(a) local r,s=ends(b)
+		hit=segmentPair(p,q,r,s)&lt;=(a.radius+b.radius)^2+EPS
+	elseif a.kind=="box" or b.kind=="box" then
+		local box,other=if a.kind=="box" then a else b,if a.kind=="box" then b else a
+		local p,q=other.frame.Position,other.frame.Position
+		if other.kind=="capsule" then p,q=ends(other) end
+		hit=G.SphereSweepOBB(p,q,other.radius,box.frame,box.size)~=nil
+	else
+		local sphere,cap=if a.kind=="sphere" then a else b,if a.kind=="sphere" then b else a
+		local p,q=ends(cap)
+		hit=G.SegmentDistanceSquared(p,q,sphere.frame.Position)&lt;=(sphere.radius+cap.radius)^2+EPS
+	end
+	return if hit then 0 else nil
+end
+return table.freeze(S)
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF7"><Properties><string name="Name">Types</string><ProtectedString name="Source">--!strict
+-- Editor help and autocomplete. Runtime checks still validate every supplied value.
+export type State = {[string]: boolean | number | string}
+export type Volume = {kind: "box", frame: CFrame, size: Vector3}
+	| {kind: "sphere", frame: CFrame, radius: number}
+	| {kind: "capsule", frame: CFrame, radius: number, height: number}
+export type Sweep = {kind: "sweep", start: Vector3, finish: Vector3, radius: number}
+export type Snapshot = {root: CFrame, zones: {[string]: Volume}, state: State?}
+export type Binding = {
+	kind: string,
+	capture: (serverTime: number) -&gt; Snapshot,
+	trust: ("unverified" | "serverSimulated" | "serverValidated")?,
+	maxSpeed: number,
+	maxRadius: number,
+}
+export type Profile = {
+	shape: Volume | Sweep,
+	targets: {string},
+	opens: number?,
+	closes: number?,
+	maxTargets: number?,
+	maxReach: number?,
+	eligible: ((source: State, target: State, targetId: string, targetKind: string) -&gt; boolean)?,
+	world: boolean?,
+}
+-- Keep the value BeginAction returns; do not make your own table for a move reference.
+export type Move = {}
+export type Contact = {id: string, kind: string, zone: string, time: number, epoch: number,
+	state: State, root: CFrame, distance: number, fraction: number}
+export type Result = {ok: boolean, reason: string, contacts: {Contact}, time: number?,
+	capturedAt: number?, rewind: number?, source: any?, shape: (Volume | Sweep)?, actor: string?}
+export type CaptureResult = {ok: boolean, reason: string, time: number?,
+	faults: {{id: string, reason: string}}?, contacts: {Contact}}
+export type Options = {
+	seconds: number?, rate: number?, maxGap: number?, maxRewind: number?,
+	clock: (() -&gt; number)?,
+	resolveRewind: ((actorId: string, approvedServerContext: any, captureTime: number) -&gt; number)?,
+	world: ((queryTime: number, now: number, shape: Sweep) -&gt; {covered: boolean, blocked: boolean?, fraction: number?})?,
+}
+export type Explanation = {code: string, known: boolean, subject: string?, title: string, meaning: string, fix: string}
+export type Service = {
+	Track: (self: Service, id: string, binding: Binding) -&gt; (),
+	Untrack: (self: Service, id: string) -&gt; boolean,
+	Discontinuity: (self: Service, id: string, reason: string?) -&gt; (),
+	Capture: (self: Service, serverTime: number?) -&gt; CaptureResult,
+	BeginAction: (self: Service, actorId: string, profile: Profile, approvedServerContext: any?) -&gt; (Move?, string?),
+	Query: (self: Service, move: Move) -&gt; Result,
+	EndAction: (self: Service, move: Move) -&gt; boolean,
+	Inspect: (self: Service) -&gt; any,
+	Destroy: (self: Service) -&gt; (),
+}
+return table.freeze({})
+</ProtectedString></Properties></Item></Item></roblox>
