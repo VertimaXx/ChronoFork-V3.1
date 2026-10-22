@@ -54,8 +54,8 @@
       "sha256": "ddba643f5d59cb06c48a27532d7ff0279df8a879956d8fb60a0fd76f21f93500"
     },
     "README.md": {
-      "bytes": 9774,
-      "sha256": "60bbd845473b609d5ee68b485e6dd51b29814f0f6bf8a92f910a447965d6478f"
+      "bytes": 9939,
+      "sha256": "da5543c02caba4b9418a87b108cacbb70f585d898f01dca6aec126ac61145fc8"
     },
     "SECURITY.md": {
       "bytes": 827,
@@ -170,8 +170,8 @@
       "sha256": "7785a2146b1aa8c2c9e444ac173118c94e37611842c2a2a82e6d28b8eb79c7c4"
     },
     "site/assets/banner.svg": {
-      "bytes": 1622,
-      "sha256": "acf926fb0d6f55b985ce4eb9c112912b92ec7bc60f3b04a81f732723b9942153"
+      "bytes": 4363,
+      "sha256": "817e297a61d239347313e2c183f413310cdfcf079d770c4e1c7158f719244903"
     },
     "site/assets/data/historical-v2-summary.json": {
       "bytes": 1665,
@@ -198,16 +198,20 @@
       "sha256": "f8361001abda06fbf08eabc08ea752f25727d8b57be2630cc20523ba4fee288e"
     },
     "site/assets/icon.svg": {
-      "bytes": 361,
-      "sha256": "1d617bfc2d024fc91b7bda14cc1cebadad81f67d547e9c3010eaa400b74e78f4"
+      "bytes": 715,
+      "sha256": "400ed9016e9a84964e4389b9c2b3a5e72e51444bb13e2da996af7878be8be21a"
+    },
+    "site/assets/project-badges.svg": {
+      "bytes": 946,
+      "sha256": "4113a959d8846930a71018841bbf52aa093afe9bd4a0b04c840cc6a308d69899"
     },
     "site/assets/setup-3.1.jpg": {
       "bytes": 266632,
       "sha256": "ac083ac3ab2c31b977cde5c87e2424bb251e36c88739b6071b110da7cfc84abb"
     },
     "site/assets/style.css": {
-      "bytes": 11141,
-      "sha256": "c24c7e108cc50021d0aaf27bfed687217de39b202c49c131f47687eca9a41205"
+      "bytes": 25483,
+      "sha256": "9ad1c3a28cd70288022786e3d61149c0a4b5a930b53a04c761a4fddd6e6ee25e"
     },
     "site/assets/words-3.1.jpg": {
       "bytes": 257787,
