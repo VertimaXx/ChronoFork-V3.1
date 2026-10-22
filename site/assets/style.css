@@ -5,6 +5,7 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}@media print{body{background:#fff}.top,.nav-wrap,.toc,.buttons,footer,.help-controls,#help-search,.help-head label{display:none}.doc-layout,.wide{display:block;padding:0;max-width:none}.prose{max-width:none}pre,table,.help-card{break-inside:avoid}.table-scroll{overflow:visible}a{color:inherit}h1{font-size:30px}.section{padding:20px 0}.hero{padding:20px 0}}
 
 /* Visual refresh: shared by the homepage, handbook, tables and search. */
+html { scroll-padding-top: 80px; }
 :root {
   --ink: #152b40;
   --muted: #526779;
@@ -312,6 +313,7 @@ tbody tr:hover { background: #eaf2fb; }
   .showcase { gap: 20px; padding: 18px; }
 }
 @media (max-width: 720px) {
+  html { scroll-padding-top: 120px; }
   .top { width: calc(100% - 32px); padding: 14px 15px; margin-top: 12px; margin-bottom: 10px; border-radius: 12px; }
   .brand { font-size: 17px; }
   .brand span { padding: 3px 5px; font-size: 9px; margin-left: 1px; }
@@ -347,6 +349,9 @@ tbody tr:hover { background: #eaf2fb; }
   .prose > p:first-of-type { font-size: 16px; }
   .help-head { padding-top: 30px; }
   .help-head h1 { font-size: 36px; }
+}
+@media (max-width: 380px) {
+  html { scroll-padding-top: 156px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; }
