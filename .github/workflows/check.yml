@@ -1,0 +1,16 @@
+name: Package checks
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Check committed assets and links
+        run: python3 tools/check.py
+      - name: Check reproducible build
+        run: |
+          python3 tools/build.py
+          git diff --exit-code
+      # Roblox runtime and native network tests require a separate Studio run.
