@@ -1,0 +1,436 @@
+{
+  "schemaVersion": 1,
+  "version": "3.0.0",
+  "date": "2026-10-21",
+  "studio": "Place1-Recovered-2026-10-19-2133.rbxl",
+  "unit": {
+    "seconds": 0.12814980000075593,
+    "cases": [
+      {
+        "seconds": 1.449999945180025e-05,
+        "name": "History_Test / empty history rejects",
+        "passed": true
+      },
+      {
+        "seconds": 6.719999873894267e-05,
+        "name": "History_Test / ring wrap bounds",
+        "passed": true
+      },
+      {
+        "seconds": 2.0899999071843922e-05,
+        "name": "History_Test / linear interpolation at bounded interior",
+        "passed": true
+      },
+      {
+        "seconds": 1.0399999155197293e-05,
+        "name": "History_Test / range age and future guards",
+        "passed": true
+      },
+      {
+        "seconds": 1.3900000340072438e-05,
+        "name": "History_Test / duplicate sample immutable",
+        "passed": true
+      },
+      {
+        "seconds": 1.630000042496249e-05,
+        "name": "History_Test / shape transition rejects",
+        "passed": true
+      },
+      {
+        "seconds": 8.699998943484388e-06,
+        "name": "History_Test / remote zone rejected",
+        "passed": true
+      },
+      {
+        "seconds": 9.800000043469481e-06,
+        "name": "History_Test / invalid state rejected",
+        "passed": true
+      },
+      {
+        "seconds": 1.0900001143454574e-05,
+        "name": "History_Test / old epoch exact sample rejects",
+        "passed": true
+      },
+      {
+        "seconds": 2.1899999410379678e-05,
+        "name": "Installer_Test / all editable presets validate",
+        "passed": true
+      },
+      {
+        "seconds": 2.2500000341096893e-05,
+        "name": "Installer_Test / invalid configuration rejected",
+        "passed": true
+      },
+      {
+        "seconds": 5.740000051446259e-05,
+        "name": "Installer_Test / all primitive templates generate",
+        "passed": true
+      },
+      {
+        "seconds": 1.1099999028374441e-05,
+        "name": "Installer_Test / rewind is opt in",
+        "passed": true
+      },
+      {
+        "seconds": 1.1399999493733048e-05,
+        "name": "Installer_Test / reference provider cannot claim trust",
+        "passed": true
+      },
+      {
+        "seconds": 8.419999903708231e-05,
+        "name": "Service_Test / minimal football contact",
+        "passed": true
+      },
+      {
+        "seconds": 5.619999865302816e-05,
+        "name": "Service_Test / outcomes remain game owned",
+        "passed": true
+      },
+      {
+        "seconds": 5.740000051446259e-05,
+        "name": "Service_Test / forged and foreign handles",
+        "passed": true
+      },
+      {
+        "seconds": 6.24999993306119e-05,
+        "name": "Service_Test / duplicate and spent contacts",
+        "passed": true
+      },
+      {
+        "seconds": 7.700000060140155e-05,
+        "name": "Service_Test / speed fault quarantines until lifecycle reset",
+        "passed": true
+      },
+      {
+        "seconds": 5.919999966863543e-05,
+        "name": "Service_Test / source teleport invalidates action",
+        "passed": true
+      },
+      {
+        "seconds": 3.639999886217993e-05,
+        "name": "Service_Test / roster change invalidates action",
+        "passed": true
+      },
+      {
+        "seconds": 6.469999971159268e-05,
+        "name": "Service_Test / historical state is immutable",
+        "passed": true
+      },
+      {
+        "seconds": 7.990000085555948e-05,
+        "name": "Service_Test / eligibility predicates",
+        "passed": true
+      },
+      {
+        "seconds": 4.669999907491729e-05,
+        "name": "Service_Test / rules yield fails closed",
+        "passed": true
+      },
+      {
+        "seconds": 5.3499999921768904e-05,
+        "name": "Service_Test / reentrant rules fail closed",
+        "passed": true
+      },
+      {
+        "seconds": 7.139999979699496e-05,
+        "name": "Service_Test / active window boundaries",
+        "passed": true
+      },
+      {
+        "seconds": 5.350000174075831e-05,
+        "name": "Service_Test / expired action reclaimed",
+        "passed": true
+      },
+      {
+        "seconds": 3.300000025774352e-05,
+        "name": "Service_Test / capture age checked",
+        "passed": true
+      },
+      {
+        "seconds": 4.149999949731864e-05,
+        "name": "Service_Test / client time ignored by default",
+        "passed": true
+      },
+      {
+        "seconds": 3.189999915775843e-05,
+        "name": "Service_Test / rewind bounds",
+        "passed": true
+      },
+      {
+        "seconds": 5.310000051395036e-05,
+        "name": "Service_Test / rewind callback fault",
+        "passed": true
+      },
+      {
+        "seconds": 7.019999975454994e-05,
+        "name": "Service_Test / explicit covered rewind",
+        "passed": true
+      },
+      {
+        "seconds": 0.00013130000115779694,
+        "name": "Service_Test / uncertain discrete state boundary rejects",
+        "passed": true
+      },
+      {
+        "seconds": 0.00010889999975915998,
+        "name": "Service_Test / packet or capture gap rejects",
+        "passed": true
+      },
+      {
+        "seconds": 0.0004714999995485414,
+        "name": "Service_Test / unverified targets block partial success",
+        "passed": true
+      },
+      {
+        "seconds": 0.00012090000018361025,
+        "name": "Service_Test / world cover fraction and uncertainty",
+        "passed": true
+      },
+      {
+        "seconds": 3.6299999919719994e-05,
+        "name": "Service_Test / overlap cover requires game policy",
+        "passed": true
+      },
+      {
+        "seconds": 6.030000076862052e-05,
+        "name": "Service_Test / clear world includes tangent endpoint",
+        "passed": true
+      },
+      {
+        "seconds": 3.459999970800709e-05,
+        "name": "Service_Test / invalid reach profile",
+        "passed": true
+      },
+      {
+        "seconds": 5.1900000471505336e-05,
+        "name": "Service_Test / action profile copied",
+        "passed": true
+      },
+      {
+        "seconds": 7.060000098135788e-05,
+        "name": "Service_Test / provider yield contained",
+        "passed": true
+      },
+      {
+        "seconds": 9.039999895321671e-05,
+        "name": "Service_Test / snapshot validation errors contained",
+        "passed": true
+      },
+      {
+        "seconds": 3.409999953873921e-05,
+        "name": "Service_Test / clock reversal rejected",
+        "passed": true
+      },
+      {
+        "seconds": 5.439999949885532e-05,
+        "name": "Service_Test / action capacity and release",
+        "passed": true
+      },
+      {
+        "seconds": 4.219999937049579e-05,
+        "name": "Service_Test / destroy lifecycle",
+        "passed": true
+      },
+      {
+        "seconds": 3.809999907389283e-05,
+        "name": "Shapes_Test / box face tangency",
+        "passed": true
+      },
+      {
+        "seconds": 2.2599999283556826e-05,
+        "name": "Shapes_Test / rounded sphere box corner",
+        "passed": true
+      },
+      {
+        "seconds": 1.2399999832268804e-05,
+        "name": "Shapes_Test / capsule tip and corner",
+        "passed": true
+      },
+      {
+        "seconds": 6.999998731771484e-06,
+        "name": "Shapes_Test / degenerate capsule",
+        "passed": true
+      },
+      {
+        "seconds": 1.7899999875226058e-05,
+        "name": "Shapes_Test / sweep earliest and initial overlap",
+        "passed": true
+      },
+      {
+        "seconds": 1.1500000255182385e-05,
+        "name": "Shapes_Test / parallel capsule ray and tangent",
+        "passed": true
+      },
+      {
+        "seconds": 3.6100000215810724e-05,
+        "name": "Shapes_Test / invalid primitive inputs",
+        "passed": true
+      },
+      {
+        "seconds": 0.02529760000106762,
+        "name": "Shapes_Test / 4000 independent interval box cases",
+        "passed": true
+      },
+      {
+        "seconds": 0.0596373999997013,
+        "name": "Shapes_Test / 3600 rotated pairing symmetry and invariance cases",
+        "passed": true
+      },
+      {
+        "seconds": 0.0321276000013313,
+        "name": "Shapes_Test / 2500 swept capsule distance oracle cases",
+        "passed": true
+      }
+    ],
+    "failed": 0,
+    "failures": [],
+    "run": 55,
+    "passed": 55
+  },
+  "liveAdapter": {
+    "context": "ordinary server Script + wizard-generated integration",
+    "passed": true,
+    "assertions": 12
+  },
+  "benchmark": {
+    "queries": 34000,
+    "covered": 34000,
+    "originalOvershoot": 5958,
+    "originalMeanQueryUs": 0.5768882354138494,
+    "cases": 2000,
+    "originalReturnedOutside": 4000,
+    "v3MeanQueryUs": 1.5404705874222118,
+    "scope": "same two endpoint snapshots and 17 covered queries; random velocities; linear trajectory oracle",
+    "v3Seconds": 0.0523759999723552,
+    "originalSeconds": 0.01961420000407088,
+    "v3MeanError": 0,
+    "originalMeanError": 0.5682654144361132,
+    "v3RejectedOutside": 4000,
+    "v3Overshoot": 0
+  },
+  "campaign": {
+    "reasons": {
+      "invalid_action": 1170,
+      "covered": 3941,
+      "clock_reversed": 585,
+      "target_geometry_boundary": 25,
+      "source_epoch_changed": 585,
+      "target_discontinuity": 222,
+      "target_not_recorded": 363,
+      "unverified_target": 585,
+      "source_sample_gap": 104,
+      "target_state_boundary": 27,
+      "roster_changed": 585
+    },
+    "seconds": 6.979997000000367,
+    "passed": 8192,
+    "mode": "deterministic server-timeline simulation",
+    "queries": 8088,
+    "scenarios": 8192,
+    "seed": 20261021,
+    "shapeCounts": {
+      "box/box": 694,
+      "capsule/box": 676,
+      "sweep/sphere": 745,
+      "sweep/capsule": 642,
+      "box/capsule": 707,
+      "box/sphere": 715,
+      "capsule/sphere": 691,
+      "sphere/capsule": 694,
+      "sphere/box": 629,
+      "sphere/sphere": 653,
+      "capsule/capsule": 668,
+      "sweep/box": 678
+    },
+    "failures": [],
+    "assertions": 12718,
+    "rttMs": {
+      "0": 693,
+      "16": 666,
+      "33": 660,
+      "50": 705,
+      "80": 671,
+      "100": 654,
+      "150": 715,
+      "200": 678,
+      "300": 737,
+      "500": 669,
+      "750": 666,
+      "1000": 678
+    }
+  },
+  "oracle": {
+    "passed": 6000,
+    "failures": [],
+    "cases": 6000,
+    "kinds": {
+      "sphere-box": 2000,
+      "box-box": 2000,
+      "sweep-box": 2000
+    }
+  },
+  "installer": {
+    "checks": 5,
+    "failed": 0,
+    "checksExercised": [
+      "install",
+      "undo",
+      "redo",
+      "injected editor failure rollback",
+      "destination conflict after preview"
+    ]
+  },
+  "generatedSources": {
+    "presets": 3,
+    "shapes": 5,
+    "modulesPerVariant": 4,
+    "compiled": 60
+  },
+  "load": {
+    "scope": "full BeginAction + Query + EndAction; one sphere/actor, no world, zero contacts; five batches of 250 iterations",
+    "rows": [
+      {
+        "actors": 16,
+        "iterations": 1250,
+        "medianBatchUs": 21.377199998823926,
+        "minBatchUs": 17.937200002052123,
+        "maxBatchUs": 26.73279999726219
+      },
+      {
+        "actors": 32,
+        "iterations": 1250,
+        "medianBatchUs": 33.85439999692608,
+        "minBatchUs": 26.53479999935371,
+        "maxBatchUs": 37.945600000966806
+      },
+      {
+        "actors": 64,
+        "iterations": 1250,
+        "medianBatchUs": 50.73360000096727,
+        "minBatchUs": 41.587200001231395,
+        "maxBatchUs": 53.05120000048191
+      },
+      {
+        "actors": 128,
+        "iterations": 1250,
+        "medianBatchUs": 82.01199999894015,
+        "minBatchUs": 77.38919999974314,
+        "maxBatchUs": 85.67679999760003
+      },
+      {
+        "actors": 256,
+        "iterations": 1250,
+        "medianBatchUs": 149.88160000211792,
+        "minBatchUs": 142.03319999796804,
+        "maxBatchUs": 162.76320000179112
+      }
+    ]
+  },
+  "limits": [
+    "Single Studio workstation; timings are not production server guarantees",
+    "Synthetic RTT/rewind inputs, not real network emulation",
+    "Random-velocity two-snapshot benchmark imposes a linear trajectory oracle; no general hit-registration percentage",
+    "Engine sweep oracle accepts 0.025 stud engine/mathematical distance disagreement",
+    "Historical game adapter trust and actual game move authorization remain developer responsibilities"
+  ]
+}

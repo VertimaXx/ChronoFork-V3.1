@@ -1,0 +1,73 @@
+{
+  "build": "competitive.2",
+  "date": "2026-10-20",
+  "upstreamRevision": "99e77a35822bca389f25a4d27d4de21249b287e0",
+  "practicalScenarios": 46080,
+  "assertions": 1697959,
+  "failures": 0,
+  "contractChecks": 156,
+  "movementSteps": 368640,
+  "liveAttempts": 144,
+  "liveDecisions": 144,
+  "liveReasons": {
+    "world_blocked": 7,
+    "hit": 123,
+    "command_expired": 2,
+    "rewind_limit": 12
+  },
+  "paired": {
+    "upstream": {
+      "attempts": 374798,
+      "presented": 374798,
+      "covered": 200253,
+      "hits": 277292,
+      "coveredHits": 197466,
+      "overshoot": 1092,
+      "offSegment": 37139,
+      "reversal": 2,
+      "coveredAimAgreement": 0.9860826055040374,
+      "coveredMeanError": 0.07828430526125837
+    },
+    "competitive": {
+      "attempts": 374798,
+      "presented": 374798,
+      "covered": 200253,
+      "hits": 277378,
+      "coveredHits": 197552,
+      "overshoot": 0,
+      "offSegment": 0,
+      "reversal": 0,
+      "coveredAimAgreement": 0.9865120622412648,
+      "coveredMeanError": 0.07858677380467335
+    }
+  },
+  "visual": {
+    "maxBasisError": 0,
+    "maxPositionError": 0,
+    "frames": 90,
+    "byActor": {
+      "Target A": {
+        "maxBasisError": 0,
+        "maxPositionError": 0,
+        "parts": 540
+      },
+      "Predicted R15": {
+        "maxBasisError": 0,
+        "maxPositionError": 0,
+        "parts": 1350
+      },
+      "Target B": {
+        "maxBasisError": 0,
+        "maxPositionError": 0,
+        "parts": 540
+      }
+    },
+    "uncovered": 0,
+    "passed": true,
+    "parts": 2430
+  },
+  "kernelMedianUs": {
+    "competitive": 0.643999999965672,
+    "upstream": 0.5827524999858724
+  }
+}
