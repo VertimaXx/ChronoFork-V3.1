@@ -33,18 +33,6 @@
       "bytes": 88,
       "sha256": "ae47357a09341d142e5b027ede17835857732a17619b86bcde1df22fb4e15cc6"
     },
-    "benchmarks/data/historical-v2-summary.json": {
-      "bytes": 1665,
-      "sha256": "e06bb0b848fae90ac58adeab7a837c13eef33c6d35013c9fc0d538f27c3356f9"
-    },
-    "benchmarks/data/v3.0-numerical.json": {
-      "bytes": 12227,
-      "sha256": "91691fde7b74ca688eddca6c9d557c7b6085238eaf24773029a6af378fc56646"
-    },
-    "benchmarks/data/v3.1-validation.json": {
-      "bytes": 12879,
-      "sha256": "1031bb9f96e8c8cd1622bf418b354ffb4732f216c0c7d4520c4465a05205a278"
-    },
     "CHANGELOG.md": {
       "bytes": 1220,
       "sha256": "1cffde497db0f84372d4902642f299718d761cb478899d4c16c6ac2969ffec01"
@@ -56,6 +44,34 @@
     "CREDITS.md": {
       "bytes": 2234,
       "sha256": "96983800fe999ce4e700dfbef154f07d2c52d0d6e397af09202307411075168a"
+    },
+    "LICENSE": {
+      "bytes": 1064,
+      "sha256": "4604a131092003c47badec155fff4d63ad90a4fad34a89113664f6dbffa68298"
+    },
+    "NOTICE": {
+      "bytes": 509,
+      "sha256": "ddba643f5d59cb06c48a27532d7ff0279df8a879956d8fb60a0fd76f21f93500"
+    },
+    "README.md": {
+      "bytes": 9774,
+      "sha256": "60bbd845473b609d5ee68b485e6dd51b29814f0f6bf8a92f910a447965d6478f"
+    },
+    "SECURITY.md": {
+      "bytes": 827,
+      "sha256": "3e8f7937080cd4c980fa08caf962d4e60168d2d793c449027e2492e7ee9cf4e5"
+    },
+    "benchmarks/data/historical-v2-summary.json": {
+      "bytes": 1665,
+      "sha256": "e06bb0b848fae90ac58adeab7a837c13eef33c6d35013c9fc0d538f27c3356f9"
+    },
+    "benchmarks/data/v3.0-numerical.json": {
+      "bytes": 12227,
+      "sha256": "91691fde7b74ca688eddca6c9d557c7b6085238eaf24773029a6af378fc56646"
+    },
+    "benchmarks/data/v3.1-validation.json": {
+      "bytes": 12879,
+      "sha256": "1031bb9f96e8c8cd1622bf418b354ffb4732f216c0c7d4520c4465a05205a278"
     },
     "default.project.json": {
       "bytes": 181,
@@ -144,22 +160,6 @@
     "examples/SportsAdapter.luau": {
       "bytes": 2425,
       "sha256": "5b5ae5c474eb7a895a2e645920e96557e76c7605db7dc54d3e2973a06742b940"
-    },
-    "LICENSE": {
-      "bytes": 1064,
-      "sha256": "4604a131092003c47badec155fff4d63ad90a4fad34a89113664f6dbffa68298"
-    },
-    "NOTICE": {
-      "bytes": 509,
-      "sha256": "ddba643f5d59cb06c48a27532d7ff0279df8a879956d8fb60a0fd76f21f93500"
-    },
-    "README.md": {
-      "bytes": 9774,
-      "sha256": "60bbd845473b609d5ee68b485e6dd51b29814f0f6bf8a92f910a447965d6478f"
-    },
-    "SECURITY.md": {
-      "bytes": 827,
-      "sha256": "3e8f7937080cd4c980fa08caf962d4e60168d2d793c449027e2492e7ee9cf4e5"
     },
     "site/.nojekyll": {
       "bytes": 0,
@@ -277,10 +277,6 @@
       "bytes": 3468,
       "sha256": "36e58f6870e816d6f3a4b0530292cab51fee86a1d6ad6e25f4d5af1ff3219dd8"
     },
-    "src/init.luau": {
-      "bytes": 13427,
-      "sha256": "95b81c59042845352207c72adb95e2ba2edce01d51d4a7bad1d7221d5a6b7e86"
-    },
     "src/Shapes.luau": {
       "bytes": 6959,
       "sha256": "4c6ee8af6f3fdb308cf03fe30c56c19a40497ee839b001ea161d0aa9f8e7bd74"
@@ -288,6 +284,10 @@
     "src/Types.luau": {
       "bytes": 2569,
       "sha256": "f1fd9b3d1ca8cd306b79d34ff05236a18265eba48a49c887d0c8815255fcf08b"
+    },
+    "src/init.luau": {
+      "bytes": 13427,
+      "sha256": "95b81c59042845352207c72adb95e2ba2edce01d51d4a7bad1d7221d5a6b7e86"
     },
     "tests/Campaign.luau": {
       "bytes": 5669,
@@ -334,8 +334,8 @@
       "sha256": "8ab13d7aebc82a005a92df13b39dd66022907fcd57c87d81bb123ba37976e9de"
     },
     "tools/build.py": {
-      "bytes": 6675,
-      "sha256": "69b1e6574d6c06a339ae3ea5fa265df04a6be5c2aeb490d06039b03c40cebfd6"
+      "bytes": 6789,
+      "sha256": "a3ec815bb8c8116d413947eae7333f9820b390de6da61e9b897740edc46884df"
     },
     "tools/check.py": {
       "bytes": 4482,
