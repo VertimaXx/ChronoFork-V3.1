@@ -1,0 +1,463 @@
+{
+  "version": "3.1.0",
+  "date": "2026-10-21",
+  "scope": "Plain-language setup, generated practice, optional help API and public type information; no weaker hit acceptance policy.",
+  "unit": {
+    "seconds": 0.16741109999929904,
+    "cases": [
+      {
+        "seconds": 2.4000000848900527e-05,
+        "name": "Friendly_Test / explanations do not change evidence",
+        "passed": true
+      },
+      {
+        "seconds": 1.9799999790848233e-05,
+        "name": "Friendly_Test / unknown result stays identifiable",
+        "passed": true
+      },
+      {
+        "seconds": 0.00012129999959142879,
+        "name": "Friendly_Test / word search is case insensitive and literal",
+        "passed": true
+      },
+      {
+        "seconds": 2.4200000552809797e-05,
+        "name": "Friendly_Test / form errors point to every relevant page",
+        "passed": true
+      },
+      {
+        "seconds": 8.499999239575118e-06,
+        "name": "Friendly_Test / decimal comma and decimal point",
+        "passed": true
+      },
+      {
+        "seconds": 3.499999911582563e-05,
+        "name": "Friendly_Test / hidden unused dimensions do not block a ray",
+        "passed": true
+      },
+      {
+        "seconds": 2.6199999410891905e-05,
+        "name": "Friendly_Test / non English names and target ids",
+        "passed": true
+      },
+      {
+        "seconds": 2.1400001060101204e-05,
+        "name": "Friendly_Test / generated practice is clearly separated",
+        "passed": true
+      },
+      {
+        "seconds": 1.2900000001536682e-05,
+        "name": "History_Test / empty history rejects",
+        "passed": true
+      },
+      {
+        "seconds": 9.93999983620597e-05,
+        "name": "History_Test / ring wrap bounds",
+        "passed": true
+      },
+      {
+        "seconds": 3.110000034212135e-05,
+        "name": "History_Test / linear interpolation at bounded interior",
+        "passed": true
+      },
+      {
+        "seconds": 1.9099999917671084e-05,
+        "name": "History_Test / range age and future guards",
+        "passed": true
+      },
+      {
+        "seconds": 1.9299999621580355e-05,
+        "name": "History_Test / duplicate sample immutable",
+        "passed": true
+      },
+      {
+        "seconds": 2.3099999452824704e-05,
+        "name": "History_Test / shape transition rejects",
+        "passed": true
+      },
+      {
+        "seconds": 1.4000001101521775e-05,
+        "name": "History_Test / remote zone rejected",
+        "passed": true
+      },
+      {
+        "seconds": 1.340000017080456e-05,
+        "name": "History_Test / invalid state rejected",
+        "passed": true
+      },
+      {
+        "seconds": 1.7899999875226058e-05,
+        "name": "History_Test / old epoch exact sample rejects",
+        "passed": true
+      },
+      {
+        "seconds": 4.670000089390669e-05,
+        "name": "Installer_Test / all editable presets validate",
+        "passed": true
+      },
+      {
+        "seconds": 4.670000089390669e-05,
+        "name": "Installer_Test / invalid configuration rejected",
+        "passed": true
+      },
+      {
+        "seconds": 0.00028650000058405567,
+        "name": "Installer_Test / all primitive templates generate",
+        "passed": true
+      },
+      {
+        "seconds": 5.310000051395036e-05,
+        "name": "Installer_Test / rewind is opt in",
+        "passed": true
+      },
+      {
+        "seconds": 6.740000026184134e-05,
+        "name": "Installer_Test / reference provider cannot claim trust",
+        "passed": true
+      },
+      {
+        "seconds": 0.00015939999866532162,
+        "name": "Service_Test / minimal football contact",
+        "passed": true
+      },
+      {
+        "seconds": 0.0001109000004362315,
+        "name": "Service_Test / outcomes remain game owned",
+        "passed": true
+      },
+      {
+        "seconds": 0.00014940000073693227,
+        "name": "Service_Test / forged and foreign handles",
+        "passed": true
+      },
+      {
+        "seconds": 0.00025600000117265154,
+        "name": "Service_Test / duplicate and spent contacts",
+        "passed": true
+      },
+      {
+        "seconds": 0.00019130000146105886,
+        "name": "Service_Test / speed fault quarantines until lifecycle reset",
+        "passed": true
+      },
+      {
+        "seconds": 0.00010579999980109278,
+        "name": "Service_Test / source teleport invalidates action",
+        "passed": true
+      },
+      {
+        "seconds": 4.930000068270601e-05,
+        "name": "Service_Test / roster change invalidates action",
+        "passed": true
+      },
+      {
+        "seconds": 7.520000144722871e-05,
+        "name": "Service_Test / historical state is immutable",
+        "passed": true
+      },
+      {
+        "seconds": 0.0001052999996318249,
+        "name": "Service_Test / eligibility predicates",
+        "passed": true
+      },
+      {
+        "seconds": 5.48999996681232e-05,
+        "name": "Service_Test / rules yield fails closed",
+        "passed": true
+      },
+      {
+        "seconds": 8.10999990790151e-05,
+        "name": "Service_Test / reentrant rules fail closed",
+        "passed": true
+      },
+      {
+        "seconds": 0.00012819999938074034,
+        "name": "Service_Test / active window boundaries",
+        "passed": true
+      },
+      {
+        "seconds": 6.410000059986487e-05,
+        "name": "Service_Test / expired action reclaimed",
+        "passed": true
+      },
+      {
+        "seconds": 4.4299998990027234e-05,
+        "name": "Service_Test / capture age checked",
+        "passed": true
+      },
+      {
+        "seconds": 0.00018080000154441223,
+        "name": "Service_Test / client time ignored by default",
+        "passed": true
+      },
+      {
+        "seconds": 6.120000034570694e-05,
+        "name": "Service_Test / rewind bounds",
+        "passed": true
+      },
+      {
+        "seconds": 9.449999924981967e-05,
+        "name": "Service_Test / rewind callback fault",
+        "passed": true
+      },
+      {
+        "seconds": 0.0001478000012866687,
+        "name": "Service_Test / explicit covered rewind",
+        "passed": true
+      },
+      {
+        "seconds": 0.00022679999892716296,
+        "name": "Service_Test / uncertain discrete state boundary rejects",
+        "passed": true
+      },
+      {
+        "seconds": 0.00013000000035390258,
+        "name": "Service_Test / packet or capture gap rejects",
+        "passed": true
+      },
+      {
+        "seconds": 0.00011199999971722718,
+        "name": "Service_Test / unverified targets block partial success",
+        "passed": true
+      },
+      {
+        "seconds": 0.00015840000014577527,
+        "name": "Service_Test / world cover fraction and uncertainty",
+        "passed": true
+      },
+      {
+        "seconds": 7.639999967068434e-05,
+        "name": "Service_Test / overlap cover requires game policy",
+        "passed": true
+      },
+      {
+        "seconds": 0.00028139999994891696,
+        "name": "Service_Test / clear world includes tangent endpoint",
+        "passed": true
+      },
+      {
+        "seconds": 0.0001022000014927471,
+        "name": "Service_Test / invalid reach profile",
+        "passed": true
+      },
+      {
+        "seconds": 0.00010779999865917489,
+        "name": "Service_Test / action profile copied",
+        "passed": true
+      },
+      {
+        "seconds": 0.00022589999935007654,
+        "name": "Service_Test / provider yield contained",
+        "passed": true
+      },
+      {
+        "seconds": 0.00020139999833190814,
+        "name": "Service_Test / snapshot validation errors contained",
+        "passed": true
+      },
+      {
+        "seconds": 0.0001007999999274034,
+        "name": "Service_Test / clock reversal rejected",
+        "passed": true
+      },
+      {
+        "seconds": 0.00016229999891947955,
+        "name": "Service_Test / action capacity and release",
+        "passed": true
+      },
+      {
+        "seconds": 0.00010240000119665638,
+        "name": "Service_Test / destroy lifecycle",
+        "passed": true
+      },
+      {
+        "seconds": 6.39000008959556e-05,
+        "name": "Shapes_Test / box face tangency",
+        "passed": true
+      },
+      {
+        "seconds": 4.780000017490238e-05,
+        "name": "Shapes_Test / rounded sphere box corner",
+        "passed": true
+      },
+      {
+        "seconds": 2.9799999538226984e-05,
+        "name": "Shapes_Test / capsule tip and corner",
+        "passed": true
+      },
+      {
+        "seconds": 1.7300000763498247e-05,
+        "name": "Shapes_Test / degenerate capsule",
+        "passed": true
+      },
+      {
+        "seconds": 3.680000008898787e-05,
+        "name": "Shapes_Test / sweep earliest and initial overlap",
+        "passed": true
+      },
+      {
+        "seconds": 2.8200000087963417e-05,
+        "name": "Shapes_Test / parallel capsule ray and tangent",
+        "passed": true
+      },
+      {
+        "seconds": 6.970000140427146e-05,
+        "name": "Shapes_Test / invalid primitive inputs",
+        "passed": true
+      },
+      {
+        "seconds": 0.0314340999993874,
+        "name": "Shapes_Test / 4000 independent interval box cases",
+        "passed": true
+      },
+      {
+        "seconds": 0.06883680000100867,
+        "name": "Shapes_Test / 3600 rotated pairing symmetry and invariance cases",
+        "passed": true
+      },
+      {
+        "seconds": 0.04741499999909138,
+        "name": "Shapes_Test / 2500 swept capsule distance oracle cases",
+        "passed": true
+      }
+    ],
+    "failed": 0,
+    "failures": [],
+    "run": 63,
+    "passed": 63
+  },
+  "practice": {
+    "passed": 15,
+    "normalScriptPassed": true,
+    "variants": 15,
+    "errors": []
+  },
+  "timelineRegression": {
+    "reasons": {
+      "invalid_action": 1170,
+      "covered": 3941,
+      "clock_reversed": 585,
+      "target_geometry_boundary": 25,
+      "source_epoch_changed": 585,
+      "target_discontinuity": 222,
+      "target_not_recorded": 363,
+      "unverified_target": 585,
+      "source_sample_gap": 104,
+      "target_state_boundary": 27,
+      "roster_changed": 585
+    },
+    "seconds": 7.080549500000416,
+    "passed": 8192,
+    "mode": "deterministic server-timeline simulation",
+    "queries": 8088,
+    "scenarios": 8192,
+    "seed": 20261021,
+    "shapeCounts": {
+      "box/box": 694,
+      "capsule/box": 676,
+      "sweep/sphere": 745,
+      "sweep/capsule": 642,
+      "box/capsule": 707,
+      "box/sphere": 715,
+      "capsule/sphere": 691,
+      "sphere/capsule": 694,
+      "sphere/box": 629,
+      "sphere/sphere": 653,
+      "capsule/capsule": 668,
+      "sweep/box": 678
+    },
+    "failures": [],
+    "assertions": 12718,
+    "rttMs": {
+      "0": 693,
+      "16": 666,
+      "33": 660,
+      "50": 705,
+      "80": 671,
+      "100": 654,
+      "150": 715,
+      "200": 678,
+      "300": 737,
+      "500": 669,
+      "750": 666,
+      "1000": 678
+    }
+  },
+  "generatedSources": {
+    "presets": 3,
+    "shapes": 5,
+    "sourceFilesPerVariant": 6,
+    "compiled": 90
+  },
+  "help": {
+    "terms": 50,
+    "baseReasonCodes": 48,
+    "prefixedSourceAndTargetReasonsSupported": true
+  },
+  "installer": {
+    "checks": 8,
+    "failed": 0,
+    "includes": [
+      "install",
+      "practice script initially disabled",
+      "game connection not certified",
+      "practice module exists",
+      "Undo",
+      "Redo",
+      "rollback",
+      "existing code kept"
+    ]
+  },
+  "gui": {
+    "nativeDockWidgetCreated": true,
+    "allSixPagesChecked": true,
+    "layoutSizes": [
+      [
+        360,
+        480
+      ],
+      [
+        500,
+        780
+      ]
+    ],
+    "labelOverflow": 0,
+    "actualNextButtonClickPassed": true,
+    "actualDecimalCommaInputPassed": true,
+    "viewportsInspected": true,
+    "inGameGuideInspected": true
+  },
+  "html": {
+    "selfContained": true,
+    "wordAndMessageDataSharedWithCore": true,
+    "browserVisualReview": false,
+    "browserLimitation": "Browser automation rejected the local file protocol. Static structure and script behavior are checked separately; Studio UI was visually reviewed.",
+    "staticStructureAndScriptChecks": "passed"
+  },
+  "nativeNetworkTested": false,
+  "priorNumericalResults": "validation/results.json contains earlier V3.0 measurements, not relabeled V3.1 timings.",
+  "sourceParity": {
+    "studioScripts": 26,
+    "mismatches": 0,
+    "unchangedMathAndHistoryModules": [
+      "Geometry",
+      "Shapes",
+      "History",
+      "Guard",
+      "Contract"
+    ]
+  },
+  "finalState": {
+    "studioMode": "Edit",
+    "temporaryTestHelpersRemoved": true,
+    "priorGameScriptEnableStatesRestored": true,
+    "httpEnabled": false,
+    "installedPluginUpdated": true,
+    "oldInstalledPluginBackedUp": true,
+    "oldStudioToolkitBackedUp": true,
+    "networkSettingsChangedByThisTask": false,
+    "observedInboundLossPercent": 0.5,
+    "observedOutboundLossPercent": 0.5,
+    "observedDelaysAndJitterMs": 0
+  }
+}
