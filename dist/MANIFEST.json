@@ -54,8 +54,8 @@
       "sha256": "ddba643f5d59cb06c48a27532d7ff0279df8a879956d8fb60a0fd76f21f93500"
     },
     "README.md": {
-      "bytes": 9939,
-      "sha256": "da5543c02caba4b9418a87b108cacbb70f585d898f01dca6aec126ac61145fc8"
+      "bytes": 9951,
+      "sha256": "3e1426198634b485e30a5063b073dce92923ce43ad1f08fef2529a321a08c8d0"
     },
     "SECURITY.md": {
       "bytes": 827,
@@ -218,48 +218,48 @@
       "sha256": "d92f9354fe73ed68fa42077fc20323fdf0202a292b4a85f841927a00dd921fe5"
     },
     "site/benchmarks.html": {
-      "bytes": 17696,
-      "sha256": "cd28fdc51cfe42d1d8dfc48fc6c03dc42788aebb7d33e20ee101b2fdba881d98"
+      "bytes": 17741,
+      "sha256": "050981e62b773e92ff5edc021e30e961666d8dd22bb8bd9870035d80a2faeb78"
     },
     "site/comparison.html": {
-      "bytes": 10068,
-      "sha256": "e97c257418748bc95a23d6d69b93133b7633481f79737485d7ec035f529acc6d"
+      "bytes": 10113,
+      "sha256": "3cd0b3ac049240387eaf8c30ce0f5c5deb16d14b7eb7971eb2544c8be4b5862c"
     },
     "site/credits.html": {
-      "bytes": 4890,
-      "sha256": "488053e2d289e8b28b7d18eca0f364baada7a50b88d944ef916357e9b9cc2ceb"
+      "bytes": 4935,
+      "sha256": "532f15f7a19103e6d1305bf804fec1844f3af567c7b235b724c02799d0ea3bbd"
     },
     "site/faq.html": {
-      "bytes": 7585,
-      "sha256": "d706a8b4309f776a80cdc5dc4a41cfb1d861bb57946a56aa024d2d498bc56e58"
+      "bytes": 7630,
+      "sha256": "254985fbd69c2b461239a8b9cfd2fcf5531096c204bd627381ab780eb257d1d4"
     },
     "site/game-integration.html": {
-      "bytes": 9841,
-      "sha256": "4a1ca57cdca0f069fcfd21a725827f5a6f13a80f025112d4a97cbc2e6767d625"
+      "bytes": 9886,
+      "sha256": "4e4319aa2646ecec75f08259aeb334a4075139e12e673c9b784b7dc0c39720af"
     },
     "site/help.html": {
-      "bytes": 41438,
-      "sha256": "4ebd80d1d2018413021b0f8c2847accaf72ecb35033b3d89ac1de4b901944017"
+      "bytes": 41483,
+      "sha256": "e7c4e62a50d5e67aef5cb9bfe6dfe4f832f62673283b0fadbfdceb7b7cec7d1f"
     },
     "site/index.html": {
-      "bytes": 7565,
-      "sha256": "f35df54d3d6540070e122a52db70c121969cf9a71bfff249bcac6bb34bea3f74"
+      "bytes": 7610,
+      "sha256": "1e1150be53508fc529e4c4d1457ffc49a92c0d0f3e6e81b097f4ec90e07eb69f"
     },
     "site/integration.html": {
-      "bytes": 15463,
-      "sha256": "139b6ff8830eaa2bc2923ee0c989ba6639761e888f7ce49025df00979126ad77"
+      "bytes": 15508,
+      "sha256": "4d08b03e38e905ed12c94046907e8f31f4d7964cebe496c5c90909cab0bf81bb"
     },
     "site/license.txt": {
       "bytes": 1064,
       "sha256": "4604a131092003c47badec155fff4d63ad90a4fad34a89113664f6dbffa68298"
     },
     "site/math-and-limits.html": {
-      "bytes": 10697,
-      "sha256": "61a2b4a6337105b171a638026aa10f9dbda1ebe09fb074d5a1a43d7bfcd18024"
+      "bytes": 10742,
+      "sha256": "5466d14cfa402e70a21f936d446564761ae89cbcff4359f734dec30a1cda54d5"
     },
     "site/start-here.html": {
-      "bytes": 15644,
-      "sha256": "6d809f2d1a1f591016980d3fc99ae07cfbab29854ecb8cb9ddb1f1cda97689aa"
+      "bytes": 15689,
+      "sha256": "2ae93f65f0c1454af953a53f398563ced5613660a03f67c389d964f8804f8338"
     },
     "src/Contract.luau": {
       "bytes": 1312,
@@ -350,8 +350,8 @@
       "sha256": "c1882dca4fcfcf8255fd99706e9eb9dd91fd741d0b567670a90bb29b7b030760"
     },
     "tools/site_build.py": {
-      "bytes": 17111,
-      "sha256": "f05b2a8c2af46448f697efc3bd4c0afb1829567067140daa77e05cb5154295b3"
+      "bytes": 17567,
+      "sha256": "9d92acd3e3ed2b50ef6a4163a3e61c394bb7927e789f6af7d57d2664100c21a7"
     }
   }
 }
