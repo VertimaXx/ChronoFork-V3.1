@@ -8,6 +8,8 @@ import shutil
 
 REPO = 'https://github.com/VertimaXx/ChronoFork-V3.1'
 PAGES = {
+    'docs/connections.md': ('connections.html', 'Plugin connections'),
+    'docs/combat-walkthrough.md': ('combat-walkthrough.html', 'Combat example'),
     'docs/start-here.md': ('start-here.html', 'Start here'),
     'docs/game-integration.md': ('game-integration.html', 'Connect your game'),
     'docs/integration.md': ('integration.html', 'API reference'),
@@ -110,7 +112,7 @@ def shell(title, body, active='', toc=None, asset_versions=None):
     asset_versions = asset_versions or {}
     style_version = asset_versions.get('style.css', '')
     icon_version = asset_versions.get('icon.svg', '')
-    links = [('index.html', 'Overview'), ('start-here.html', 'Start here'), ('game-integration.html', 'Connect'), ('comparison.html', 'Compare'), ('benchmarks.html', 'Benchmarks'), ('math-and-limits.html', 'Limits'), ('help.html', 'Words & errors')]
+    links = [('index.html', 'Overview'), ('start-here.html', 'Start here'), ('connections.html', 'Connect'), ('comparison.html', 'Compare'), ('benchmarks.html', 'Benchmarks'), ('math-and-limits.html', 'Limits'), ('help.html', 'Words & errors')]
     nav = ''.join(f'<a href="{path}"' + (' aria-current="page"' if active == path else '') + f'>{label}</a>' for path, label in links)
     aside = ''
     if toc:
@@ -148,6 +150,8 @@ def build_site(root):
 <section class="section evidence"><p class="eyebrow">Recorded V3.1 validation · 21 Oct 2026</p><h2>Evidence you can inspect.</h2><div class="stat-grid"><div><strong>63 / 63</strong><span>unit tests passed</span></div><div><strong>8,192</strong><span>synthetic timeline scenarios passed</span></div><div><strong>15 / 15</strong><span>generated practice variants passed</span></div></div><p>Earlier V3.0 measurements include 6,000 engine geometry cases and 34,000 matched covered history queries. Those results retain their earlier labels. Synthetic timing is not native network testing; no real competitive game is certified.</p><div class="buttons"><a class="button" href="benchmarks.html">Methods & raw data →</a><a class="button" href="comparison.html">Original vs fork →</a></div></section>
 <section class="section split"><div><p class="eyebrow">The tradeoff is explicit</p><h2>Refuse uncertain evidence.</h2><p>Missing records, large gaps and resets produce a refusal. A returned pose should not hide that the requested time was never covered.</p><p>That stricter contract has a cost: the earlier checked-history benchmark took about <strong>2.67×</strong> the query CPU time of the original transform query. They perform different work.</p></div><div class="limit-card"><h3>What still belongs to your game</h3><ul><li>Trustworthy movement and animated pose data</li><li>Valid input, cooldowns and replay prevention</li><li>Fair timing and obstacle rules</li><li>Exactly-once gameplay outcomes</li></ul><p>Sampled hitboxes are not full continuous movement simulation.</p><a href="math-and-limits.html">Read the ranked limitations →</a></div></section>
 <section class="callout"><div><p class="eyebrow">Start small</p><h2>One move. One checked result.</h2><p>Run the practice, connect your first real move, then test its uncertain cases.</p></div><a class="button primary" href="start-here.html">Open the beginner guide →</a></section>'''
+    connection_section = '''<section class="section"><div class="section-head"><div><p class="eyebrow">Connection build · 24 Oct 2026</p><h2>The plugin supplies the connecting machinery.</h2></div><a href="connections.html">Use ChronoConnect →</a></div><div class="feature-grid"><div class="feature"><span class="tag">CONNECT</span><h3>Objects, events and generated calls</h3><p>Choose existing actors, a position source and accepted-move points. Review edits before applying; keep unusual rules in supplied Hooks.</p></div><div class="feature"><span class="tag">EXISTING GAME</span><h3>Three generated call blocks</h3><p>The tested melee connection changed one original script. Six other original scripts stayed byte-identical. Movement mapping stayed inside the package.</p><a href="combat-walkthrough.html">Follow the exact combat example →</a></div><div class="feature"><span class="tag">RECORDED CHECKS</span><h3>80 / 80 integration cases</h3><p>Baseline comparisons, real combat inputs, refused moves and actual movement flows. One client, zero added delay and rewind off; no production certification.</p><a href="benchmarks.html">Inspect methods and case data →</a></div></div></section>'''
+    home = home.replace('<section class="section evidence">', connection_section + '<section class="section evidence">', 1)
     (site / 'index.html').write_text(shell('Checked contacts for competitive Roblox games', home, 'index.html', asset_versions=asset_versions), encoding='utf-8', newline='\n')
     help_data = json.loads((site / 'assets/help.json').read_text(encoding='utf-8'))
     terms = ''.join('<section class="help-card" data-kind="term"><p class="eyebrow">Word · ' + html.escape(row[0]) + '</p><h2>' + html.escape(row[1]) + '</h2><p>' + html.escape(row[2]) + '</p><p class="example"><strong>Example:</strong> ' + html.escape(row[3]) + '</p></section>' for row in help_data['terms'])

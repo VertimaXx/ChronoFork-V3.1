@@ -61,7 +61,8 @@ def build():
     core = nodes('src', 'Core')
     editor = [r for r in nodes('editor', 'Editor') if r['path'] != ['Editor', 'PluginMain']]
     plugin = [{'path': ['ChronoV3Setup'], 'class': 'Script', 'source': text('editor/PluginMain.luau')}]
-    plugin += remap(core + editor, ['ChronoV3Setup'])
+    runtime = nodes('runtime', 'Runtime')
+    plugin += remap(core + editor + runtime, ['ChronoV3Setup'])
     asset([{**r, 'path': ['ChronoV3'] + r['path'][1:]} for r in core], 'dist/ChronoV3.rbxmx')
     asset(plugin, 'dist/ChronoV3Setup.rbxmx')
     guides = [{'path': ['ChronoV3Guides'], 'class': 'ModuleScript', 'source': text('examples/Guides.luau')},
@@ -76,8 +77,8 @@ def build():
                     'value': 'ChronoFork V3.1. Unofficial Chrono fork; original credit: Parihsz and contributors. Developed with OpenAI Codex / AI under VertimaXx direction. Save Setup as a Local Plugin. Open Plugins > Chrono V3 > ChronoSetup. Practice starts OFF and does not certify your game. Your server supplies checked positions and owns move authorization/outcomes. See README and CREDITS.'})
     asset(toolkit, 'dist/ChronoV3Toolkit.rbxmx')
     validation = [{'path': ['ChronoV3Validation'], 'class': 'Folder'}]
-    validation += remap(core + editor, ['ChronoV3Validation'])
-    for name in ['Campaign', 'EngineOracle', 'MatchedBenchmark', 'LoadBenchmark']:
+    validation += remap(core + editor + runtime, ['ChronoV3Validation'])
+    for name in ['Campaign', 'EngineOracle', 'MatchedBenchmark', 'LoadBenchmark', 'ConnectionStudioChecks', 'ConnectionPlayChecks', 'ConnectionTestSetup']:
         validation.append({'path': ['ChronoV3Validation', name], 'class': 'ModuleScript', 'source': text(f'tests/{name}.luau')})
     tests = [{'path': ['UnitTest'], 'class': 'Folder'}, {'path': ['UnitTest', 'Cases'], 'class': 'Folder'}]
     for p in sorted((ROOT / 'tests').glob('*_Test.luau')):
@@ -87,12 +88,12 @@ def build():
     # Site uses repository Markdown and preserved raw JSON; no external JS/fonts/CDN.
     from site_build import build_site
     build_site(ROOT)
-    inputs = ['src', 'editor', 'examples', 'tests', 'tools', 'docs', 'benchmarks', '.github']
+    inputs = ['src', 'editor', 'runtime', 'examples', 'tests', 'tools', 'docs', 'benchmarks', '.github']
     files = [p for name in inputs for p in (ROOT / name).rglob('*') if p.is_file() and '__pycache__' not in p.parts]
     files += [ROOT / n for n in ['README.md', 'LICENSE', 'NOTICE', 'CREDITS.md', 'CHANGELOG.md', 'CONTRIBUTING.md', 'SECURITY.md', 'default.project.json', '.gitattributes', '.gitignore']]
     files += list(dist.glob('*.rbxmx'))
     files += [p for p in (ROOT / 'site').rglob('*') if p.is_file() and 'downloads' not in p.parts]
-    manifest = {'version': VERSION, 'sourceDate': '2026-10-21', 'packagedDate': '2026-10-22', 'upstreamComparisonRevision': UPSTREAM,
+    manifest = {'version': VERSION, 'sourceDate': '2026-10-21', 'packagedDate': '2026-10-24', 'connectionBuild': '2026-10-24', 'upstreamComparisonRevision': UPSTREAM,
                 'scope': 'V3.1 code only; historical comparison data retain earlier labels',
                 'files': {p.relative_to(ROOT).as_posix(): {'bytes': len(p.read_bytes()), 'sha256': hashlib.sha256(p.read_bytes()).hexdigest()} for p in sorted(files, key=lambda p: p.relative_to(ROOT).as_posix())}}
     (dist / 'MANIFEST.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8', newline='\n')
@@ -100,7 +101,7 @@ def build():
     archive = dist / f'ChronoFork-{VERSION}.zip'
     with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as z:
         for p in sorted(files, key=lambda p: p.relative_to(ROOT).as_posix()):
-            info = zipfile.ZipInfo(p.relative_to(ROOT).as_posix(), date_time=(2026, 10, 22, 0, 0, 0))
+            info = zipfile.ZipInfo(p.relative_to(ROOT).as_posix(), date_time=(2026, 10, 24, 0, 0, 0))
             info.create_system = 3  # Fix the ZIP creator field across Windows and Unix.
             info.compress_type = zipfile.ZIP_DEFLATED
             info.external_attr = 0o100644 << 16

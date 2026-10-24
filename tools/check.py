@@ -40,8 +40,23 @@ def main():
     assert latest['timelineRegression']['passed'] == 8192 and latest['nativeNetworkTested'] is False
     old = json.loads((ROOT / 'benchmarks/data/v3.0-numerical.json').read_text())
     assert old['version'] == '3.0.0' and old['benchmark']['queries'] == 34000
+    connections = json.loads((ROOT / 'benchmarks/data/v3.1-connections-2026-10-24.json').read_text())
+    assert connections['version'] == '3.1.0'
+    combat = json.loads((ROOT / 'benchmarks/data/v3.1-combat-integration-2026-10-24.json').read_text())
+    assert combat['summary']['totalPassed'] == 80 and combat['summary']['onlyGeneratedBlocksOutsidePackage'] == 3
+    assert combat['workflow']['passed'] and combat['movement']['passed']
+    for key, expected in [('parity', 59), ('input', 8), ('refusals', 9)]:
+        rows = combat['workflow'][key]
+        assert len(rows) == expected and all(row['passed'] for row in rows), key
+    assert len(combat['movement']['rows']) == 4
+    assert all(row['passed'] and row['refused'] == 0 for row in combat['movement']['rows'])
+    assert not combat['summary']['rewindEnabled'] and all(value == 0 for value in combat['summary']['networkImpairment'].values())
+    example = combat['exampleSource']
+    assert hashlib.sha256((ROOT / example['path']).read_bytes()).hexdigest() == example['sha256']
+    for name, digest in combat['harnessSources'].items():
+        assert hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == digest, name
     model_sources = 0
-    allowed = {p.read_text(encoding='utf-8-sig').replace('\r\n', '\n') for folder in ['src', 'editor', 'examples', 'tests'] for p in (ROOT / folder).glob('*.luau')}
+    allowed = {p.read_text(encoding='utf-8-sig').replace('\r\n', '\n') for folder in ['src', 'editor', 'runtime', 'examples', 'tests'] for p in (ROOT / folder).glob('*.luau')}
     for p in (ROOT / 'dist').glob('*.rbxmx'):
         xml = ET.parse(p)
         assert xml.getroot().tag == 'roblox'
@@ -84,7 +99,7 @@ def main():
     assert len(help_data['terms']) == 50 and len(help_data['messages']) == 48
     count = 0
     if args.luau_compile:
-        for folder in ['src', 'editor', 'examples', 'tests']:
+        for folder in ['src', 'editor', 'runtime', 'examples', 'tests']:
             for p in sorted((ROOT / folder).glob('*.luau')):
                 subprocess.run([args.luau_compile, '--null', str(p)], check=True, capture_output=True)
                 count += 1
