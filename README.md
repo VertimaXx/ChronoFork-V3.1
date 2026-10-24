@@ -18,7 +18,8 @@ V3.1 is a standalone contact-validation branch of that work. It does not bundle 
 - **Five query shapes:** box, sphere, capsule, ray and swept sphere. Target hitboxes can be boxes, spheres or capsules.
 - **Checked earlier positions:** refuses missing, too-old or uncertain records instead of silently substituting an endpoint. A reset separates data before and after a teleport or respawn.
 - **Game-owned connections:** movement, animations, VFX, cutscenes, camera and outcomes remain in your game.
-- **Step-by-step Studio plugin:** six setup pages, hitbox preview, field explanations, source review, Undo/Redo and rollback. Existing code is never overwritten.
+- **Studio connection workflow:** six setup pages, hitbox preview, automatic tracking/recording, existing server-event links and a builder for reviewed calls in existing scripts. Changes have Undo/Redo and source-aware restore.
+- **Position-source choices:** server-owned physics, a supplied limited humanoid checker, or your existing checker with mapping functions inside the package.
 - **Beginner-friendly help:** 50 explained terms, 48 base result messages, examples and optional in-game developer guides. Decimal comma and decimal point inputs are supported.
 - **Practice before integration:** a test using made-up server values starts disabled. It helps you learn; it does not certify your game.
 
@@ -31,10 +32,10 @@ V3.1 is a standalone contact-validation branch of that work. It does not bundle 
 1. Download [ChronoV3Setup.rbxmx](dist/ChronoV3Setup.rbxmx) using GitHub's **Download raw file** button, or download the [complete V3.1 bundle](dist/ChronoFork-3.1.0.zip) and extract it.
 2. In Studio's Explorer, right-click **ServerStorage → Insert from File** and select the setup file. Right-click the inserted **ChronoV3Setup** Script → **Save as Local Plugin**. Save it as **Chrono V3**, then remove the imported source Script from your place.
 3. Use **Plugins → Chrono V3 → ChronoSetup**. Complete the setup, review the generated code, then add it. **This is the plugin integration step.**
-4. Run the disabled `RunPractice` Script in Studio to learn the generated layout; turn it off after the test.
-5. Connect your real server's position updates, accepted moves and outcome rules. Test the actual game with multiple clients and Studio's Network Simulator.
+4. On **Connect your game**, select objects and a position source, add the supplied connection package, then link existing server events or use **Calls** to generate and insert the small calls your game needs. Customize supplied Hooks for unusual rules.
+5. Press Play and inspect the connection guide/report. Test the actual game with multiple clients and Studio's Network Simulator. For a first success with no scripting, **Try a complete supplied learning scene** on page 1.
 
-The [full walkthrough](docs/start-here.md) explains every step. Prefer code-only installation? Import [ChronoV3.rbxmx](dist/ChronoV3.rbxmx) as a ModuleScript, or map `src/` with the included [Rojo project](default.project.json).
+The [connection walkthrough](docs/connections.md) explains the V3.1 connection build dated 24 October 2026. [Start here](docs/start-here.md) also documents the advanced low-level API. Prefer code-only installation? Import [ChronoV3.rbxmx](dist/ChronoV3.rbxmx) as a ModuleScript, or map `src/` with the included [Rojo project](default.project.json).
 
 | Download | Purpose |
 |---|---|
@@ -58,7 +59,9 @@ Move ends or is cancelled      → EndAction
 
 **Server decides** means the server calculates a value or checks that it was allowed. Developers often call this *authoritative*. Reading a client-controlled part on the server does not establish that its movement was allowed.
 
-You provide four connections: object snapshots, a shared update boundary, accepted moves, and outcomes. Start with [the integration map](docs/game-integration.md), then use the [exact API](docs/integration.md). The core lifecycle is `Track → Capture → BeginAction → Query → EndAction`. No gameplay remote or automatic sampling loop is installed.
+The plugin's optional **Connector** supplies object tracking, shared recording, move references and cancellation. You select existing objects/events or insert the generated calls at your existing accepted-move and outcome points. Unusual mappings belong in the supplied Hooks. The low-level lifecycle remains `Track → Capture → BeginAction → Query → EndAction`. Connector starts its own recording loop after you install it; no gameplay remote is added. See [the connection walkthrough](docs/connections.md) or [the exact API](docs/integration.md).
+
+**A tested existing-game example:** one melee game's connection required three plugin-generated call blocks in one original script. Its movement rules were mapped inside supplied Hooks; six other original scripts stayed byte-identical. All 80 recorded integration checks passed. This was active contact rejection, with rewind off. [Follow the exact developer steps and inspect the evidence](docs/combat-walkthrough.md).
 
 ## Compared with original Chrono
 
@@ -83,6 +86,8 @@ Checked query time in that run averaged **1.540 µs vs 0.577 µs** for original 
 | V3.1 practice variants | 15 / 15 passed | Three presets × five query shapes |
 | V3.1 generated source | 90 files compiled | Six generated files per variant |
 | V3.1 real installer checks | 8 / 8 passed | Including Undo, Redo, rollback and conflict preservation |
+| V3.1 connection workflow, 24 Oct | 39 edit + 165 runtime + 63 core checks passed | Supplied connections, generated calls, real client and learning scene |
+| V3.1 existing combat integration, 24 Oct | 80 / 80 passed; 27 installed sources compiled | 59 baseline comparisons, 8 client inputs, 9 gate checks, 4 movement flows; one client, zero added delay |
 | Earlier V3.0 engine geometry oracle | 6,000 / 6,000 passed | Roblox overlap/cast comparisons; sweep tolerance 0.025 studs |
 | Earlier V3.0 matched history | 34,000 shared covered queries | Pinned original source and deliberately linear reference |
 
@@ -90,13 +95,15 @@ The five numerical/history modules were unchanged between the measured V3.0 buil
 
 ## Know the limits before choosing it
 
-The server data must already be trustworthy. Your game still validates input, cooldowns, stamina, ownership and move timing, and applies outcomes once. Sampled hitboxes do not reconstruct every path between updates. Exact animated limbs, lag policy and historical obstacles need game-specific providers. Strict uncertainty can refuse an action; joins/removals invalidate active actions globally. Matching actors and zones are scanned, so profile real workloads.
+Use positions the server calculates or genuinely checks. The supplied humanoid option adds bounded root checks for ordinary static-ground movement; it does not solve all movement security. Your game still validates input, cooldowns, stamina and ownership and owns its outcomes. The supplied connector performs one hit check per move. Sampled hitboxes do not reconstruct every path between updates. Exact animated limbs, lag policy and historical obstacles need game-specific providers. Strict uncertainty can refuse an action; joins/removals invalidate active actions globally. Matching actors and zones are scanned, so profile real workloads.
 
 Read the [ranked limitations and math](docs/math-and-limits.md). A successful query with zero contacts is a checked miss. A refused query means evidence was insufficient; it is a separate result.
 
 ## Documentation
 
 - [Start here](docs/start-here.md) — installation and first success
+- [Plugin connections](docs/connections.md) — supplied runtime, movement options, event links, generated calls and restore
+- [Existing combat walkthrough](docs/combat-walkthrough.md) — exact plugin steps, three generated calls and in-package movement mapping
 - [Connect your game](docs/game-integration.md) — sports, melee and ray examples; responsibilities
 - [Exact API](docs/integration.md) — functions, values and bounds
 - [Math and limitations](docs/math-and-limits.md) — calculations and ranked tradeoffs

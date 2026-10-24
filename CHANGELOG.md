@@ -1,5 +1,22 @@
 # Changelog
 
+## Existing-game integration example — 2026-10-24
+
+- Added a complete combat walkthrough: three plugin-generated calls in one existing script, with game-specific movement mapping inside supplied Hooks.
+- Included the tested Hooks example, fixture-dependent test drivers and 80 final passing case results with source hashes and clear evidence limits.
+- Kept original attack timing, overlap, damage, combo, blocking, animations and controls. Six original scripts stayed byte-identical; Core, Connector and supplied Movement were unchanged.
+- Documented the bounded allowance for the game's existing knockback and finisher impulse. Final real movement flows recorded zero false refusals.
+- Refreshed the website, downloads and manifest with both the connection workflow and this game-integration evidence. Earlier original-Chrono benchmarks retain their original labels.
+
+## V3.1 connection workflow build — 2026-10-24
+
+- Supplied server Connector: object discovery, shared recording, move references, cancellation, single-check outcome gating and Studio reports.
+- Players, folder, tag and selected-reference object sources; server physics, a limited supplied humanoid checker, or an existing position provider.
+- Existing BindableEvent links and in-package argument/provider mapping hooks. No gameplay RemoteEvent is added.
+- Generated calls for existing server functions, reviewed insertions/teleport replacements and exact source-aware restore records.
+- Connection settings updates preserve customized Hooks; removal refuses modified supplied source.
+- Complete optional learning scene and Studio-only runtime guide. Core contact math and existing historical benchmark labels remain unchanged.
+
 ## 3.1.0 — 2026-10-21
 
 - Six plain-language setup pages with examples, units, field links and a hitbox preview.
