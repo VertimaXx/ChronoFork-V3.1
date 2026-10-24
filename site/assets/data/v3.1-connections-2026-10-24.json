@@ -1,0 +1,1420 @@
+{
+  "version": "3.1.0",
+  "connectionBuild": "2026-10-24",
+  "scope": "Supplied plugin connections; one Studio workstation and one real client. Not a competitive-game certification.",
+  "edit": {
+    "cases": [
+      {
+        "name": "position option ServerPhysics",
+        "passed": true
+      },
+      {
+        "name": "position option Humanoid",
+        "passed": true
+      },
+      {
+        "name": "invalid number walk",
+        "passed": true
+      },
+      {
+        "name": "invalid number jump",
+        "passed": true
+      },
+      {
+        "name": "invalid number ground",
+        "passed": true
+      },
+      {
+        "name": "invalid number burst",
+        "passed": true
+      },
+      {
+        "name": "invalid number slack",
+        "passed": true
+      },
+      {
+        "name": "invalid number radius",
+        "passed": true
+      },
+      {
+        "name": "invalid number height",
+        "passed": true
+      },
+      {
+        "name": "client event refused",
+        "passed": true
+      },
+      {
+        "name": "existing server event accepted",
+        "passed": true
+      },
+      {
+        "name": "missing independent provider refused",
+        "passed": true
+      },
+      {
+        "name": "automatic check needs outcome",
+        "passed": true
+      },
+      {
+        "name": "missing actor folder refused",
+        "passed": true
+      },
+      {
+        "name": "core installs through real plugin installer",
+        "passed": true
+      },
+      {
+        "name": "reviewed connection settings are frozen",
+        "passed": true
+      },
+      {
+        "name": "automatic startup supplied",
+        "passed": true
+      },
+      {
+        "name": "no gameplay remote installed",
+        "passed": true
+      },
+      {
+        "name": "configure adds formerly empty event link",
+        "passed": true
+      },
+      {
+        "name": "configure clears event link",
+        "passed": true
+      },
+      {
+        "name": "wizard settings support actual object Undo and Redo",
+        "passed": true
+      },
+      {
+        "name": "customized hook kept on settings save",
+        "passed": true
+      },
+      {
+        "name": "manual settings source is not overwritten",
+        "passed": true
+      },
+      {
+        "name": "generate Begin",
+        "passed": true
+      },
+      {
+        "name": "generate Gate",
+        "passed": true
+      },
+      {
+        "name": "generate Cancel",
+        "passed": true
+      },
+      {
+        "name": "generate Finish",
+        "passed": true
+      },
+      {
+        "name": "generate Motion",
+        "passed": true
+      },
+      {
+        "name": "generate Teleport",
+        "passed": true
+      },
+      {
+        "name": "unsafe variable syntax refused",
+        "passed": true
+      },
+      {
+        "name": "client hook refused",
+        "passed": true
+      },
+      {
+        "name": "source changed after preview kept",
+        "passed": true
+      },
+      {
+        "name": "actual editor insertion and exact restore",
+        "passed": true
+      },
+      {
+        "name": "explicit source Restore works after object Undo and Redo",
+        "passed": true
+      },
+      {
+        "name": "newer edits prevent destructive restore",
+        "passed": true
+      },
+      {
+        "name": "teleport line replacement restores exactly",
+        "passed": true
+      },
+      {
+        "name": "modified supplied source prevents removal",
+        "passed": true
+      },
+      {
+        "name": "nested developer extensions are kept",
+        "passed": true
+      },
+      {
+        "name": "connection rollback keeps original core",
+        "passed": true
+      }
+    ],
+    "failed": 0,
+    "run": 39,
+    "passed": 39
+  },
+  "play": {
+    "runtime": {
+      "actors": 3,
+      "stats": {
+        "queries": 139,
+        "captures": 1203,
+        "contacts": 44,
+        "reason": "contact_check_completed",
+        "refused": 7,
+        "corrections": 0,
+        "begun": 145,
+        "cancelled": 3,
+        "errors": 0,
+        "applied": 39
+      },
+      "positions": "ServerPhysics",
+      "core": {
+        "actors": [
+          {
+            "faults": 0,
+            "latest": 1792844692.822026,
+            "epoch": 5,
+            "declaredTrust": "serverSimulated",
+            "id": "actor-1",
+            "kind": "actor",
+            "status": "captured",
+            "captured": true
+          },
+          {
+            "faults": 0,
+            "latest": 1792844692.822026,
+            "epoch": 134,
+            "declaredTrust": "serverSimulated",
+            "id": "actor-2",
+            "kind": "actor",
+            "status": "captured",
+            "captured": true
+          },
+          {
+            "faults": 0,
+            "latest": 1792844692.822026,
+            "epoch": 134,
+            "declaredTrust": "serverSimulated",
+            "id": "actor-3",
+            "kind": "actor",
+            "status": "captured",
+            "captured": true
+          }
+        ],
+        "stats": {
+          "queries": 139,
+          "providerFaults": 0,
+          "captures": 1203,
+          "lastRejection": "invalid_action",
+          "rejected": 1,
+          "contacts": 44,
+          "accepted": 138
+        },
+        "version": "3.1.0",
+        "maxRewind": 0,
+        "worldEnabled": false,
+        "time": 1792844692.822026,
+        "activeActions": 0
+      }
+    },
+    "automatic": {
+      "actors": 3,
+      "stats": {
+        "queries": 1,
+        "captures": 784,
+        "contacts": 1,
+        "reason": "move_started",
+        "refused": 0,
+        "corrections": 0,
+        "begun": 2,
+        "cancelled": 1,
+        "errors": 0,
+        "applied": 1
+      },
+      "positions": "ServerPhysics",
+      "core": {
+        "actors": [
+          {
+            "faults": 0,
+            "latest": 1792844692.821987,
+            "epoch": 2,
+            "declaredTrust": "serverSimulated",
+            "id": "actor-1",
+            "kind": "actor",
+            "status": "captured",
+            "captured": true
+          },
+          {
+            "faults": 0,
+            "latest": 1792844692.821987,
+            "epoch": 2,
+            "declaredTrust": "serverSimulated",
+            "id": "actor-2",
+            "kind": "actor",
+            "status": "captured",
+            "captured": true
+          },
+          {
+            "faults": 0,
+            "latest": 1792844692.821987,
+            "epoch": 2,
+            "declaredTrust": "serverSimulated",
+            "id": "actor-3",
+            "kind": "actor",
+            "status": "captured",
+            "captured": true
+          }
+        ],
+        "stats": {
+          "queries": 1,
+          "providerFaults": 0,
+          "captures": 784,
+          "lastRejection": "none",
+          "rejected": 0,
+          "contacts": 1,
+          "accepted": 1
+        },
+        "version": "3.1.0",
+        "maxRewind": 0,
+        "worldEnabled": false,
+        "time": 1792844692.821987,
+        "activeActions": 0
+      }
+    },
+    "cases": [
+      {
+        "name": "automatic tracking and recording",
+        "passed": true
+      },
+      {
+        "name": "missing move refuses",
+        "passed": true
+      },
+      {
+        "name": "approved target allowed once",
+        "passed": true
+      },
+      {
+        "name": "existing outcome stays game owned",
+        "passed": true
+      },
+      {
+        "name": "distant target refused",
+        "passed": true
+      },
+      {
+        "name": "cancelled move refuses",
+        "passed": true
+      },
+      {
+        "name": "finished move refuses",
+        "passed": true
+      },
+      {
+        "name": "missing profile refuses",
+        "passed": true
+      },
+      {
+        "name": "repeated server key refuses",
+        "passed": true
+      },
+      {
+        "name": "query only once",
+        "passed": true
+      },
+      {
+        "name": "source teleport invalidates move",
+        "passed": true
+      },
+      {
+        "name": "target teleport invalidates cached contacts",
+        "passed": true
+      },
+      {
+        "name": "roster change invalidates move",
+        "passed": true
+      },
+      {
+        "name": "inactive source refuses",
+        "passed": true
+      },
+      {
+        "name": "inactive target cannot receive outcome",
+        "passed": true
+      },
+      {
+        "name": "stale cached contacts refuse",
+        "passed": true
+      },
+      {
+        "name": "expired move refuses",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 1",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 2",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 3",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 4",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 5",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 6",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 7",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 8",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 9",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 10",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 11",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 12",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 13",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 14",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 15",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 16",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 17",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 18",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 19",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 20",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 21",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 22",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 23",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 24",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 25",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 26",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 27",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 28",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 29",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 30",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 31",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 32",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 33",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 34",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 35",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 36",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 37",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 38",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 39",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 40",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 41",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 42",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 43",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 44",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 45",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 46",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 47",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 48",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 49",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 50",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 51",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 52",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 53",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 54",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 55",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 56",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 57",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 58",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 59",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 60",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 61",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 62",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 63",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 64",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 65",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 66",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 67",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 68",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 69",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 70",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 71",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 72",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 73",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 74",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 75",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 76",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 77",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 78",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 79",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 80",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 81",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 82",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 83",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 84",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 85",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 86",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 87",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 88",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 89",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 90",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 91",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 92",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 93",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 94",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 95",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 96",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 97",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 98",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 99",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 100",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 101",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 102",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 103",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 104",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 105",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 106",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 107",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 108",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 109",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 110",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 111",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 112",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 113",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 114",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 115",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 116",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 117",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 118",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 119",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 120",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 121",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 122",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 123",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 124",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 125",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 126",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 127",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 128",
+        "passed": true
+      },
+      {
+        "name": "existing checker connects without runtime redesign",
+        "passed": true
+      },
+      {
+        "name": "provider must actually approve",
+        "passed": true
+      },
+      {
+        "name": "provider error pauses evidence",
+        "passed": true
+      },
+      {
+        "name": "explicit resume after provider fix",
+        "passed": true
+      },
+      {
+        "name": "existing server event path applies once",
+        "passed": true
+      },
+      {
+        "name": "existing cancel event stops outcome",
+        "passed": true
+      },
+      {
+        "name": "different existing event arguments adapt inside Hooks",
+        "passed": true
+      },
+      {
+        "name": "existing outcome arguments adapt inside Hooks",
+        "passed": true
+      },
+      {
+        "name": "optional automatic hit timing",
+        "passed": true
+      },
+      {
+        "name": "automatic timing respects cancellation",
+        "passed": true
+      },
+      {
+        "name": "client-owned physics cannot claim server simulation",
+        "passed": true
+      },
+      {
+        "name": "supplied checker accepts approved player teleport",
+        "passed": true
+      },
+      {
+        "name": "supplied checker refuses excessive horizontal movement",
+        "passed": true
+      },
+      {
+        "name": "approved teleport recovers movement evidence",
+        "passed": true
+      },
+      {
+        "name": "server motion allowance uses existing force values",
+        "passed": true
+      },
+      {
+        "name": "ordinary client walking and jumping remain usable",
+        "passed": true
+      },
+      {
+        "name": "players and extra objects discovered together",
+        "passed": true
+      },
+      {
+        "name": "supplied checker also handles server-controlled balls",
+        "passed": true
+      },
+      {
+        "name": "client-controlled ball still needs a genuine checker",
+        "passed": true
+      },
+      {
+        "name": "server-owned ball recovers with an approved reset",
+        "passed": true
+      }
+    ],
+    "provider": {
+      "actors": 3,
+      "stats": {
+        "queries": 2,
+        "captures": 786,
+        "contacts": 2,
+        "reason": "contact_check_completed",
+        "refused": 3,
+        "corrections": 0,
+        "begun": 2,
+        "cancelled": 0,
+        "errors": 1,
+        "applied": 2
+      },
+      "positions": "Provider",
+      "core": {
+        "actors": [
+          {
+            "faults": 0,
+            "latest": 1792844692.821741,
+            "epoch": 2,
+            "declaredTrust": "serverValidated",
+            "id": "actor-1",
+            "kind": "actor",
+            "status": "captured",
+            "captured": true
+          },
+          {
+            "faults": 0,
+            "latest": 1792844692.821741,
+            "epoch": 4,
+            "declaredTrust": "serverValidated",
+            "id": "actor-2",
+            "kind": "actor",
+            "status": "captured",
+            "captured": true
+          },
+          {
+            "faults": 0,
+            "latest": 1792844692.821741,
+            "epoch": 2,
+            "declaredTrust": "serverValidated",
+            "id": "actor-3",
+            "kind": "actor",
+            "status": "captured",
+            "captured": true
+          }
+        ],
+        "stats": {
+          "queries": 2,
+          "providerFaults": 0,
+          "captures": 786,
+          "lastRejection": "none",
+          "rejected": 0,
+          "contacts": 2,
+          "accepted": 2
+        },
+        "version": "3.1.0",
+        "maxRewind": 0,
+        "worldEnabled": false,
+        "time": 1792844692.821741,
+        "activeActions": 0
+      }
+    },
+    "failed": 0,
+    "run": 165,
+    "passed": 165
+  },
+  "coreRegression": {
+    "seconds": 0.11399530000016966,
+    "cases": [
+      {
+        "seconds": 0.00001759999940986745,
+        "name": "Friendly_Test / explanations do not change evidence",
+        "passed": true
+      },
+      {
+        "seconds": 0.000011399999493733048,
+        "name": "Friendly_Test / unknown result stays identifiable",
+        "passed": true
+      },
+      {
+        "seconds": 0.00014969999938330147,
+        "name": "Friendly_Test / word search is case insensitive and literal",
+        "passed": true
+      },
+      {
+        "seconds": 0.000021899999410379678,
+        "name": "Friendly_Test / form errors point to every relevant page",
+        "passed": true
+      },
+      {
+        "seconds": 0.0000075000007200287655,
+        "name": "Friendly_Test / decimal comma and decimal point",
+        "passed": true
+      },
+      {
+        "seconds": 0.00005579999924520962,
+        "name": "Friendly_Test / hidden unused dimensions do not block a ray",
+        "passed": true
+      },
+      {
+        "seconds": 0.0000774000000092201,
+        "name": "Friendly_Test / non English names and target ids",
+        "passed": true
+      },
+      {
+        "seconds": 0.0000610999995842576,
+        "name": "Friendly_Test / generated practice is clearly separated",
+        "passed": true
+      },
+      {
+        "seconds": 0.000008500001058564521,
+        "name": "History_Test / empty history rejects",
+        "passed": true
+      },
+      {
+        "seconds": 0.00007120000009308569,
+        "name": "History_Test / ring wrap bounds",
+        "passed": true
+      },
+      {
+        "seconds": 0.000019799999790848233,
+        "name": "History_Test / linear interpolation at bounded interior",
+        "passed": true
+      },
+      {
+        "seconds": 0.00000940000063565094,
+        "name": "History_Test / range age and future guards",
+        "passed": true
+      },
+      {
+        "seconds": 0.00001179999890155159,
+        "name": "History_Test / duplicate sample immutable",
+        "passed": true
+      },
+      {
+        "seconds": 0.00001449999945180025,
+        "name": "History_Test / shape transition rejects",
+        "passed": true
+      },
+      {
+        "seconds": 0.000007499998901039362,
+        "name": "History_Test / remote zone rejected",
+        "passed": true
+      },
+      {
+        "seconds": 0.00000779999936639797,
+        "name": "History_Test / invalid state rejected",
+        "passed": true
+      },
+      {
+        "seconds": 0.000007900000127847306,
+        "name": "History_Test / old epoch exact sample rejects",
+        "passed": true
+      },
+      {
+        "seconds": 0.00003370000013092067,
+        "name": "Installer_Test / all editable presets validate",
+        "passed": true
+      },
+      {
+        "seconds": 0.00004819999958272092,
+        "name": "Installer_Test / invalid configuration rejected",
+        "passed": true
+      },
+      {
+        "seconds": 0.0001905999997688923,
+        "name": "Installer_Test / all primitive templates generate",
+        "passed": true
+      },
+      {
+        "seconds": 0.00003440000000409782,
+        "name": "Installer_Test / rewind is opt in",
+        "passed": true
+      },
+      {
+        "seconds": 0.000028599999495781958,
+        "name": "Installer_Test / reference provider cannot claim trust",
+        "passed": true
+      },
+      {
+        "seconds": 0.00017880000086734071,
+        "name": "Service_Test / minimal football contact",
+        "passed": true
+      },
+      {
+        "seconds": 0.00006469999971159268,
+        "name": "Service_Test / outcomes remain game owned",
+        "passed": true
+      },
+      {
+        "seconds": 0.00007359999835898634,
+        "name": "Service_Test / forged and foreign handles",
+        "passed": true
+      },
+      {
+        "seconds": 0.00009699999827716965,
+        "name": "Service_Test / duplicate and spent contacts",
+        "passed": true
+      },
+      {
+        "seconds": 0.00010289999954693485,
+        "name": "Service_Test / speed fault quarantines until lifecycle reset",
+        "passed": true
+      },
+      {
+        "seconds": 0.00007249999907799065,
+        "name": "Service_Test / source teleport invalidates action",
+        "passed": true
+      },
+      {
+        "seconds": 0.00006089999988034833,
+        "name": "Service_Test / roster change invalidates action",
+        "passed": true
+      },
+      {
+        "seconds": 0.00005729999975301325,
+        "name": "Service_Test / historical state is immutable",
+        "passed": true
+      },
+      {
+        "seconds": 0.00003780000042752363,
+        "name": "Service_Test / eligibility predicates",
+        "passed": true
+      },
+      {
+        "seconds": 0.000042100000428035855,
+        "name": "Service_Test / rules yield fails closed",
+        "passed": true
+      },
+      {
+        "seconds": 0.00004909999915980734,
+        "name": "Service_Test / reentrant rules fail closed",
+        "passed": true
+      },
+      {
+        "seconds": 0.00005909999890718609,
+        "name": "Service_Test / active window boundaries",
+        "passed": true
+      },
+      {
+        "seconds": 0.00006279999979597051,
+        "name": "Service_Test / expired action reclaimed",
+        "passed": true
+      },
+      {
+        "seconds": 0.00006860000030428637,
+        "name": "Service_Test / capture age checked",
+        "passed": true
+      },
+      {
+        "seconds": 0.00005160000000614673,
+        "name": "Service_Test / client time ignored by default",
+        "passed": true
+      },
+      {
+        "seconds": 0.00004360000093583949,
+        "name": "Service_Test / rewind bounds",
+        "passed": true
+      },
+      {
+        "seconds": 0.00007470000127796084,
+        "name": "Service_Test / rewind callback fault",
+        "passed": true
+      },
+      {
+        "seconds": 0.0000987999992503319,
+        "name": "Service_Test / explicit covered rewind",
+        "passed": true
+      },
+      {
+        "seconds": 0.00009239999963028822,
+        "name": "Service_Test / uncertain discrete state boundary rejects",
+        "passed": true
+      },
+      {
+        "seconds": 0.00007079999886627775,
+        "name": "Service_Test / packet or capture gap rejects",
+        "passed": true
+      },
+      {
+        "seconds": 0.00006120000034570694,
+        "name": "Service_Test / unverified targets block partial success",
+        "passed": true
+      },
+      {
+        "seconds": 0.00011050000102841295,
+        "name": "Service_Test / world cover fraction and uncertainty",
+        "passed": true
+      },
+      {
+        "seconds": 0.000055700000302749686,
+        "name": "Service_Test / overlap cover requires game policy",
+        "passed": true
+      },
+      {
+        "seconds": 0.00008040000102482736,
+        "name": "Service_Test / clear world includes tangent endpoint",
+        "passed": true
+      },
+      {
+        "seconds": 0.000045700000555370934,
+        "name": "Service_Test / invalid reach profile",
+        "passed": true
+      },
+      {
+        "seconds": 0.00006129999928816687,
+        "name": "Service_Test / action profile copied",
+        "passed": true
+      },
+      {
+        "seconds": 0.00007790000017848797,
+        "name": "Service_Test / provider yield contained",
+        "passed": true
+      },
+      {
+        "seconds": 0.00008739999975659885,
+        "name": "Service_Test / snapshot validation errors contained",
+        "passed": true
+      },
+      {
+        "seconds": 0.00005430000055639539,
+        "name": "Service_Test / clock reversal rejected",
+        "passed": true
+      },
+      {
+        "seconds": 0.00006070000017643906,
+        "name": "Service_Test / action capacity and release",
+        "passed": true
+      },
+      {
+        "seconds": 0.0000365999985660892,
+        "name": "Service_Test / destroy lifecycle",
+        "passed": true
+      },
+      {
+        "seconds": 0.000027399999453336932,
+        "name": "Shapes_Test / box face tangency",
+        "passed": true
+      },
+      {
+        "seconds": 0.00002029999996011611,
+        "name": "Shapes_Test / rounded sphere box corner",
+        "passed": true
+      },
+      {
+        "seconds": 0.000011399999493733048,
+        "name": "Shapes_Test / capsule tip and corner",
+        "passed": true
+      },
+      {
+        "seconds": 0.000006600001142942347,
+        "name": "Shapes_Test / degenerate capsule",
+        "passed": true
+      },
+      {
+        "seconds": 0.000016199999663513154,
+        "name": "Shapes_Test / sweep earliest and initial overlap",
+        "passed": true
+      },
+      {
+        "seconds": 0.000011299998732283711,
+        "name": "Shapes_Test / parallel capsule ray and tangent",
+        "passed": true
+      },
+      {
+        "seconds": 0.000031099998523131944,
+        "name": "Shapes_Test / invalid primitive inputs",
+        "passed": true
+      },
+      {
+        "seconds": 0.01953949999915494,
+        "name": "Shapes_Test / 4000 independent interval box cases",
+        "passed": true
+      },
+      {
+        "seconds": 0.05033739999998943,
+        "name": "Shapes_Test / 3600 rotated pairing symmetry and invariance cases",
+        "passed": true
+      },
+      {
+        "seconds": 0.030471399999441928,
+        "name": "Shapes_Test / 2500 swept capsule distance oracle cases",
+        "passed": true
+      }
+    ],
+    "failed": 0,
+    "failures": [],
+    "run": 63,
+    "passed": 63
+  },
+  "generatedCalls": {
+    "measuredDamage": 14,
+    "expectedDamage": 14,
+    "cases": "Two valid 7-damage attacks, one cancelled attack, one miss; calls inserted by the plugin builder."
+  },
+  "gui": {
+    "layoutCases": 20,
+    "labelMeasurements": 533,
+    "overflow": 0,
+    "actualClientTabClickPassed": true,
+    "numericFocusLostParsed": 18.5,
+    "nativeDockWidgetMounted": true,
+    "nativeWindowsCapture": false,
+    "windowsErrors": [
+      "FrameArrived timed out",
+      "window capture timed out",
+      "coordinate input geometry is unavailable"
+    ],
+    "viewportReview": "The same setup View was rendered in PlayerGui for capture; its native toolbar click was not verified."
+  },
+  "freshLearningScene": {
+    "report": "{\"actors\":2,\"stats\":{\"queries\":29,\"captures\":9054,\"contacts\":29,\"reason\":\"contact_check_completed\",\"refused\":0,\"corrections\":0,\"begun\":29,\"cancelled\":0,\"errors\":0,\"applied\":29},\"attackEventLinked\":true,\"core\":{\"queries\":29,\"providerFaults\":0,\"captures\":9054,\"lastRejection\":\"none\",\"rejected\":0,\"contacts\":29,\"accepted\":29},\"version\":\"3.1.0\",\"outcomeLinked\":true,\"rewind\":0,\"paused\":[],\"positions\":\"ServerPhysics\",\"connectionBuild\":\"2026-10-24\"}",
+    "contacts": 29
+  },
+  "coreSourceParity": [
+    {
+      "file": "src/init.luau",
+      "identical": true
+    },
+    {
+      "file": "src/Contract.luau",
+      "identical": true
+    },
+    {
+      "file": "src/Geometry.luau",
+      "identical": true
+    },
+    {
+      "file": "src/Guard.luau",
+      "identical": true
+    },
+    {
+      "file": "src/Help.luau",
+      "identical": true
+    },
+    {
+      "file": "src/History.luau",
+      "identical": true
+    },
+    {
+      "file": "src/Shapes.luau",
+      "identical": true
+    },
+    {
+      "file": "src/Types.luau",
+      "identical": true
+    }
+  ],
+  "networkSettingsChanged": false,
+  "nativeNetworkCampaign": false,
+  "limitations": [
+    "Single client; no multi-client certification",
+    "Bounded humanoid root policy on static ground",
+    "One hit query per move in supplied Connector",
+    "Rewind, exact animation reconstruction and historical obstacles remain off/not supplied",
+    "Existing accepted-input and outcome rules remain game-owned",
+    "Use one checker/group for interacting objects or coordinate movement exceptions"
+  ],
+  "reproduce": "Import dist/ChronoV3Tests.rbxmx into a disposable flat-baseplate place. See docs/connections.md and tests/ConnectionTestSetup.luau."
+}
