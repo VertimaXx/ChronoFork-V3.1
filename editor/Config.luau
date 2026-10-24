@@ -103,7 +103,9 @@ return {seconds=%s,rate=60,maxGap=%s,maxRewind=%s}
 -- A larger maxRewind alone does not enable earlier checks.
 -- Add a resolveRewind function only after deciding how your server validates delayed requests.
 ]],c.seconds,c.maxGap,c.maxRewind),
-		Bindings=string.format([[-- CONNECT YOUR GAME HERE. This file does not replace your player or move scripts.
+		Bindings=string.format([[-- ADVANCED MANUAL CONNECTIONS. The plugin's supplied Connector handles routine tracking/recording.
+-- Use page 6 for that workflow; do not start both Connector and another manual instance.
+-- This file does not replace your player or move scripts.
 -- capture is a function YOU supply. It returns a position, hitboxes and rule values at one time.
 -- "unverified": data is not approved for gameplay checks.
 -- "serverSimulated": your server calculates the data itself.
@@ -138,7 +140,9 @@ return function(chrono)
  return B
 end
 ]],c.kind,c.maxSpeed,c.maxRadius),
-		Integration=[[-- START HERE: require this module from your existing SERVER startup script.
+		Integration=[[-- LOW-LEVEL MANUAL CONSTRUCTOR. With page-6 connections, require Connector instead.
+-- Its supplied StartConnection Script handles startup. Do not create a second instance here.
+-- For a manual integration: require this module from your existing SERVER startup script.
 -- Requiring this file returns a function. Call that function once to make a Chrono instance.
 -- The instance does not move objects or start recording on its own.
 return function(overrides)

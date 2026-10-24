@@ -3,15 +3,17 @@ local Config=require(script.Parent.Config)
 local Fields=require(script.Parent.Fields)
 local Installer=require(script.Parent.Installer)
 local Preview=require(script.Parent.Preview)
+local ConnectionView=require(script.Parent.ConnectionView)
 local View={}
 local colors={background=Color3.fromRGB(17,23,32),card=Color3.fromRGB(28,37,49),text=Color3.fromRGB(237,242,249),muted=Color3.fromRGB(183,199,215),accent=Color3.fromRGB(94,225,183),error=Color3.fromRGB(255,181,163)}
 function View.Mount(parent,options)
 	local o=options or {}
 	local config=Config.Default()
+	local connectionState=ConnectionView.New()
 	local Help=require(assert(o.core,"Pass the Core ModuleScript to the setup view").Help)
 	local page,mode=1,"setup"
 	local helpTab="words"
-	local pages={"Choose an example","Choose objects","Build a hitbox","Choose game rules","Check and add code","Connect and test"}
+	local pages={"Choose an example","Choose objects","Build a hitbox","Choose game rules","Check and add code","Connect your game"}
 	local refs,advanced={},{}
 	local plan,summary,installed,lastProblem=nil,nil,nil,nil
 	local query,reason="","capture_required"
@@ -107,8 +109,8 @@ function View.Mount(parent,options)
 		local ok,object,err=pcall(Installer.Apply,plan,o.dependencies)
 		plan=nil
 		if not ok or not object then lastProblem=if ok then tostring(err) else tostring(object) status.Text="Code was not added. Read the message above." rebuild() return nil end
-		installed=object lastProblem=nil page=6
-		status.Text="Code added. Next: run the practice test.\nYour game's connections are not checked."
+		installed=object lastProblem=nil page=6 connectionState.c.kind=config.kind
+		status.Text="Core added. Next: choose your objects and add the supplied connections."
 		if o.onInstalled then o.onInstalled(object) end rebuild()
 		return object
 	end
@@ -171,11 +173,15 @@ function View.Mount(parent,options)
 		if mode=="learn" then learn() return end
 		if page==1 then
 			note("What Chrono V3 does","Your game supplies positions and hitboxes. Chrono saves them and checks whether a move touches an allowed object. Your game decides what happens next: possession, damage, stun or another result.")
+			if o.runtime then button(content,"Try a complete supplied learning scene",function()
+				local object,why=require(script.Parent.ConnectionExample).Create({Editor=script.Parent,Core=o.core,Runtime=o.runtime},o.dependencies)
+				if object then installed=object connectionState.root=object local c,l=require(script.Parent.ConnectionInstaller).Load(object) connectionState.c=c connectionState.links=l page=6 connectionState.tab="Test & restore" status.Text="Learning scene added. Press Play: the supplied events produce checked contacts. This does not certify your own game." else status.Text=tostring(why) end rebuild()
+			end) end
 			label(content,"Start with an example. You can change every setting.",16)
 			for _,entry in {{"Sports","Sports: tackle, kick or ball"},{"Melee","Melee: a close-range attack"},{"Hitscan","Instant line check: a straight shot"}} do
 				button(content,entry[2],function() config=Config.Preset(entry[1],config) invalidate() go(2) end)
 			end
-			note("Your existing game stays in charge","Keep your movement, camera, animations, visual effects and cutscenes. You will write a small connection to your server scripts. The setup creates starting code and a safe practice test; it does not understand your game's moves automatically.")
+			note("Your existing game stays in charge","Keep your camera, animations, effects and outcome rules. Page 6 supplies the connection machinery: choose objects, a position-checking option, and existing events or generated calls. Customize the delivered Hooks for unusual rules. Genuine missing game requirements are explained rather than silently assumed.")
 			button(content,"I already know my settings: continue",function() go(2) end)
 		elseif page==2 then
 			field("name") field("kind")
@@ -223,22 +229,8 @@ function View.Mount(parent,options)
 			end
 			note("What this check proves","Settings checked means these values are usable. It does not prove a player's position is safe, your game is connected, or a real move works. After adding code, run the practice example, then test your own connections.")
 		elseif page==6 then
-			local target=currentInstall()
-			if not target then note("Add the code first","Return to page 5, check the settings and add the reviewed code. You can then open the files from here.") end
-			note("1. Try the safe practice example","Open RunPractice below. In Properties, turn Enabled on. Press Play and read Output for 'Chrono V3 practice'. Stop Play, then turn that test off again. It uses made-up positions and an immediate hit period, changes no map objects, and never runs in a published game.")
-			button(content,"Open RunPractice test script",function() openObject(target and target:FindFirstChild("RunPractice")) end)
-			note("2. Connect your real game","Open Bindings. Add a function that supplies positions and hitboxes your server calculates or checks. Call Capture after each shared update. After your move script accepts a request, use BeginAction, Query during the hit period, and EndAction when the move ends or is cancelled.")
-			button(content,"Open Bindings: connections to your game",function() openObject(target and target:FindFirstChild("Bindings")) end)
-			button(content,"Open Actions: hitbox and move rules",function() openObject(target and target:FindFirstChild("Actions")) end)
-			button(content,"Open Practice: a complete small example",function() openObject(target and target:FindFirstChild("Practice")) end)
-			note("3. Apply your game's result once","A successful Query returns contacts. Your game rechecks its current rules and applies possession, damage or stun. An empty contact list is a checked miss. A failed check has no partial result. Do not apply the same returned contacts twice.")
-			note("4. Test changes and bad connections","Try joining/leaving, respawn, teleport, immunity, cancelled moves and repeated requests. Use Discontinuity after a game-approved tracking reset; Untrack removes an object. Test actual messages with Studio's Network Simulator. The practice example alone does not test your game or network.")
-			if o.inspect then button(content,"Read connected game report",function()
-				local ok,r=pcall(o.inspect)
-				if ok and type(r)=="table" and type(r.stats)=="table" then status.Text=string.format("Recorded updates: %s. Completed checks: %s. Refused checks: %s.",r.stats.captures,r.stats.accepted,r.stats.rejected)
-				else status.Text="No usable report from your game. The setup cannot confirm the connections." end
-			end) end
-			note("If a result is confusing","Use Core.Explain(reason) in code, or open Words & errors above and paste the reason code. It explains the message and the next step. Use the V3.1 setup and guide for this package.")
+			ConnectionView.Draw({content=content,status=status,note=note,button=button,label=label,card=card,place=place,connect=connect,codeBox=codeBox,rebuild=rebuild},connectionState,
+				{root=currentInstall(),runtime=o.runtime,selection=o.selection,openScript=o.openScript,dependencies=o.dependencies})
 		end
 	end
 	local helpButton=button(header,"Words & errors",function() mode=if mode=="learn" then "setup" else "learn" rebuild() end,false,true)
@@ -255,6 +247,7 @@ function View.Mount(parent,options)
 	function controller.Preview() return preview() end
 	function controller.Install() return install() end
 	function controller.Config() return table.clone(config) end
+	function controller.Connections() return connectionState end
 	function controller.Learn(text) mode="learn" helpTab="words" query=text or "" rebuild() end
 	function controller.Explain(code) mode="learn" helpTab="messages" reason=code rebuild() end
 	function controller.Destroy()
