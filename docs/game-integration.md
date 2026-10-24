@@ -1,5 +1,7 @@
 # Connect the game you already have
 
+For the V3.1 supplied connection runtime, use [Plugin connections](connections.md). It provides the lifecycle below, plus object/event selection and reviewed generated calls. The rest of this page describes the responsibilities and advanced API, not a requirement to build that machinery outside the plugin.
+
 You do not need to rewrite every animation, effect or cutscene. Connect the places where your **server** records positions, accepts moves and applies their results. Names such as ActorService in the example are your own code, not Roblox services supplied by this package.
 
 ## Four connections

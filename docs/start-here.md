@@ -1,5 +1,7 @@
 # Your first Chrono V3 connection
 
+**Using the setup plugin? Start with [Plugin connections](connections.md).** The 24 October 2026 V3.1 build supplies automatic tracking/recording, a position-source chooser, existing server-event links and generated script calls. The four low-level connections below remain available for advanced integrations; they are no longer routine machinery you must invent yourself.
+
 You can use ordinary Luau functions and tables. You do not need to learn another programming language. Keep the real code names beside the plain meanings below so you can find them in Studio.
 
 ## First understand the three jobs
@@ -42,7 +44,7 @@ Enter when the move can hit. `opens=0.12` means wait 0.12 seconds after your ser
 
 **5 — Check and add code.** Fix any listed fields. Each problem button takes you to its field. Review the destination and what will be added. Existing code is kept. The optional generated-code viewer lets you copy the exact text. Add the reviewed code only after checking it.
 
-**6 — Connect and test.** Open RunPractice, then Bindings and Actions. The plugin can select and open these files. The following section explains the practice test.
+**6 — Connect your game.** Choose objects and a position source, then add the supplied connection package. Use Events for existing server BindableEvents or Calls for generated, reviewed edits in ordinary server functions. Customize Actions and Hooks inside the package. Test & restore shows measured counters and saved script-edit records. [Follow the connection walkthrough](connections.md).
 
 ## Run a complete example before connecting your game
 
@@ -56,6 +58,8 @@ RunPractice calls the Practice module using made-up server values. It uses your 
 **Practice passing does not mean your real game is connected.** It also does not check your real move timing, movement validation or network traffic. It gives you a small working example to read and change.
 
 ## The four real connections
+
+This section describes the **advanced manual API**. If you installed Connector, it supplies tracking, Capture and action bookkeeping. Do not start a second instance or an additional recording loop.
 
 ### 1. Supply an object's data
 
