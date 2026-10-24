@@ -1,0 +1,1459 @@
+{
+  "version": "3.1.0",
+  "date": "2026-10-24",
+  "scope": "One real Studio client; no new latency or multi-client certification",
+  "pluginOperations": "Exact installed Config/Installer/ConnectionInstaller/HookBuilder Preview and Apply operations through Studio MCP; real Studio edit and Undo services; no native toolbar click claimed.",
+  "testedSetupPluginSHA256": "7245e952aacae536b404c428c911a7f8b052490a7aca5ca8fe6ae170e9b82a77",
+  "summary": {
+    "version": "3.1.0",
+    "connectionBuild": "2026-10-24",
+    "mode": "Active approval gate with original overlap and original outcomes",
+    "originalScriptsRestoredBeforeConnection": 7,
+    "originalScriptsUnchangedAfterConnection": 6,
+    "originalFilesChanged": [
+      "ServerScriptService.HitDetection"
+    ],
+    "onlyGeneratedBlocksOutsidePackage": 3,
+    "customizedSuppliedFiles": [
+      "ServerScriptService.CombatChrono.Hooks"
+    ],
+    "unchangedSuppliedSources": [
+      {
+        "path": "ServerScriptService.CombatChrono.Core",
+        "sha256": "95b81c59042845352207c72adb95e2ba2edce01d51d4a7bad1d7221d5a6b7e86"
+      },
+      {
+        "path": "ServerScriptService.CombatChrono.Core.Contract",
+        "sha256": "7d140cc5e6aaf3ba0cf3e12d3fd9a5a040a383d0cd15507426da3f86fa02479b"
+      },
+      {
+        "path": "ServerScriptService.CombatChrono.Core.Geometry",
+        "sha256": "4bfbb5bab6cb47cc570784fa8e6d3949ccb29c61fdc6dd53478c8cf1342d90d8"
+      },
+      {
+        "path": "ServerScriptService.CombatChrono.Core.Guard",
+        "sha256": "3e80f91892ee449a1a7a4b8ee1fbaad36af7d5de9192b18a4396d1eda8444f0f"
+      },
+      {
+        "path": "ServerScriptService.CombatChrono.Core.Help",
+        "sha256": "d0921d971dc390bfa51a68d5ca15346cee0a18ed3a05b7ebdaf2be10da1847ef"
+      },
+      {
+        "path": "ServerScriptService.CombatChrono.Core.History",
+        "sha256": "36e58f6870e816d6f3a4b0530292cab51fee86a1d6ad6e25f4d5af1ff3219dd8"
+      },
+      {
+        "path": "ServerScriptService.CombatChrono.Core.Shapes",
+        "sha256": "4c6ee8af6f3fdb308cf03fe30c56c19a40497ee839b001ea161d0aa9f8e7bd74"
+      },
+      {
+        "path": "ServerScriptService.CombatChrono.Core.Types",
+        "sha256": "f1fd9b3d1ca8cd306b79d34ff05236a18265eba48a49c887d0c8815255fcf08b"
+      },
+      {
+        "path": "ServerScriptService.CombatChrono.Connector",
+        "sha256": "e7f35cacf2f126280591d573ba2763dd2c62916f65b512080d69c161865e7c28"
+      },
+      {
+        "path": "StarterPlayer.StarterPlayerScripts.CombatChronoConnectionGuide",
+        "sha256": "380fbaa80ebd073c15f6fa6d39b88550c851e3139e85038e599b8bbb0a17fbd9"
+      },
+      {
+        "path": "ServerScriptService.CombatChrono.Connector.Movement",
+        "sha256": "d2c7a063ce2afc680ccd88902bdcd01cdada0aeea00efc5fe1be6e38739f742b"
+      }
+    ],
+    "compiledSources": 27,
+    "parityPassed": 59,
+    "clientInputPassed": 8,
+    "gateChecksPassed": 9,
+    "movementChecksPassed": 4,
+    "totalPassed": 80,
+    "falseMovementRefusalsInFinalFlows": 0,
+    "adapterErrors": 0,
+    "coreProviderFaults": 0,
+    "temporaryEditObjects": [],
+    "guideOpenedAndTextFits": true,
+    "fourHitComboDamage": 28,
+    "rewindEnabled": false,
+    "networkImpairment": {
+      "OutboundNetworkMinDelayMs": 0,
+      "OutboundNetworkJitterMs": 0,
+      "InboundNetworkJitterMs": 0,
+      "OutboundNetworkLossPercent": 0,
+      "InboundNetworkLossPercent": 0,
+      "InboundNetworkMinDelayMs": 0
+    },
+    "scope": "One real Studio client; no new latency or multi-client certification",
+    "savedPlaceBytes": 163439,
+    "savedPlaceSHA256": "ed504855146ec9a0503cdd81d1dfbc7a9dae0dd86c1c1a19706d101e48f8f9a9"
+  },
+  "workflow": {
+    "passed": true,
+    "scope": "One real client, original game remotes, disposable server fixtures; no new latency claim",
+    "parity": [
+      {
+        "connected": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "name": "front hit",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "distant miss",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "behind miss",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "above miss",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": true,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": true,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 1
+        },
+        "name": "front block",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "name": "rear block removed",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 1
+        },
+        "name": "forcefield",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": true,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": true,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 1
+        },
+        "name": "knocked immunity",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 30,
+          "blocked": false,
+          "knocked": true,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 30,
+          "blocked": false,
+          "knocked": true,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "name": "fourth hit knockback",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 7,
+          "damage": 7,
+          "requests": 2
+        },
+        "original": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 7,
+          "damage": 7,
+          "requests": 2
+        },
+        "name": "multiple targets",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "name": "CanQuery flags",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 1",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 2",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 3",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 4",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "name": "seeded geometry 5",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "name": "seeded geometry 6",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 7",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 8",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "name": "seeded geometry 9",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "name": "seeded geometry 10",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 11",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 12",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 13",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "name": "seeded geometry 14",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "name": "seeded geometry 15",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 16",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "name": "seeded geometry 17",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "name": "seeded geometry 18",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 19",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 20",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 21",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "name": "seeded geometry 22",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "name": "seeded geometry 23",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 24",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 25",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 26",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 27",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "name": "seeded geometry 28",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 29",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "name": "seeded geometry 30",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 31",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 32",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "name": "seeded geometry 33",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 34",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 35",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 36",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "name": "seeded geometry 37",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "name": "seeded geometry 38",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 39",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 40",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 41",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 42",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "name": "seeded geometry 43",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "name": "seeded geometry 44",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 45",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 46",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "original": {
+          "knockback": 0,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 0,
+          "requests": 0
+        },
+        "name": "seeded geometry 47",
+        "passed": true
+      },
+      {
+        "connected": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "original": {
+          "knockback": 10,
+          "blocked": false,
+          "knocked": false,
+          "extraDamage": 0,
+          "damage": 7,
+          "requests": 1
+        },
+        "name": "seeded geometry 48",
+        "passed": true
+      }
+    ],
+    "input": [
+      {
+        "passed": true,
+        "expectedRequests": 1,
+        "name": "single punch",
+        "chronoMoves": 1,
+        "requests": 1,
+        "chronoQueries": 1,
+        "expectedDamage": 7,
+        "damage": 7
+      },
+      {
+        "passed": true,
+        "expectedRequests": 0,
+        "name": "miss",
+        "chronoMoves": 1,
+        "requests": 0,
+        "chronoQueries": 0,
+        "expectedDamage": 0,
+        "damage": 0
+      },
+      {
+        "passed": true,
+        "expectedRequests": 1,
+        "name": "target blocks",
+        "chronoMoves": 1,
+        "requests": 1,
+        "chronoQueries": 1,
+        "expectedDamage": 0,
+        "damage": 0
+      },
+      {
+        "passed": true,
+        "expectedRequests": 1,
+        "name": "forcefield",
+        "chronoMoves": 1,
+        "requests": 1,
+        "chronoQueries": 1,
+        "expectedDamage": 0,
+        "damage": 0
+      },
+      {
+        "chronoMoves": 0,
+        "passed": true,
+        "requests": 0,
+        "expectedRequests": 0,
+        "name": "cancelled by stun",
+        "noMoveCreated": true,
+        "chronoQueries": 0,
+        "expectedDamage": 0,
+        "damage": 0
+      },
+      {
+        "passed": true,
+        "expectedRequests": 1,
+        "name": "click during cooldown",
+        "chronoMoves": 1,
+        "requests": 1,
+        "chronoQueries": 1,
+        "expectedDamage": 7,
+        "damage": 7
+      },
+      {
+        "passed": true,
+        "expectedRequests": 0,
+        "name": "player holds block",
+        "chronoMoves": 0,
+        "requests": 0,
+        "chronoQueries": 0,
+        "expectedDamage": 0,
+        "damage": 0
+      },
+      {
+        "chronoMoves": 4,
+        "passed": true,
+        "requests": 4,
+        "expectedRequests": 4,
+        "name": "four hit combo",
+        "comboReset": true,
+        "chronoQueries": 4,
+        "expectedDamage": 28,
+        "damage": 28
+      }
+    ],
+    "refusals": [
+      {
+        "passed": true,
+        "name": "real move starts"
+      },
+      {
+        "passed": true,
+        "name": "covered target allowed"
+      },
+      {
+        "passed": true,
+        "name": "target cannot be allowed twice"
+      },
+      {
+        "passed": true,
+        "name": "finished move refuses"
+      },
+      {
+        "passed": true,
+        "name": "cancelled move refuses"
+      },
+      {
+        "passed": true,
+        "name": "expired move refuses"
+      },
+      {
+        "passed": true,
+        "name": "cached contact refuses after target reset"
+      },
+      {
+        "passed": true,
+        "name": "unknown move refuses"
+      },
+      {
+        "passed": true,
+        "name": "invalid movement produces no damage",
+        "detail": 0
+      }
+    ]
+  },
+  "movement": {
+    "passed": true,
+    "rows": [
+      {
+        "reasons": [],
+        "name": "real client walking and jumping",
+        "passed": true,
+        "refused": 0,
+        "client": {
+          "peak": 7.489996433258057,
+          "distance": 35.97166442871094
+        },
+        "serverDistance": 36.1669921875,
+        "accepted": 42
+      },
+      {
+        "reasons": [],
+        "name": "existing slight knockback",
+        "refused": 0,
+        "damage": 7,
+        "passed": true,
+        "accepted": 14
+      },
+      {
+        "reasons": [],
+        "name": "existing stun during a legitimate jump",
+        "refused": 0,
+        "damage": 7,
+        "passed": true,
+        "accepted": 16
+      },
+      {
+        "reasons": [],
+        "name": "existing fourth-hit knockback and ragdoll",
+        "refused": 0,
+        "damage": 7,
+        "passed": true,
+        "accepted": 17
+      }
+    ]
+  },
+  "exampleSource": {
+    "path": "examples/CombatMovementHooks.luau",
+    "sha256": "1e5fd8885a816ac028f9b1baab3e39e28f6c516d64b41beb43c8ec8742316a16"
+  },
+  "harnessSources": {
+    "benchmarks/harness/combat-20261024/MovementFlow.client.luau": "970f5baec4aca02a23df2659996b53badcfdc2f4f7536de4590db9d267d5ea3f",
+    "benchmarks/harness/combat-20261024/MovementFlow.server.luau": "3af6e0f17501eeb5ebea54233c70df397ab12c685401541f32f94cb5cd5be06d",
+    "benchmarks/harness/combat-20261024/Workflow.client.luau": "f8fdf3679f5853416ff26d535567397d966e9c5547bb94ef1c5840ce85408eaf",
+    "benchmarks/harness/combat-20261024/Workflow.server.luau": "1cf3e0d978bb1a86a9d1add918b1aa6d8fc222d3f457483b23e5e7661febaaba"
+  },
+  "interpretation": [
+    "Final recorded integration checks; not a new latency, bandwidth, FPS or original-Chrono comparison.",
+    "One real Studio client. All six network impairment settings zero. Rewind disabled.",
+    "Original native overlap remains mandatory. Target sphere is only a broad admission envelope, not trusted animated-limb evidence.",
+    "Six original scripts unchanged; only three generated call blocks outside the package; supplied Hooks customized for this game.",
+    "Early diagnostic runs are not mixed into final passing case totals. Missing finisher-impulse mapping was corrected inside Hooks.",
+    "The original third-party game and its baseline source are prerequisites for reproduction and are not redistributed."
+  ]
+}
