@@ -42,6 +42,15 @@ def main():
     assert old['version'] == '3.0.0' and old['benchmark']['queries'] == 34000
     connections = json.loads((ROOT / 'benchmarks/data/v3.1-connections-2026-10-24.json').read_text())
     assert connections['version'] == '3.1.0'
+    expanded = json.loads((ROOT / 'benchmarks/data/v3.2-connector-2026-10-25.json').read_text())
+    assert expanded['version'] == '3.2.0' and expanded['coreVersion'] == '3.1.0'
+    for key in ['expandedRuntime', 'existingRuntime', 'coreTests', 'expandedEditor', 'existingEditor']:
+        suite = expanded[key]
+        assert suite['run'] == suite['passed'] and suite['failed'] == 0, key
+        assert all(row['passed'] for row in suite['cases']), key
+    assert sum(expanded[key]['run'] for key in ['expandedRuntime', 'existingRuntime', 'coreTests', 'expandedEditor', 'existingEditor']) == expanded['summary']['run']
+    for name, digest in expanded['sourceHashes'].items():
+        assert hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == digest, 'source changed after 3.2 validation: ' + name
     combat = json.loads((ROOT / 'benchmarks/data/v3.1-combat-integration-2026-10-24.json').read_text())
     assert combat['summary']['totalPassed'] == 80 and combat['summary']['onlyGeneratedBlocksOutsidePackage'] == 3
     assert combat['workflow']['passed'] and combat['movement']['passed']
@@ -90,13 +99,16 @@ def main():
     for p in [*ROOT.glob('*.md'), *(ROOT / 'docs').glob('*.md')]:
         for url in re.findall(r'\]\(([^\s)]+)\)', p.read_text(encoding='utf-8')):
             check_link(p, url)
-    archive = ROOT / 'dist/ChronoFork-3.1.0.zip'
+    archive = ROOT / ('dist/ChronoFork-' + manifest['version'] + '.zip')
     with zipfile.ZipFile(archive) as z:
         assert z.testzip() is None
         assert 'dist/ChronoV3Setup.rbxmx' in z.namelist() and 'LICENSE' in z.namelist()
         assert not any('V2WorldBridge' in n or n.endswith('.rbxl') for n in z.namelist())
     help_data = json.loads((ROOT / 'site/assets/help.json').read_text())
     assert len(help_data['terms']) == 50 and len(help_data['messages']) == 48
+    connector_help = json.loads((ROOT / 'site/assets/connector-help.json').read_text())
+    assert connector_help['version'] == '3.2.0' and len(connector_help['messages']) == 18
+    assert 'move_already_checked' in connector_help['messages']
     count = 0
     if args.luau_compile:
         for folder in ['src', 'editor', 'runtime', 'examples', 'tests']:

@@ -1,4 +1,4 @@
-"""Portable, deterministic V3.1 assets/site builder. Python 3.10+, standard library only."""
+"""Deterministic V3.2 Connector/plugin and unchanged Core 3.1 builder. Python 3.10+."""
 from pathlib import Path
 import hashlib
 import json
@@ -8,7 +8,7 @@ import xml.etree.ElementTree as ET
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = '3.1.0'
+VERSION = '3.2.0'
 UPSTREAM = '99e77a35822bca389f25a4d27d4de21249b287e0'
 
 
@@ -66,19 +66,21 @@ def build():
     asset([{**r, 'path': ['ChronoV3'] + r['path'][1:]} for r in core], 'dist/ChronoV3.rbxmx')
     asset(plugin, 'dist/ChronoV3Setup.rbxmx')
     guides = [{'path': ['ChronoV3Guides'], 'class': 'ModuleScript', 'source': text('examples/Guides.luau')},
-              {'path': ['ChronoV3Guides', 'Help'], 'class': 'ModuleScript', 'source': text('src/Help.luau')}]
+              {'path': ['ChronoV3Guides', 'Help'], 'class': 'ModuleScript', 'source': text('src/Help.luau')},
+              {'path': ['ChronoV3Guides', 'Messages'], 'class': 'ModuleScript', 'source': text('runtime/Messages.luau')}]
     asset(guides, 'dist/ChronoV3Guides.rbxmx')
     toolkit = [{'path': ['ChronoV3Toolkit'], 'class': 'Folder'}] + remap(core, ['ChronoV3Toolkit'])
     toolkit += [{**r, 'path': ['ChronoV3Toolkit', 'Setup'] + r['path'][1:]} for r in plugin]
     example = nodes('examples', 'Examples')
     example.append({'path': ['Examples', 'Guides', 'Help'], 'class': 'ModuleScript', 'source': text('src/Help.luau')})
+    example.append({'path': ['Examples', 'Guides', 'Messages'], 'class': 'ModuleScript', 'source': text('runtime/Messages.luau')})
     toolkit += remap(example, ['ChronoV3Toolkit'])
     toolkit.append({'path': ['ChronoV3Toolkit', 'ReadMe'], 'class': 'StringValue',
-                    'value': 'ChronoFork V3.1. Unofficial Chrono fork; original credit: Parihsz and contributors. Developed with OpenAI Codex / AI under VertimaXx direction. Save Setup as a Local Plugin. Open Plugins > Chrono V3 > ChronoSetup. Practice starts OFF and does not certify your game. Your server supplies checked positions and owns move authorization/outcomes. See README and CREDITS.'})
+                    'value': 'ChronoFork V3.2 Connector/plugin; unchanged Core 3.1. Unofficial Chrono fork; original credit: Parihsz and contributors. Developed with OpenAI Codex / AI under VertimaXx direction. Save Setup as a Local Plugin. Open Plugins > Chrono V3 > ChronoSetup. Practice starts OFF and does not certify your game. Your server supplies checked positions and owns move authorization/outcomes. See README and CREDITS.'})
     asset(toolkit, 'dist/ChronoV3Toolkit.rbxmx')
     validation = [{'path': ['ChronoV3Validation'], 'class': 'Folder'}]
     validation += remap(core + editor + runtime, ['ChronoV3Validation'])
-    for name in ['Campaign', 'EngineOracle', 'MatchedBenchmark', 'LoadBenchmark', 'ConnectionStudioChecks', 'ConnectionPlayChecks', 'ConnectionTestSetup']:
+    for name in ['Campaign', 'EngineOracle', 'MatchedBenchmark', 'LoadBenchmark', 'ConnectionStudioChecks', 'ConnectionPlayChecks', 'ConnectionTestSetup', 'ConnectorExpansionChecks', 'ConnectorEditorChecks', 'ConnectorExpansionSetup']:
         validation.append({'path': ['ChronoV3Validation', name], 'class': 'ModuleScript', 'source': text(f'tests/{name}.luau')})
     tests = [{'path': ['UnitTest'], 'class': 'Folder'}, {'path': ['UnitTest', 'Cases'], 'class': 'Folder'}]
     for p in sorted((ROOT / 'tests').glob('*_Test.luau')):
@@ -93,21 +95,23 @@ def build():
     files += [ROOT / n for n in ['README.md', 'LICENSE', 'NOTICE', 'CREDITS.md', 'CHANGELOG.md', 'CONTRIBUTING.md', 'SECURITY.md', 'default.project.json', '.gitattributes', '.gitignore']]
     files += list(dist.glob('*.rbxmx'))
     files += [p for p in (ROOT / 'site').rglob('*') if p.is_file() and 'downloads' not in p.parts]
-    manifest = {'version': VERSION, 'sourceDate': '2026-10-21', 'packagedDate': '2026-10-24', 'connectionBuild': '2026-10-24', 'upstreamComparisonRevision': UPSTREAM,
-                'scope': 'V3.1 code only; historical comparison data retain earlier labels',
+    manifest = {'version': VERSION, 'coreVersion': '3.1.0', 'sourceDate': '2026-10-25', 'packagedDate': '2026-10-25', 'connectionBuild': '2026-10-25', 'upstreamComparisonRevision': UPSTREAM,
+                'scope': 'V3.2 connector and plugin, unchanged V3.1 Core; historical comparison data retain earlier labels',
                 'files': {p.relative_to(ROOT).as_posix(): {'bytes': len(p.read_bytes()), 'sha256': hashlib.sha256(p.read_bytes()).hexdigest()} for p in sorted(files, key=lambda p: p.relative_to(ROOT).as_posix())}}
     (dist / 'MANIFEST.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8', newline='\n')
     files.append(dist / 'MANIFEST.json')
     archive = dist / f'ChronoFork-{VERSION}.zip'
     with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as z:
         for p in sorted(files, key=lambda p: p.relative_to(ROOT).as_posix()):
-            info = zipfile.ZipInfo(p.relative_to(ROOT).as_posix(), date_time=(2026, 10, 24, 0, 0, 0))
+            info = zipfile.ZipInfo(p.relative_to(ROOT).as_posix(), date_time=(2026, 10, 25, 0, 0, 0))
             info.create_system = 3  # Fix the ZIP creator field across Windows and Unix.
             info.compress_type = zipfile.ZIP_DEFLATED
             info.external_attr = 0o100644 << 16
             z.writestr(info, p.read_bytes(), compress_type=zipfile.ZIP_DEFLATED, compresslevel=9)
     downloads = ROOT / 'site/downloads'
     downloads.mkdir(exist_ok=True)
+    checksummed = [*sorted(dist.glob('*.rbxmx')), dist / 'MANIFEST.json', archive]
+    (dist / 'SHA256SUMS.txt').write_text(''.join(hashlib.sha256(p.read_bytes()).hexdigest() + '  ' + p.name + '\n' for p in checksummed), encoding='utf-8', newline='\n')
     for p in sorted(dist.iterdir()):
         if p.is_file():
             shutil.copyfile(p, downloads / p.name)
