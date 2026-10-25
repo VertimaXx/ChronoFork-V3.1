@@ -1,6 +1,9 @@
 local Config=require(script.Parent.ConnectionConfig)
 local Installer=require(script.Parent.ConnectionInstaller)
 local Builder=require(script.Parent.HookBuilder)
+local Picture=require(script.Parent.VolumePreview)
+local Templates=require(script.Parent.ProviderTemplates)
+local Advanced=require(script.Parent.ConnectionAdvanced)
 local V={}
 function V.New() return {c=Config.Default(),links={},tab="Objects",hook="Begin",vars={actor="character",target="target",token="chronoMove",action="Contact",velocity="velocity",duration="duration",frame="destinationCFrame",exit="return"},line=1} end
 function V.Draw(ui,state,o)
@@ -9,9 +12,11 @@ function V.Draw(ui,state,o)
 		local saved,refs=Installer.Load(root)
 		if saved then state.c=saved state.links=refs c=saved links=refs state.loadedRoot=root end
 	end
+	if root and not root:FindFirstChild("Connector") and state.seededRoot~=root then state.c=Installer.Seed(root) c=state.c state.seededRoot=root end
 	local function message(text)
 		text=tostring(text) state.notice=if #text>110 then text else nil
 		ui.status.Text=if state.notice then "Read the connection message above." else text
+		if state.notice then task.defer(ui.rebuild) end
 	end
 	local function selected() return (if o.selection then o.selection() else game:GetService("Selection"):Get())[1] end
 	local function refresh() local position=ui.content.CanvasPosition state.plan=nil state.patch=nil ui.rebuild() ui.content.CanvasPosition=position end
@@ -39,17 +44,18 @@ function V.Draw(ui,state,o)
 		state.root=candidate local loaded,refs=Installer.Load(candidate)
 		if loaded then state.c=loaded state.links=refs end refresh()
 	end)
-	local tabs=Instance.new("Frame") tabs.Name="ConnectionTabs" tabs.Size=UDim2.new(1,0,0,80) tabs.BackgroundTransparency=1 ui.place(tabs,ui.content)
-	for i,name in {"Objects","Events","Calls","Test & restore"} do
+	local tabs=Instance.new("Frame") tabs.Name="ConnectionTabs" tabs.Size=UDim2.new(1,0,0,164) tabs.BackgroundTransparency=1 ui.place(tabs,ui.content)
+	for i,name in {"Objects","Bodies","Moves","Timing","Recording","Events","Calls","Test & restore"} do
 		local b=ui.button(tabs,name,function() state.tab=name ui.rebuild() end,state.tab==name)
-		b.Size=UDim2.new(0.49,0,0,36) b.Position=UDim2.new(if i%2==0 then 0.51 else 0,0,0,if i>2 then 42 else 0)
+		b.Size=UDim2.new(0.49,0,0,36) b.Position=UDim2.new(if i%2==0 then 0.51 else 0,0,0,math.floor((i-1)/2)*42)
 	end
 	if state.notice then ui.note("Connection message",state.notice) end
 	if state.tab=="Objects" then
 		ui.note("1. Which objects participate?","Players follows player characters and respawns. Folder follows its direct child models/parts. Tag follows objects marked with the chosen CollectionService tag. References follows one selected object, or a folder of objects. Objects need a root Part, unless they are Parts themselves. Each may set a ChronoKind attribute for mixed kinds, such as player and ball.")
-		for _,name in {"Players","PlayersAndFolder","Folder","Tag","References"} do ui.button(ui.content,"Objects: "..(if name=="PlayersAndFolder" then "Players + extra objects" else name),function() c.actors=name refresh() end,c.actors==name) end
+		for _,name in {"Players","PlayersAndFolder","Folder","Tag","References","Data","PlayersAndData"} do ui.button(ui.content,"Objects: "..(if name=="PlayersAndFolder" then "Players + extra objects" elseif name=="Data" then "Server data (no Parts)" elseif name=="PlayersAndData" then "Players + server data" else name),function() c.actors=name refresh() end,c.actors==name) end
 		if c.actors=="Folder" or c.actors=="References" or c.actors=="PlayersAndFolder" then choose("Actors","Participating objects","Select an existing Workspace folder/model/Part in Explorer, then use the button. Players + extra objects follows characters automatically and adds these objects, such as a server-controlled ball.") end
 		if c.actors=="Tag" then input("Object tag","tag",c,false) end
+		if c.actors=="Data" or c.actors=="PlayersAndData" then choose("Registry","Optional pure-data object registry","No Parts needed. Snapshots(time) returns a dictionary keyed by stable text ids. Or use the generated Track/Capture calls. Customize the supplied Registry template inside this package.") end
 		input("Root Part name","root",c,false,"Usually HumanoidRootPart. A tracked Part uses itself.")
 		input("Default object kind","kind",c,false,"Match the target kinds in Actions. Use ChronoKind attributes for balls or other kinds.")
 		ui.note("2. Who checks the position?","Server physics accepts anchored or server-owned Parts only. Player-owned movement needs either the supplied limited humanoid checker or your existing independent position checker. Selecting a label does not verify movement.")
@@ -85,28 +91,39 @@ function V.Draw(ui,state,o)
 				state.plan=handle state.summary=if handle then summary else nil message(if handle then "Review the connection changes below." else summary) ui.rebuild()
 			end)
 			if state.summary and state.plan then
-				ui.note("Changes",state.summary.changes.."\n\n"..state.summary.dependency.."\n\n"..state.summary.wiring.."\nEarlier-time compensation remains off.")
+				ui.note("Changes",state.summary.changes.."\n\n"..state.summary.dependency.."\n\n"..state.summary.wiring.."\nTiming: "..c.timing.."; maximum lookback: "..c.maxRewind.." seconds.")
 				ui.button(ui.content,"Add these reviewed connections",function()
 					local obj,why=Installer.Apply(state.plan,o.dependencies) state.plan=nil state.summary=nil
 					if obj then state.root=obj message("Connection package added. Select Events or Calls to connect real attacks; Play tests the actual wiring.") else message(why) end ui.rebuild()
 				end,true)
 			end
 		end
+	elseif Advanced.Draw(state.tab,ui,state,root,c,links,{input=input,choose=choose,refresh=refresh,message=message}) then
+		-- Advanced tab drawn above.
 	elseif state.tab=="Events" then
 		ui.note("Existing server events","Use this page if your game already has BindableEvents for accepted moves and their results. Never connect a raw RemoteEvent. First authenticate the player and check cooldown, stamina and other move rules in the original server code. Select Calls for ordinary functions instead. If argument order differs, customize ReadBegin/ReadQuery/ReadCancel/ApplyOutcome in the supplied Hooks. Links take effect after Add connections / Save connection settings on Objects.")
 		choose("Begin","Accepted move event","Arguments: sourceModel, actionName, moveKey, context. actionName defaults to Contact. moveKey identifies this active move; repeated keys refuse.")
 		choose("Query","Hit moment event","Arguments: sourceModel, moveKey. Use the same key as Begin. At this moment Chrono checks contacts and sends approved targets to Outcome.")
 		choose("Cancel","Cancelled move event","Arguments: sourceModel, moveKey. Fire from every existing cancellation path before it can apply an outcome.")
 		choose("Outcome","Existing outcome event","Receives sourceModel, targetModel, actionName, context, contact. Keep existing damage/possession/block/parry rules in its server handler. Use Hooks to adapt unusual data; no universal damage amount is invented.")
-		ui.button(ui.content,if c.autoQuery then "Hit timing: automatically once when window opens" else "Hit timing: existing Query event or generated Allows call",function() c.autoQuery=not c.autoQuery refresh() end,c.autoQuery)
-		ui.note("Automatic timing is optional","Use only when one check at the opening of the hit period matches your move. It requires an Outcome event and proper cancellation links. For animation markers, existing precise timing or target loops, keep it off and use Query / Calls.")
+		ui.button(ui.content,if c.autoQuery then "Hit timing: automatic within the active window" else "Hit timing: existing Query event or generated Allows call",function() c.autoQuery=not c.autoQuery refresh() end,c.autoQuery)
+		ui.note("Automatic timing is optional","Once checks at the first saved update in the hit window. Repeated checks again at later saved updates until expiry or the total target limit. Each target is returned at most once per move. Keep cancellation linked.")
+		for _,mode in {"Once","Repeated"} do ui.button(ui.content,"Default check mode: "..mode,function() c.queryMode=mode refresh() end,c.queryMode==mode) end
+		input("Minimum time between automatic repeated checks (seconds)","queryInterval",c,true,"The recording rate also limits how often checks can run.")
 		if root and root:FindFirstChild("Connector") then ui.button(ui.content,"Save event links and timing",function() local obj,why=Installer.Save(root,c,links,o.dependencies) message(if obj then "Event links saved. Restart Play and verify the argument order." else why) end) end
 	elseif state.tab=="Calls" then
 		ui.note("Generate the calls your existing scripts need","Choose the event's meaning, enter the variable names already used by your game, and preview an insertion at a selected server-script line. The plugin supplies the surrounding tracking and recording. You choose the correct location; it does not guess the meaning of arbitrary code.")
-		for _,kind in {"Begin","Gate","Cancel","Finish","Motion","Teleport"} do ui.button(ui.content,"Call: "..kind,function() state.hook=kind state.patch=nil ui.rebuild() end,state.hook==kind) end
+		for _,kind in {"Begin","Gate","Query","Resolve","Capture","Track","Untrack","Reset","Inspect","Destroy","Cancel","Finish","Motion","Teleport"} do ui.button(ui.content,"Call: "..kind,function() state.hook=kind state.patch=nil ui.rebuild() end,state.hook==kind) end
 		input("Existing source character/object variable","actor",state.vars,false)
 		input("Move reference variable (same scope at start and hit)","token",state.vars,false)
-		input("Action name in Actions","action",state.vars,false)
+		input("Action name in Actions / move builder","action",state.vars,false)
+  if state.hook=="Capture" then state.vars.timestamp=state.vars.timestamp or "" input("Optional existing simulation timestamp variable","timestamp",state.vars,false,"Blank uses the selected clock now.") end
+  if state.hook=="Track" then
+   state.vars.id=state.vars.id or "actorId" state.vars.snapshot=state.vars.snapshot or "snapshotFunction" state.vars.objectKind=state.vars.objectKind or c.kind state.vars.trust=state.vars.trust or "unverified"
+   input("Existing stable text-id variable","id",state.vars,false) input("Existing data function variable","snapshot",state.vars,false) input("Object kind","objectKind",state.vars,false)
+   ui.note("Who supplies this data?","Unverified refuses hit decisions. Server calculated / checked are declarations about your actual game code. Selecting a trusted label does not make client data safe.")
+   for _,trust in {"unverified","serverSimulated","serverValidated"} do ui.button(ui.content,"Data declaration: "..trust,function() state.vars.trust=trust refresh() end,state.vars.trust==trust) end
+  end
 		if state.hook=="Gate" or state.hook=="Motion" then input("Existing target variable","target",state.vars,false) end
 		if state.hook=="Gate" then ui.button(ui.content,"When refused: "..state.vars.exit,function() state.vars.exit=if state.vars.exit=="return" then "continue" else "return" state.patch=nil ui.rebuild() end) end
 		if state.hook=="Motion" then input("Existing velocity variable","velocity",state.vars,false) input("Existing duration variable","duration",state.vars,false) end
@@ -136,13 +153,19 @@ function V.Draw(ui,state,o)
 		else ui.note("Call needs attention",explanation) end
 	else
 		ui.note("What counts as connected?","Setup completion is not proof of working combat. In Play, verify objects, position updates, accepted moves, contact checks and actual outcomes. A miss has zero contacts. A refusal has insufficient evidence. Test cancellations, respawns, teleports, joins/leaves and Studio network delay/loss with real clients.")
-		ui.button(ui.content,"Read the running connection report",function()
+		if root and root:FindFirstChild("Connector") then
+   ui.note("Upgrade supplied connection runtime","Explicit upgrade keeps Hooks, Actions and existing timing policy. An edited Connector refuses automatic replacement. Studio Undo restores the previous runtime.")
+   ui.button(ui.content,"Upgrade supplied Connector to "..Config.Version,function() local object,why=Installer.Upgrade(root,o.runtime,o.dependencies) message(if object then "Connector upgraded. Review settings, save and restart Play." else why) ui.rebuild() end)
+   ui.note("Provider templates inside this package","Add and open a template, customize it here, then select its ModuleScript on the relevant tab and Save. Timing and position templates deliberately refuse until real game data is supplied.")
+   for _,key in {"Provider","Registry","Clock","Timing","World"} do ui.button(ui.content,"Add "..key.." provider template",function() local object,why=Templates.Add(root,key,o.dependencies) if object then links[key]=object if o.openScript then o.openScript(object) end message("Template added and selected. Customize it, then Save settings.") else message(why) end end) end
+  end
+  ui.button(ui.content,"Read the running connection report",function()
 			local reports=game.ReplicatedStorage:FindFirstChild("_ChronoConnectionReports") local report=reports and root and reports:FindFirstChild(root.Name)
 			if not report then message("No running report. Install connections and press Play. Do not require another runtime instance from debugging tools.") return end
 			local ok,r=pcall(game.HttpService.JSONDecode,game.HttpService,report.Value)
 			if ok then state.report=r ui.rebuild() else message("Report is not ready yet.") end
 		end)
-		if state.report then local r=state.report local s=r.stats ui.note("Measured runtime",string.format("Objects: %d\nUpdates: %d\nMoves: %d\nChecks: %d\nContacts: %d\nOutcomes permitted: %d\nRefusals: %d\nCorrections: %d\nErrors: %d\nLast status: %s",r.actors,s.captures,s.begun,s.queries,s.contacts,s.applied,s.refused,s.corrections,s.errors,s.reason)) end
+		if state.report then local r=state.report local s=r.stats ui.note("Measured runtime",string.format("Objects: %d\nUpdates: %d\nMoves: %d\nChecks: %d\nContacts: %d\nOutcomes permitted: %d\nRefusals: %d\nCorrections: %d\nErrors: %d\nLast status: %s",r.actors,s.captures,s.begun,s.queries,s.contacts,s.applied,s.refused,s.corrections,s.errors,s.reason)) ui.note("Active policies","Timing: "..tostring(r.timing).."; approved delay: "..tostring(r.rewind).." / "..tostring(r.maxRewind).." seconds\nRecording: "..tostring(r.recording).."; checks: "..tostring(r.queryMode).."; obstacles: "..tostring(r.world).."\nObstacle status: "..tostring(r.worldFault or "no reported fault")) end
 		if root then
 			if root:GetAttribute("ConnectionLearningScene") then ui.button(ui.content,"Remove the supplied learning scene",function() local ok,why=require(script.Parent.ConnectionExample).Remove(root,o.dependencies) if ok then state.root=nil end message(if ok then "Learning scene removed." else why) ui.rebuild() end) end
 			for _,name in {"Hooks","Connections","Actions","Connector","RunPractice"} do ui.button(ui.content,"Open "..name.." inside the package",function() local object=root:FindFirstChild(name) if object and o.openScript then o.openScript(object) else message("Add connections first, then open the supplied file.") end end) end
@@ -151,5 +174,12 @@ function V.Draw(ui,state,o)
 			ui.button(ui.content,"Remove supplied connections (keep the Core and Actions)",function() local ok,why=Installer.Remove(root,o.dependencies) message(if ok then "Supplied connection files removed. Core and Actions remain." else why) ui.rebuild() end)
 		end
 	end
+ if state.tab~="Objects" then
+  ui.button(ui.content,"Check all connection settings",function() local ok,why=Config.Validate(c,links) message(if ok then "Settings are usable. Save or add connections, then test the actual game path in Play." else why) end)
+  if root and root:FindFirstChild("Connector") then ui.button(ui.content,"Save all connection settings and links",function() local obj,why=Installer.Save(root,c,links,o.dependencies) message(if obj then "Settings saved. Restart Play to load them. Customized code was kept." else why) end)
+  else ui.label(ui.content,"Return to Objects to review and add these connections.",14) end
+ end
 end
 return V
+
+

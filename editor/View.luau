@@ -48,7 +48,7 @@ function View.Mount(parent,options)
 		place(b,target) local c=Instance.new("UICorner") c.CornerRadius=UDim.new(0,6) c.Parent=b connect(b.Activated,callback,permanent) return b
 	end
 	local header=Instance.new("Frame") header.Name="Header" header.Position=UDim2.fromOffset(16,14) header.Size=UDim2.new(1,-32,0,96) header.BackgroundTransparency=1 header.Parent=root
-	local brand=label(header,"CHRONO V3  /  3.1",14,colors.accent) brand.Size=UDim2.new(0.48,0,0,28) brand.AutomaticSize=Enum.AutomaticSize.None
+	local brand=label(header,"CHRONO V3  /  3.2",14,colors.accent) brand.Size=UDim2.new(0.48,0,0,28) brand.AutomaticSize=Enum.AutomaticSize.None
 	local title=label(header,"",22) title.Position=UDim2.fromOffset(0,42) title.Size=UDim2.new(1,0,0,54) title.AutomaticSize=Enum.AutomaticSize.None
 	local content=Instance.new("ScrollingFrame") content.Name="Content" content.Position=UDim2.fromOffset(16,116) content.Size=UDim2.new(1,-32,1,-238)
 	content.BackgroundTransparency=1 content.BorderSizePixel=0 content.ScrollBarThickness=5 content.AutomaticCanvasSize=Enum.AutomaticSize.Y content.CanvasSize=UDim2.new() content.Parent=root
@@ -143,7 +143,8 @@ function View.Mount(parent,options)
 		label(errors,"Paste a reason code from your result or Output. Example: target_state_boundary.",14,colors.muted)
 		local input=Instance.new("TextBox") input.Name="ReasonCode" input.Size=UDim2.new(1,0,0,38) input.Text=reason input.ClearTextOnFocus=false input.Font=Enum.Font.Code input.TextSize=14 input.TextColor3=colors.text input.BackgroundColor3=colors.background place(input,errors)
 		connect(input.FocusLost,function() reason=input.Text:match("^%s*(.-)%s*$") rebuild() end)
-		local h=Help.Explain(reason) label(errors,h.title,17) if h.subject then label(errors,h.subject,14,colors.muted) end
+		local extra=o.runtime and o.runtime:FindFirstChild("Messages")
+		local h=(extra and require(extra).Explain(reason)) or Help.Explain(reason) label(errors,h.title,17) if h.subject then label(errors,h.subject,14,colors.muted) end
 		label(errors,"What happened: "..h.meaning,14) label(errors,"What to do: "..h.fix,14,colors.accent)
 		return end
 		local search=Instance.new("TextBox") search.Name="WordSearch" search.Size=UDim2.new(1,0,0,40) search.PlaceholderText="Type a word, then press Enter" search.Text=query search.ClearTextOnFocus=false search.Font=Enum.Font.Gotham search.TextSize=15 search.TextColor3=colors.text search.PlaceholderColor3=colors.muted search.BackgroundColor3=colors.card place(search,content)
@@ -154,6 +155,7 @@ function View.Mount(parent,options)
 		for _,entry in entries do local f=card(content) label(f,entry[2],17,colors.accent) label(f,"Code / technical word: "..entry[1],13,colors.muted) label(f,entry[3],14) label(f,"Example: "..entry[4],14,colors.muted) end
 	end
 	rebuild=function()
+		if destroyed then return end
 		for _,c in pageConnections do c:Disconnect() end table.clear(pageConnections) table.clear(fieldsByKey)
 		for _,v in content:GetChildren() do if v~=contentLayout then v:Destroy() end end
 		content.CanvasPosition=Vector2.zero

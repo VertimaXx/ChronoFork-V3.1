@@ -99,10 +99,10 @@ return {
 -- rate: expected updates per second. This sizes the storage; your script still calls Capture.
 -- maxGap: largest time gap across which Chrono may estimate an in-between position.
 -- maxRewind: largest earlier time your SERVER timing rule may approve. Zero is simplest.
-return {seconds=%s,rate=60,maxGap=%s,maxRewind=%s}
+return {seconds=%s,rate=60,maxGap=%s,maxRewind=%s,maxSpeed=%s,maxRadius=%s}
 -- A larger maxRewind alone does not enable earlier checks.
 -- Add a resolveRewind function only after deciding how your server validates delayed requests.
-]],c.seconds,c.maxGap,c.maxRewind),
+]],c.seconds,c.maxGap,c.maxRewind,c.maxSpeed,c.maxRadius),
 		Bindings=string.format([[-- ADVANCED MANUAL CONNECTIONS. The plugin's supplied Connector handles routine tracking/recording.
 -- Use page 6 for that workflow; do not start both Connector and another manual instance.
 -- This file does not replace your player or move scripts.

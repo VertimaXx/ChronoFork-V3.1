@@ -1,6 +1,17 @@
 local Config=require(script.Parent.ConnectionConfig)
 local I={}
-local OWNER="ChronoV3Connections-20261024"
+local OWNER="ChronoV3Connections-20261025"
+local linkNames={"Actors","Provider","Registry","Clock","Timing","World","Obstacles","Begin","Query","Cancel","Outcome","Capture"}
+local function connectorClone(runtime)
+	local connector=runtime:Clone() connector.Name="Connector"
+	if connector:FindFirstChild("Guide.client") then connector["Guide.client"]:Destroy() end
+	if connector:FindFirstChild("Hooks") then connector.Hooks.Name="DefaultHooks" end
+	return connector
+end
+local function sourceObject(root,name,guide)
+	if guide and name==guide.Name then return guide end
+	local object=root for segment in name:gmatch("[^.]+") do object=object and object:FindFirstChild(segment) end return object
+end
 local plans=setmetatable({}, {__mode="k"})
 local startup=[[-- Supplied by the Chrono connection wizard. Your game owns accepted inputs and outcomes.
 local ok,why=pcall(function() require(script.Parent.Connector).Start() end)
@@ -19,7 +30,7 @@ function I.Preview(root,c,links,runtime)
 	if not runtime or not runtime:FindFirstChild("Movement") or not runtime:FindFirstChild("Hooks") then return nil,"This plugin is missing its connection package. Install the complete new setup file." end
 	if root:FindFirstChild("Connector") then return nil,"Connections already exist here. Use Save connection settings; your customized Hooks and runtime will be kept." end
 	for _,name in {"Connections","ConnectionData","Hooks","ConnectionLinks","StartConnection","ConnectionRecord","ConnectionPatches"} do if root:FindFirstChild(name) then return nil,"A file named "..name.." already exists. Choose a fresh code group; no existing file was replaced." end end
-	local copy=table.clone(c) local refs=table.clone(links or {})
+	local copy=Config.Normalize(c) local refs=table.clone(links or {})
 	local handle=table.freeze({})
 	plans[handle]={root=root,c=copy,links=refs,runtime=runtime}
 	return handle,{destination=root:GetFullName(),positions=c.positions,
@@ -46,14 +57,13 @@ function I.Apply(handle,d)
 	local function write(object,source) editor:UpdateSourceAsync(object,function() return source end) end
 	local function remember(object) table.insert(created,object) object:SetAttribute("ChronoConnectionOwner",OWNER) return object end
 	local ok,err=pcall(function()
-		local connector=remember(p.runtime:Clone()) connector.Name="Connector"
-		for _,child in connector:GetChildren() do if child.Name~="Movement" then child:Destroy() end end
+		local connector=remember(connectorClone(p.runtime))
 		connector.Parent=root
 		local hooks=remember(p.runtime.Hooks:Clone()) hooks.Name="Hooks" hooks.Parent=root
 		local config=remember(Instance.new("ModuleScript")) config.Name="Connections" write(config,connectionSource) config.Parent=root
 		local data=remember(Instance.new("StringValue")) data.Name="ConnectionData" data.Value=game.HttpService:JSONEncode(c) data.Parent=root
 		local links=remember(Instance.new("Folder")) links.Name="ConnectionLinks"
-		for _,key in {"Actors","Provider","Begin","Query","Cancel","Outcome"} do local v=Instance.new("ObjectValue") v.Name=key v.Value=p.links[key] v.Parent=links end
+		for _,key in linkNames do local v=Instance.new("ObjectValue") v.Name=key v.Value=p.links[key] v.Parent=links end
 		links.Parent=root
 		local boot=remember(Instance.new("Script")) boot.Name="StartConnection" write(boot,startup) boot.Parent=root
 		local patches=remember(Instance.new("Folder")) patches.Name="ConnectionPatches" patches.Parent=root
@@ -66,11 +76,11 @@ function I.Apply(handle,d)
 		for _,obj in created do
 			if obj:IsA("LuaSourceContainer") then table.insert(sources,{name=obj.Name,source=obj.Source}) end
 		end
-		table.insert(sources,{name="Connector.Movement",source=connector.Movement.Source})
+		for _,obj in connector:GetDescendants() do if obj:IsA("LuaSourceContainer") then table.insert(sources,{name="Connector."..obj.Name,source=obj.Source}) end end
 		local record=remember(Instance.new("StringValue")) record.Name="ConnectionRecord"
 		record.Value=game:GetService("HttpService"):JSONEncode(sources) record.Parent=root
 		root:SetAttribute("ConnectionSettings",game:GetService("HttpService"):JSONEncode(c))
-		root:SetAttribute("ConnectionBuild","2026-10-24") root:SetAttribute("GameAdapterExercised",false)
+		root:SetAttribute("ConnectionBuild",Config.Build) root:SetAttribute("GameAdapterExercised",false)
 	end)
 	if not ok then for i=#created,1,-1 do created[i]:Destroy() end history:FinishRecording(recording,Enum.FinishRecordingOperation.Cancel) return nil,"Connection installation was undone: "..tostring(err) end
 	history:FinishRecording(recording,Enum.FinishRecordingOperation.Commit) plans[handle]=nil
@@ -82,12 +92,14 @@ function I.Load(root)
 	local ok,c=pcall(game.HttpService.JSONDecode,game.HttpService,root.ConnectionData.Value)
 	if not ok then return nil,"Stored settings are unavailable. Your existing code was kept." end
 	local links={} for _,v in root.ConnectionLinks:GetChildren() do if v:IsA("ObjectValue") then links[v.Name]=v.Value end end
-	return c,links
+	return Config.Normalize(c),links
 end
 function I.Save(root,c,links,d)
 	if game:GetService("RunService"):IsRunning() then return nil,"Stop Play before saving settings." end
 	local old,why=I.Load(root) if not old then return nil,why end
+	if not root.Connector:FindFirstChild("Configuration") then return nil,"Upgrade the supplied Connector in Test & restore before saving new settings. Existing code was kept." end
 	local ok,reason=Config.Validate(c,links) if not ok then return nil,reason end
+	c=Config.Normalize(c)
 	if c.guide~=old.guide then return nil,"Guide installation stays as originally chosen. You can disable its LocalScript, or remove and reinstall the connection package." end
 	local _,editor=dependencies(d)
 	local original=editor:GetEditorSource(root.Connections)
@@ -95,20 +107,77 @@ function I.Save(root,c,links,d)
 	for _,row in rows do if row.name=="Connections" and row.source~=original then return nil,"Connections was edited manually. Copy those settings into the wizard before saving, or keep the manual file. Your code was kept." end end
 	local history,editor=dependencies(d) local rec=history:TryBeginRecording("ChronoConnectionSettings","Update Chrono connection settings")
 	if not rec then return nil,"Studio could not start an Undo step." end
-	local oldAttribute=root:GetAttribute("ConnectionSettings") local oldData=root.ConnectionData.Value local oldLinks={}
+	local oldAttribute=root:GetAttribute("ConnectionSettings") local oldData=root.ConnectionData.Value local oldLinks={} local added={}
 	for _,v in root.ConnectionLinks:GetChildren() do table.insert(oldLinks,{object=v,value=v.Value}) end
 	local changed,err=pcall(function()
 		assert(editor:GetEditorSource(root.Connections)==original,"Settings reader changed during the save. Review again.")
 		root.ConnectionData.Value=game.HttpService:JSONEncode(c)
-		for _,row in oldLinks do row.object.Value=links[row.object.Name] end
+		for _,name in linkNames do if not root.ConnectionLinks:FindFirstChild(name) then local v=Instance.new("ObjectValue") v.Name=name v.Parent=root.ConnectionLinks table.insert(added,v) end end
+		for _,v in root.ConnectionLinks:GetChildren() do v.Value=links[v.Name] end
 		root:SetAttribute("ConnectionSettings",game.HttpService:JSONEncode(c))
 	end)
 	if not changed then
 		root.ConnectionData.Value=oldData
+		for _,v in added do v:Destroy() end
 		for _,row in oldLinks do row.object.Value=row.value end root:SetAttribute("ConnectionSettings",oldAttribute)
 		history:FinishRecording(rec,Enum.FinishRecordingOperation.Cancel) return nil,tostring(err)
 	end
 	history:FinishRecording(rec,Enum.FinishRecordingOperation.Commit) return root
+end
+function I.Seed(root)
+	local c=Config.Default()
+	local data=root and root:FindFirstChild("SetupData")
+	if data then local ok,v=pcall(game.HttpService.JSONDecode,game.HttpService,data.Value) if ok then
+		c.kind=v.kind c.historySeconds=v.seconds c.maxGap=v.maxGap c.maxRewind=v.maxRewind c.recordMaxSpeed=v.maxSpeed c.recordMaxRadius=v.maxRadius
+	end end
+	return c
+end
+-- Explicit upgrade, separate from Save. Never replaces an edited Connector.
+-- Hooks/Actions stay intact; newly supplied defaults fill only missing hook functions.
+function I.Upgrade(root,runtime,d)
+	if game:GetService("RunService"):IsRunning() then return nil,"Stop Play before upgrading." end
+	local c,links=I.Load(root) if not c then return nil,links end
+	if not runtime or not runtime:FindFirstChild("Configuration") then return nil,"Complete new plugin required." end
+	local history,editor=dependencies(d)
+	local oldRecord=root.ConnectionRecord.Value local rows=game.HttpService:JSONDecode(oldRecord) local kept={}
+ local expected={}
+ local guide=game.StarterPlayer.StarterPlayerScripts:FindFirstChild(root.Name.."ConnectionGuide")
+ local guideBefore local guideAfter=runtime["Guide.client"].Source
+	for _,row in rows do
+		if row.name=="Connector" or row.name:sub(1,10)=="Connector." then
+			local object=sourceObject(root,row.name) if not object or editor:GetEditorSource(object)~=row.source then return nil,"Connector was customized: "..row.name..". Keep your changes; install a fresh code group to compare." end
+			expected[row.name]=true
+		else
+			if guide and row.name==guide.Name and editor:GetEditorSource(guide)==row.source then
+				guideBefore=row.source row=table.clone(row) row.source=guideAfter
+			end
+			table.insert(kept,row)
+		end
+	end
+	for _,object in root.Connector:GetDescendants() do if not expected["Connector."..object.Name] then return nil,"Connector contains an extension. Keep it before choosing an upgrade." end end
+	local rec=history:TryBeginRecording("ChronoUpgradeConnections","Upgrade supplied Chrono connector") if not rec then return nil,"Studio could not start an Undo step." end
+	local old=root.Connector local fresh local oldBuild=root:GetAttribute("ConnectionBuild") local oldData=root.ConnectionData.Value local oldAttribute=root:GetAttribute("ConnectionSettings") local added={}
+	local ok,err=pcall(function()
+		fresh=connectorClone(runtime) fresh:SetAttribute("ChronoConnectionOwner",OWNER)
+		old.Parent=nil fresh.Parent=root
+		if guideBefore then
+			assert(editor:GetEditorSource(guide)==guideBefore,"Guide changed during upgrade")
+			editor:UpdateSourceAsync(guide,function(current) return if current==guideBefore then guideAfter else nil end)
+			assert(editor:GetEditorSource(guide)==guideAfter,"Guide changed during upgrade")
+		end
+		table.insert(kept,{name="Connector",source=fresh.Source})
+		for _,object in fresh:GetDescendants() do if object:IsA("LuaSourceContainer") then table.insert(kept,{name="Connector."..object.Name,source=object.Source}) end end
+		for _,name in linkNames do if not root.ConnectionLinks:FindFirstChild(name) then local v=Instance.new("ObjectValue") v.Name=name v.Parent=root.ConnectionLinks table.insert(added,v) end end
+		root.ConnectionData.Value=game.HttpService:JSONEncode(c) root:SetAttribute("ConnectionSettings",root.ConnectionData.Value)
+		root.ConnectionRecord.Value=game.HttpService:JSONEncode(kept) root:SetAttribute("ConnectionBuild",Config.Build)
+	end)
+	if not ok then
+		if fresh then fresh:Destroy() end old.Parent=root for _,v in added do v:Destroy() end
+		if guideBefore and editor:GetEditorSource(guide)==guideAfter then editor:UpdateSourceAsync(guide,function() return guideBefore end) end
+		root.ConnectionRecord.Value=oldRecord root.ConnectionData.Value=oldData root:SetAttribute("ConnectionSettings",oldAttribute) root:SetAttribute("ConnectionBuild",oldBuild)
+		history:FinishRecording(rec,Enum.FinishRecordingOperation.Cancel) return nil,tostring(err)
+	end
+	old:Destroy() history:FinishRecording(rec,Enum.FinishRecordingOperation.Commit) return root
 end
 function I.Remove(root,d)
 	if game:GetService("RunService"):IsRunning() then return nil,"Stop Play before removing connections." end
@@ -117,19 +186,19 @@ function I.Remove(root,d)
 	local _,editor=dependencies(d)
 	local guide=game.StarterPlayer.StarterPlayerScripts:FindFirstChild(root.Name.."ConnectionGuide")
 	local connector=root:FindFirstChild("Connector")
-	if connector then for _,child in connector:GetDescendants() do if child~=connector:FindFirstChild("Movement") then return nil,"Additional content inside Connector was kept. Move or back up your extension before removing supplied connections." end end end
+	local supplied={} for _,row in game.HttpService:JSONDecode(root.ConnectionRecord.Value) do supplied[row.name]=true end
+	if connector then for _,child in connector:GetDescendants() do if not supplied["Connector."..child.Name] then return nil,"Additional content inside Connector was kept. Move or back up your extension before removing supplied connections." end end end
 	for _,name in {"Hooks","Connections","ConnectionData","StartConnection","ConnectionRecord"} do local child=root:FindFirstChild(name) if child and #child:GetChildren()>0 then return nil,"Additional content inside "..name.." was kept. Move or back up that extension first." end end
 	if guide and #guide:GetChildren()>0 then return nil,"The guide contains extra content. Keep that extension before removing the guide." end
 	for _,row in game.HttpService:JSONDecode(root.ConnectionRecord.Value) do
 		local connector=root:FindFirstChild("Connector")
-		local object=if row.name=="Connector.Movement" then connector and connector:FindFirstChild("Movement") else root:FindFirstChild(row.name)
-		if row.name==root.Name.."ConnectionGuide" then object=guide end
+		local object=sourceObject(root,row.name,guide)
 		if not object or editor:GetEditorSource(object)~=row.source then return nil,"Customized or missing file: "..row.name..". Keep a copy of your edits before removing the package." end
 	end
 	local history=dependencies(d) local recording=history:TryBeginRecording("ChronoRemoveConnections","Remove supplied Chrono connections")
 	if not recording then return nil,"Studio could not start an Undo step." end
-	for _,child in root:GetChildren() do if child:GetAttribute("ChronoConnectionOwner")==OWNER then child:Destroy() end end
-	if guide and guide:GetAttribute("ChronoConnectionOwner")==OWNER then guide:Destroy() end
+	for _,child in root:GetChildren() do if tostring(child:GetAttribute("ChronoConnectionOwner")):match("^ChronoV3Connections%-%d+$") then child:Destroy() end end
+	if guide and tostring(guide:GetAttribute("ChronoConnectionOwner")):match("^ChronoV3Connections%-%d+$") then guide:Destroy() end
 	root:SetAttribute("ConnectionBuild",nil) root:SetAttribute("ConnectionSettings",nil)
 	history:FinishRecording(recording,Enum.FinishRecordingOperation.Commit) return true
 end
