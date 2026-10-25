@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.2.0 — 2026-10-25
+
+- Expanded Connector and its eight control tabs to expose existing Core timing, recording, data actor, query and obstacle capabilities. Core 3.1 source/math unchanged.
+- Added Present / measured-ping / provider timing, explicit lookback limits and candidate-delivery requirements; removed the forced zero rewind.
+- Added repeated active-window checks with whole-move duplicate/target limits, manual/event Capture and custom clocks, data-only actors/registries and recording-limit overrides.
+- Added named body areas, visual multi-move profiles with offsets/rotation, static obstacle boxes and in-package historical-provider templates.
+- Expanded generated calls, runtime policy reports, plain-language explanations and Studio guide. Added explicit source-checked runtime upgrades preserving customized Hooks/Actions.
+- Passed 222 expanded runtime checks (160 randomized differential cases), 165 existing connection checks, 63 Core tests, 61 new editor checks and 39 existing editor checks: 550 total. These are integration checks, not new native network/performance benchmarks.
+
 ## Existing-game integration example — 2026-10-24
 
 - Added a complete combat walkthrough: three plugin-generated calls in one existing script, with game-specific movement mapping inside supplied Hooks.
@@ -32,4 +41,4 @@
 - Published scope is ChronoFork V3.1 only, with portable source builds, Studio assets, a documentation website and explicit upstream/AI credits.
 - Earlier measurements retain their original version labels. Historical branch code and the external legacy-world bridge are excluded.
 
-This file covers the V3.1 release. Earlier branch results are preserved only in the comparison archive.
+This file covers the current 3.2 package and dated 3.1 changes. Earlier branch results remain comparison-only evidence.
