@@ -1,5 +1,57 @@
 # Integration contract
 
+**Connector/plugin 3.2.0; unchanged Core 3.1.0.** Most games should use the supplied Connector through [plugin connections](connections.md). Core's lower-level API remains an alternative. Do not start both for the same connection group.
+
+## Supplied Connector API
+
+Use server-side dot calls: `local C = require(game.ServerScriptService.ChronoV3Integration.Connector)`. StartConnection supplies initial startup. Share this ordinary-server instance; debugging tools can have separate require caches.
+
+| Function | Result / meaning |
+|---|---|
+| C.Start() | Start once from saved settings, linked providers, Hooks and Actions/built moves |
+| C.Begin(actor, name?, serverContext?, key?) | Token or nil/reason; after game authorization. Name defaults to Contact. Optional key must be unique among this actor's active moves |
+| C.Query(token) | Successful evidence result or nil/reason; no outcome delivery |
+| C.Allows(token, target) | Boolean plus contact/reason; approve a target once while evidence is fresh |
+| C.Resolve(token) | Query/deliver through Outcome and OnContact; result or nil/reason |
+| C.Cancel(token), C.Finish(token) | End move reference; return whether one existed |
+| C.Capture(time?) | True on successful common capture, otherwise nil/reason |
+| C.Track(id, binding) | Register data id with kind, capture, optional trust/maxSpeed/maxRadius; trust defaults unverified |
+| C.Untrack(id) | Remove manually registered data object |
+| C.Discontinuity(actor, reason?), C.Resume(actor) | Reset interrupted records after approved change/provider repair |
+| C.AllowMotion(actor, velocity, seconds) | Supplied humanoid checker: permit existing server-approved impulse; creates no force |
+| C.Teleport(actor, frame) | Perform approved physical teleport and reset records; data objects update game data then use Discontinuity |
+| C.Inspect() | Configuration/counters, per-object limits and nested Core report |
+| C.Explain(reasonOrResult) | Plain-language Connector/Core explanation |
+| C.Destroy() | Disconnect/destroy this runtime; later public calls start it again |
+
+Physical actors/targets use their Model/Part. Data objects use text ids. **Connector contact.target is the game-facing key; contact.id is an internal Core id.** Core-only users receive the ids passed to Core.Track.
+
+Failure forms differ: Connector.Query/Resolve returns nil plus a reason; Core.Query returns an ok=false table. A successful empty contact list is a miss; refusal means insufficient evidence.
+
+Once permits one successful query. Repeated permits later captures during the window. Same-capture duplicates refuse but keep the repeated move available. Every target and maxTargets are consumed across the whole move. A fresh pending Query result can be delivered through Allows/Resolve; do not apply an outcome through both paths.
+
+Heartbeat records periodically and refreshes on move/query/approval calls. Rate sizes storage and schedules periodic samples; it does not cap on-demand samples. Manual/Event records at your explicit simulation call/event. Capture timestamps strictly increase, stay no later than the chosen clock and fit maxGap. Faster-than-configured recording can evict history earlier.
+
+Present is default. Measured-ping estimates one-way delay from half the server's round-trip measurement plus optional known display delay. Provider timing returns a server-approved delay. Earlier modes require positive maxRewind within history and Chrono candidate delivery. The ceiling alone never enables rewind. Core uncertainty checks stay active.
+
+### In-package provider interfaces
+
+| Module | Default interface / contract |
+|---|---|
+| Position Provider | Snapshot(object,time) → {ok=true,root,zones,state}, after independent calculation/checking |
+| Registry | Snapshots(time) → dictionary of text ids with ok/root/zones/state and optional kind/maxSpeed/maxRadius |
+| Clock | Now() → finite seconds shared with simulation/providers |
+| Timing | Resolve(actor,serverContext,captureTime,maximum) → approved delay from zero to maximum, fixed for the move |
+| World | Check(queryTime,currentTime,sweep) → {covered=true,blocked=boolean,fraction=0..1}; unknown history refuses |
+
+Add/open templates through Test & restore. Map existing APIs inside Hooks.ProviderSnapshot, DataSnapshots, Clock, ResolveRewind and WorldCheck. Other Hooks map state, eligibility, bounds, player ownership and event arguments. Callbacks may not yield or reenter Connector.
+
+StaticBoxes supplies conservative bounds for selected anchored Parts. Moving historical cover/terrain needs actual historical data. See [all controls and limits](connector-controls.md).
+
+## Unchanged Core 3.1 reference
+
+The rest of this page describes the low-level API, rather than extra machinery required outside the plugin.
+
 New to these terms? Read [the beginner walkthrough](start-here.md) or open [the searchable handbook](../site/start-here.html) first. The plugin's **Words & errors** explains terms such as authoritative, history, snapshot, root, epoch, interpolation and provider. The reference below keeps precise API names so you can find them in code.
 
 V3.1 adds optional `Core.Explain(reasonOrResult)` with `{code, known, subject, title, meaning, fix}` and public type definitions in `Core.Types` for Studio code suggestions. It does not relax a hit check or approve data. Existing method names and reason codes remain available.
@@ -105,7 +157,7 @@ Successful queries consume that frame for the handle. Repeated queries at that c
 Cover-enabled profiles currently support rays/swept spheres only. The world callback must return `{covered=true, blocked=false, fraction=1}` for a fully checked clear sweep, or `{covered=true, blocked=true, fraction=f}` for a checked blocker at travel fraction f. Unknown coverage returns `{covered=false}` and rejects. Cover wins exact contact ties. The provider must check initial overlap and historical geometry/lifecycle, not merely current map geometry.
 
 
-`ChronoV3Guides.rbxmx` packages the optional in-game guide with its Help child. Source users can call `Mount(screenGui, optionalMetricsGetter, optionalHelpModule)`. The earlier first two arguments still work. It creates no remote; feed it sanitized metrics through your existing authorized debug channel if desired. It is optional and should be gated by your game's developer access rules. Code inside a guide is explanatory; its existence does not certify a game adapter.
+`ChronoV3Guides.rbxmx` packages the current in-game learning guide with Core Help and Connector Messages children. Source users can call `Mount(screenGui, optionalMetricsGetter, optionalHelpModule)`. The first two arguments remain compatible. The guide supports Core and Connector inspection counters, selectable-policy explanations and both sets of reason messages. It creates no remote; supply sanitized metrics through an existing authorized debug channel and gate it by developer access. Its presence does not certify an adapter.
 
 `Inspect()` returns a frozen report with actors, **declared** trust, capture state, faults, action count and counters. Accepted queries demonstrate service execution, not correctness of the game outcome handler. GUI configuration checks, runtime counters and trust declarations are deliberately separate.
 

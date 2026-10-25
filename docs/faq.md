@@ -1,8 +1,8 @@
 # Frequently asked questions
 
-## Is this official Chrono 3.1?
+## Is this an official upstream Chrono release?
 
-No. **ChronoFork V3.1** names this unofficial competitive branch. [Parihsz/Chrono](https://github.com/Parihsz/Chrono) is the original project. Upstream credit and the MIT notice are preserved. AI assistance is credited in [CREDITS.md](../CREDITS.md).
+No. **ChronoFork V3.2** is this unofficial branch's current package: Connector/plugin 3.2 and unchanged Core 3.1. [Parihsz/Chrono](https://github.com/Parihsz/Chrono) is the original project. Upstream credit, AI assistance and the MIT notice are preserved in [CREDITS.md](../CREDITS.md).
 
 ## Will it make every competitive game accurate after one click?
 
@@ -19,6 +19,18 @@ The package does not replace them. Connect your existing server events. Exact an
 ## Does setting trust to serverValidated check movement?
 
 No. The label describes validation your code already performs. Reading a client-owned part from a server Script is not a movement validator.
+
+## Can I enable lag compensation through the plugin?
+
+Yes. Choose measured-ping or provider timing, set a positive maximum lookback within saved history, and use targets returned by Chrono through Resolve/Query. Present is the default. maxRewind alone only sets a ceiling. A gate after a present-part target search cannot discover missing historical targets. See [Timing controls](connector-controls.md#earlier-positions).
+
+## Can one move check more than once?
+
+Yes. Choose Repeated globally or per move. Later captures can produce new targets during the active window. A target is returned at most once, and the target cap spans the whole move. Use separate accepted moves for deliberate repeated hits on the same target.
+
+## Does the game need Parts or an automatic recording loop?
+
+No. Data-only objects can use a registry or generated Track/Untrack calls. Manual/Event recording and a shared clock can follow an existing server simulation. The plugin supplies the connection path; it does not create a simulation your game lacks.
 
 ## What is history?
 
@@ -46,7 +58,7 @@ No universal claim is supported. The earlier checked-history microbenchmark took
 
 ## Why do the plugin and code still say Chrono V3?
 
-Existing toolbar, object and method names remain compatible. The module's `Version` value is `3.1.0`; the public project name is ChronoFork V3.1.
+Existing toolbar, object and method names remain compatible. Core's `Version` remains `3.1.0`. Connector/plugin are now `3.2.0`; the repository URL retains ChronoFork-V3.1. See [full plugin controls and upgrade steps](connector-controls.md). Historical benchmarks keep their original version labels.
 
 ## Where are V1 and V2?
 

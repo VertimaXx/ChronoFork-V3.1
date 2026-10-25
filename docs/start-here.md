@@ -1,6 +1,8 @@
 # Your first Chrono V3 connection
 
-**Using the setup plugin? Start with [Plugin connections](connections.md).** The 24 October 2026 V3.1 build supplies automatic tracking/recording, a position-source chooser, existing server-event links and generated script calls. The four low-level connections below remain available for advanced integrations; they are no longer routine machinery you must invent yourself.
+**Current Connector/plugin: 3.2.0; unchanged Core: 3.1.0.** See [full plugin controls](connector-controls.md) for timing, repeated checks, recording/clocks, data-only actors, multiple moves/body areas, obstacles and upgrades.
+
+**Using the setup plugin? Start with [Plugin connections](connections.md).** Connector 3.2 supplies tracking/recording, position-source choices, server-event links, generated calls and selectable timing/check policies. The four low-level connections below remain an advanced alternative; you do not need to invent that machinery outside the plugin.
 
 You can use ordinary Luau functions and tables. You do not need to learn another programming language. Keep the real code names beside the plain meanings below so you can find them in Studio.
 
@@ -45,6 +47,10 @@ Enter when the move can hit. `opens=0.12` means wait 0.12 seconds after your ser
 **5 — Check and add code.** Fix any listed fields. Each problem button takes you to its field. Review the destination and what will be added. Existing code is kept. The optional generated-code viewer lets you copy the exact text. Add the reviewed code only after checking it.
 
 **6 — Connect your game.** Choose objects and a position source, then add the supplied connection package. Use Events for existing server BindableEvents or Calls for generated, reviewed edits in ordinary server functions. Customize Actions and Hooks inside the package. Test & restore shows measured counters and saved script-edit records. [Follow the connection walkthrough](connections.md).
+
+Page 6 has eight tabs: Objects, Bodies, Moves, Timing, Recording, Events, Calls and Test & restore. Use them for multiple hitboxes/moves, position timing, repeated checks, custom recording/clocks and provider links. [Every tab is explained here](connector-controls.md).
+
+For an installed older plugin, save the place and reopen Studio if its panel is cached. For an existing connection group, use Test & restore → Upgrade supplied Connector; then review settings and restart Play. Opening a new plugin does not silently change a game's installed runtime.
 
 ## Run a complete example before connecting your game
 

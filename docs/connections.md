@@ -1,113 +1,91 @@
 # Connect your game through the plugin
 
-The V3.1 connection build dated **24 October 2026** supplies the routine connecting code. You choose where your game's objects and accepted moves come from. The supplied package handles registration, position recording, move references, cancellation and contact checks. The contact math is unchanged.
+**Current package: Connector/plugin 3.2.0, using unchanged Core 3.1.0.** The plugin supplies tracking, recording, move references, contact checks, cancellation and outcome delivery. Your game supplies its real data and rules. Customize unusual mappings inside the delivered Hooks, Actions or provider files.
 
-For a complete existing-game example, follow the [tested combat walkthrough](combat-walkthrough.md): three generated call blocks outside the package, game-specific mapping inside supplied Hooks, and 80 recorded passing checks. The developer still chooses connection points and supplies the game's actual rules.
+For every control and limit, use [Full plugin controls](connector-controls.md). For an earlier real-game example, see the [dated combat walkthrough](combat-walkthrough.md). That example used the 24 October 3.1 build and present-time gating; it is not evidence that the new timing policies were tested in that combat game.
 
-![Connection settings rendered in Studio](../site/assets/connections-3.1.png)
+## First success without scripting
 
-The actual connection View rendered in PlayerGui for Studio viewport review. Native DockWidget screenshots were unavailable; this image does not claim native toolbar operation.
+Open **Plugins → Chrono V3 → ChronoSetup → Try a complete supplied learning scene**. Press Play. Two anchored objects use supplied server events to start a move, check contact and increase a practice counter. Open the **Chrono connections | Studio** guide for real counters.
 
-## First success with no scripting
-
-Open **Plugins → Chrono V3 → ChronoSetup → Try a complete supplied learning scene**. Press Play. Two anchored example objects use the supplied server events to start a move, check contact and increase a practice counter. Click the **Chrono connections | Studio** guide to see the real counters. This scene does not change health or your combat system and does not certify your own game. Stop Play. Remove it using **Connect your game → Test & restore → Remove the supplied learning scene**.
+Stop Play and remove the scene using **ChronoConnect → Test & restore → Remove the supplied learning scene**. The scene does not certify your game. The separate RunPractice test also uses made-up data; it does not exercise your network or existing combat.
 
 ## Connect an existing game
 
-1. Use the first five setup pages to describe the attack and add its Core/Actions group. Match your existing hitbox dimensions and timing. Keep earlier-time compensation off initially.
-2. Open **ChronoConnect**, or page 6. Choose your installed code group. Use **Objects** to select player characters, **Players + extra objects**, a Workspace folder, tagged objects or one selected reference. Choose the root Part name and default object kind. Models can also use their PrimaryPart when the named root is absent. Individual objects may use a server-set `ChronoKind` attribute, for example `player` or `ball`.
-3. Choose how positions are checked. See the choices below. Choose the target's deliberate gameplay shape; it is separate from the attacking shape in Actions. Do not claim it reconstructs animated limbs.
-4. If your game already has server BindableEvents, select them under **Events**. Otherwise use **Calls** to generate the small calls for your existing functions. Events and calls can be combined deliberately, but do not start/check/apply the same move twice.
-5. Choose **Objects → Check connections and show changes → Add these reviewed connections**. This adds the runtime and enabled server startup. It adds no gameplay RemoteEvent and does not rewrite any existing script.
-6. In **Calls**, choose Begin, Gate, Cancel, Finish, Motion or Teleport. Enter the variable names already used by your game. Select its existing server script, choose its line or read the editor cursor, and preview the edit. Apply the reviewed edit through the plugin. Each edit has its own Restore record. Teleport replaces the selected old teleport line; other calls insert before a selected line.
-7. Press Play. Use **Test & restore → Read the running connection report**, or the optional Studio-only guide. Verify updates, accepted moves, checks and actual game outcomes separately. Test more than one client before shipping.
+1. In ChronoSetup, describe an initial attack and recording limits. Review and add the named code group. Match the real game's timing and dimensions.
+2. Open ChronoConnect and choose the installed group. On **Objects**, choose players, extra objects, folder, tag, references or pure server data. Set kind names such as fighter and ball.
+3. Choose a position source. Server physics requires genuinely server-owned/anchored roots. The supplied humanoid checker covers bounded ordinary static-ground movement. Use a position provider for other independently checked/calculated movement.
+4. On **Bodies**, optionally create named target areas. On **Moves**, keep Actions or configure several moves with dimensions, offsets, rotations, target rules and check modes.
+5. Review **Timing** and **Recording**. Present/Heartbeat/Once is the simplest starting policy. Earlier-position, repeated and custom-simulation paths are explicit options.
+6. Return to Objects, check the proposed changes and add the reviewed connections. Enabled server startup is supplied. No client gameplay RemoteEvent is installed.
+7. Connect accepted moves, hit moments, cancellations and outcomes through **Events** or **Calls**. Press Play and inspect actual game results as well as the report.
 
-For later changes, **Load saved connection settings** and **Save connection settings** preserve customized Hooks and the runtime. Restart Play to load changes. Automatic guide installation is chosen on first install; its LocalScript can subsequently be disabled.
+Save settings after later changes and restart Play. Changing settings keeps customized Hooks and Actions. Opening the UI does not silently replace an installed runtime.
 
-## The three position choices
+## Existing server events
 
-| Choice | What the package provides | Your responsibility |
-|---|---|---|
-| Server calculates physics | Follows anchored/server-owned objects and records them automatically | The server must genuinely control those objects. Player-owned positions refuse checks. Server ownership does not prove every client-triggered game rule was legitimate. |
-| Supplied humanoid checks | Bounded humanoid root-distance budget, jump/gravity checks and small wall sweeps; configurable refusal or position correction. Also accepts non-character objects with server-owned physics | Set actual allowed speeds and rig ground height. Connect legitimate knockback/teleports. Adapt existing slow/stun rules in Hooks.MovementLimits. Static ground only; vehicles, moving platforms, flight and unusual movement need additional support. Client-owned balls still need independent validation. |
-| Existing position checker | Calls the selected server ModuleScript through Hooks.ProviderSnapshot | The existing system must actually calculate/check positions. Default API returns `{ok=true, root=CFrame, zones={...}, state={...}}`. Adapt another existing API **inside the supplied Hooks**. An `ok` field is a declaration by that checker, not independent proof. |
-
-The humanoid option is a limited supplied movement policy, not complete anti-cheat. Initial-overlap wall cases, articulated bodies, animation, initial spawn authorization and movement within tolerances remain limitations. Source and target data still use the core's strict global uncertainty/roster policy. Large worlds, many actors and real replication bursts need game-specific profiling and testing.
-
-## Existing events
-
-Select **server BindableEvents**, after the game's input authentication and move checks. Raw RemoteEvents are refused by setup.
+Use BindableEvents only after your game authenticates requests and checks cooldown, stamina, ownership and other move rules. Raw RemoteEvents are refused by setup.
 
 | Link | Default arguments |
 |---|---|
-| Begin | `sourceModel, actionName, moveKey, context` |
-| Query | `sourceModel, moveKey` |
-| Cancel | `sourceModel, moveKey` |
-| Outcome | Receives `sourceModel, targetModel, actionName, context, contact` |
+| Begin | source object or data id, action name, move key, checked server context |
+| Query | source object or data id, same move key |
+| Cancel | source object or data id, same move key |
+| Outcome | source, target, action name, server context, contact |
+| Capture | Optional simulation timestamp; used by Event recording |
 
-Action defaults to `Contact`. Use the same short key at start, hit and cancellation. An already-active key refuses another start. If your existing events use a different argument order, edit **Hooks.ReadBegin / ReadQuery / ReadCancel / ApplyOutcome** within the delivered package. Keep original block, parry, damage, possession and effect rules in the game's existing outcome handler.
+Action defaults to Contact. Reusing an active key refuses another start. Adapt unusual event arguments inside Hooks.ReadBegin / ReadQuery / ReadCancel / ApplyOutcome. Keep existing block, parry, damage, possession and effects in the outcome handler.
 
-Optional automatic timing checks once when the configured hit period opens. Use only if that matches the move; it needs an Outcome event and correct cancellation. Keep it off for precise existing hit moments, animation markers or target loops.
+Automatic checking is optional. Once checks at the first eligible recorded update; Repeated checks again at later updates during the active window. Whole-move duplicate prevention and target limits still apply. Automatic delivery requires an Outcome event and correct cancellation.
 
-## Existing functions: the generated calls
+## Existing functions and generated calls
 
-The plugin generates these using your chosen names and code-group name. These examples assume `ChronoV3Integration`:
+Calls generates reviewed insertions at the variable names and script line you choose. The plugin preserves an exact Restore record and refuses an outdated preview. It does not guess which private game function authorizes a move.
 
-```luau
--- After existing server request/cooldown checks; before the original windup:
-local chronoMove = require(game.ServerScriptService.ChronoV3Integration.Connector).Begin(character, "Contact")
-if not chronoMove then return end
+| Call | Purpose |
+|---|---|
+| Begin | Start after the game accepts a move; keep its returned reference |
+| Gate / Allows | Approve an already-found target immediately before its existing outcome |
+| Query | Return Chrono contacts for your existing outcome loop |
+| Resolve | Deliver Chrono contacts through Outcome / OnContact |
+| Cancel / Finish | Stop the reference on every relevant exit |
+| Capture | Save a completed common simulation step in Manual mode |
+| Track / Untrack | Register/remove a stable pure-data id |
+| Reset / Discontinuity | Separate records across an approved data reset or repaired provider |
+| Motion | Allow the supplied humanoid checker to account for an existing approved velocity/duration |
+| Teleport | Perform an approved physical teleport and reset history; replaces the selected old teleport statement |
+| Inspect / Destroy | Read server diagnostics / deliberately stop this connection instance |
 
--- Immediately before an existing per-target damage/possession call:
-if not require(game.ServerScriptService.ChronoV3Integration.Connector).Allows(chronoMove, target) then return end
--- The original outcome call remains here.
+**Earlier timing needs Chrono candidates.** A Gate after an existing present-time overlap cannot discover a target that overlap missed. Choose Resolve or Query contacts when enabling compensation. The UI records this integration requirement; it cannot prove an arbitrary script followed it.
 
--- Existing cancellation path:
-require(game.ServerScriptService.ChronoV3Integration.Connector).Cancel(chronoMove)
+Once allows one successful query. Repeated allows later captures for the same active move, without returning any target twice. The target cap applies to the entire move. A pending fresh Query result can be delivered through Allows or Resolve; do not apply the same outcome through multiple paths.
 
--- After the original hit loop completes:
-require(game.ServerScriptService.ChronoV3Integration.Connector).Finish(chronoMove)
-```
+## Customize inside the package
 
-Inside a target loop choose `continue` instead of `return` in the Gate builder. The move reference must remain in the same scope across its start, hit and cancellation. If your architecture spreads these across services, store the reference in your existing server move record, or map existing events inside Hooks. The plugin cannot infer arbitrary variable scope or the meaning of private functions.
+- **ConnectionData / Connections:** saved settings and their reader. Prefer saving values through the plugin.
+- **Actions or Moves builder:** named attack profiles, shape, targets, active window, reach and rules.
+- **Hooks.State / CanStart / CanApply:** your existing game-state and eligibility rules.
+- **Hooks.MovementLimits / RecordingLimits:** permitted movement and per-object recording bounds.
+- **Hooks.ProviderSnapshot / TimingPlayer:** map your position checker and data-object ownership.
+- **Hooks.ReadBegin / ReadQuery / ReadCancel / ApplyOutcome / OnContact:** existing event arguments and outcome delivery.
+- **Provider templates:** position approval, data registry, clock, timing and obstacle providers. Add/open these through Test & restore.
+- **Connector:** supplied machinery. Routine integration should not require replacing it.
 
-Allows performs one contact query on its first use and permits each approved target once. Cached results expire after maxGap and refuse after record resets/roster changes. This supplied connector deliberately handles **one hit check per move**; use separate accepted moves or the advanced core API for multiple hit phases. It has no native-damage fallback.
+Do not start the low-level constructor as a second service when Connector is active. Use one connection group for interacting actors. Multiple independent humanoid checkers do not share impulse/teleport permissions.
 
-Motion grants the supplied humanoid checker permission for an **existing server-applied** velocity/duration; it does not create a force. Teleport **performs** an approved root teleport and resets records. Generated Teleport replaces the selected old statement; keep unrelated work on separate lines and inspect the preview.
+## Upgrade, inspect and restore
 
-## Customize inside the supplied package
+Use **Test & restore → Upgrade supplied Connector** for an existing group. Upgrade preserves custom Hooks/Actions and refuses an edited Connector or added runtime extension. An unchanged supplied guide updates to show current policies; a customized guide is kept. Legacy Present/Once and recording-limit behavior remain until deliberately reviewed.
 
-- **Connections / ConnectionData:** the reader and saved wizard values. Edit values through the wizard; customize behavior in Hooks.
-- **Actions:** move shapes, kinds and hit periods; add further named move profiles here.
-- **Hooks.State:** existing active/team values or other simple state.
-- **Hooks.CanStart / CanApply:** additional game rules using the existing server's decisions.
-- **Hooks.MovementLimits:** existing slow, stun, dash or jump permissions.
-- **Hooks.ProviderSnapshot:** map an existing independent checker's API.
-- **Hooks.ReadBegin / ReadQuery / ReadCancel / ApplyOutcome:** adapt existing event argument orders.
-- **Connector:** delivered lifecycle and recording machinery. Ordinary games should not need to rewrite it.
+The report and Studio guide show effective timing, lookback, recording, check mode, obstacle status, counters and explanations. Counters distinguish permitted outcomes from actual successful damage. Read reports instead of starting another runtime through debugging tools with separate module caches.
 
-Do not also start the older low-level Integration constructor or add a separate Capture loop when using Connector. Keep one ordinary-server singleton. Debug tools may have a separate require cache and must not start a second instance. Read `_ChronoConnectionReports` instead.
+Studio Undo/Redo covers owned objects and settings. Generated script edits also have explicit exact-text Restore; restore later edits first. A newer custom edit is protected. Removing supplied connections refuses customized source and leaves Core/Actions.
 
-Use one connection group for objects that interact, and add named move profiles in its Actions file. Independent humanoid checkers watching the same characters do not share teleport/impulse permissions; running several requires explicitly coordinating every exception. The normal setup should use one checker and one group.
+## What the validation establishes
 
-For players plus a ball, choose **Players + extra objects**, select the existing ball/folder and choose its kind. The supplied humanoid option follows characters and accepts extra server-owned objects. **Non-character objects: use root Part size** uses an equal-dimension round Ball Part as a sphere, otherwise a bounding box. It does not reproduce mesh geometry. Client-owned balls need an existing independent checker.
+The 25 October 3.2 campaign passed **550 checks**: 222 expanded runtime (including 160 randomized comparisons against unchanged Core), 165 existing connection checks, 63 Core tests, 61 expanded editor checks and 39 existing editor checks.
 
-## Safe edits and removal
+The actual View was reviewed in a Play client at narrow/wider widths, with real timing-mode and Add move clicks. Native toolbar clicking was not claimed. Tests used one Studio workstation/client and deterministic scenarios, not a new native-network or original-Chrono performance benchmark.
 
-The call builder keeps the exact original and resulting script text in ConnectionPatches. It refuses an outdated preview. Restore refuses to overwrite newer work; restore later patches first, or manually remove the marked call while keeping your changes. A removal refuses customized/missing supplied source. Studio object Undo/Redo covers installation and saved settings. Script text has separate editor undo behavior; use the explicit Restore button for generated source edits. Core and Actions remain when connections are removed.
+Inspect [raw cases, hashes and scope](../benchmarks/data/v3.2-connector-2026-10-25.json), [reproduction](benchmarks.md), [all controls](connector-controls.md) and [remaining limits](math-and-limits.md).
 
-Setup says what was configured, not that combat is certified. Counters show permitted outcomes, not successful damage. Test old behavior and active refusals, cancellations, repeated input, stale records, respawns, ownership changes, teleports, joins/leaves and real asymmetric delay/loss. This build does not add rewind, historical obstacles, exact animation reconstruction, automatic cooldown validation or universal game understanding.
-
-## Recorded connection checks
-
-![The supplied in-game connection guide](../site/assets/connections-guide-3.1.png)
-
-The supplied Studio-only guide, opened in a real Play client during the connection campaign.
-
-The 24 October build passed **39 setup/edit checks**, **165 runtime checks** (including 128 same-shape comparisons against Roblox's box query), and the unchanged **63 core tests**. A sample function connected using generated calls retained two valid seven-damage hits and refused its cancelled attack and miss. The supplied learning scene also ran through the shipped installer, recording contacts without adapter errors or provider faults in the measured run.
-
-Twenty setup layouts were checked at 360×480 and 500×800. The same View was rendered in PlayerGui for viewport inspection; a real client tab click passed. A decimal-comma value was checked through its focus-lost parser event. Native Windows screenshots/clicking failed; the native DockWidget was created, but a native toolbar click was not claimed as verified.
-
-These are one-client integration checks, not a new latency benchmark. Existing numerical comparisons keep their earlier labels. [Raw cases and scope](../benchmarks/data/v3.1-connections-2026-10-24.json).
-
-To reproduce the runtime campaign, import **ChronoV3Tests.rbxmx** into a disposable flat-baseplate place. In Edit mode, use `ConnectionTestSetup.Prepare(validation, validation.ConnectionPlayChecks)`, where `validation` is `ServerStorage.ChronoV3Validation`. Call from a plugin/Command Bar after any existing ChangeHistory recording has finished. Press Play and read `ReplicatedStorage.__ChronoConnectionTestResult`; stop Play and call `ConnectionTestSetup.Cleanup()`. `ConnectionStudioChecks(validation)` runs the Edit-mode installer/source-restore campaign. The existing UnitTest runner covers the core regression suite. Tests deliberately move the test player and must not be run in a live production server.

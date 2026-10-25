@@ -9,7 +9,7 @@ python tools/build.py
 python tools/check.py
 ```
 
-Commit source and generated assets together. `dist/ChronoFork-3.1.0.zip` contains the V3.1 source, documents, Studio assets and recorded evidence; it contains no earlier branch implementation. `dist/MANIFEST.json` records hashes. Ignored optional upstream benchmark fixtures are never added to the package.
+Commit source and generated assets together. `dist/ChronoFork-3.2.0.zip` contains Connector/plugin 3.2, unchanged Core 3.1, documents, Studio assets and recorded evidence. It contains no earlier branch implementation. `dist/MANIFEST.json` records hashes. Ignored optional upstream benchmark fixtures are never added to the package. Do not overwrite an already-published release's versioned assets; use a new release for new builds.
 
 ## GitHub Pages
 
@@ -19,13 +19,13 @@ In the repository's **Settings → Pages**, select **GitHub Actions** as the sou
 
 The README link uses that address; it becomes live after a successful Pages deployment. See [GitHub's custom workflow guide](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages) for the required permissions and environment. Configure a custom domain only if you own it and deliberately want one; no domain is assumed here.
 
-## Optional tagged release
+## Tagged release
 
-After reviewing the code and evidence labels, create tag `v3.1.0` and use the V3.1 section of CHANGELOG as the release summary. Attach the five `.rbxmx` models, ZIP and manifest from `dist/`. The README also links to committed downloads, so a release entry is optional. Do not describe old measurements as a fresh release benchmark.
+Create tag `v3.2.0` at the final published source commit and use the 3.2 section of CHANGELOG as the release summary. Attach five `.rbxmx` models, ChronoFork-3.2.0.zip, MANIFEST.json and SHA256SUMS.txt from `dist/`. Keep v3.1.0 unchanged. The README also links to committed downloads. Describe 550 current integration checks separately from older original-Chrono performance measurements.
 
 ## Repository description
 
-Suggested description: **Unofficial, AI-assisted Chrono fork for checked server hitbox contacts in competitive Roblox games. V3.1 tools, guides, math and benchmark evidence.**
+Suggested description: **Unofficial, AI-assisted Chrono fork for competitive Roblox contact checks. V3.2 plugin/Connector, unchanged Core 3.1, guides and inspectable validation.**
 
 Suggested topics: `roblox`, `luau`, `hitbox`, `lag-compensation`, `competitive-games`, `chrono`, `roblox-studio`, `ai-assisted`.
 
