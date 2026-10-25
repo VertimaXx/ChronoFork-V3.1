@@ -1692,10 +1692,10 @@ return {
 -- rate: expected updates per second. This sizes the storage; your script still calls Capture.
 -- maxGap: largest time gap across which Chrono may estimate an in-between position.
 -- maxRewind: largest earlier time your SERVER timing rule may approve. Zero is simplest.
-return {seconds=%s,rate=60,maxGap=%s,maxRewind=%s}
+return {seconds=%s,rate=60,maxGap=%s,maxRewind=%s,maxSpeed=%s,maxRadius=%s}
 -- A larger maxRewind alone does not enable earlier checks.
 -- Add a resolveRewind function only after deciding how your server validates delayed requests.
-]],c.seconds,c.maxGap,c.maxRewind),
+]],c.seconds,c.maxGap,c.maxRewind,c.maxSpeed,c.maxRadius),
 		Bindings=string.format([[-- ADVANCED MANUAL CONNECTIONS. The plugin's supplied Connector handles routine tracking/recording.
 -- Use page 6 for that workflow; do not start both Connector and another manual instance.
 -- This file does not replace your player or move scripts.
@@ -1787,51 +1787,124 @@ script.Parent:SetAttribute("PracticeMessage",report.message)
 	}
 end
 return table.freeze(C)
-</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF20"><Properties><string name="Name">ConnectionConfig</string><ProtectedString name="Source">-- Settings for the supplied connection machinery. No game script analysis or trust guessing.
-local C={}
-function C.Default()
-	return {actors="Players",tag="ChronoActor",root="HumanoidRootPart",kind="actor",
-		positions="ServerPhysics",body="Box",width=4,height=5,depth=2,radius=2,
-		walk=20,jump=50,ground=3,burst=0.4,slack=1.25,verticalSlack=3,wallRadius=0.7,
-		correction=false,autoQuery=false,guide=true,partBodies=false,activeAttribute="",teamAttribute=""}
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF20"><Properties><string name="Name">ConnectionAdvanced</string><ProtectedString name="Source">-- Advanced controls are part of the same plugin and save the same reviewed settings.
+local C=require(script.Parent.ConnectionConfig)
+local Picture=require(script.Parent.VolumePreview)
+local A={}
+function A.Draw(tab,ui,state,root,c,links,h)
+ if not table.find({"Bodies","Moves","Timing","Recording"},tab) then return false end
+ local input,choose,refresh,message=h.input,h.choose,h.refresh,h.message
+ local function options(key,rows,title,values)
+  values=values or c if title then ui.label(ui.content,title,16) end
+  for _,row in rows do
+   local value=if type(row)=="table" then row[1] else row local text=if type(row)=="table" then row[2] else row
+   ui.button(ui.content,text,function() values[key]=value refresh() end,values[key]==value)
+  end
+ end
+ local function toggle(key,text)
+  ui.button(ui.content,text..(if c[key] then ": on" else ": off"),function() c[key]=not c[key] refresh() end,c[key])
+ end
+ local function volumes(key,attack)
+  local list=c[key] local indexKey=key.."Index" state[indexKey]=math.clamp(state[indexKey] or 1,1,math.max(1,#list))
+  ui.note(if attack then "Named moves" else "Named target hitboxes",if attack then "Choose a move below. Names are used by Begin and the accepted-move event. Your Actions file is kept when the builder is selected." else "A returned contact names the area touched, such as Head or Body. Shapes turn and move with the recorded root. They do not follow animated limbs. A position provider can supply animated zones instead.")
+  for i,v in list do ui.button(ui.content,tostring(i)..". "..v.name,function() state[indexKey]=i refresh() end,i==state[indexKey]) end
+  ui.button(ui.content,if attack then "Add move" else "Add target hitbox",function()
+   if #list&gt;=32 then message("Maximum 32 entries.") return end
+   local used={} for _,v in list do used[v.name]=true end local n=#list+1 local prefix=if attack then "Move" else "Zone"
+   while used[prefix..n] do n+=1 end
+   table.insert(list,if attack then C.Move(prefix..n) else C.Volume(prefix..n)) state[indexKey]=#list refresh()
+  end)
+  local v=list[state[indexKey]] if not v then return end
+  input(if attack then "Move name" else "Hitbox name","name",v,false)
+  options("shape",if attack then {"Box","Sphere","Capsule","Ray","SweptSphere"} else {"Box","Sphere","Capsule"},"Shape",v)
+  if v.shape=="Box" then
+   for _,row in {{"width","Width (studs)"},{"height","Height (studs)"},{"depth","Depth (studs)"}} do input(row[2],row[1],v,true) end
+  elseif v.shape=="Sphere" or v.shape=="Capsule" or v.shape=="SweptSphere" then
+   input("Radius: center to edge (studs)","radius",v,true)
+   if v.shape=="Capsule" then input("Total height, including round ends (studs)","height",v,true) end
+  end
+  if v.shape=="Ray" or v.shape=="SweptSphere" then input("Line length (studs)","length",v,true) end
+  ui.note("Position and rotation","Offsets use the saved root: X right, Y up, Z backward (negative Z is forward). Rotations are degrees in pitch, yaw, roll order. Orange marks the root; colored shapes are hitboxes.")
+  for _,row in {{"x","X offset (studs)"},{"y","Y offset (studs)"},{"z","Z offset (studs)"},{"pitch","Pitch: X rotation (degrees)"},{"yaw","Yaw: Y rotation (degrees)"},{"roll","Roll: Z rotation (degrees)"}} do input(row[2],row[1],v,true) end
+  ui.place(Picture.Draw(nil,if attack then {v} else list,attack),ui.content)
+  ui.button(ui.content,"Update shape picture",refresh)
+  if attack then
+   for _,row in {{"targets","Target kinds, separated by commas"},{"opens","Wait before checking (seconds)"},{"closes","Stop checking, from move start (seconds)"},{"maxTargets","Different targets for the WHOLE move"},{"maxReach","Farthest allowed attack edge (studs)"}} do input(row[2],row[1],v,row[1]~="targets") end
+   options("rule",{{"all","Allow matching types"},{"team","Active objects on different teams"},{"Hook","Use Eligible inside Hooks"}},"Target rule",v)
+   options("queryMode",{{"Default","Use connection check mode"},{"Once","Check once"},{"Repeated","Check again at later recorded updates"}},"Hit checking",v)
+   ui.button(ui.content,"Check obstacles: "..tostring(v.world),function() v.world=not v.world refresh() end,v.world)
+   ui.label(ui.content,"Obstacle checks require a ray or swept sphere and a provider on Timing. Other shapes need the game's wall rule inside Hooks.",13)
+  end
+  ui.button(ui.content,"Duplicate selected entry",function()
+   if #list&gt;=32 then message("Maximum 32 entries.") return end
+   local used={} for _,row in list do used[row.name]=true end local n=1 while used[v.name.."Copy"..n] do n+=1 end
+   local copy=C.Copy(v) copy.name=v.name.."Copy"..n table.insert(list,copy) state[indexKey]=#list refresh()
+  end)
+  ui.button(ui.content,"Remove selected entry",function() table.remove(list,state[indexKey]) refresh() end)
+ end
+ if tab=="Bodies" then
+  ui.note("One object, several target areas","Up to 32 named Box, Sphere or Capsule shapes. Empty list uses the simple body on Objects. Provider-supplied zones take priority; these controls do not override that provider. Data-only objects supply their zones in their snapshot.")
+  volumes("zones",false)
+ elseif tab=="Moves" then
+  options("moveSource",{{"Actions","Use the Actions module inside the package"},{"Builder","Use moves configured in this plugin"}},"Where move settings come from")
+  if c.moveSource=="Builder" then
+   ui.button(ui.content,"Copy the original setup move into this builder",function()
+    local data=root and root:FindFirstChild("SetupData")
+    if not data then message("This older code group has no saved setup values. Add a move below, or keep using its Actions file.") return end
+    local ok,v=pcall(game.HttpService.JSONDecode,game.HttpService,data.Value) if not ok then message("Saved setup values are unreadable.") return end
+    for _,row in c.moves do if row.name=="Contact" then message("Contact already exists. Your move was kept.") return end end
+    if #c.moves&gt;=32 then message("Maximum 32 entries.") return end
+    local m=C.Move("Contact")
+    for _,k in {"shape","width","height","depth","radius","length","targets","opens","closes","maxTargets"} do m[k]=v[k] end
+    m.z=if v.shape=="Ray" or v.shape=="SweptSphere" then 0 else -v.forward m.rule=v.rules
+    m.maxReach=4096 table.insert(c.moves,m) state.movesIndex=#c.moves refresh()
+   end)
+   volumes("moves",true)
+  else ui.note("Custom move logic stays inside Actions","Open Actions in Test &amp; restore. Each named profile uses the same Core shape, targets, opens/closes, maxTargets, maxReach, world and eligible fields. Optional queryMode chooses Once or Repeated for that move. The plugin keeps that file when switching modes.") end
+ elseif tab=="Timing" then
+  ui.note("Which positions decide a contact?","Present checks the latest recorded update. Earlier checks look back by one server-approved delay, fixed when the move starts. Missing, old or interrupted records refuse the check. A larger maximum alone does not enable compensation.")
+  options("timing",{{"Present","Latest saved positions (default)"},{"MeasuredPing","Earlier positions: measured player ping"},{"Provider","Earlier positions: my server timing rule"}},"Timing policy")
+  input("Maximum approved lookback (seconds)","maxRewind",c,true,"Must fit saved history. Over-limit requests refuse; no silent clamp.")
+  if c.timing=="MeasuredPing" then
+   input("Additional known display delay (seconds)","displayDelay",c,true,"Only use a delay your own display pipeline actually adds. Default zero.")
+   ui.note("Measured ping is an estimate","Uses half the server's GetNetworkPing round-trip value, plus the configured display delay. It does not know exact packet arrival asymmetry or the exact screen frame seen by the player. Data-only actors need TimingPlayer inside Hooks to identify their player.")
+  elseif c.timing=="Provider" then choose("Timing","Timing provider","ModuleScript with Resolve(actor,serverContext,captureTime,maximum). Context must already be checked by your server. A template is available in Test &amp; restore.") end
+  options("candidates",{{"Existing","Keep an existing present-part target list"},{"Chrono","Use targets returned by Chrono contacts"}},"Where hit candidates come from")
+  ui.note("A gate cannot discover missing targets","Allows only checks a target your code already found. A present-time overlap can miss someone who was inside an earlier hitbox. Earlier timing therefore requires Chrono candidates: use Resolve with Outcome, or Query contacts. This choice records your integration intent; Play tests must verify the actual code path.")
+  ui.note("Obstacle checks","Choose only objects that should stop these moves. The built-in option saves anchored Part bounding boxes, including conservative boxes around meshes. Terrain and moving historical cover need your own provider.")
+  options("worldMode",{{"None","No Core obstacle provider"},{"StaticBoxes","Anchored obstacles: saved bounding boxes"},{"Provider","My obstacle provider"}},"Obstacle policy")
+  if c.worldMode=="StaticBoxes" then
+   choose("Obstacles","Obstacle folder","Select a Workspace Folder/Model containing anchored blocking Parts. CanCollide and CanQuery must both be true. A changed obstacle list/box starts a new coverage period; earlier checks across that change refuse.")
+   input("Maximum obstacle Parts","maxObstacles",c,true)
+  elseif c.worldMode=="Provider" then choose("World","Obstacle provider","ModuleScript with Check(queryTime,currentTime,shape). It must return covered, blocked and fraction; unknown historical cover must refuse. Template in Test &amp; restore.") end
+ elseif tab=="Recording" then
+  ui.note("When positions are saved","All participating objects must describe the same instant. Heartbeat suits ordinary server physics. A game with its own simulation should save after completing each simulation step; selecting a mode does not create that simulation.")
+  options("recording",{{"Heartbeat","Automatic: after physics"},{"Manual","My server calls Connector.Capture(time)"},{"Event","My completed-step BindableEvent"}},"Recording mode")
+  if c.recording=="Event" then choose("Capture","Completed-step recording event","Server BindableEvent argument: optional timestamp in the selected clock's seconds. Fire AFTER updating all participating objects.") end
+  choose("Clock","Optional shared clock","No link uses Workspace.GetServerTimeNow. A selected module returns Now() in seconds. Every Capture timestamp and position provider must use that same clock. See template in Test &amp; restore.")
+  for _,row in {{"recordRate","Expected / automatic update rate (per second)"},{"historySeconds","How long to keep positions (seconds)"},{"maxGap","Largest allowed record gap (seconds)"},{"recordMaxSpeed","Maximum root travel speed (studs/second)"},{"recordMaxRadius","Farthest target hitbox edge from root (studs)"}} do input(row[2],row[1],c,true) end
+  ui.note("Storage and evidence limits","Storage holds ceil(rate × seconds) + 2 updates per object. Heartbeat also refreshes on move/query/approval calls, preserving immediate provider checks. Include those updates in the expected rate. Recording faster than that rate shortens usable history. Manual/Event gives your simulation sole recording control. Speed/extent limits do not prove movement was permitted.")
+  if c.legacyLimits then
+   ui.note("Older installation limits retained","This installation still uses its old 4096 speed / derived extent policy. Switch deliberately to the configured limits below after reviewing your game.")
+   ui.button(ui.content,"Use reviewed recording limits instead of legacy limits",function() c.legacyLimits=false refresh() end)
+  end
+  toggle("objectLimits","Allow server object attributes ChronoMaxSpeed / ChronoMaxRadius")
+  ui.note("Limits by object kind","Override defaults for named kinds, such as fighter or ball. Server object attributes override these; data bindings and RecordingLimits in Hooks may override them again.")
+  for i,v in c.kindLimits do
+   input("Kind name","kind",v,false) input("Maximum speed","maxSpeed",v,true) input("Farthest hitbox edge","maxRadius",v,true)
+   ui.button(ui.content,"Remove kind limit "..i,function() table.remove(c.kindLimits,i) refresh() end)
+  end
+  ui.button(ui.content,"Add limits for another kind",function()
+   if #c.kindLimits&gt;=32 then message("Maximum 32 kinds.") return end
+   table.insert(c.kindLimits,{kind="kind"..(#c.kindLimits+1),maxSpeed=c.recordMaxSpeed,maxRadius=c.recordMaxRadius}) refresh()
+  end)
+ end
+ return true
 end
-local function bounded(n,a,b) return type(n)=="number" and n==n and n&gt;=a and n&lt;=b end
-function C.Validate(c,links)
-	if type(c)~="table" then return false,"Choose connection settings first." end
-	local defaults=C.Default() for key in c do if defaults[key]==nil then return false,"Unknown connection setting: "..tostring(key) end end
-	if c.partBodies~=nil and type(c.partBodies)~="boolean" then return false,"Choose on/off for non-character Part sizes." end
-	if not table.find({"Players","PlayersAndFolder","Folder","Tag","References"},c.actors) then return false,"Choose where participating objects come from." end
-	if not table.find({"ServerPhysics","Humanoid","Provider"},c.positions) then return false,"Choose who calculates or checks positions." end
-	if not table.find({"Box","Sphere","Capsule"},c.body) then return false,"Choose the target contact shape." end
-	for _,key in {"root","kind","tag","activeAttribute","teamAttribute"} do
-		if type(c[key])~="string" or #c[key]&gt;64 or c[key]:find("%c") then return false,"Use short names without control characters: "..key end
-	end
-	if c.root=="" or c.kind=="" or c.kind:find("[%s,]") or (c.actors=="Tag" and c.tag=="") then return false,"Root and tag need names. Object kind must be one short name without spaces or commas." end
-	for key,range in {width={0.02,64},height={0.02,64},depth={0.02,64},radius={0.01,32},walk={0,200},jump={0,250},ground={0.5,20},burst={0.05,1},slack={0,10},verticalSlack={0,15},wallRadius={0.1,3}} do
-		if not bounded(c[key],range[1],range[2]) then return false,"Choose a valid number for "..key.." ("..range[1].." to "..range[2]..")." end
-	end
-	if c.body=="Capsule" and c.height&lt;c.radius*2 then return false,"Target capsule height must be at least twice its radius." end
-	for _,key in {"correction","autoQuery","guide"} do if type(c[key])~="boolean" then return false,"Choose on/off for "..key end end
-	links=links or {}
-	if c.actors=="Folder" and (typeof(links.Actors)~="Instance" or not (links.Actors:IsA("Folder") or links.Actors:IsA("Model")) or not links.Actors:IsDescendantOf(workspace)) then return false,"Select the Workspace folder/model containing your participating objects." end
-	if c.actors=="PlayersAndFolder" and (not links.Actors or not (links.Actors:IsA("Folder") or links.Actors:IsA("Model") or links.Actors:IsA("BasePart")) or not links.Actors:IsDescendantOf(workspace)) then return false,"Select the extra Workspace object, or folder of balls/other objects. Players are followed automatically." end
-	if c.actors=="References" and (not links.Actors or not (links.Actors:IsA("Model") or links.Actors:IsA("BasePart") or links.Actors:IsA("Folder")) or not links.Actors:IsDescendantOf(workspace)) then return false,"Select one Workspace model/Part, or a folder of objects to track." end
-	if c.positions=="Provider" and (not links.Provider or not links.Provider:IsA("ModuleScript")) then return false,"Select the existing server position-checking ModuleScript. It must implement Snapshot(object, time)." end
-	for _,key in {"Begin","Query","Cancel","Outcome"} do
-		if links[key] and (not links[key]:IsA("BindableEvent") or not links[key]:IsDescendantOf(game)) then return false,key..": select an existing server BindableEvent, not a RemoteEvent." end
-	end
-	if c.autoQuery and not links.Outcome then return false,"Automatic hit timing needs your existing Outcome BindableEvent. Otherwise keep automatic timing off and use the generated Allows call." end
-	if links.Actors and not links.Actors:IsDescendantOf(game) then return false,"The selected objects were removed. Choose them again." end
-	return true
-end
-function C.Source(c)
-	local keys={} for key in c do table.insert(keys,key) end table.sort(keys)
-	local lines={"-- Edited by the Chrono connection wizard. Edit Hooks for unusual game rules.","return {"}
-	for _,key in keys do local v=c[key] table.insert(lines," "..key.."="..(if type(v)=="string" then string.format("%q",v) else tostring(v))..",") end
-	table.insert(lines,"}") return table.concat(lines,"\n").."\n"
-end
-return table.freeze(C)
-</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF21"><Properties><string name="Name">ConnectionExample</string><ProtectedString name="Source">-- An optional working scene shipped INSIDE the plugin. Never presented as your own game's validation.
+return A
+
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF21"><Properties><string name="Name">ConnectionConfig</string><ProtectedString name="Source">return require(script.Parent.Parent.Runtime.Configuration)
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF22"><Properties><string name="Name">ConnectionExample</string><ProtectedString name="Source">-- An optional working scene shipped INSIDE the plugin. Never presented as your own game's validation.
 local X={}
 local function note(object)
 	local record=Instance.new("StringValue") record.Name="LearningExampleSource" record.Value=object.Source record.Parent=object
@@ -1896,9 +1969,20 @@ function X.Remove(group,d)
 	history:FinishRecording(rec,Enum.FinishRecordingOperation.Commit) return true
 end
 return X
-</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF22"><Properties><string name="Name">ConnectionInstaller</string><ProtectedString name="Source">local Config=require(script.Parent.ConnectionConfig)
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF23"><Properties><string name="Name">ConnectionInstaller</string><ProtectedString name="Source">local Config=require(script.Parent.ConnectionConfig)
 local I={}
-local OWNER="ChronoV3Connections-20261024"
+local OWNER="ChronoV3Connections-20261025"
+local linkNames={"Actors","Provider","Registry","Clock","Timing","World","Obstacles","Begin","Query","Cancel","Outcome","Capture"}
+local function connectorClone(runtime)
+	local connector=runtime:Clone() connector.Name="Connector"
+	if connector:FindFirstChild("Guide.client") then connector["Guide.client"]:Destroy() end
+	if connector:FindFirstChild("Hooks") then connector.Hooks.Name="DefaultHooks" end
+	return connector
+end
+local function sourceObject(root,name,guide)
+	if guide and name==guide.Name then return guide end
+	local object=root for segment in name:gmatch("[^.]+") do object=object and object:FindFirstChild(segment) end return object
+end
 local plans=setmetatable({}, {__mode="k"})
 local startup=[[-- Supplied by the Chrono connection wizard. Your game owns accepted inputs and outcomes.
 local ok,why=pcall(function() require(script.Parent.Connector).Start() end)
@@ -1917,7 +2001,7 @@ function I.Preview(root,c,links,runtime)
 	if not runtime or not runtime:FindFirstChild("Movement") or not runtime:FindFirstChild("Hooks") then return nil,"This plugin is missing its connection package. Install the complete new setup file." end
 	if root:FindFirstChild("Connector") then return nil,"Connections already exist here. Use Save connection settings; your customized Hooks and runtime will be kept." end
 	for _,name in {"Connections","ConnectionData","Hooks","ConnectionLinks","StartConnection","ConnectionRecord","ConnectionPatches"} do if root:FindFirstChild(name) then return nil,"A file named "..name.." already exists. Choose a fresh code group; no existing file was replaced." end end
-	local copy=table.clone(c) local refs=table.clone(links or {})
+	local copy=Config.Normalize(c) local refs=table.clone(links or {})
 	local handle=table.freeze({})
 	plans[handle]={root=root,c=copy,links=refs,runtime=runtime}
 	return handle,{destination=root:GetFullName(),positions=c.positions,
@@ -1944,14 +2028,13 @@ function I.Apply(handle,d)
 	local function write(object,source) editor:UpdateSourceAsync(object,function() return source end) end
 	local function remember(object) table.insert(created,object) object:SetAttribute("ChronoConnectionOwner",OWNER) return object end
 	local ok,err=pcall(function()
-		local connector=remember(p.runtime:Clone()) connector.Name="Connector"
-		for _,child in connector:GetChildren() do if child.Name~="Movement" then child:Destroy() end end
+		local connector=remember(connectorClone(p.runtime))
 		connector.Parent=root
 		local hooks=remember(p.runtime.Hooks:Clone()) hooks.Name="Hooks" hooks.Parent=root
 		local config=remember(Instance.new("ModuleScript")) config.Name="Connections" write(config,connectionSource) config.Parent=root
 		local data=remember(Instance.new("StringValue")) data.Name="ConnectionData" data.Value=game.HttpService:JSONEncode(c) data.Parent=root
 		local links=remember(Instance.new("Folder")) links.Name="ConnectionLinks"
-		for _,key in {"Actors","Provider","Begin","Query","Cancel","Outcome"} do local v=Instance.new("ObjectValue") v.Name=key v.Value=p.links[key] v.Parent=links end
+		for _,key in linkNames do local v=Instance.new("ObjectValue") v.Name=key v.Value=p.links[key] v.Parent=links end
 		links.Parent=root
 		local boot=remember(Instance.new("Script")) boot.Name="StartConnection" write(boot,startup) boot.Parent=root
 		local patches=remember(Instance.new("Folder")) patches.Name="ConnectionPatches" patches.Parent=root
@@ -1964,11 +2047,11 @@ function I.Apply(handle,d)
 		for _,obj in created do
 			if obj:IsA("LuaSourceContainer") then table.insert(sources,{name=obj.Name,source=obj.Source}) end
 		end
-		table.insert(sources,{name="Connector.Movement",source=connector.Movement.Source})
+		for _,obj in connector:GetDescendants() do if obj:IsA("LuaSourceContainer") then table.insert(sources,{name="Connector."..obj.Name,source=obj.Source}) end end
 		local record=remember(Instance.new("StringValue")) record.Name="ConnectionRecord"
 		record.Value=game:GetService("HttpService"):JSONEncode(sources) record.Parent=root
 		root:SetAttribute("ConnectionSettings",game:GetService("HttpService"):JSONEncode(c))
-		root:SetAttribute("ConnectionBuild","2026-10-24") root:SetAttribute("GameAdapterExercised",false)
+		root:SetAttribute("ConnectionBuild",Config.Build) root:SetAttribute("GameAdapterExercised",false)
 	end)
 	if not ok then for i=#created,1,-1 do created[i]:Destroy() end history:FinishRecording(recording,Enum.FinishRecordingOperation.Cancel) return nil,"Connection installation was undone: "..tostring(err) end
 	history:FinishRecording(recording,Enum.FinishRecordingOperation.Commit) plans[handle]=nil
@@ -1980,12 +2063,14 @@ function I.Load(root)
 	local ok,c=pcall(game.HttpService.JSONDecode,game.HttpService,root.ConnectionData.Value)
 	if not ok then return nil,"Stored settings are unavailable. Your existing code was kept." end
 	local links={} for _,v in root.ConnectionLinks:GetChildren() do if v:IsA("ObjectValue") then links[v.Name]=v.Value end end
-	return c,links
+	return Config.Normalize(c),links
 end
 function I.Save(root,c,links,d)
 	if game:GetService("RunService"):IsRunning() then return nil,"Stop Play before saving settings." end
 	local old,why=I.Load(root) if not old then return nil,why end
+	if not root.Connector:FindFirstChild("Configuration") then return nil,"Upgrade the supplied Connector in Test &amp; restore before saving new settings. Existing code was kept." end
 	local ok,reason=Config.Validate(c,links) if not ok then return nil,reason end
+	c=Config.Normalize(c)
 	if c.guide~=old.guide then return nil,"Guide installation stays as originally chosen. You can disable its LocalScript, or remove and reinstall the connection package." end
 	local _,editor=dependencies(d)
 	local original=editor:GetEditorSource(root.Connections)
@@ -1993,20 +2078,77 @@ function I.Save(root,c,links,d)
 	for _,row in rows do if row.name=="Connections" and row.source~=original then return nil,"Connections was edited manually. Copy those settings into the wizard before saving, or keep the manual file. Your code was kept." end end
 	local history,editor=dependencies(d) local rec=history:TryBeginRecording("ChronoConnectionSettings","Update Chrono connection settings")
 	if not rec then return nil,"Studio could not start an Undo step." end
-	local oldAttribute=root:GetAttribute("ConnectionSettings") local oldData=root.ConnectionData.Value local oldLinks={}
+	local oldAttribute=root:GetAttribute("ConnectionSettings") local oldData=root.ConnectionData.Value local oldLinks={} local added={}
 	for _,v in root.ConnectionLinks:GetChildren() do table.insert(oldLinks,{object=v,value=v.Value}) end
 	local changed,err=pcall(function()
 		assert(editor:GetEditorSource(root.Connections)==original,"Settings reader changed during the save. Review again.")
 		root.ConnectionData.Value=game.HttpService:JSONEncode(c)
-		for _,row in oldLinks do row.object.Value=links[row.object.Name] end
+		for _,name in linkNames do if not root.ConnectionLinks:FindFirstChild(name) then local v=Instance.new("ObjectValue") v.Name=name v.Parent=root.ConnectionLinks table.insert(added,v) end end
+		for _,v in root.ConnectionLinks:GetChildren() do v.Value=links[v.Name] end
 		root:SetAttribute("ConnectionSettings",game.HttpService:JSONEncode(c))
 	end)
 	if not changed then
 		root.ConnectionData.Value=oldData
+		for _,v in added do v:Destroy() end
 		for _,row in oldLinks do row.object.Value=row.value end root:SetAttribute("ConnectionSettings",oldAttribute)
 		history:FinishRecording(rec,Enum.FinishRecordingOperation.Cancel) return nil,tostring(err)
 	end
 	history:FinishRecording(rec,Enum.FinishRecordingOperation.Commit) return root
+end
+function I.Seed(root)
+	local c=Config.Default()
+	local data=root and root:FindFirstChild("SetupData")
+	if data then local ok,v=pcall(game.HttpService.JSONDecode,game.HttpService,data.Value) if ok then
+		c.kind=v.kind c.historySeconds=v.seconds c.maxGap=v.maxGap c.maxRewind=v.maxRewind c.recordMaxSpeed=v.maxSpeed c.recordMaxRadius=v.maxRadius
+	end end
+	return c
+end
+-- Explicit upgrade, separate from Save. Never replaces an edited Connector.
+-- Hooks/Actions stay intact; newly supplied defaults fill only missing hook functions.
+function I.Upgrade(root,runtime,d)
+	if game:GetService("RunService"):IsRunning() then return nil,"Stop Play before upgrading." end
+	local c,links=I.Load(root) if not c then return nil,links end
+	if not runtime or not runtime:FindFirstChild("Configuration") then return nil,"Complete new plugin required." end
+	local history,editor=dependencies(d)
+	local oldRecord=root.ConnectionRecord.Value local rows=game.HttpService:JSONDecode(oldRecord) local kept={}
+ local expected={}
+ local guide=game.StarterPlayer.StarterPlayerScripts:FindFirstChild(root.Name.."ConnectionGuide")
+ local guideBefore local guideAfter=runtime["Guide.client"].Source
+	for _,row in rows do
+		if row.name=="Connector" or row.name:sub(1,10)=="Connector." then
+			local object=sourceObject(root,row.name) if not object or editor:GetEditorSource(object)~=row.source then return nil,"Connector was customized: "..row.name..". Keep your changes; install a fresh code group to compare." end
+			expected[row.name]=true
+		else
+			if guide and row.name==guide.Name and editor:GetEditorSource(guide)==row.source then
+				guideBefore=row.source row=table.clone(row) row.source=guideAfter
+			end
+			table.insert(kept,row)
+		end
+	end
+	for _,object in root.Connector:GetDescendants() do if not expected["Connector."..object.Name] then return nil,"Connector contains an extension. Keep it before choosing an upgrade." end end
+	local rec=history:TryBeginRecording("ChronoUpgradeConnections","Upgrade supplied Chrono connector") if not rec then return nil,"Studio could not start an Undo step." end
+	local old=root.Connector local fresh local oldBuild=root:GetAttribute("ConnectionBuild") local oldData=root.ConnectionData.Value local oldAttribute=root:GetAttribute("ConnectionSettings") local added={}
+	local ok,err=pcall(function()
+		fresh=connectorClone(runtime) fresh:SetAttribute("ChronoConnectionOwner",OWNER)
+		old.Parent=nil fresh.Parent=root
+		if guideBefore then
+			assert(editor:GetEditorSource(guide)==guideBefore,"Guide changed during upgrade")
+			editor:UpdateSourceAsync(guide,function(current) return if current==guideBefore then guideAfter else nil end)
+			assert(editor:GetEditorSource(guide)==guideAfter,"Guide changed during upgrade")
+		end
+		table.insert(kept,{name="Connector",source=fresh.Source})
+		for _,object in fresh:GetDescendants() do if object:IsA("LuaSourceContainer") then table.insert(kept,{name="Connector."..object.Name,source=object.Source}) end end
+		for _,name in linkNames do if not root.ConnectionLinks:FindFirstChild(name) then local v=Instance.new("ObjectValue") v.Name=name v.Parent=root.ConnectionLinks table.insert(added,v) end end
+		root.ConnectionData.Value=game.HttpService:JSONEncode(c) root:SetAttribute("ConnectionSettings",root.ConnectionData.Value)
+		root.ConnectionRecord.Value=game.HttpService:JSONEncode(kept) root:SetAttribute("ConnectionBuild",Config.Build)
+	end)
+	if not ok then
+		if fresh then fresh:Destroy() end old.Parent=root for _,v in added do v:Destroy() end
+		if guideBefore and editor:GetEditorSource(guide)==guideAfter then editor:UpdateSourceAsync(guide,function() return guideBefore end) end
+		root.ConnectionRecord.Value=oldRecord root.ConnectionData.Value=oldData root:SetAttribute("ConnectionSettings",oldAttribute) root:SetAttribute("ConnectionBuild",oldBuild)
+		history:FinishRecording(rec,Enum.FinishRecordingOperation.Cancel) return nil,tostring(err)
+	end
+	old:Destroy() history:FinishRecording(rec,Enum.FinishRecordingOperation.Commit) return root
 end
 function I.Remove(root,d)
 	if game:GetService("RunService"):IsRunning() then return nil,"Stop Play before removing connections." end
@@ -2015,26 +2157,29 @@ function I.Remove(root,d)
 	local _,editor=dependencies(d)
 	local guide=game.StarterPlayer.StarterPlayerScripts:FindFirstChild(root.Name.."ConnectionGuide")
 	local connector=root:FindFirstChild("Connector")
-	if connector then for _,child in connector:GetDescendants() do if child~=connector:FindFirstChild("Movement") then return nil,"Additional content inside Connector was kept. Move or back up your extension before removing supplied connections." end end end
+	local supplied={} for _,row in game.HttpService:JSONDecode(root.ConnectionRecord.Value) do supplied[row.name]=true end
+	if connector then for _,child in connector:GetDescendants() do if not supplied["Connector."..child.Name] then return nil,"Additional content inside Connector was kept. Move or back up your extension before removing supplied connections." end end end
 	for _,name in {"Hooks","Connections","ConnectionData","StartConnection","ConnectionRecord"} do local child=root:FindFirstChild(name) if child and #child:GetChildren()&gt;0 then return nil,"Additional content inside "..name.." was kept. Move or back up that extension first." end end
 	if guide and #guide:GetChildren()&gt;0 then return nil,"The guide contains extra content. Keep that extension before removing the guide." end
 	for _,row in game.HttpService:JSONDecode(root.ConnectionRecord.Value) do
 		local connector=root:FindFirstChild("Connector")
-		local object=if row.name=="Connector.Movement" then connector and connector:FindFirstChild("Movement") else root:FindFirstChild(row.name)
-		if row.name==root.Name.."ConnectionGuide" then object=guide end
+		local object=sourceObject(root,row.name,guide)
 		if not object or editor:GetEditorSource(object)~=row.source then return nil,"Customized or missing file: "..row.name..". Keep a copy of your edits before removing the package." end
 	end
 	local history=dependencies(d) local recording=history:TryBeginRecording("ChronoRemoveConnections","Remove supplied Chrono connections")
 	if not recording then return nil,"Studio could not start an Undo step." end
-	for _,child in root:GetChildren() do if child:GetAttribute("ChronoConnectionOwner")==OWNER then child:Destroy() end end
-	if guide and guide:GetAttribute("ChronoConnectionOwner")==OWNER then guide:Destroy() end
+	for _,child in root:GetChildren() do if tostring(child:GetAttribute("ChronoConnectionOwner")):match("^ChronoV3Connections%-%d+$") then child:Destroy() end end
+	if guide and tostring(guide:GetAttribute("ChronoConnectionOwner")):match("^ChronoV3Connections%-%d+$") then guide:Destroy() end
 	root:SetAttribute("ConnectionBuild",nil) root:SetAttribute("ConnectionSettings",nil)
 	history:FinishRecording(recording,Enum.FinishRecordingOperation.Commit) return true
 end
 return I
-</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF23"><Properties><string name="Name">ConnectionView</string><ProtectedString name="Source">local Config=require(script.Parent.ConnectionConfig)
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF24"><Properties><string name="Name">ConnectionView</string><ProtectedString name="Source">local Config=require(script.Parent.ConnectionConfig)
 local Installer=require(script.Parent.ConnectionInstaller)
 local Builder=require(script.Parent.HookBuilder)
+local Picture=require(script.Parent.VolumePreview)
+local Templates=require(script.Parent.ProviderTemplates)
+local Advanced=require(script.Parent.ConnectionAdvanced)
 local V={}
 function V.New() return {c=Config.Default(),links={},tab="Objects",hook="Begin",vars={actor="character",target="target",token="chronoMove",action="Contact",velocity="velocity",duration="duration",frame="destinationCFrame",exit="return"},line=1} end
 function V.Draw(ui,state,o)
@@ -2043,9 +2188,11 @@ function V.Draw(ui,state,o)
 		local saved,refs=Installer.Load(root)
 		if saved then state.c=saved state.links=refs c=saved links=refs state.loadedRoot=root end
 	end
+	if root and not root:FindFirstChild("Connector") and state.seededRoot~=root then state.c=Installer.Seed(root) c=state.c state.seededRoot=root end
 	local function message(text)
 		text=tostring(text) state.notice=if #text&gt;110 then text else nil
 		ui.status.Text=if state.notice then "Read the connection message above." else text
+		if state.notice then task.defer(ui.rebuild) end
 	end
 	local function selected() return (if o.selection then o.selection() else game:GetService("Selection"):Get())[1] end
 	local function refresh() local position=ui.content.CanvasPosition state.plan=nil state.patch=nil ui.rebuild() ui.content.CanvasPosition=position end
@@ -2073,17 +2220,18 @@ function V.Draw(ui,state,o)
 		state.root=candidate local loaded,refs=Installer.Load(candidate)
 		if loaded then state.c=loaded state.links=refs end refresh()
 	end)
-	local tabs=Instance.new("Frame") tabs.Name="ConnectionTabs" tabs.Size=UDim2.new(1,0,0,80) tabs.BackgroundTransparency=1 ui.place(tabs,ui.content)
-	for i,name in {"Objects","Events","Calls","Test &amp; restore"} do
+	local tabs=Instance.new("Frame") tabs.Name="ConnectionTabs" tabs.Size=UDim2.new(1,0,0,164) tabs.BackgroundTransparency=1 ui.place(tabs,ui.content)
+	for i,name in {"Objects","Bodies","Moves","Timing","Recording","Events","Calls","Test &amp; restore"} do
 		local b=ui.button(tabs,name,function() state.tab=name ui.rebuild() end,state.tab==name)
-		b.Size=UDim2.new(0.49,0,0,36) b.Position=UDim2.new(if i%2==0 then 0.51 else 0,0,0,if i&gt;2 then 42 else 0)
+		b.Size=UDim2.new(0.49,0,0,36) b.Position=UDim2.new(if i%2==0 then 0.51 else 0,0,0,math.floor((i-1)/2)*42)
 	end
 	if state.notice then ui.note("Connection message",state.notice) end
 	if state.tab=="Objects" then
 		ui.note("1. Which objects participate?","Players follows player characters and respawns. Folder follows its direct child models/parts. Tag follows objects marked with the chosen CollectionService tag. References follows one selected object, or a folder of objects. Objects need a root Part, unless they are Parts themselves. Each may set a ChronoKind attribute for mixed kinds, such as player and ball.")
-		for _,name in {"Players","PlayersAndFolder","Folder","Tag","References"} do ui.button(ui.content,"Objects: "..(if name=="PlayersAndFolder" then "Players + extra objects" else name),function() c.actors=name refresh() end,c.actors==name) end
+		for _,name in {"Players","PlayersAndFolder","Folder","Tag","References","Data","PlayersAndData"} do ui.button(ui.content,"Objects: "..(if name=="PlayersAndFolder" then "Players + extra objects" elseif name=="Data" then "Server data (no Parts)" elseif name=="PlayersAndData" then "Players + server data" else name),function() c.actors=name refresh() end,c.actors==name) end
 		if c.actors=="Folder" or c.actors=="References" or c.actors=="PlayersAndFolder" then choose("Actors","Participating objects","Select an existing Workspace folder/model/Part in Explorer, then use the button. Players + extra objects follows characters automatically and adds these objects, such as a server-controlled ball.") end
 		if c.actors=="Tag" then input("Object tag","tag",c,false) end
+		if c.actors=="Data" or c.actors=="PlayersAndData" then choose("Registry","Optional pure-data object registry","No Parts needed. Snapshots(time) returns a dictionary keyed by stable text ids. Or use the generated Track/Capture calls. Customize the supplied Registry template inside this package.") end
 		input("Root Part name","root",c,false,"Usually HumanoidRootPart. A tracked Part uses itself.")
 		input("Default object kind","kind",c,false,"Match the target kinds in Actions. Use ChronoKind attributes for balls or other kinds.")
 		ui.note("2. Who checks the position?","Server physics accepts anchored or server-owned Parts only. Player-owned movement needs either the supplied limited humanoid checker or your existing independent position checker. Selecting a label does not verify movement.")
@@ -2119,28 +2267,39 @@ function V.Draw(ui,state,o)
 				state.plan=handle state.summary=if handle then summary else nil message(if handle then "Review the connection changes below." else summary) ui.rebuild()
 			end)
 			if state.summary and state.plan then
-				ui.note("Changes",state.summary.changes.."\n\n"..state.summary.dependency.."\n\n"..state.summary.wiring.."\nEarlier-time compensation remains off.")
+				ui.note("Changes",state.summary.changes.."\n\n"..state.summary.dependency.."\n\n"..state.summary.wiring.."\nTiming: "..c.timing.."; maximum lookback: "..c.maxRewind.." seconds.")
 				ui.button(ui.content,"Add these reviewed connections",function()
 					local obj,why=Installer.Apply(state.plan,o.dependencies) state.plan=nil state.summary=nil
 					if obj then state.root=obj message("Connection package added. Select Events or Calls to connect real attacks; Play tests the actual wiring.") else message(why) end ui.rebuild()
 				end,true)
 			end
 		end
+	elseif Advanced.Draw(state.tab,ui,state,root,c,links,{input=input,choose=choose,refresh=refresh,message=message}) then
+		-- Advanced tab drawn above.
 	elseif state.tab=="Events" then
 		ui.note("Existing server events","Use this page if your game already has BindableEvents for accepted moves and their results. Never connect a raw RemoteEvent. First authenticate the player and check cooldown, stamina and other move rules in the original server code. Select Calls for ordinary functions instead. If argument order differs, customize ReadBegin/ReadQuery/ReadCancel/ApplyOutcome in the supplied Hooks. Links take effect after Add connections / Save connection settings on Objects.")
 		choose("Begin","Accepted move event","Arguments: sourceModel, actionName, moveKey, context. actionName defaults to Contact. moveKey identifies this active move; repeated keys refuse.")
 		choose("Query","Hit moment event","Arguments: sourceModel, moveKey. Use the same key as Begin. At this moment Chrono checks contacts and sends approved targets to Outcome.")
 		choose("Cancel","Cancelled move event","Arguments: sourceModel, moveKey. Fire from every existing cancellation path before it can apply an outcome.")
 		choose("Outcome","Existing outcome event","Receives sourceModel, targetModel, actionName, context, contact. Keep existing damage/possession/block/parry rules in its server handler. Use Hooks to adapt unusual data; no universal damage amount is invented.")
-		ui.button(ui.content,if c.autoQuery then "Hit timing: automatically once when window opens" else "Hit timing: existing Query event or generated Allows call",function() c.autoQuery=not c.autoQuery refresh() end,c.autoQuery)
-		ui.note("Automatic timing is optional","Use only when one check at the opening of the hit period matches your move. It requires an Outcome event and proper cancellation links. For animation markers, existing precise timing or target loops, keep it off and use Query / Calls.")
+		ui.button(ui.content,if c.autoQuery then "Hit timing: automatic within the active window" else "Hit timing: existing Query event or generated Allows call",function() c.autoQuery=not c.autoQuery refresh() end,c.autoQuery)
+		ui.note("Automatic timing is optional","Once checks at the first saved update in the hit window. Repeated checks again at later saved updates until expiry or the total target limit. Each target is returned at most once per move. Keep cancellation linked.")
+		for _,mode in {"Once","Repeated"} do ui.button(ui.content,"Default check mode: "..mode,function() c.queryMode=mode refresh() end,c.queryMode==mode) end
+		input("Minimum time between automatic repeated checks (seconds)","queryInterval",c,true,"The recording rate also limits how often checks can run.")
 		if root and root:FindFirstChild("Connector") then ui.button(ui.content,"Save event links and timing",function() local obj,why=Installer.Save(root,c,links,o.dependencies) message(if obj then "Event links saved. Restart Play and verify the argument order." else why) end) end
 	elseif state.tab=="Calls" then
 		ui.note("Generate the calls your existing scripts need","Choose the event's meaning, enter the variable names already used by your game, and preview an insertion at a selected server-script line. The plugin supplies the surrounding tracking and recording. You choose the correct location; it does not guess the meaning of arbitrary code.")
-		for _,kind in {"Begin","Gate","Cancel","Finish","Motion","Teleport"} do ui.button(ui.content,"Call: "..kind,function() state.hook=kind state.patch=nil ui.rebuild() end,state.hook==kind) end
+		for _,kind in {"Begin","Gate","Query","Resolve","Capture","Track","Untrack","Reset","Inspect","Destroy","Cancel","Finish","Motion","Teleport"} do ui.button(ui.content,"Call: "..kind,function() state.hook=kind state.patch=nil ui.rebuild() end,state.hook==kind) end
 		input("Existing source character/object variable","actor",state.vars,false)
 		input("Move reference variable (same scope at start and hit)","token",state.vars,false)
-		input("Action name in Actions","action",state.vars,false)
+		input("Action name in Actions / move builder","action",state.vars,false)
+  if state.hook=="Capture" then state.vars.timestamp=state.vars.timestamp or "" input("Optional existing simulation timestamp variable","timestamp",state.vars,false,"Blank uses the selected clock now.") end
+  if state.hook=="Track" then
+   state.vars.id=state.vars.id or "actorId" state.vars.snapshot=state.vars.snapshot or "snapshotFunction" state.vars.objectKind=state.vars.objectKind or c.kind state.vars.trust=state.vars.trust or "unverified"
+   input("Existing stable text-id variable","id",state.vars,false) input("Existing data function variable","snapshot",state.vars,false) input("Object kind","objectKind",state.vars,false)
+   ui.note("Who supplies this data?","Unverified refuses hit decisions. Server calculated / checked are declarations about your actual game code. Selecting a trusted label does not make client data safe.")
+   for _,trust in {"unverified","serverSimulated","serverValidated"} do ui.button(ui.content,"Data declaration: "..trust,function() state.vars.trust=trust refresh() end,state.vars.trust==trust) end
+  end
 		if state.hook=="Gate" or state.hook=="Motion" then input("Existing target variable","target",state.vars,false) end
 		if state.hook=="Gate" then ui.button(ui.content,"When refused: "..state.vars.exit,function() state.vars.exit=if state.vars.exit=="return" then "continue" else "return" state.patch=nil ui.rebuild() end) end
 		if state.hook=="Motion" then input("Existing velocity variable","velocity",state.vars,false) input("Existing duration variable","duration",state.vars,false) end
@@ -2170,13 +2329,19 @@ function V.Draw(ui,state,o)
 		else ui.note("Call needs attention",explanation) end
 	else
 		ui.note("What counts as connected?","Setup completion is not proof of working combat. In Play, verify objects, position updates, accepted moves, contact checks and actual outcomes. A miss has zero contacts. A refusal has insufficient evidence. Test cancellations, respawns, teleports, joins/leaves and Studio network delay/loss with real clients.")
-		ui.button(ui.content,"Read the running connection report",function()
+		if root and root:FindFirstChild("Connector") then
+   ui.note("Upgrade supplied connection runtime","Explicit upgrade keeps Hooks, Actions and existing timing policy. An edited Connector refuses automatic replacement. Studio Undo restores the previous runtime.")
+   ui.button(ui.content,"Upgrade supplied Connector to "..Config.Version,function() local object,why=Installer.Upgrade(root,o.runtime,o.dependencies) message(if object then "Connector upgraded. Review settings, save and restart Play." else why) ui.rebuild() end)
+   ui.note("Provider templates inside this package","Add and open a template, customize it here, then select its ModuleScript on the relevant tab and Save. Timing and position templates deliberately refuse until real game data is supplied.")
+   for _,key in {"Provider","Registry","Clock","Timing","World"} do ui.button(ui.content,"Add "..key.." provider template",function() local object,why=Templates.Add(root,key,o.dependencies) if object then links[key]=object if o.openScript then o.openScript(object) end message("Template added and selected. Customize it, then Save settings.") else message(why) end end) end
+  end
+  ui.button(ui.content,"Read the running connection report",function()
 			local reports=game.ReplicatedStorage:FindFirstChild("_ChronoConnectionReports") local report=reports and root and reports:FindFirstChild(root.Name)
 			if not report then message("No running report. Install connections and press Play. Do not require another runtime instance from debugging tools.") return end
 			local ok,r=pcall(game.HttpService.JSONDecode,game.HttpService,report.Value)
 			if ok then state.report=r ui.rebuild() else message("Report is not ready yet.") end
 		end)
-		if state.report then local r=state.report local s=r.stats ui.note("Measured runtime",string.format("Objects: %d\nUpdates: %d\nMoves: %d\nChecks: %d\nContacts: %d\nOutcomes permitted: %d\nRefusals: %d\nCorrections: %d\nErrors: %d\nLast status: %s",r.actors,s.captures,s.begun,s.queries,s.contacts,s.applied,s.refused,s.corrections,s.errors,s.reason)) end
+		if state.report then local r=state.report local s=r.stats ui.note("Measured runtime",string.format("Objects: %d\nUpdates: %d\nMoves: %d\nChecks: %d\nContacts: %d\nOutcomes permitted: %d\nRefusals: %d\nCorrections: %d\nErrors: %d\nLast status: %s",r.actors,s.captures,s.begun,s.queries,s.contacts,s.applied,s.refused,s.corrections,s.errors,s.reason)) ui.note("Active policies","Timing: "..tostring(r.timing).."; approved delay: "..tostring(r.rewind).." / "..tostring(r.maxRewind).." seconds\nRecording: "..tostring(r.recording).."; checks: "..tostring(r.queryMode).."; obstacles: "..tostring(r.world).."\nObstacle status: "..tostring(r.worldFault or "no reported fault")) end
 		if root then
 			if root:GetAttribute("ConnectionLearningScene") then ui.button(ui.content,"Remove the supplied learning scene",function() local ok,why=require(script.Parent.ConnectionExample).Remove(root,o.dependencies) if ok then state.root=nil end message(if ok then "Learning scene removed." else why) ui.rebuild() end) end
 			for _,name in {"Hooks","Connections","Actions","Connector","RunPractice"} do ui.button(ui.content,"Open "..name.." inside the package",function() local object=root:FindFirstChild(name) if object and o.openScript then o.openScript(object) else message("Add connections first, then open the supplied file.") end end) end
@@ -2185,9 +2350,16 @@ function V.Draw(ui,state,o)
 			ui.button(ui.content,"Remove supplied connections (keep the Core and Actions)",function() local ok,why=Installer.Remove(root,o.dependencies) message(if ok then "Supplied connection files removed. Core and Actions remain." else why) ui.rebuild() end)
 		end
 	end
+ if state.tab~="Objects" then
+  ui.button(ui.content,"Check all connection settings",function() local ok,why=Config.Validate(c,links) message(if ok then "Settings are usable. Save or add connections, then test the actual game path in Play." else why) end)
+  if root and root:FindFirstChild("Connector") then ui.button(ui.content,"Save all connection settings and links",function() local obj,why=Installer.Save(root,c,links,o.dependencies) message(if obj then "Settings saved. Restart Play to load them. Customized code was kept." else why) end)
+  else ui.label(ui.content,"Return to Objects to review and add these connections.",14) end
+ end
 end
 return V
-</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF24"><Properties><string name="Name">Fields</string><ProtectedString name="Source">-- Stable field order and plain-language help shared by the form and validation messages.
+
+
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF25"><Properties><string name="Name">Fields</string><ProtectedString name="Source">-- Stable field order and plain-language help shared by the form and validation messages.
 local F={}
 F.Order={"name","kind","targets","shape","width","height","depth","radius","forward","length","opens","closes","maxTargets","seconds","maxGap","maxRewind","maxSpeed","maxRadius","rules"}
 F.Items={
@@ -2217,7 +2389,7 @@ F.Shapes={{code="Box",label="Box",help="A rectangular box. Useful for broad tack
 	{code="Ray",label="Thin line (ray)",help="A straight line with no thickness. Useful for an instant line check."},
 	{code="SweptSphere",label="Ball along a line (sweep)",help="Check a ball at every point along a straight line, not only at its end."}}
 return F
-</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF25"><Properties><string name="Name">HookBuilder</string><ProtectedString name="Source">-- Generates small calls and applies an exact reviewed edit. Never guesses what arbitrary game code means.
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF26"><Properties><string name="Name">HookBuilder</string><ProtectedString name="Source">-- Generates small calls and applies an exact reviewed edit. Never guesses what arbitrary game code means.
 local H={}
 local plans=setmetatable({}, {__mode="k"})
 local function variable(text)
@@ -2239,7 +2411,31 @@ function H.Generate(root,kind,v)
 		explanation="Insert INSIDE the accepted-attack function, AFTER existing request/cooldown checks and BEFORE animation/windup. The move variable must remain in scope at its hit and cancellation points."
 	elseif kind=="Gate" then
 		code="if not "..ref..".Allows("..token..", "..target..") then "..exit.." end"
-		explanation="Insert immediately BEFORE the existing damage/possession call. Choose 'continue' inside a target loop, or 'return' inside a per-target function. It preserves that existing outcome and permits each target once."
+		explanation="Insert immediately BEFORE the existing damage/possession call. Choose 'continue' inside a target loop, or 'return' inside a per-target function. It permits each target once. This cannot discover a target missed by a present-part search; use Resolve or Query contacts for earlier timing."
+	elseif kind=="Query" then
+		code="local chronoResult, chronoReason = "..ref..".Query("..token..")\nif not chronoResult then return end\n-- chronoResult.contacts contains .target, .zone, .time and .state.\n-- Use these targets; do not filter through a present-part overlap first."
+		explanation="Insert at the hit moment. This returns covered contacts, without applying outcomes. For supplied outcome delivery use Resolve instead. A repeated move may Query again AFTER another Capture; total targets and duplicate prevention span the whole move."
+	elseif kind=="Resolve" then
+		code=ref..".Resolve("..token..")"
+		explanation="Insert at the hit moment, or use automatic checking on Events. Sends Chrono contacts to the selected Outcome event and OnContact inside Hooks, once per target. Supports earlier timing without an external present-part candidate list. Keep current damage, block, parry and possession rules there."
+	elseif kind=="Capture" then
+		local stamp=v.timestamp or "" if stamp~="" and not variable(stamp) then return nil,"Use an existing simulation timestamp variable, or leave it blank." end
+		code=ref..".Capture("..stamp..")"
+		explanation="Manual recording: insert AFTER your server finishes updating ALL participating objects at the same simulation instant. Optional timestamp uses the chosen clock's seconds. The plugin does not create a simulation loop or movement checker."
+	elseif kind=="Track" then
+		local snapshot=v.snapshot or "snapshotFunction" local id=v.id or "actorId" local trust=v.trust or "unverified"
+		if not variable(snapshot) or not variable(id) or not table.find({"unverified","serverValidated","serverSimulated"},trust) then return nil,"Choose existing id/function variables and a valid data trust declaration." end
+		code=ref..".Track("..id..", {kind="..string.format("%q",v.objectKind or "actor")..", trust="..string.format("%q",trust)..", capture="..snapshot.."})"
+		explanation="Data-only alternative to the Registry provider: insert when your server creates an object. id is stable short text; capture(time) returns {ok=true,root,zones,state}. Uses recording limits from the plugin. Choose a trusted declaration only when your server really calculates/checks the data. No Parts are required."
+	elseif kind=="Untrack" or kind=="Reset" then
+		code=ref..(if kind=="Reset" then ".Discontinuity(" else ".Untrack(")..actor..")"
+		explanation=if kind=="Reset" then "After an approved data teleport or position-provider repair, clear interrupted records. Update your server data first; old moves cannot cross this reset." else "When a manually registered data object is removed, unregister its stable text id. Automatic registries/folders handle their own removals."
+	elseif kind=="Inspect" then
+		code="local chronoReport = "..ref..".Inspect()"
+		explanation="Server diagnostics: configuration, per-object limits, counters and unchanged Core inspection. Avoid exposing this information as a client gameplay authority."
+	elseif kind=="Destroy" then
+		code=ref..".Destroy()"
+		explanation="Stop this supplied connection instance and its listeners during deliberate server teardown. Disable StartConnection if it should stay stopped; later public calls start it again."
 	elseif kind=="Cancel" or kind=="Finish" then
 		code=ref.."."..kind.."("..token..")"
 		explanation="Insert on the existing cancellation path, or after the move's hit checks finish. Every early exit after Begin needs Cancel."
@@ -2311,10 +2507,10 @@ function H.Restore(record,d)
 	return if ok then true else nil,err
 end
 return H
-</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF26"><Properties><string name="Name">Installer</string><ProtectedString name="Source">-- Edit-time only. New owned namespace, explicit preview, one undo record, no game script rewriting.
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF27"><Properties><string name="Name">Installer</string><ProtectedString name="Source">-- Edit-time only. New owned namespace, explicit preview, one undo record, no game script rewriting.
 local Config=require(script.Parent.Config)
 local Installer={}
-local OWNER="ChronoV3-3.1.0"
+local OWNER="ChronoV3-3.2.0"
 local plans=setmetatable({}, {__mode="k"})
 function Installer.Preview(config,references,core,service)
 	local ok,why=Config.Validate(config) if not ok then return nil,why end
@@ -2349,6 +2545,7 @@ function Installer.Apply(handle,dependencies)
 		local function write(object,source) editor:UpdateSourceAsync(object,function() return source end) end
 		write(container,plan.sources.Integration)
 		local clone=plan.core:Clone() clone.Name="Core" clone.Parent=container
+		local setup=Instance.new("StringValue") setup.Name="SetupData" setup.Value=game.HttpService:JSONEncode(plan.config) setup.Parent=container
 		for _,key in {"Actions","Bindings","Settings","Practice"} do local module=Instance.new("ModuleScript") module.Name=key write(module,plan.sources[key]) module.Parent=container end
 		local runner=Instance.new("Script") runner.Name="RunPractice" runner.Enabled=false write(runner,plan.sources.RunPractice) runner.Parent=container
 		local notes=Instance.new("StringValue") notes.Name="StartHere"
@@ -2365,7 +2562,7 @@ function Installer.Apply(handle,dependencies)
 	return container
 end
 return table.freeze(Installer)
-</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF27"><Properties><string name="Name">Preview</string><ProtectedString name="Source">-- A picture in the plugin only. These Parts never enter Workspace or affect gameplay.
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF28"><Properties><string name="Name">Preview</string><ProtectedString name="Source">-- A picture in the plugin only. These Parts never enter Workspace or affect gameplay.
 local Config=require(script.Parent.Config)
 local Preview={}
 function Preview.Draw(parent,config)
@@ -2412,7 +2609,59 @@ function Preview.Draw(parent,config)
 	return frame
 end
 return Preview
-</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF28"><Properties><string name="Name">View</string><ProtectedString name="Source">-- Plain-language setup. The code names remain available beside their explanations.
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF29"><Properties><string name="Name">ProviderTemplates</string><ProtectedString name="Source">-- All customization remains inside the installed package.
+local T={}
+T.Sources={
+ Clock=[[-- Optional: replace the body with your server simulation's shared seconds clock.
+-- Use the SAME clock for every position, Capture timestamp and timing provider.
+return {Now=function() return workspace:GetServerTimeNow() end}
+]],
+ Registry=[[-- Pure server data, no Parts required. Return a dictionary keyed by stable text ids.
+-- Replace this empty list with your game's already calculated/checked objects.
+-- Each snapshot needs ok=true, root=CFrame, zones={Body=shape}, state={active=true}.
+-- Shapes use MAP coordinates. Use require(script.Parent.Core).Shapes.
+-- Optional per-object fields: kind, maxSpeed, maxRadius.
+-- ok=true declares YOUR server already checked/calculated the data.
+return {Snapshots=function(time) return {} end}
+]],
+ Timing=[[-- Return an approved delay in seconds, between zero and maximum.
+-- This is called ONCE when the server accepts a move. The delay stays fixed for that move.
+-- Do not accept a raw client timestamp or raw client-provided delay here.
+-- Adapt your existing server timing check here, or use Measured ping in the plugin.
+return {Resolve=function(actor,serverContext,captureTime,maximum)
+ error("Connect your server timing rule inside this module before enabling Provider timing")
+end}
+]],
+ World=[[-- Called for rays / swept spheres only. shape uses MAP coordinates.
+-- Return {covered=true,blocked=boolean,fraction=number from 0 to 1}.
+-- covered means YOUR provider actually knows obstacles at queryTime.
+-- Never answer 'clear' merely because historical obstacle data is missing.
+-- Moving doors, platforms and destructible cover need saved obstacle states.
+return {Check=function(queryTime,currentTime,shape)
+ return {covered=false}
+end}
+]],
+ Provider=[[-- Connect your existing position checker here. A root read alone is not validation.
+-- Return {ok=true,root=CFrame,zones={Body=shape},state={active=true}} only AFTER approval.
+-- Shapes use MAP coordinates. Use require(script.Parent.Core).Shapes.
+return {Snapshot=function(object,time) return {ok=false} end}
+]]}
+function T.Add(root,key,d)
+ if not root or not root:FindFirstChild("ConnectionLinks") then return nil,"Add connections first." end
+ if game:GetService("RunService"):IsRunning() then return nil,"Stop Play first." end
+ if not T.Sources[key] then return nil,"Unknown provider template." end
+ local name=key.."Provider" if root:FindFirstChild(name) then return nil,"A file named "..name.." exists. Open it; no code was replaced." end
+ d=d or {} local h=d.history or game:GetService("ChangeHistoryService") local e=d.editor or game:GetService("ScriptEditorService")
+ local rec=h:TryBeginRecording("ChronoProvider","Add Chrono provider template") if not rec then return nil,"Studio could not start an Undo step." end
+ local object local ok,err=pcall(function()
+  object=Instance.new("ModuleScript") object.Name=name e:UpdateSourceAsync(object,function() return T.Sources[key] end) object.Parent=root
+ end)
+ if not ok and object then object:Destroy() end h:FinishRecording(rec,if ok then Enum.FinishRecordingOperation.Commit else Enum.FinishRecordingOperation.Cancel)
+ return if ok then object else nil,err
+end
+return T
+
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF30"><Properties><string name="Name">View</string><ProtectedString name="Source">-- Plain-language setup. The code names remain available beside their explanations.
 local Config=require(script.Parent.Config)
 local Fields=require(script.Parent.Fields)
 local Installer=require(script.Parent.Installer)
@@ -2462,7 +2711,7 @@ function View.Mount(parent,options)
 		place(b,target) local c=Instance.new("UICorner") c.CornerRadius=UDim.new(0,6) c.Parent=b connect(b.Activated,callback,permanent) return b
 	end
 	local header=Instance.new("Frame") header.Name="Header" header.Position=UDim2.fromOffset(16,14) header.Size=UDim2.new(1,-32,0,96) header.BackgroundTransparency=1 header.Parent=root
-	local brand=label(header,"CHRONO V3  /  3.1",14,colors.accent) brand.Size=UDim2.new(0.48,0,0,28) brand.AutomaticSize=Enum.AutomaticSize.None
+	local brand=label(header,"CHRONO V3  /  3.2",14,colors.accent) brand.Size=UDim2.new(0.48,0,0,28) brand.AutomaticSize=Enum.AutomaticSize.None
 	local title=label(header,"",22) title.Position=UDim2.fromOffset(0,42) title.Size=UDim2.new(1,0,0,54) title.AutomaticSize=Enum.AutomaticSize.None
 	local content=Instance.new("ScrollingFrame") content.Name="Content" content.Position=UDim2.fromOffset(16,116) content.Size=UDim2.new(1,-32,1,-238)
 	content.BackgroundTransparency=1 content.BorderSizePixel=0 content.ScrollBarThickness=5 content.AutomaticCanvasSize=Enum.AutomaticSize.Y content.CanvasSize=UDim2.new() content.Parent=root
@@ -2557,7 +2806,8 @@ function View.Mount(parent,options)
 		label(errors,"Paste a reason code from your result or Output. Example: target_state_boundary.",14,colors.muted)
 		local input=Instance.new("TextBox") input.Name="ReasonCode" input.Size=UDim2.new(1,0,0,38) input.Text=reason input.ClearTextOnFocus=false input.Font=Enum.Font.Code input.TextSize=14 input.TextColor3=colors.text input.BackgroundColor3=colors.background place(input,errors)
 		connect(input.FocusLost,function() reason=input.Text:match("^%s*(.-)%s*$") rebuild() end)
-		local h=Help.Explain(reason) label(errors,h.title,17) if h.subject then label(errors,h.subject,14,colors.muted) end
+		local extra=o.runtime and o.runtime:FindFirstChild("Messages")
+		local h=(extra and require(extra).Explain(reason)) or Help.Explain(reason) label(errors,h.title,17) if h.subject then label(errors,h.subject,14,colors.muted) end
 		label(errors,"What happened: "..h.meaning,14) label(errors,"What to do: "..h.fix,14,colors.accent)
 		return end
 		local search=Instance.new("TextBox") search.Name="WordSearch" search.Size=UDim2.new(1,0,0,40) search.PlaceholderText="Type a word, then press Enter" search.Text=query search.ClearTextOnFocus=false search.Font=Enum.Font.Gotham search.TextSize=15 search.TextColor3=colors.text search.PlaceholderColor3=colors.muted search.BackgroundColor3=colors.card place(search,content)
@@ -2568,6 +2818,7 @@ function View.Mount(parent,options)
 		for _,entry in entries do local f=card(content) label(f,entry[2],17,colors.accent) label(f,"Code / technical word: "..entry[1],13,colors.muted) label(f,entry[3],14) label(f,"Example: "..entry[4],14,colors.muted) end
 	end
 	rebuild=function()
+		if destroyed then return end
 		for _,c in pageConnections do c:Disconnect() end table.clear(pageConnections) table.clear(fieldsByKey)
 		for _,v in content:GetChildren() do if v~=contentLayout then v:Destroy() end end
 		content.CanvasPosition=Vector2.zero
@@ -2671,313 +2922,523 @@ function View.Mount(parent,options)
 	return controller
 end
 return View
-</ProtectedString></Properties></Item></Item><Item class="ModuleScript" referent="CF29"><Properties><string name="Name">Runtime</string><ProtectedString name="Source">-- Delivered connection runtime. Use one singleton from ordinary SERVER scripts.
--- All game-specific customization belongs in Connections, Actions and Hooks.
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF31"><Properties><string name="Name">VolumePreview</string><ProtectedString name="Source">-- Preview geometry stays inside a ViewportFrame; never changes Workspace.
+local C=require(script.Parent.ConnectionConfig)
+local P={}
+function P.Draw(parent,rows,attack)
+ local view=Instance.new("ViewportFrame") view.Name="VolumesPicture" view.Size=UDim2.new(1,0,0,210)
+ view.BackgroundColor3=Color3.fromRGB(12,25,36) view.BorderSizePixel=0 view.Ambient=Color3.fromRGB(180,195,210) view.Parent=parent
+ local good=true local span=6
+ for _,v in rows do if not C.CheckVolume(v,attack) then good=false break end
+  span=math.max(span,Vector3.new(v.x,v.y,v.z).Magnitude+math.max(v.width,v.height,v.depth,v.radius*2,if v.shape=="Ray" or v.shape=="SweptSphere" then v.length else 0))
+ end
+ if not good then local l=Instance.new("TextLabel") l.Size=UDim2.fromScale(1,1) l.Text="Fix the shape values, then update the picture." l.TextWrapped=true l.BackgroundTransparency=1 l.TextColor3=Color3.new(1,1,1) l.Parent=view return view end
+ local scale=math.min(1,50/span) local model=Instance.new("WorldModel") model.Parent=view
+ local function part(cf,size,shape,color,alpha)
+  local p=Instance.new("Part") p.Anchored=true p.CanCollide=false p.Shape=shape
+  p.Size=size*scale p.CFrame=CFrame.new(cf.Position*scale)*cf.Rotation p.Color=color p.Transparency=alpha or 0.2 p.Parent=model
+ end
+ part(CFrame.new(),Vector3.one*math.max(0.25,span/40),Enum.PartType.Ball,Color3.fromRGB(255,181,80),0)
+ for i,v in rows do
+  local f=CFrame.new(v.x,v.y,v.z)*CFrame.Angles(math.rad(v.pitch),math.rad(v.yaw),math.rad(v.roll))
+  local color=Color3.fromHSV((0.53+(i-1)*0.13)%1,0.65,1)
+  if v.shape=="Box" then part(f,Vector3.new(v.width,v.height,v.depth),Enum.PartType.Block,color)
+  elseif v.shape=="Sphere" then part(f,Vector3.one*v.radius*2,Enum.PartType.Ball,color)
+  elseif v.shape=="Capsule" then local h=v.height-v.radius*2
+   if h&gt;0 then part(f*CFrame.Angles(0,0,math.pi/2),Vector3.new(h,v.radius*2,v.radius*2),Enum.PartType.Cylinder,color) end
+   for _,sign in {-1,1} do part(f*CFrame.new(0,sign*h/2,0),Vector3.one*v.radius*2,Enum.PartType.Ball,color) end
+  else
+   local width=if v.shape=="Ray" then math.max(0.06,span/180) else v.radius*2
+   part(f*CFrame.new(0,0,-v.length/2)*CFrame.Angles(0,math.pi/2,0),Vector3.new(v.length,width,width),Enum.PartType.Cylinder,color)
+   if v.shape=="SweptSphere" then for _,z in {0,-v.length} do part(f*CFrame.new(0,0,z),Vector3.one*v.radius*2,Enum.PartType.Ball,color) end end
+  end
+ end
+ local camera=Instance.new("Camera") camera.FieldOfView=45
+ camera.CFrame=CFrame.lookAt(Vector3.new(0.85,0.6,1.1)*span*scale,Vector3.zero) camera.Parent=view view.CurrentCamera=camera return view
+end
+return P
+
+</ProtectedString></Properties></Item></Item><Item class="ModuleScript" referent="CF32"><Properties><string name="Name">Runtime</string><ProtectedString name="Source">-- Supplied connection runtime, 3.2.0. One ordinary-server singleton per package.
+-- Core math is unchanged. All timing/recording/query policies are explicit settings.
 local Root=script.Parent
 local Core=require(Root.Core)
+local Contract=require(Root.Core.Contract)
+local Config=require(script.Configuration)
+local Volumes=require(script.Volumes)
+local World=require(script.World)
+local Messages=require(script.Messages)
 local Movement=require(script.Movement)
 local R={}
 local live
-local function reset(s,id,reason) s.generation+=1 s.chrono:Discontinuity(id,reason) end
-local function rootOf(object,c)
-	if object:IsA("BasePart") then return object end
-	local root=object:FindFirstChild(c.root) or object.PrimaryPart
-	return if root and root:IsA("BasePart") then root else nil
+local hookDepth=0
+local capture,query,resolve,automatic,publish
+local function invoke(fn,...)
+ hookDepth+=1 local ok,a,b,c=Contract.Call(fn,...) hookDepth-=1
+ if not ok then error(a,0) end return a,b,c
 end
-local function owner(root)
-	if root.Anchored then return true,nil end
-	return pcall(root.GetNetworkOwner,root)
+local function link(s,name) local v=s.links:FindFirstChild(name) return v and v.Value end
+local function module(s,name)
+ local object=link(s,name) if not object then return nil end
+ local value=require(object) assert(type(value)=="table" or type(value)=="function",name.." module must return a table/function") return value
 end
-local function link(s,name)
-	local value=s.links:FindFirstChild(name) return value and value.Value
+local function now(s)
+ local value=if s.clockProvider then invoke(s.hooks.Clock,s.clockProvider) else workspace:GetServerTimeNow()
+ assert(Config.Number(value,-1e12,1e12),"clock_fault") return value
 end
-local function fail(s,reason)
-	s.stats.refused+=1 s.stats.reason=tostring(reason)
-	return nil,tostring(reason)
-end
+local function fail(s,reason) s.stats.refused+=1 s.stats.reason=tostring(reason) return nil,tostring(reason) end
+local function reset(s,id,reason) s.generation+=1 s.needsCapture=true s.chrono:Discontinuity(id,reason) end
 local function finish(s,token)
-	local move=token and s.moves[token]
-	if not move then return false end
-	s.chrono:EndAction(move.handle) s.moves[token]=nil
-	if move.key~=nil and s.keys[move.actor] then s.keys[move.actor][move.key]=nil end
-	return true
+ local move=token and s.moves[token] if not move then return false end
+ s.chrono:EndAction(move.handle) s.moves[token]=nil
+ if move.key~=nil and s.keys[move.actor] then s.keys[move.actor][move.key]=nil end return true
 end
-local function objects(s)
-	local values={}
-	if s.c.actors=="Players" or s.c.actors=="PlayersAndFolder" then
-		for _,player in game:GetService("Players"):GetPlayers() do if player.Character then table.insert(values,player.Character) end end
-	end
-	if s.c.actors=="Tag" then values=game:GetService("CollectionService"):GetTagged(s.c.tag)
-	elseif s.c.actors~="Players" then
-		local source=link(s,"Actors")
-		if source and source:IsDescendantOf(workspace) then
-			local extra=if (s.c.actors=="References" or s.c.actors=="PlayersAndFolder") and (source:IsA("BasePart") or (source:IsA("Model") and rootOf(source,s.c))) then {source} else source:GetChildren()
-			for _,object in extra do table.insert(values,object) end
-		end
-	end
-	local result={} local seen={}
-	for _,object in values do
-		if not seen[object] and (object:IsA("Model") or object:IsA("BasePart")) and object:IsDescendantOf(workspace) and rootOf(object,s.c) then seen[object]=true table.insert(result,object) end
-	end
-	table.sort(result,function(a,b) return a:GetFullName()&lt;b:GetFullName() end)
-	return result
+local function rootOf(object,c)
+ if object:IsA("BasePart") then return object end
+ local root=object:FindFirstChild(c.root) or object.PrimaryPart
+ return if root and root:IsA("BasePart") then root else nil
 end
-local function sync(s,now)
-	local found={} local values=objects(s)
-	if #values&gt;256 then return nil,"actor_limit_256" end
-	for _,object in values do found[object]=true end
-	for object,record in s.actors do
-		if not found[object] or rootOf(object,s.c)~=record.root then
-			for token,move in s.moves do if move.actor==object then finish(s,token) end end
-			s.chrono:Untrack(record.id) s.generation+=1 s.byId[record.id]=nil s.actors[object]=nil s.keys[object]=nil
-		end
-	end
-	for _,object in values do
-		local root=rootOf(object,s.c) local record=s.actors[object]
-		local known,who=owner(root)
-		if not record then
-			s.serial+=1 s.generation+=1
-			record={id="actor-"..s.serial,object=object,root=root,owner=who,ownerKnown=known}
-			if s.c.positions=="Humanoid" and object:FindFirstChildOfClass("Humanoid") then record.guard=Movement.New(object,root,now,s.c) end
-			s.actors[object]=record s.byId[record.id]=record
-			local radius=math.min(512,math.max(s.c.radius,s.c.height/2,Vector3.new(s.c.width,s.c.height,s.c.depth).Magnitude/2,if s.c.partBodies then root.Size.Magnitude/2 else 0)+0.001)
-			s.chrono:Track(record.id,{kind=object:GetAttribute("ChronoKind") or s.c.kind,
-				trust=if s.c.positions=="ServerPhysics" then "serverSimulated" else "serverValidated",
-				maxSpeed=4096,maxRadius=if s.c.positions=="Provider" then 512 else radius,
-				capture=function(time) assert(record.preparedAt==time,"No common update prepared") return record.prepared end})
-		elseif known~=record.ownerKnown or who~=record.owner then
-			record.owner=who record.ownerKnown=known reset(s,record.id,"physics_owner_changed")
-		end
-	end
-	return values
+local function owner(root) if root.Anchored then return true,nil end return pcall(root.GetNetworkOwner,root) end
+local function physical(s)
+ local list={} local mode=s.c.actors
+ if table.find({"Players","PlayersAndFolder","PlayersAndData"},mode) then for _,p in game.Players:GetPlayers() do if p.Character then table.insert(list,p.Character) end end end
+ if mode=="Tag" then list=game:GetService("CollectionService"):GetTagged(s.c.tag)
+ elseif table.find({"Folder","References","PlayersAndFolder"},mode) then
+  local f=link(s,"Actors")
+  if f and f:IsDescendantOf(workspace) then
+   if mode~="Folder" and (f:IsA("BasePart") or (f:IsA("Model") and rootOf(f,s.c))) then table.insert(list,f)
+   else for _,o in f:GetChildren() do table.insert(list,o) end end
+  end
+ end
+ local out={} local seen={}
+ for _,o in list do if not seen[o] and (o:IsA("Model") or o:IsA("BasePart")) and o:IsDescendantOf(workspace) and rootOf(o,s.c) then seen[o]=true table.insert(out,o) end end
+ table.sort(out,function(a,b) return a:GetFullName()&lt;b:GetFullName() end) return out
 end
-local function prepare(s,record,now,excluded)
-	if record.fault then return nil,record.fault end
-	local frame=record.root.CFrame local state=s.hooks.State(record.object,record.root,s.c)
-	local zones
-	if s.c.positions=="ServerPhysics" then
-		local known,who=owner(record.root)
-		if not known or who~=nil then return nil,"client_owned_position_needs_checker" end
-	elseif s.c.positions=="Humanoid" then
-		if not record.guard then
-			local known,who=owner(record.root)
-			if not known or who~=nil then return nil,"non_humanoid_needs_server_physics_or_provider" end
-		else
-			local reason,corrected
-			frame,reason,corrected=Movement.Check(record.guard,now,s.c,s.hooks,excluded)
-			if not frame then
-				if corrected then s.stats.corrections+=1 s.hooks.AfterCorrection(record.object,reason) end
-				return nil,reason
-			end
-		end
-	else
-		if not s.provider then return nil,"position_provider_required" end
-		local snapshot=s.hooks.ProviderSnapshot(s.provider,record.object,now)
-		if type(snapshot)~="table" or snapshot.ok~=true then return nil,"provider_has_not_approved_position" end
-		frame=snapshot.root zones=snapshot.zones state=snapshot.state or state
-	end
-	if not zones then
-		local S=Core.Shapes
-		if s.c.partBodies and not record.object:FindFirstChildOfClass("Humanoid") then
-			local part=record.root local size=part.Size
-			local sphere=part:IsA("Part") and part.Shape==Enum.PartType.Ball and math.abs(size.X-size.Y)&lt;1e-5 and math.abs(size.X-size.Z)&lt;1e-5
-			zones={Body=if sphere then S.Sphere(frame,size.X/2) else S.Box(frame,size)}
-		else zones={Body=if s.c.body=="Sphere" then S.Sphere(frame,s.c.radius)
-			elseif s.c.body=="Capsule" then S.Capsule(frame,s.c.radius,s.c.height)
-			else S.Box(frame,Vector3.new(s.c.width,s.c.height,s.c.depth))}
-		end
-	end
-	return {root=frame,zones=zones,state=state}
+local function limits(s,key,kind,overrides)
+ local speed,radius=s.c.recordMaxSpeed,s.c.recordMaxRadius
+ if s.c.legacyLimits and typeof(key)=="Instance" then
+  local c=s.c local root=rootOf(key,c)
+  speed=4096 radius=if c.positions=="Provider" then 512 else math.min(512,math.max(c.radius,c.height/2,Vector3.new(c.width,c.height,c.depth).Magnitude/2,if c.partBodies and root then root.Size.Magnitude/2 else 0)+0.001)
+ end
+ for _,row in s.c.kindLimits do if row.kind==kind then speed,radius=row.maxSpeed,row.maxRadius break end end
+ if s.c.objectLimits and typeof(key)=="Instance" then speed=key:GetAttribute("ChronoMaxSpeed") or speed radius=key:GetAttribute("ChronoMaxRadius") or radius end
+ if overrides then speed=overrides.maxSpeed or speed radius=overrides.maxRadius or radius end
+ if s.hooks.RecordingLimits then speed,radius=invoke(s.hooks.RecordingLimits,key,speed,radius,s.c) end
+ assert(Config.Number(speed,0,4096) and Config.Number(radius,0.001,512),"recording_limits_invalid") return speed,radius
 end
-local function capture(s)
-	local now=workspace:GetServerTimeNow()
-	local values,why=sync(s,now) if not values then return nil,why end
-	local reason
-	for _,record in s.actors do
-		local ok,snapshot,err=pcall(prepare,s,record,now,values)
-		if not ok then record.fault="position_function_error" snapshot=nil err=record.fault s.stats.errors+=1 end
-		if not snapshot then
-			if not record.blocked then reset(s,record.id,err) end
-			record.blocked=err reason=reason or err
-		else
-			if record.blocked then reset(s,record.id,"position_available_again") end
-			record.blocked=nil record.prepared=snapshot
-		end
-	end
-	-- Never timestamp a snapshot before a reset, which reads the clock internally.
-	if reason then return nil,reason end
-	local time=workspace:GetServerTimeNow()
-	for _,record in s.actors do record.preparedAt=time end
-	local result=s.chrono:Capture(time) s.time=time s.stats.captures+=1
-	for token,move in s.moves do if time&gt;move.expires then finish(s,token) end end
-	if not result.ok then
-		for _,fault in result.faults or {} do local r=s.byId[fault.id] if r then r.fault=fault.reason end end
-		return nil,result.reason
-	end
-	return true
+local function remove(s,key)
+ local rec=s.actors[key] if not rec then return false end
+ for token,move in s.moves do if move.actor==key then finish(s,token) end end
+ s.chrono:Untrack(rec.id) s.actors[key]=nil s.byId[rec.id]=nil s.keys[key]=nil s.generation+=1 s.needsCapture=true return true
 end
-local function publish(s)
-	if not s.report or os.clock()-s.published&lt;0.5 then return end
-	s.published=os.clock()
-	local count=0 local paused={}
-	for object,record in s.actors do count+=1 if record.blocked or record.fault then table.insert(paused,{object=object.Name,reason=record.fault or record.blocked}) end end
-	local report={version="3.1.0",connectionBuild="2026-10-24",actors=count,positions=s.c.positions,
-		stats=s.stats,paused=paused,core=s.chrono:Inspect().stats,rewind=0,
-		outcomeLinked=link(s,"Outcome")~=nil,attackEventLinked=link(s,"Begin")~=nil}
-	s.report.Value=game:GetService("HttpService"):JSONEncode(report)
-	Root:SetAttribute("ConnectionActors",count) Root:SetAttribute("ConnectionReason",s.stats.reason)
-	Root:SetAttribute("ConnectionBegun",s.stats.begun) Root:SetAttribute("ConnectionQueries",s.stats.queries)
+local function register(s,key,kind,trust,speed,radius,extra)
+ s.serial+=1
+ local rec=extra or {} rec.id="actor-"..s.serial rec.key=key rec.kind=kind rec.maxSpeed=speed rec.maxRadius=radius rec.trust=trust
+ s.chrono:Track(rec.id,{kind=kind,trust=trust,maxSpeed=speed,maxRadius=radius,capture=function(time) assert(rec.preparedAt==time,"No common update prepared") return rec.prepared end})
+ s.actors[key]=rec s.byId[rec.id]=rec s.generation+=1 s.needsCapture=true return rec
+end
+local function sync(s,time)
+ local objects=physical(s) local found={}
+ for _,o in objects do found[o]=true end
+ local data={}
+ if s.registry then
+  local supplied=invoke(s.hooks.DataSnapshots,s.registry,time)
+  assert(type(supplied)=="table","Registry.Snapshots must return a dictionary keyed by short text ids")
+  local count=0 for id,snapshot in supplied do
+   count+=1 assert(count&lt;=256 and Config.Name(id) and type(snapshot)=="table","data_registry_invalid")
+   data[id]=snapshot
+  end
+ end
+ for key,rec in s.actors do
+  if (rec.source=="physical" and (not found[key] or rootOf(key,s.c)~=rec.root)) or (rec.source=="registry" and not data[key]) then remove(s,key) end
+ end
+ for _,o in objects do
+  local root=rootOf(o,s.c) local kind=o:GetAttribute("ChronoKind") or s.c.kind
+  local speed,radius=limits(s,o,kind)
+  local rec=s.actors[o] local known,who=owner(root)
+  if rec and (rec.kind~=kind or rec.maxSpeed~=speed or rec.maxRadius~=radius) then remove(s,o) rec=nil end
+  if not rec then
+   rec=register(s,o,kind,if s.c.positions=="ServerPhysics" then "serverSimulated" else "serverValidated",speed,radius,{source="physical",root=root,owner=who,ownerKnown=known})
+   if s.c.positions=="Humanoid" and o:FindFirstChildOfClass("Humanoid") then rec.guard=Movement.New(o,root,time,s.c) end
+  elseif known~=rec.ownerKnown or who~=rec.owner then rec.owner=who rec.ownerKnown=known reset(s,rec.id,"physics_owner_changed") end
+ end
+ for id,snapshot in data do
+  local rec=s.actors[id] assert(not rec or rec.source=="registry","registry_id_conflicts_with_manual_track")
+  local kind=snapshot.kind or s.c.kind local speed,radius=limits(s,id,kind,snapshot)
+  if rec and (rec.kind~=kind or rec.maxSpeed~=speed or rec.maxRadius~=radius) then remove(s,id) rec=nil end
+  if not rec then rec=register(s,id,kind,"serverValidated",speed,radius,{source="registry"}) end
+  rec.nextSnapshot=snapshot
+ end
+ return objects
+end
+local function prepare(s,rec,time,objects)
+ if rec.fault then return nil,rec.fault end
+ if rec.source~="physical" then
+  local snapshot=if rec.source=="registry" then rec.nextSnapshot else invoke(rec.capture,time)
+  if type(snapshot)~="table" or snapshot.ok~=true then return nil,"provider_has_not_approved_position" end
+  return {root=snapshot.root,zones=snapshot.zones,state=snapshot.state or {active=true}}
+ end
+ local o,root=rec.key,rec.root
+ local frame=root.CFrame local state=invoke(s.hooks.State,o,root,s.c)
+ local zones
+ if s.c.positions=="ServerPhysics" then local known,who=owner(root) if not known or who~=nil then return nil,"client_owned_position_needs_checker" end
+ elseif s.c.positions=="Humanoid" then
+  if rec.guard then local reason,corrected frame,reason,corrected=Movement.Check(rec.guard,time,s.c,s.hooks,objects)
+   if not frame then if corrected then s.stats.corrections+=1 invoke(s.hooks.AfterCorrection,o,reason) end return nil,reason end
+  else local known,who=owner(root) if not known or who~=nil then return nil,"non_humanoid_needs_server_physics_or_provider" end end
+ else
+  local snapshot=invoke(s.hooks.ProviderSnapshot,s.provider,o,time)
+  if type(snapshot)~="table" or snapshot.ok~=true then return nil,"provider_has_not_approved_position" end
+  frame,zones,state=snapshot.root,snapshot.zones,snapshot.state or state
+ end
+ if not zones then
+  if #s.c.zones&gt;0 then zones=Volumes.Zones(Core.Shapes,s.c.zones,frame)
+  elseif s.c.partBodies and not o:FindFirstChildOfClass("Humanoid") then
+   local size=root.Size local sphere=root:IsA("Part") and root.Shape==Enum.PartType.Ball and math.abs(size.X-size.Y)&lt;1e-5 and math.abs(size.X-size.Z)&lt;1e-5
+   zones={Body=if sphere then Core.Shapes.Sphere(frame,size.X/2) else Core.Shapes.Box(frame,size)}
+  else zones={Body=if s.c.body=="Sphere" then Core.Shapes.Sphere(frame,s.c.radius) elseif s.c.body=="Capsule" then Core.Shapes.Capsule(frame,s.c.radius,s.c.height) else Core.Shapes.Box(frame,Vector3.new(s.c.width,s.c.height,s.c.depth))} end
+ end
+ return {root=frame,zones=zones,state=state}
+end
+capture=function(s,time,runAutomatic)
+ if s.busy then return fail(s,"connection_reentry") end
+ local read,clock=Contract.Call(now,s) if not read then return fail(s,"clock_fault") end time=time or clock
+ if not Config.Number(time,-1e12,clock+1e-6) or clock-time&gt;s.maxGap then return fail(s,"invalid_capture_time") end
+ if s.time and time&lt;=s.time then return fail(s,"non_monotonic") end
+ s.busy=true s.phaseTime=time
+ local ok,accepted,reason=pcall(function()
+  local objects=sync(s,time) local blocked
+  if s.c.worldMode=="StaticBoxes" then
+   local record,why=World.Capture(s.worldRecord,link(s,"Obstacles"),time,s.c.maxObstacles,Core.Shapes)
+   s.worldRecord=record s.worldFault=why
+  end
+  for _,rec in s.actors do
+   local worked,snapshot,why=Contract.Call(prepare,s,rec,time,objects)
+   if not worked then rec.fault="position_function_error" snapshot=nil why=rec.fault s.stats.errors+=1 end
+   if not snapshot then if not rec.blocked then reset(s,rec.id,why) end rec.blocked=why blocked=blocked or why
+   else if rec.blocked then reset(s,rec.id,"position_available_again") end rec.blocked=nil rec.prepared=snapshot rec.preparedAt=time end
+  end
+  if blocked then return nil,blocked end
+  local result=s.chrono:Capture(time) s.time=time s.stats.captures+=1
+  for token,move in s.moves do if time&gt;move.expires then finish(s,token) end end
+  if not result.ok then for _,fault in result.faults or {} do local r=s.byId[fault.id] if r then r.fault=fault.reason end end return nil,result.reason end
+  s.needsCapture=false return true
+ end)
+ s.busy=false s.phaseTime=nil
+ if not ok then s.stats.errors+=1 return fail(s,"capture_error: "..tostring(accepted)) end
+ if not accepted then return fail(s,reason) end
+ if runAutomatic then automatic(s) end
+ if publish then publish(s) end return true
+end
+local function refresh(s)
+ if s.busy then return nil,"connection_reentry" end
+ if s.c.recording=="Heartbeat" then return capture(s,nil,false) end
+ local read,t=Contract.Call(now,s) if not read then return nil,"clock_fault" end
+ if not s.time then return nil,"capture_required" end
+ if t&lt;s.time-1e-6 then return nil,"clock_reversed" end
+ if t-s.time&gt;s.maxGap then return nil,"capture_stale" end return true
+end
+local function currentState(s,rec)
+ if rec.source=="physical" then
+  if not rec.key:IsDescendantOf(workspace) then return nil end
+  return invoke(s.hooks.State,rec.key,rec.root,s.c)
+ end
+ return if rec.prepared then rec.prepared.state else nil
+end
+local function targetAllowed(s,move,target)
+ local contact=move.allowed and move.allowed[target]
+ if not contact or move.delivered[target] then return nil end
+ local a,b=s.actors[move.actor],s.actors[target] if not a or not b then return nil end
+ local x,y=currentState(s,a),currentState(s,b)
+ if not x or not y or x.active~=true or y.active~=true then return nil end
+ if invoke(s.hooks.CanApply,move.actor,target,move.name,move.context,contact)~=true then return nil end return contact
+end
+query=function(s,token,doRefresh)
+ local move=token and s.moves[token] if not move then return fail(s,"move_missing_or_finished") end
+ if move.checked and move.mode=="Once" then return fail(s,"move_already_checked") end
+ if doRefresh then local ok,why=refresh(s) if not ok then finish(s,token) return fail(s,why) end end
+ if s.moves[token]~=move then return fail(s,"move_expired") end
+ local result=s.chrono:Query(move.handle) s.stats.queries+=1
+ if not result.ok then
+  if not table.find({"not_active","duplicate_query"},result.reason) then finish(s,token) end
+  return fail(s,result.reason)
+ end
+ local out=table.clone(result) local contacts={}
+ move.allowed={} move.checked=true move.generation=s.generation move.lastQuery=s.time
+ for _,contact in result.contacts do
+  local rec=s.byId[contact.id]
+  if rec then local copy=table.clone(contact) copy.target=rec.key copy=table.freeze(copy) move.allowed[rec.key]=copy table.insert(contacts,copy) s.stats.contacts+=1 end
+ end
+ out.contacts=table.freeze(contacts) move.result=table.freeze(out) move.pendingCount=#contacts move.pending=#contacts&gt;0
+ s.stats.reason="contact_check_completed" return move.result
+end
+local function allows(s,token,target,doRefresh)
+ local move=token and s.moves[token] if not move then return false,"move_missing_or_finished" end
+ local fresh,why=true,nil
+ if doRefresh then fresh,why=refresh(s) end
+ if fresh and (not move.checked or (move.mode=="Repeated" and move.lastQuery~=s.time and not move.pending)) then local result,reason=query(s,token,false) if not result then return false,reason end end
+ if not fresh or s.moves[token]~=move or move.generation~=s.generation then finish(s,token) return false,why or "contact_records_changed" end
+ local read,t=Contract.Call(now,s) if not read then finish(s,token) return false,"clock_fault" end
+ if t&gt;move.result.capturedAt+s.maxGap then finish(s,token) return false,"contact_result_stale" end
+ local ok,contact=Contract.Call(targetAllowed,s,move,target)
+ if not ok then finish(s,token) return false,"outcome_rule_error" end
+ if not contact then return false,"target_not_allowed_or_already_used" end
+ move.delivered[target]=true move.pendingCount-=1 if move.pendingCount&lt;=0 then move.pending=false end s.stats.applied+=1 return true,contact
+end
+resolve=function(s,token,doRefresh)
+ local move=token and s.moves[token] if not move then return fail(s,"move_missing_or_finished") end
+ local outcome=link(s,"Outcome")
+ if not outcome and s.hooks.OnContact==nil then return fail(s,"choose_outcome_event_or_hook") end
+ if move.resolved and move.mode=="Once" then return fail(s,"outcomes_already_resolved") end
+ if doRefresh then local fresh,reason=refresh(s) if not fresh then finish(s,token) return fail(s,reason) end end
+ local result,why
+ if move.pending or (move.checked and move.mode=="Once" and not move.resolved) then result=move.result else result,why=query(s,token,false) end
+ if not result then return nil,why end
+ move.resolved=true
+ -- Deterministic contact order is preserved; target keys may be Instances or data ids.
+ for _,contact in result.contacts do
+  local target=contact.target local allowed=allows(s,token,target,false)
+  if allowed then
+   local ok,err=Contract.Call(function()
+    if outcome then invoke(s.hooks.ApplyOutcome,outcome,move.actor,target,move.name,move.context,contact) end
+    if s.hooks.OnContact then invoke(s.hooks.OnContact,move.actor,target,move.name,move.context,contact) end
+   end)
+   if not ok then s.stats.errors+=1 s.stats.reason="outcome_mapping_error: "..tostring(err) end
+  end
+ end
+ move.pending=false
+ return result
+end
+automatic=function(s)
+ if not s.c.autoQuery then return end
+ local ready={}
+ for token,move in s.moves do
+  if s.time&gt;=move.opens and s.time&lt;=move.expires and (not move.checked or move.mode=="Repeated") and (not move.lastQuery or s.time-move.lastQuery&gt;=s.c.queryInterval-1e-6) then table.insert(ready,token) end
+ end
+ for _,token in ready do local move=s.moves[token] if move then local result=resolve(s,token,false) if result and move.mode=="Once" then finish(s,token) end end end
+end
+publish=function(s)
+ if not s.report or os.clock()-s.published&lt;0.5 then return end s.published=os.clock()
+ local count=0 local paused={}
+ for key,rec in s.actors do count+=1 if rec.blocked or rec.fault then table.insert(paused,{object=if typeof(key)=="Instance" then key.Name else key,reason=rec.fault or rec.blocked}) end end
+ s.report.Value=game.HttpService:JSONEncode({version=Config.Version,connectionBuild=Config.Build,actors=count,positions=s.c.positions,stats=s.stats,paused=paused,core=s.chrono:Inspect().stats,explanation=Messages.Explain(s.stats.reason) or Core.Explain(s.stats.reason),
+  timing=s.c.timing,rewind=s.lastRewind or 0,maxRewind=s.c.maxRewind,recording=s.c.recording,queryMode=s.c.queryMode,world=s.c.worldMode,worldFault=s.worldFault,
+  outcomeLinked=link(s,"Outcome")~=nil,attackEventLinked=link(s,"Begin")~=nil})
+ Root:SetAttribute("ConnectionActors",count) Root:SetAttribute("ConnectionReason",s.stats.reason)
+ Root:SetAttribute("ConnectionBegun",s.stats.begun) Root:SetAttribute("ConnectionQueries",s.stats.queries)
 end
 function R.Start()
-	if live then return true end
-	assert(game:GetService("RunService"):IsServer(),"Use Chrono connections from server scripts")
-	local c=require(Root.Connections) local hooks=require(Root.Hooks)
-	local s={c=c,hooks=hooks,links=Root.ConnectionLinks,chrono=nil,actors={},byId={},moves={},keys={},serial=0,
-		connections={},generation=0,published=-math.huge,stats={captures=0,begun=0,queries=0,contacts=0,applied=0,refused=0,cancelled=0,corrections=0,errors=0,reason="starting"}}
-	local options=table.clone(require(Root.Settings)) options.maxRewind=0
-	s.chrono=Core.new(options) s.maxGap=options.maxGap or 0.075 s.actions=require(Root.Actions)
-	local provider=link(s,"Provider")
-	if provider then local ok,p=pcall(require,provider) if not ok or (type(p)~="table" and type(p)~="function") then s.chrono:Destroy() error("Selected position provider did not return a table or function") end s.provider=p end
-	live=s
-	if game:GetService("RunService"):IsStudio() then
-		local reports=game.ReplicatedStorage:FindFirstChild("_ChronoConnectionReports")
-		if not reports then reports=Instance.new("Folder") reports.Name="_ChronoConnectionReports" reports.Parent=game.ReplicatedStorage end
-		assert(not reports:FindFirstChild(Root.Name),"A second Chrono connection instance was started. Require the same Connector from ordinary server scripts.")
-		s.report=Instance.new("StringValue") s.report.Name=Root.Name s.report.Parent=reports
-	end
-	local function safe(fn,...)
-		local ok,why=pcall(fn,...)
-		if not ok then s.stats.errors+=1 s.stats.reason="connection_error" warn("Chrono connection: "..tostring(why)) end
-	end
-	for name,callback in {
-		Begin=function(...) local actor,action,key,context=s.hooks.ReadBegin(...) R.Begin(actor,action,context,key or action or "Contact") end,
-		Query=function(...) local actor,key=s.hooks.ReadQuery(...) local token=s.keys[actor] and s.keys[actor][key or "Contact"] if token then R.Resolve(token) R.Finish(token) else fail(s,"move_missing") end end,
-		Cancel=function(...) local actor,key=s.hooks.ReadCancel(...) local token=s.keys[actor] and s.keys[actor][key or "Contact"] if token then R.Cancel(token) end end,
-	} do
-		local event=link(s,name)
-		if event then assert(event:IsA("BindableEvent"),"Only server BindableEvents can connect accepted moves") table.insert(s.connections,event.Event:Connect(function(...) safe(callback,...) end)) end
-	end
-	table.insert(s.connections,game:GetService("RunService").Heartbeat:Connect(function()
-		safe(function()
-			local ok,reason=capture(s) if not ok then s.stats.reason=reason end
-			if s.c.autoQuery and ok then
-				local ready={} for token,move in s.moves do if not move.checked and s.time&gt;=move.opens then table.insert(ready,token) end end
-				for _,token in ready do R.Resolve(token) R.Finish(token) end
-			end
-			publish(s)
-		end)
-	end))
-	local ok,reason=capture(s) s.stats.reason=if ok then "ready_for_moves" else reason publish(s)
-	return true
+ assert(hookDepth==0,"Do not start Connector from a provider or rule function")
+ if live then return true end
+ assert(game:GetService("RunService"):IsServer(),"Use Chrono connections from server scripts")
+ local base=require(Root.Settings)
+ local c=Config.Normalize(require(Root.Connections),base)
+ local custom=require(Root.Hooks) local defaults=require(script:FindFirstChild("DefaultHooks") or script.Hooks)
+ local hooks=setmetatable({},{__index=function(_,key) local value=custom[key] return if value~=nil then value else defaults[key] end})
+ local links={} for _,v in Root.ConnectionLinks:GetChildren() do if v:IsA("ObjectValue") then links[v.Name]=v.Value end end
+ local valid,why=Config.Validate(c,links) assert(valid,why)
+ local s={c=c,hooks=hooks,links=Root.ConnectionLinks,actors={},byId={},moves={},keys={},serial=0,connections={},generation=0,published=-math.huge,maxGap=c.maxGap,
+  stats={captures=0,begun=0,queries=0,contacts=0,applied=0,refused=0,cancelled=0,corrections=0,errors=0,reason="starting"}}
+ s.provider=if c.positions=="Provider" then module(s,"Provider") else nil
+ s.registry=if c.actors=="Data" or c.actors=="PlayersAndData" then module(s,"Registry") else nil
+ s.clockProvider=module(s,"Clock") s.timingProvider=if c.timing=="Provider" then module(s,"Timing") else nil s.worldProvider=if c.worldMode=="Provider" then module(s,"World") else nil
+ local options=table.clone(base)
+ options.seconds=c.historySeconds options.rate=c.recordRate options.maxGap=c.maxGap options.maxRewind=c.maxRewind
+ options.clock=function() return s.phaseTime or now(s) end
+ options.resolveRewind=function(id,context,time)
+  local rec=s.byId[id] local delay
+  if c.timing=="Present" then delay=0
+  elseif c.timing=="MeasuredPing" then
+   local player=if hooks.TimingPlayer then invoke(hooks.TimingPlayer,rec.key,context) elseif typeof(rec.key)=="Instance" and rec.key:IsA("Model") then game.Players:GetPlayerFromCharacter(rec.key) else nil
+   assert(typeof(player)=="Instance" and player:IsA("Player") and player.Parent==game.Players,"timing_player_required")
+   -- Current Roblox API defines GetNetworkPing as RTT. Half is only an estimate of one-way delay.
+   delay=player:GetNetworkPing()/2+c.displayDelay
+  else delay=invoke(hooks.ResolveRewind,s.timingProvider,rec.key,context,time,c.maxRewind) end
+  assert(Config.Number(delay,0,c.maxRewind),"rewind_rejected")
+  s.lastRewind=delay return delay
+ end
+ options.world=if c.worldMode=="None" then nil else function(time,current,shape)
+  if c.worldMode=="StaticBoxes" then return World.Check(s.worldRecord,time,shape,Core.Shapes) end
+  return invoke(hooks.WorldCheck,s.worldProvider,time,current,shape)
+ end
+ s.chrono=Core.new(options)
+ s.actions=if c.moveSource=="Builder" then Volumes.Actions(Core.Shapes,c.moves,hooks) else require(Root.Actions)
+ local wrapped={} for name,profile in s.actions do
+  local copy=table.clone(profile) if copy.eligible then local rule=copy.eligible copy.eligible=function(...) return invoke(rule,...) end end wrapped[name]=copy
+ end s.actions=wrapped
+ live=s
+ if game:GetService("RunService"):IsStudio() then
+  local reports=game.ReplicatedStorage:FindFirstChild("_ChronoConnectionReports")
+  if not reports then reports=Instance.new("Folder") reports.Name="_ChronoConnectionReports" reports.Parent=game.ReplicatedStorage end
+  if reports:FindFirstChild(Root.Name) then live=nil s.chrono:Destroy() error("Second connection instance: require the same Connector from ordinary server scripts") end
+  s.report=Instance.new("StringValue") s.report.Name=Root.Name s.report.Parent=reports
+ end
+ local function safe(fn,...)
+  local ok,err=pcall(fn,...) if not ok then s.stats.errors+=1 s.stats.reason="connection_error: "..tostring(err) warn(s.stats.reason) end
+ end
+ for name,callback in {
+  Begin=function(...) local actor,action,key,context=invoke(hooks.ReadBegin,...) R.Begin(actor,action,context,key or action or "Contact") end,
+  Query=function(...) local actor,key=invoke(hooks.ReadQuery,...) local token=s.keys[actor] and s.keys[actor][key or "Contact"] if token then local move=s.moves[token] R.Resolve(token) if move and move.mode=="Once" then R.Finish(token) end else fail(s,"move_missing") end end,
+  Cancel=function(...) local actor,key=invoke(hooks.ReadCancel,...) local token=s.keys[actor] and s.keys[actor][key or "Contact"] if token then R.Cancel(token) end end,
+ } do local event=link(s,name) if event then table.insert(s.connections,event.Event:Connect(function(...) safe(callback,...) end)) end end
+ if c.recording=="Event" then table.insert(s.connections,link(s,"Capture").Event:Connect(function(time) safe(R.Capture,time) end)) end
+ table.insert(s.connections,game:GetService("RunService").Heartbeat:Connect(function()
+  safe(function()
+   if c.recording=="Heartbeat" then local t=now(s) if not s.time or t-s.time&gt;=1/c.recordRate-1e-6 then capture(s,nil,true) end end
+   publish(s)
+  end)
+ end))
+ if c.recording=="Heartbeat" then local ok,reason=capture(s,nil,false) s.stats.reason=if ok then "ready_for_moves" else reason else s.stats.reason="waiting_for_capture" end
+ publish(s) return true
 end
-local function session() R.Start() return live end
-function R.Begin(actor,actionName,context,key)
-	local s=session() actionName=actionName or "Contact"
-	local profile=s.actions[actionName] if not profile then return fail(s,"move_settings_missing") end
-	if key~=nil and (type(key)~="string" or #key&gt;64) then return fail(s,"move_key_invalid") end
-	if key~=nil and s.keys[actor] and s.keys[actor][key] then return fail(s,"move_key_already_active") end
-	local ok,reason=capture(s) if not ok then return fail(s,reason) end
-	local record=s.actors[actor] if not record then return fail(s,"actor_not_connected") end
-	local permitted,allowed=pcall(s.hooks.CanStart,actor,actionName,context,record.prepared.state)
-	if not permitted or allowed~=true then return fail(s,"move_not_allowed") end
-	local handle,why=s.chrono:BeginAction(record.id,profile,context)
-	if not handle then return fail(s,why) end
-	local token=table.freeze({})
-	s.moves[token]={actor=actor,name=actionName,context=context,handle=handle,key=key,
-		opens=s.time+(profile.opens or 0),expires=s.time+(profile.closes or 0.25),delivered={}}
-	if key~=nil then s.keys[actor]=s.keys[actor] or {} s.keys[actor][key]=token end
-	s.stats.begun+=1 s.stats.reason="move_started" return token
+local function session(allowHook) assert(allowHook or hookDepth==0,"Do not call Connector again from a provider or rule function") if not live then R.Start() end return live end
+function R.Capture(time) return capture(session(),time,true) end
+function R.Track(id,binding)
+ local s=session() assert(not s.busy,"connection_reentry")
+ assert(Config.Name(id) and not s.actors[id] and type(binding)=="table" and type(binding.capture)=="function","Track needs an unused text id and capture function")
+ local kind=binding.kind or s.c.kind local speed,radius=limits(s,id,kind,binding)
+ register(s,id,kind,binding.trust or "unverified",speed,radius,{source="manual",capture=binding.capture})
+ return id
 end
-function R.Query(token)
-	local s=session() local move=token and s.moves[token]
-	if not move then return fail(s,"move_missing_or_finished") end
-	if move.checked then return fail(s,"move_already_checked") end
-	local ok,reason=capture(s) if not ok then finish(s,token) return fail(s,reason) end
-	if s.moves[token]~=move then return fail(s,"move_expired") end
-	local result=s.chrono:Query(move.handle) s.stats.queries+=1
-	if not result.ok then finish(s,token) return fail(s,result.reason) end
-	move.checked=true move.result=result move.generation=s.generation move.allowed={}
-	for _,contact in result.contacts do
-		local record=s.byId[contact.id]
-		if record then move.allowed[record.object]=contact s.stats.contacts+=1 end
-	end
-	s.stats.reason="contact_check_completed" return result
+function R.Untrack(id) local s=session() assert(not s.busy,"connection_reentry") return remove(s,id) end
+function R.Discontinuity(actor,reason)
+ local s=session() assert(not s.busy,"connection_reentry") local rec=assert(s.actors[actor],"Object is not connected")
+ reset(s,rec.id,reason or "approved_reset") rec.fault=nil rec.blocked=nil
+ for token,move in s.moves do if move.actor==actor then finish(s,token) end end return true
 end
-local function allowedNow(s,move,target)
-	local contact=move.allowed and move.allowed[target]
-	if not contact or move.delivered[target] then return nil end
-	local sourceRecord,targetRecord=s.actors[move.actor],s.actors[target]
-	if not sourceRecord or not targetRecord or not target:IsDescendantOf(workspace) or not move.actor:IsDescendantOf(workspace) then return nil end
-	local a=s.hooks.State(move.actor,sourceRecord.root,s.c) local b=s.hooks.State(target,targetRecord.root,s.c)
-	if a.active~=true or b.active~=true then return nil end
-	if s.hooks.CanApply(move.actor,target,move.name,move.context,contact)~=true then return nil end
-	return contact
+function R.Begin(actor,name,context,key)
+ local s=session() name=name or "Contact"
+ local profile=s.actions[name] if not profile then return fail(s,"move_settings_missing") end
+ if key~=nil and (type(key)~="string" or #key&gt;64) then return fail(s,"move_key_invalid") end
+ if key~=nil and s.keys[actor] and s.keys[actor][key] then return fail(s,"move_key_already_active") end
+ local ok,why=refresh(s) if not ok then return fail(s,why) end
+ local rec=s.actors[actor] if not rec then return fail(s,"actor_not_connected") end
+ local mode=profile.queryMode or s.c.queryMode if mode~="Once" and mode~="Repeated" then return fail(s,"invalid_query_mode") end
+ local permitted,value=Contract.Call(invoke,s.hooks.CanStart,actor,name,context,rec.prepared.state)
+ if not permitted or value~=true then return fail(s,"move_not_allowed") end
+ local handle,reason=s.chrono:BeginAction(rec.id,profile,context) if not handle then return fail(s,reason) end
+ local token=table.freeze({}) s.moves[token]={actor=actor,name=name,context=context,handle=handle,key=key,opens=s.time+(profile.opens or 0),expires=s.time+(profile.closes or 0.25),delivered={},mode=profile.queryMode or s.c.queryMode}
+ if key~=nil then s.keys[actor]=s.keys[actor] or {} s.keys[actor][key]=token end
+ s.stats.begun+=1 s.stats.reason="move_started" return token
 end
--- Put this generated call before an EXISTING damage/possession call. It never applies an outcome.
-function R.Allows(token,target)
-	local s=session() local move=token and s.moves[token]
-	if not move then return false,"move_missing_or_finished" end
-	if not move.checked then local result,why=R.Query(token) if not result then return false,why end end
-	local fresh,why=capture(s)
-	if not fresh or s.moves[token]~=move or move.generation~=s.generation then finish(s,token) return false,why or "contact_records_changed" end
-	if workspace:GetServerTimeNow()&gt;(move.result.capturedAt+s.maxGap) then finish(s,token) return false,"contact_result_stale" end
-	local ok,contact=pcall(allowedNow,s,move,target)
-	if not ok then finish(s,token) return false,"outcome_rule_error" end
-	if not contact then return false,"target_not_allowed_or_already_used" end
-	move.delivered[target]=true s.stats.applied+=1 return true,contact
-end
--- Event mode: emit approved contacts to an EXISTING server event, then optional Hooks.OnContact.
-function R.Resolve(token)
-	local s=session() local move=token and s.moves[token]
-	if not move then return nil,"move_missing_or_finished" end
-	if move.resolved then return fail(s,"outcomes_already_resolved") end
-	local outcome=link(s,"Outcome")
-	if not outcome then return fail(s,"choose_outcome_event_or_use_allows_hook") end
-	local result,reason=R.Query(token) if not result then return nil,reason end
-	move.resolved=true
-	for target in move.allowed do
-		local ok,contact=R.Allows(token,target)
-		if ok then
-			local emitted=pcall(s.hooks.ApplyOutcome,outcome,move.actor,target,move.name,move.context,contact)
-			if not emitted then s.stats.errors+=1 s.stats.reason="outcome_mapping_error" end
-			local done=pcall(s.hooks.OnContact,move.actor,target,move.name,move.context,contact)
-			if not done then s.stats.errors+=1 s.stats.reason="outcome_hook_error" end
-		end
-	end
-	return result
-end
+function R.Query(token) return query(session(),token,true) end
+function R.Allows(token,target) return allows(session(),token,target,true) end
+function R.Resolve(token) return resolve(session(),token,true) end
 function R.Cancel(token) local s=session() if finish(s,token) then s.stats.cancelled+=1 return true end return false end
 function R.Finish(token) return finish(session(),token) end
 function R.AllowMotion(actor,velocity,seconds)
-	local s=session() local values,why=sync(s,workspace:GetServerTimeNow()) assert(values,why)
-	local record=assert(s.actors[actor],"Object is not connected")
-	assert(record.guard,"Motion permissions belong to the optional humanoid checker; use your existing checker otherwise")
-	Movement.Allow(record.guard,velocity,seconds,workspace:GetServerTimeNow())
+ local s=session(true) local rec=s.actors[actor]
+ if not rec then assert(not s.busy,"Object is not connected") sync(s,now(s)) rec=s.actors[actor] end
+ assert(rec and rec.guard,"Motion permission needs the supplied humanoid checker") Movement.Allow(rec.guard,velocity,seconds,now(s))
 end
 function R.Teleport(actor,frame)
-	local s=session() local values,why=sync(s,workspace:GetServerTimeNow()) assert(values,why)
-	local record=assert(s.actors[actor],"Object is not connected")
-	assert(typeof(frame)=="CFrame","Teleport expects a CFrame")
-	if record.guard then Movement.Reset(record.guard,frame,workspace:GetServerTimeNow(),s.c)
-	elseif actor:IsA("Model") then actor:PivotTo(frame*record.root.CFrame:Inverse()*actor:GetPivot()) else record.root.CFrame=frame end
-	reset(s,record.id,"approved_teleport") record.fault=nil record.blocked=nil
-	for token,move in s.moves do if move.actor==actor then finish(s,token) end end
+ local s=session() assert(not s.busy,"connection_reentry") local rec=s.actors[actor]
+ if not rec then sync(s,now(s)) rec=s.actors[actor] end
+ assert(rec and rec.source=="physical","For data-only objects, update server data then call Discontinuity") assert(typeof(frame)=="CFrame","Teleport needs a CFrame")
+ if rec.guard then Movement.Reset(rec.guard,frame,now(s),s.c) elseif actor:IsA("Model") then actor:PivotTo(frame*rec.root.CFrame:Inverse()*actor:GetPivot()) else actor.CFrame=frame end
+ return R.Discontinuity(actor,"approved_teleport")
 end
-function R.Resume(actor)
-	local s=session() local record=assert(s.actors[actor],"Object is not connected")
-	record.fault=nil record.blocked=nil reset(s,record.id,"provider_fixed_by_server")
-end
+function R.Resume(actor) return R.Discontinuity(actor,"provider_fixed_by_server") end
 function R.Inspect()
-	local s=session() local count=0 for _ in s.actors do count+=1 end
-	return {stats=table.clone(s.stats),actors=count,core=s.chrono:Inspect(),positions=s.c.positions}
+ local s=session() local count=0 local limitsList={}
+ for key,rec in s.actors do count+=1 table.insert(limitsList,{object=if typeof(key)=="Instance" then key:GetFullName() else key,kind=rec.kind,maxSpeed=rec.maxSpeed,maxRadius=rec.maxRadius,source=rec.source}) end
+ return {version=Config.Version,stats=table.clone(s.stats),actors=count,core=s.chrono:Inspect(),positions=s.c.positions,configuration=Config.Copy(s.c),limits=limitsList}
 end
+function R.Explain(reason) return Messages.Explain(reason) or Core.Explain(reason) end
 function R.Destroy()
-	local s=live if not s then return end
-	for _,c in s.connections do c:Disconnect() end
-	s.chrono:Destroy() if s.report then s.report:Destroy() end live=nil
+ local s=live if not s then return end assert(not s.busy and hookDepth==0,"connection_reentry")
+ for _,c in s.connections do c:Disconnect() end s.chrono:Destroy() if s.report then s.report:Destroy() end live=nil
 end
 return R
-</ProtectedString></Properties><Item class="ModuleScript" referent="CF30"><Properties><string name="Name">Guide.client</string><ProtectedString name="Source">-- Optional Studio-only guide. No gameplay keys, remotes or live-game debug access.
+
+</ProtectedString></Properties><Item class="ModuleScript" referent="CF33"><Properties><string name="Name">Configuration</string><ProtectedString name="Source">-- Shared wizard/runtime schema. Plain data; editor does not execute game modules.
+local C={Version="3.2.0",Build="2026-10-25"}
+function C.Copy(v,seen)
+ if type(v)~="table" then return v end
+ seen=seen or {} assert(not seen[v],"Settings must not contain repeated/cyclic tables") seen[v]=true
+ local o={} for k,x in v do o[k]=C.Copy(x,seen) end seen[v]=nil return o
+end
+function C.Volume(name) return {name=name or "Body",shape="Box",width=4,height=5,depth=2,radius=2,x=0,y=0,z=0,pitch=0,yaw=0,roll=0,length=20} end
+function C.Move(name) local v=C.Volume(name or "Contact") v.z=-3 v.depth=5 v.targets="actor" v.opens=0.12 v.closes=0.35 v.maxTargets=1 v.maxReach=32 v.rule="all" v.world=false v.queryMode="Default" return v end
+function C.Default()
+ return {schema=2,actors="Players",tag="ChronoActor",root="HumanoidRootPart",kind="actor",positions="ServerPhysics",
+ body="Box",width=4,height=5,depth=2,radius=2,walk=20,jump=50,ground=3,burst=0.4,slack=1.25,verticalSlack=3,wallRadius=0.7,
+ correction=false,autoQuery=false,guide=true,partBodies=false,activeAttribute="",teamAttribute="",
+ recording="Heartbeat",recordRate=60,historySeconds=0.6,maxGap=0.075,maxRewind=0,recordMaxSpeed=100,recordMaxRadius=16,
+ timing="Present",displayDelay=0,queryMode="Once",queryInterval=1/60,candidates="Existing",worldMode="None",maxObstacles=1024,
+ moveSource="Actions",moves={},zones={},kindLimits={},objectLimits=true,legacyLimits=false}
+end
+function C.Normalize(v,base)
+ local out=C.Default() base=base or {}
+ for key,value in {historySeconds=base.seconds,maxGap=base.maxGap,maxRewind=base.maxRewind,recordRate=base.rate,recordMaxSpeed=base.maxSpeed,recordMaxRadius=base.maxRadius} do if value~=nil then out[key]=value end end
+ if v then for key,value in v do out[key]=C.Copy(value) end end
+ if v and v.schema==nil then
+  out.legacyLimits=true
+  out.recordMaxSpeed=4096
+  out.recordMaxRadius=if v.positions=="Provider" then 512 else math.min(512,math.max(v.radius or 2,(v.height or 5)/2,Vector3.new(v.width or 4,v.height or 5,v.depth or 2).Magnitude/2)+0.001)
+ end
+ out.schema=2 return out
+end
+local function number(n,a,b) return type(n)=="number" and n==n and n&gt;=a and n&lt;=b end
+local function name(s) return type(s)=="string" and #s&gt;0 and #s&lt;=64 and not s:find("%c") end
+C.Number=number C.Name=name
+function C.CheckVolume(v,attack)
+ if type(v)~="table" or not name(v.name) then return false,"Give every hitbox/move a short name." end
+ if not table.find(if attack then {"Box","Sphere","Capsule","Ray","SweptSphere"} else {"Box","Sphere","Capsule"},v.shape) then return false,"Choose a supported shape." end
+ for key,b in {width={0.01,512},height={0.02,512},depth={0.01,512},radius={0.01,32},length={0.01,4096},x={-4096,4096},y={-4096,4096},z={-4096,4096},pitch={-360,360},yaw={-360,360},roll={-360,360}} do if not number(v[key],b[1],b[2]) then return false,"Invalid hitbox value: "..key end end
+ if v.shape=="Capsule" and v.height&lt;v.radius*2 then return false,"Capsule height must include both round ends: at least twice its radius." end
+ if attack then
+  if not number(v.opens,0,10) or not number(v.closes,v.opens,10) or not number(v.maxTargets,1,256) or v.maxTargets%1~=0 or not number(v.maxReach,0,4096) then return false,"Review timing, reach and target count." end
+  if not table.find({"all","team","Hook"},v.rule) or not table.find({"Default","Once","Repeated"},v.queryMode) or type(v.world)~="boolean" then return false,"Choose the move rule, check mode and wall option." end
+  if v.world and v.shape~="Ray" and v.shape~="SweptSphere" then return false,"Core obstacle checks support rays and swept spheres; other moves need your own wall rule." end
+  if type(v.targets)~="string" then return false,"Enter target kinds separated by commas." end
+  local count=0 for k in v.targets:gmatch("[^,%s]+") do if not name(k) then return false,"Invalid target kind." end count+=1 end
+  if count&lt;1 or count&gt;32 then return false,"Use 1 to 32 target kinds." end
+  local position=Vector3.new(v.x,v.y,v.z) local reach
+  if v.shape=="Ray" or v.shape=="SweptSphere" then
+   local f=CFrame.new(position)*CFrame.Angles(math.rad(v.pitch),math.rad(v.yaw),math.rad(v.roll))
+   reach=math.max(position.Magnitude,(f*CFrame.new(0,0,-v.length)).Position.Magnitude)+(if v.shape=="Ray" then 0 else v.radius)
+  else reach=position.Magnitude+(if v.shape=="Box" then Vector3.new(v.width,v.height,v.depth).Magnitude/2 elseif v.shape=="Capsule" then v.height/2 else v.radius) end
+  if reach&gt;v.maxReach then return false,"Move "..v.name.." exceeds its allowed reach. Include its offset and size." end
+ end return true
+end
+function C.Validate(values,links)
+ if type(values)~="table" then return false,"Choose connection settings first." end
+ local copied,c=pcall(C.Normalize,values) if not copied then return false,"Settings must be plain data without cycles." end links=links or {}
+ local defaults=C.Default() for key in c do if defaults[key]==nil then return false,"Unknown setting: "..tostring(key) end end
+ for key,choices in {actors={"Players","PlayersAndFolder","Folder","Tag","References","Data","PlayersAndData"},positions={"ServerPhysics","Humanoid","Provider"},body={"Box","Sphere","Capsule"},recording={"Heartbeat","Manual","Event"},timing={"Present","MeasuredPing","Provider"},queryMode={"Once","Repeated"},candidates={"Existing","Chrono"},worldMode={"None","StaticBoxes","Provider"},moveSource={"Actions","Builder"}} do if not table.find(choices,c[key]) then return false,"Choose a valid option: "..key end end
+ for _,key in {"root","kind","tag","activeAttribute","teamAttribute"} do if type(c[key])~="string" or #c[key]&gt;64 or c[key]:find("%c") then return false,"Use short names: "..key end end
+ if c.root=="" or c.kind=="" or c.kind:find("[%s,]") or (c.actors=="Tag" and c.tag=="") then return false,"Root/kind/tag names are incomplete." end
+ for key,b in {width={0.02,512},height={0.02,512},depth={0.02,512},radius={0.01,32},walk={0,200},jump={0,250},ground={0.5,20},burst={0.05,1},slack={0,10},verticalSlack={0,15},wallRadius={0.1,3},recordRate={1,240},historySeconds={0.05,10},maxGap={0.001,1},maxRewind={0,10},displayDelay={0,10},recordMaxSpeed={0,4096},recordMaxRadius={0.001,512},queryInterval={1/240,1},maxObstacles={1,4096}} do if not number(c[key],b[1],b[2]) then return false,"Choose a valid number for "..key end end
+ if c.maxObstacles%1~=0 then return false,"Obstacle count must be a whole number." end
+ if c.maxRewind&gt;c.historySeconds or c.displayDelay&gt;c.maxRewind then return false,"Lookback must fit saved history; view delay must fit lookback." end
+ if c.timing~="Present" and (c.maxRewind&lt;=0 or c.candidates~="Chrono") then return false,"Earlier checks need a positive lookback and targets from Chrono contacts, not a present-part target list." end
+ if c.body=="Capsule" and c.height&lt;c.radius*2 then return false,"Target capsule height must be at least twice its radius." end
+ for _,key in {"correction","autoQuery","guide","partBodies","objectLimits","legacyLimits"} do if type(c[key])~="boolean" then return false,"Choose on/off: "..key end end
+ for key,required in {Provider=c.positions=="Provider" and c.actors~="Data",Registry=false,Clock=false,Timing=c.timing=="Provider",World=c.worldMode=="Provider"} do
+  local v=links[key] if required and not v then return false,"Select the "..key.." server ModuleScript." end
+  if v and (typeof(v)~="Instance" or not v:IsA("ModuleScript") or not v:IsDescendantOf(game)) then return false,key.." must be a ModuleScript in this place." end
+ end
+ if table.find({"Folder","References","PlayersAndFolder"},c.actors) then
+  local v=links.Actors if typeof(v)~="Instance" or not (v:IsA("Folder") or v:IsA("Model") or (c.actors~="Folder" and v:IsA("BasePart"))) or not v:IsDescendantOf(workspace) then return false,"Select participating Workspace objects." end
+ end
+ if c.worldMode=="StaticBoxes" then local v=links.Obstacles if typeof(v)~="Instance" or not (v:IsA("Folder") or v:IsA("Model")) or not v:IsDescendantOf(workspace) then return false,"Select the folder/model of anchored obstacles." end end
+ for _,key in {"Begin","Query","Cancel","Outcome","Capture"} do local v=links[key] if v and (typeof(v)~="Instance" or not v:IsA("BindableEvent") or not v:IsDescendantOf(game)) then return false,key..": choose a server BindableEvent, never a RemoteEvent." end end
+ if c.recording=="Event" and not links.Capture then return false,"Select the completed-simulation recording event." end
+ if c.autoQuery and not links.Outcome then return false,"Automatic checks need your Outcome event." end
+ for _,key in {"zones","moves","kindLimits"} do
+  if type(c[key])~="table" or #c[key]&gt;32 then return false,"Use at most 32 entries: "..key end
+  local n=0 for index in c[key] do if type(index)~="number" or index%1~=0 or index&lt;1 or index&gt;#c[key] then return false,"Use a continuous list: "..key end n+=1 end
+  if n~=#c[key] then return false,"Use a continuous list: "..key end
+ end
+ for _,key in {"zones","moves"} do local seen={} for _,v in c[key] do local ok,why=C.CheckVolume(v,key=="moves") if not ok then return false,why end if seen[v.name] then return false,"Duplicate name: "..v.name end seen[v.name]=true end end
+ if c.moveSource=="Builder" and #c.moves==0 then return false,"Add a move on the Moves page." end
+ if c.moveSource=="Builder" and c.worldMode=="None" then for _,v in c.moves do if v.world then return false,"Choose an obstacle provider on Timing for move "..v.name end end end
+ local kinds={} for _,v in c.kindLimits do if type(v)~="table" or not name(v.kind) or kinds[v.kind] or not number(v.maxSpeed,0,4096) or not number(v.maxRadius,0.001,512) then return false,"Review each kind's unique name and recording limits." end kinds[v.kind]=true end
+ return true
+end
+function C.Source() return 'return game:GetService("HttpService"):JSONDecode(script.Parent.ConnectionData.Value)\n' end
+return table.freeze(C)
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF34"><Properties><string name="Name">Guide.client</string><ProtectedString name="Source">-- Optional Studio-only guide. No gameplay keys, remotes or live-game debug access.
 if not game:GetService("RunService"):IsStudio() then return end
 local reports=game.ReplicatedStorage:WaitForChild("_ChronoConnectionReports",15)
 if not reports then return end
@@ -3008,12 +3469,14 @@ local meanings={ready_for_moves="Positions are available. Waiting for an accepte
 local function update()
 	local ok,r=pcall(game.HttpService.JSONDecode,game.HttpService,report.Value) if not ok then return end
 	local s=r.stats
-	body.Text=string.format("%s\n\nObjects connected: %d\nPosition updates: %d\nMoves started: %d\nContact checks: %d\nContacts found: %d\nOutcomes permitted: %d\nRefusals: %d   Corrections: %d\n\n%s\n\nCounters describe connections, not successful damage. Earlier-time compensation is off.",
+ body.Text=string.format("%s\n\nObjects connected: %d\nPosition updates: %d\nMoves started: %d\nContact checks: %d\nContacts found: %d\nOutcomes permitted: %d\nRefusals: %d   Corrections: %d\n\n%s\n\nCounters describe connections, not successful damage.",
  script:GetAttribute("ConnectionName"),r.actors,s.captures,s.begun,s.queries,s.contacts,s.applied,s.refused,s.corrections,meanings[s.reason] or s.reason)
+ body.Text..=string.format("\n\nTiming: %s\nLatest approved delay: %.1f ms / %.1f ms maximum\nRecording: %s\nCheck mode: %s\nObstacles: %s",r.timing or "Present",(r.rewind or 0)*1000,(r.maxRewind or 0)*1000,r.recording or "Heartbeat",r.queryMode or "Once",r.world or "None")
+ if r.explanation and r.explanation.known then body.Text..="\n\n"..r.explanation.title.."\n"..r.explanation.meaning.."\nNext: "..r.explanation.fix end
 end
 toggle.Activated:Connect(function() panel.Visible=not panel.Visible update() end)
 report.Changed:Connect(update) update()
-</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF31"><Properties><string name="Name">Hooks</string><ProtectedString name="Source">-- CUSTOMIZE WITHIN THE PACKAGE. Ordinary games can use these defaults.
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF35"><Properties><string name="Name">Hooks</string><ProtectedString name="Source">-- CUSTOMIZE WITHIN THE PACKAGE. Ordinary games can use these defaults.
 -- These functions run on the server. Never connect an unvalidated client request directly to Begin.
 local H={}
 function H.State(object,root,settings)
@@ -3044,11 +3507,56 @@ function H.ProviderSnapshot(provider,object,time)
 	if type(provider)=="function" then return provider(object,time) end
 	return provider.Snapshot(object,time)
 end
+-- Providers are selected in the plugin. Adapt a game's API HERE, inside this package.
+-- Every provider callback must finish immediately: no waits or network requests.
+function H.Clock(provider) return if type(provider)=="function" then provider() else provider.Now() end
+function H.DataSnapshots(provider,time) return provider.Snapshots(time) end
+function H.ResolveRewind(provider,actor,context,time,maximum)
+	return provider.Resolve(actor,context,time,maximum)
+end
+function H.WorldCheck(provider,time,current,shape) return provider.Check(time,current,shape) end
+function H.TimingPlayer(actor,context)
+	return if typeof(actor)=="Instance" and actor:IsA("Model") then game.Players:GetPlayerFromCharacter(actor) else nil
+end
+-- Maximum root travel per second and distance of any target hitbox from that root.
+-- These reject unusable records; they do not prove movement was permitted by game rules.
+function H.RecordingLimits(actor,speed,radius,settings) return speed,radius end
+-- Used only by a move whose rule is "Hook". Supply your game rule here.
+function H.Eligible(sourceState,targetState,targetId,targetKind,moveName) return false end
 -- Optional custom snapshot: use the selected Provider module for existing checked position systems.
 -- Provider.Snapshot(object, time) must return {ok=true, root=CFrame, zones={...}, state={...}}.
 -- 'ok=true' is a declaration by that checker, not an extra check performed by Chrono.
 return H
-</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF32"><Properties><string name="Name">Movement</string><ProtectedString name="Source">-- Optional bounded humanoid checker. No combat tags, damage values or game-specific moves.
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF36"><Properties><string name="Name">Messages</string><ProtectedString name="Source">-- Extra Connector explanations; Core's existing help and reason codes stay unchanged.
+local M={}
+M.Messages={
+ capture_required={"Save the first update","No common position update is available.","Manual/Event recording: save all participating objects after their simulation step, before accepting moves."},
+ capture_stale={"Saved positions are too old","The latest update is older than the allowed record gap.","Resume recording; do not replace missing evidence with current client data."},
+ invalid_capture_time={"Recording time is outside the allowed range","The timestamp is invalid, in the future, or too far behind the selected clock.","Use seconds from the same server clock for simulation, providers and Capture."},
+ non_monotonic={"Recording time did not advance","A timestamp was equal to or older than the previous recording.","Record once per completed simulation step, with strictly increasing times."},
+ move_already_checked={"This move already used its check","Once mode allows one successful contact query.","For a continuous active window select Repeated. Target limits still apply to the whole move."},
+ duplicate_query={"No new position update","This move was already checked at the latest recorded instant.","Wait for a newer Capture before checking this repeated move again."},
+ rewind_rejected={"Earlier-time request refused","The timing provider failed or returned a delay outside the configured maximum.","Check the server timing rule, shared clock and saved-history range. Raw client timestamps need independent validation."},
+ timing_player_required={"Choose the player for this object","Measured-ping timing could not identify a connected Player.","For data-only objects, map the object to its owner inside Hooks.TimingPlayer, or use a timing provider."},
+ world_unknown={"Obstacle coverage is unknown","The obstacle provider cannot prove what blocked this query time.","Check the selected folder/provider, anchored bounds and changes since the requested time. Do not assume missing cover was clear."},
+ provider_has_not_approved_position={"Position has not been approved","The selected provider did not return ok=true.","Connect a server calculation/checker inside the supplied provider module. Reading a player-owned Part alone is not a movement check."},
+ client_owned_position_needs_checker={"Player-controlled position needs checking","Server-physics mode found an object whose physics a player controls.","Select a suitable position checker. Do not change its trust label to bypass this refusal."},
+ position_function_error={"Position callback failed","A data function errored, yielded or reentered Connector.","Fix the supplied provider or Hooks, then reset the affected object with Discontinuity/Resume before recording again."},
+ contact_result_stale={"Contact result expired","Too much time passed between finding a contact and applying its result.","Apply within the permitted record gap and recheck current game rules."},
+ contact_records_changed={"Position records changed","An object was reset, replaced, added or removed after the contact check.","Start a fresh accepted move after the required records are available."},
+ waiting_for_capture={"Waiting for your simulation update","Manual/Event mode does not record automatically.","Call Capture after completing a common simulation step, or fire the selected recording event."},
+ action_spent={"Move reached its target limit","This move has already returned the allowed total number of different targets.","Finish it. Repeated checks never reset the whole-move target limit."},
+ ready_for_moves={"Ready for accepted moves","Position records are available.","Link the accepted move, its hit moment and cancellation; inspect actual outcomes in Play."},
+ contact_check_completed={"Contact check completed","The query had usable evidence. An empty contact list means a miss.","Use the returned targets and keep current game outcome rules in charge."},
+}
+function M.Explain(code)
+ code=if type(code)=="table" then code.reason else code
+ local row=M.Messages[code] if not row then return nil end
+ return {known=true,code=code,title=row[1],meaning=row[2],fix=row[3]}
+end
+return M
+
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF37"><Properties><string name="Name">Movement</string><ProtectedString name="Source">-- Optional bounded humanoid checker. No combat tags, damage values or game-specific moves.
 -- Checks roots on ordinary static ground. Vehicles, moving platforms and custom physics need a provider.
 local M={}
 local function valid(frame)
@@ -3125,7 +3633,58 @@ function M.Check(r,now,c,hooks,excluded)
 	return proposed
 end
 return M
-</ProtectedString></Properties></Item></Item></Item><Item class="Folder" referent="CF33"><Properties><string name="Name">Examples</string></Properties><Item class="ModuleScript" referent="CF34"><Properties><string name="Name">CombatMovementHooks</string><ProtectedString name="Source">-- CUSTOMIZE WITHIN THE PACKAGE. Ordinary games can use these defaults.
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF38"><Properties><string name="Name">Volumes</string><ProtectedString name="Source">-- Declarative shapes use unchanged Core math.
+local V={}
+function V.Shape(S,v)
+ local f=CFrame.new(v.x,v.y,v.z)*CFrame.Angles(math.rad(v.pitch),math.rad(v.yaw),math.rad(v.roll))
+ if v.shape=="Box" then return S.Box(f,Vector3.new(v.width,v.height,v.depth))
+ elseif v.shape=="Sphere" then return S.Sphere(f,v.radius)
+ elseif v.shape=="Capsule" then return S.Capsule(f,v.radius,v.height)
+ else return S.Sweep(f.Position,(f*CFrame.new(0,0,-v.length)).Position,if v.shape=="Ray" then 0 else v.radius) end
+end
+function V.Zones(S,rows,root) local out={} for _,v in rows do out[v.name]=S.At(V.Shape(S,v),root) end return out end
+function V.Actions(S,rows,hooks)
+ local out={}
+ for _,v in rows do
+  local kinds={} for k in v.targets:gmatch("[^,%s]+") do table.insert(kinds,k) end
+  local shape=V.Shape(S,v) assert(S.Reach(shape)&lt;=v.maxReach,"Move "..v.name.." exceeds allowed reach")
+  out[v.name]={shape=shape,targets=kinds,opens=v.opens,closes=v.closes,maxTargets=v.maxTargets,maxReach=v.maxReach,world=v.world,queryMode=if v.queryMode~="Default" then v.queryMode else nil,
+   eligible=function(a,b,id,kind)
+    if v.rule=="team" then return a.active==true and b.active==true and a.team~=nil and b.team~=nil and a.team~=b.team end
+    if v.rule=="Hook" then return hooks.Eligible(a,b,id,kind,v.name) end return true
+   end}
+ end return out
+end
+return V
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF39"><Properties><string name="Name">World</string><ProtectedString name="Source">-- Conservative static obstacle scope. Irregular objects use bounding boxes.
+-- Does not reconstruct terrain/moving walls; select a historical provider for those.
+local W={}
+function W.Capture(previous,folder,time,limit,S)
+ if not folder or not folder:IsDescendantOf(workspace) then return nil,"obstacle_folder_missing" end
+ local rows={} local count=0
+ for _,p in folder:GetDescendants() do
+  if p:IsA("BasePart") and p.CanQuery and p.CanCollide then
+   count+=1 if count&gt;limit then return nil,"obstacle_limit" end
+   if not p.Anchored then return nil,"static_obstacle_not_anchored" end
+   local ok,shape=pcall(S.Box,p.CFrame,p.Size) if not ok then return nil,"obstacle_shape_out_of_bounds" end
+   rows[p]={frame=p.CFrame,size=p.Size,group=p.CollisionGroup,shape=shape}
+  end
+ end
+ local changed=not previous
+ if previous then
+  for p,row in rows do local old=previous.rows[p] if not old or row.frame~=old.frame or row.size~=old.size or row.group~=old.group then changed=true break end end
+  for p in previous.rows do if not rows[p] then changed=true break end end
+ end
+ return {rows=rows,boundary=if changed then time else previous.boundary,count=count}
+end
+function W.Check(record,time,query,S)
+ if not record or time&lt;record.boundary then return {covered=false} end
+ local first
+ for _,row in record.rows do local f=S.Intersect(query,row.shape) if f and (not first or f&lt;first) then first=f end end
+ return {covered=true,blocked=first~=nil,fraction=first or 1}
+end
+return W
+</ProtectedString></Properties></Item></Item></Item><Item class="Folder" referent="CF40"><Properties><string name="Name">Examples</string></Properties><Item class="ModuleScript" referent="CF41"><Properties><string name="Name">CombatMovementHooks</string><ProtectedString name="Source">-- CUSTOMIZE WITHIN THE PACKAGE. Ordinary games can use these defaults.
 -- These functions run on the server. Never connect an unvalidated client request directly to Begin.
 local H={}
 function H.State(object,root,settings)
@@ -3216,12 +3775,14 @@ end
 -- Provider.Snapshot(object, time) must return {ok=true, root=CFrame, zones={...}, state={...}}.
 -- 'ok=true' is a declaration by that checker, not an extra check performed by Chrono.
 return H
-</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF35"><Properties><string name="Name">Guides</string><ProtectedString name="Source">-- Optional developer-only guide. It creates no network events or gameplay controls.
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF42"><Properties><string name="Name">Guides</string><ProtectedString name="Source">-- Optional developer-only guide. It creates no network events or gameplay controls.
 -- Mount(screenGui, optionalMetricsFunction, optionalHelpModule).
--- The packaged ChronoV3Guides.rbxmx includes a Help child; source users can pass Core.Help.
+-- The packaged guide includes Core Help and Connector Messages; source users can pass Core.Help.
 local Guide={}
 function Guide.Mount(parent,getMetrics,help)
 	local Help=help or (script:FindFirstChild("Help") and require(script.Help))
+	local Messages=script:FindFirstChild("Messages") and require(script.Messages)
+	local function explain(code) return (Messages and Messages.Explain(code)) or (Help and Help.Explain(code)) end
 	local panel=Instance.new("ScrollingFrame") panel.Name="ChronoV3Guide" panel.Size=UDim2.new(0.92,0,0.85,0) panel.Position=UDim2.fromScale(0.04,0.075)
 	panel.AutomaticCanvasSize=Enum.AutomaticSize.Y panel.CanvasSize=UDim2.new() panel.ScrollBarThickness=5 panel.BackgroundColor3=Color3.fromRGB(17,23,32) panel.BorderSizePixel=0 panel.Parent=parent
 	local limit=Instance.new("UISizeConstraint") limit.MaxSize=Vector2.new(660,720) limit.Parent=panel
@@ -3232,10 +3793,14 @@ function Guide.Mount(parent,getMetrics,help)
 	local function text(target,value,size,color)
 		local v=Instance.new("TextLabel") v.Size=UDim2.new(1,0,0,20) v.AutomaticSize=Enum.AutomaticSize.Y v.BackgroundTransparency=1 v.Text=value v.TextWrapped=true v.Font=Enum.Font.Gotham v.TextSize=size or 15 v.TextColor3=color or Color3.fromRGB(232,241,249) v.TextXAlignment=Enum.TextXAlignment.Left v.TextYAlignment=Enum.TextYAlignment.Top return place(v,target)
 	end
-	text(panel,"CHRONO V3  /  Learning guide",22,Color3.fromRGB(94,225,183))
+	text(panel,"CHRONO V3.2  /  Learning guide",22,Color3.fromRGB(94,225,183))
 	local body=Instance.new("Frame") body.Name="Lesson" body.Size=UDim2.new(1,0,0,0) body.AutomaticSize=Enum.AutomaticSize.Y body.BackgroundTransparency=1 place(body,panel)
 	local bodyLayout=Instance.new("UIListLayout") bodyLayout.SortOrder=Enum.SortOrder.LayoutOrder bodyLayout.Padding=UDim.new(0,12) bodyLayout.Parent=body
 	local pages={
+		{"Start with the plugin","Connector/plugin 3.2 uses unchanged Core 3.1. Open Plugins &gt; Chrono V3 &gt; ChronoSetup to add a code group, then ChronoConnect to connect it.\n\nEight tabs cover Objects, Bodies, Moves, Timing, Recording, Events, Calls and Test &amp; restore. The plugin supplies tracking and move bookkeeping. Customize unusual mappings inside its Hooks, Actions or provider files.\n\nThe existing game still supplies permitted movement, accepts moves and applies damage, possession or other results."},
+		{"Choose timing and repeated checks","Present checks the latest saved positions. Earlier checks need an explicit measured-ping or server-provider timing policy, a maximum lookback that fits history, and targets returned by Chrono. A larger maxRewind alone does not enable compensation.\n\nA gate after a present-time target search cannot discover someone that search missed. Use Resolve or Query contacts for earlier checks.\n\nOnce checks once. Repeated can check newer updates during the active window. Each target and the target limit are counted for the whole move."},
+		{"Choose who records data","Heartbeat records after physics and refreshes on move/query/approval calls. Its rate sizes storage and schedules periodic updates; extra captures can shorten usable history.\n\nManual/Event follows your existing server simulation. Save once before moves, then after all participating objects finish a common step. Use the same seconds clock everywhere.\n\nObjects can be Parts or pure server data. The plugin supplies registry/clock/timing/position/obstacle templates inside the code group. A missing server simulation or checker still needs real game code."},
+		{"Bodies, moves and obstacles","Bodies creates named target areas such as Head or Body. Moves creates attack profiles, offsets, rotations, timing and rules. Root-relative shapes do not reconstruct animated limbs. A checked pose provider can supply animated areas.\n\nStatic boxes uses selected anchored Part bounds. Mesh bounds are conservative and changed cover starts a new coverage period. Moving historical cover or terrain needs actual saved data from a provider. Core obstacle checks support rays and swept spheres.\n\nUse Test &amp; restore for reports, provider templates and source-checked upgrades. Custom Hooks/Actions and customized guides are preserved."},
 		{"How it works","1. Your game supplies positions and invisible hitbox shapes.\n\n2. Chrono saves short records of earlier positions. This is called history. It stays in memory; old records are removed.\n\n3. After your server accepts a move, Chrono checks which allowed objects its shape touches.\n\n4. Your own game code decides possession, damage or another result. Your animation and effects code stays in your game."},
 		{"Which positions can decide hits?","The server must calculate or check the positions used to decide a competitive hit. This is often called authoritative data.\n\nA client is one player's game copy. A player sending a position does not prove the movement was allowed. A server reading that position does not prove it either.\n\nThe trust labels describe your code's guarantee. Choosing a label does not create that guarantee."},
 		{"The few calls you connect","Track: register a player, ball or other object and a function that returns its data.\n\nCapture: save one update after your server updates all participating objects. Save once before allowing moves.\n\nBeginAction: keep the move reference it returns after your server approves a move.\n\nQuery: check the move during its hit period.\n\nEndAction: stop a finished or cancelled move.\n\nUntrack removes an object. Discontinuity reports an approved reset such as a teleport or respawn."},
@@ -3257,7 +3822,7 @@ function Guide.Mount(parent,getMetrics,help)
 			local input=Instance.new("TextBox") input.Name="ReasonCode" input.Size=UDim2.new(1,0,0,38) input.Text=code input.ClearTextOnFocus=false input.Font=Enum.Font.Code input.TextSize=15 input.BackgroundColor3=Color3.fromRGB(30,40,52) input.TextColor3=Color3.fromRGB(237,242,249) place(input,body)
 			table.insert(localConnections,input.FocusLost:Connect(function() code=input.Text:match("^%s*(.-)%s*$") render() end))
 			if Help then
-				local h=Help.Explain(code) text(body,h.title,17) text(body,"What happened: "..h.meaning) text(body,"What to do: "..h.fix)
+				local h=explain(code) text(body,h.title,17) text(body,"What happened: "..h.meaning) text(body,"What to do: "..h.fix)
 			else text(body,"Copy the packaged guide with its Help child for the full message explanations. The setup plugin also contains them.") end
 			text(body,"Find a word",19)
 			local input2=Instance.new("TextBox") input2.Name="WordSearch" input2.Size=UDim2.new(1,0,0,38) input2.Text=search input2.PlaceholderText="history, authoritative, root..." input2.ClearTextOnFocus=false input2.Font=Enum.Font.Gotham input2.TextSize=15 input2.BackgroundColor3=Color3.fromRGB(30,40,52) input2.TextColor3=Color3.fromRGB(237,242,249) place(input2,body)
@@ -3276,15 +3841,16 @@ function Guide.Mount(parent,getMetrics,help)
 	if getMetrics then button(panel,"Read your connected game report",function()
 		local ok,r=pcall(getMetrics)
 		if not ok or type(r)~="table" or type(r.stats)~="table" then status.Text="No usable report from your game. Check the function supplying it." return end
-		local line=string.format("Saved updates: %s. Completed checks: %s. Refused checks: %s.",tostring(r.stats.captures),tostring(r.stats.accepted),tostring(r.stats.rejected))
-		if Help then local h=Help.Explain(r.stats.lastRejection) line..="\nLast refusal: "..h.title..". "..h.fix end
+		local line=string.format("Saved updates: %s. Checks: %s. Refusals: %s.",tostring(r.stats.captures),tostring(r.stats.queries or r.stats.accepted),tostring(r.stats.refused or r.stats.rejected))
+		if r.configuration then line..="\nTiming: "..r.configuration.timing..". Recording: "..r.configuration.recording..". Check mode: "..r.configuration.queryMode end
+		if Help then local h=explain(r.stats.reason or r.stats.lastRejection) line..="\nLatest status: "..h.title..". "..h.fix end
 		status.Text=line
 	end) end
 	render()
 	return function() for _,c in localConnections do c:Disconnect() end for _,c in connections do c:Disconnect() end panel:Destroy() end
 end
 return Guide
-</ProtectedString></Properties><Item class="ModuleScript" referent="CF37"><Properties><string name="Name">Help</string><ProtectedString name="Source">-- Help text only. Looking up a message never changes a hit check or trusts a position.
+</ProtectedString></Properties><Item class="ModuleScript" referent="CF44"><Properties><string name="Name">Help</string><ProtectedString name="Source">-- Help text only. Looking up a message never changes a hit check or trusts a position.
 local Help={}
 local terms={
 	{"authoritative","Server decides","The server makes or checks the value used to decide a hit. A player cannot make a position valid just by sending it.","A tackle uses a position your server movement code has checked."},
@@ -3410,7 +3976,36 @@ function Help.FindTerms(query)
 	return result
 end
 return table.freeze(Help)
-</ProtectedString></Properties></Item></Item><Item class="ModuleScript" referent="CF36"><Properties><string name="Name">SportsAdapter</string><ProtectedString name="Source">-- Example dependency boundary for YOUR existing server services, not a replacement framework.
+</ProtectedString></Properties></Item><Item class="ModuleScript" referent="CF45"><Properties><string name="Name">Messages</string><ProtectedString name="Source">-- Extra Connector explanations; Core's existing help and reason codes stay unchanged.
+local M={}
+M.Messages={
+ capture_required={"Save the first update","No common position update is available.","Manual/Event recording: save all participating objects after their simulation step, before accepting moves."},
+ capture_stale={"Saved positions are too old","The latest update is older than the allowed record gap.","Resume recording; do not replace missing evidence with current client data."},
+ invalid_capture_time={"Recording time is outside the allowed range","The timestamp is invalid, in the future, or too far behind the selected clock.","Use seconds from the same server clock for simulation, providers and Capture."},
+ non_monotonic={"Recording time did not advance","A timestamp was equal to or older than the previous recording.","Record once per completed simulation step, with strictly increasing times."},
+ move_already_checked={"This move already used its check","Once mode allows one successful contact query.","For a continuous active window select Repeated. Target limits still apply to the whole move."},
+ duplicate_query={"No new position update","This move was already checked at the latest recorded instant.","Wait for a newer Capture before checking this repeated move again."},
+ rewind_rejected={"Earlier-time request refused","The timing provider failed or returned a delay outside the configured maximum.","Check the server timing rule, shared clock and saved-history range. Raw client timestamps need independent validation."},
+ timing_player_required={"Choose the player for this object","Measured-ping timing could not identify a connected Player.","For data-only objects, map the object to its owner inside Hooks.TimingPlayer, or use a timing provider."},
+ world_unknown={"Obstacle coverage is unknown","The obstacle provider cannot prove what blocked this query time.","Check the selected folder/provider, anchored bounds and changes since the requested time. Do not assume missing cover was clear."},
+ provider_has_not_approved_position={"Position has not been approved","The selected provider did not return ok=true.","Connect a server calculation/checker inside the supplied provider module. Reading a player-owned Part alone is not a movement check."},
+ client_owned_position_needs_checker={"Player-controlled position needs checking","Server-physics mode found an object whose physics a player controls.","Select a suitable position checker. Do not change its trust label to bypass this refusal."},
+ position_function_error={"Position callback failed","A data function errored, yielded or reentered Connector.","Fix the supplied provider or Hooks, then reset the affected object with Discontinuity/Resume before recording again."},
+ contact_result_stale={"Contact result expired","Too much time passed between finding a contact and applying its result.","Apply within the permitted record gap and recheck current game rules."},
+ contact_records_changed={"Position records changed","An object was reset, replaced, added or removed after the contact check.","Start a fresh accepted move after the required records are available."},
+ waiting_for_capture={"Waiting for your simulation update","Manual/Event mode does not record automatically.","Call Capture after completing a common simulation step, or fire the selected recording event."},
+ action_spent={"Move reached its target limit","This move has already returned the allowed total number of different targets.","Finish it. Repeated checks never reset the whole-move target limit."},
+ ready_for_moves={"Ready for accepted moves","Position records are available.","Link the accepted move, its hit moment and cancellation; inspect actual outcomes in Play."},
+ contact_check_completed={"Contact check completed","The query had usable evidence. An empty contact list means a miss.","Use the returned targets and keep current game outcome rules in charge."},
+}
+function M.Explain(code)
+ code=if type(code)=="table" then code.reason else code
+ local row=M.Messages[code] if not row then return nil end
+ return {known=true,code=code,title=row[1],meaning=row[2],fix=row[3]}
+end
+return M
+
+</ProtectedString></Properties></Item></Item><Item class="ModuleScript" referent="CF43"><Properties><string name="Name">SportsAdapter</string><ProtectedString name="Source">-- Example dependency boundary for YOUR existing server services, not a replacement framework.
 -- ActorService snapshots must already be server-simulated or server-validated.
 return function(Integration,ActorService,MoveService,BallService)
 	local kit=Integration()
@@ -3456,4 +4051,4 @@ return function(Integration,ActorService,MoveService,BallService)
 		chrono:Destroy()
 	end
 end
-</ProtectedString></Properties></Item></Item><Item class="StringValue" referent="CF38"><Properties><string name="Name">ReadMe</string><string name="Value">ChronoFork V3.1. Unofficial Chrono fork; original credit: Parihsz and contributors. Developed with OpenAI Codex / AI under VertimaXx direction. Save Setup as a Local Plugin. Open Plugins &gt; Chrono V3 &gt; ChronoSetup. Practice starts OFF and does not certify your game. Your server supplies checked positions and owns move authorization/outcomes. See README and CREDITS.</string></Properties></Item></Item></roblox>
+</ProtectedString></Properties></Item></Item><Item class="StringValue" referent="CF46"><Properties><string name="Name">ReadMe</string><string name="Value">ChronoFork V3.2 Connector/plugin; unchanged Core 3.1. Unofficial Chrono fork; original credit: Parihsz and contributors. Developed with OpenAI Codex / AI under VertimaXx direction. Save Setup as a Local Plugin. Open Plugins &gt; Chrono V3 &gt; ChronoSetup. Practice starts OFF and does not certify your game. Your server supplies checked positions and owns move authorization/outcomes. See README and CREDITS.</string></Properties></Item></Item></roblox>
