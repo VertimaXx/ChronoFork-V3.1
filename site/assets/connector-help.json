@@ -1,0 +1,95 @@
+{
+  "version": "3.2.0",
+  "messages": {
+    "capture_required": [
+      "Save the first update",
+      "No common position update is available.",
+      "Manual/Event recording: save all participating objects after their simulation step, before accepting moves."
+    ],
+    "capture_stale": [
+      "Saved positions are too old",
+      "The latest update is older than the allowed record gap.",
+      "Resume recording; do not replace missing evidence with current client data."
+    ],
+    "invalid_capture_time": [
+      "Recording time is outside the allowed range",
+      "The timestamp is invalid, in the future, or too far behind the selected clock.",
+      "Use seconds from the same server clock for simulation, providers and Capture."
+    ],
+    "non_monotonic": [
+      "Recording time did not advance",
+      "A timestamp was equal to or older than the previous recording.",
+      "Record once per completed simulation step, with strictly increasing times."
+    ],
+    "move_already_checked": [
+      "This move already used its check",
+      "Once mode allows one successful contact query.",
+      "For a continuous active window select Repeated. Target limits still apply to the whole move."
+    ],
+    "duplicate_query": [
+      "No new position update",
+      "This move was already checked at the latest recorded instant.",
+      "Wait for a newer Capture before checking this repeated move again."
+    ],
+    "rewind_rejected": [
+      "Earlier-time request refused",
+      "The timing provider failed or returned a delay outside the configured maximum.",
+      "Check the server timing rule, shared clock and saved-history range. Raw client timestamps need independent validation."
+    ],
+    "timing_player_required": [
+      "Choose the player for this object",
+      "Measured-ping timing could not identify a connected Player.",
+      "For data-only objects, map the object to its owner inside Hooks.TimingPlayer, or use a timing provider."
+    ],
+    "world_unknown": [
+      "Obstacle coverage is unknown",
+      "The obstacle provider cannot prove what blocked this query time.",
+      "Check the selected folder/provider, anchored bounds and changes since the requested time. Do not assume missing cover was clear."
+    ],
+    "provider_has_not_approved_position": [
+      "Position has not been approved",
+      "The selected provider did not return ok=true.",
+      "Connect a server calculation/checker inside the supplied provider module. Reading a player-owned Part alone is not a movement check."
+    ],
+    "client_owned_position_needs_checker": [
+      "Player-controlled position needs checking",
+      "Server-physics mode found an object whose physics a player controls.",
+      "Select a suitable position checker. Do not change its trust label to bypass this refusal."
+    ],
+    "position_function_error": [
+      "Position callback failed",
+      "A data function errored, yielded or reentered Connector.",
+      "Fix the supplied provider or Hooks, then reset the affected object with Discontinuity/Resume before recording again."
+    ],
+    "contact_result_stale": [
+      "Contact result expired",
+      "Too much time passed between finding a contact and applying its result.",
+      "Apply within the permitted record gap and recheck current game rules."
+    ],
+    "contact_records_changed": [
+      "Position records changed",
+      "An object was reset, replaced, added or removed after the contact check.",
+      "Start a fresh accepted move after the required records are available."
+    ],
+    "waiting_for_capture": [
+      "Waiting for your simulation update",
+      "Manual/Event mode does not record automatically.",
+      "Call Capture after completing a common simulation step, or fire the selected recording event."
+    ],
+    "action_spent": [
+      "Move reached its target limit",
+      "This move has already returned the allowed total number of different targets.",
+      "Finish it. Repeated checks never reset the whole-move target limit."
+    ],
+    "ready_for_moves": [
+      "Ready for accepted moves",
+      "Position records are available.",
+      "Link the accepted move, its hit moment and cancellation; inspect actual outcomes in Play."
+    ],
+    "contact_check_completed": [
+      "Contact check completed",
+      "The query had usable evidence. An empty contact list means a miss.",
+      "Use the returned targets and keep current game outcome rules in charge."
+    ]
+  }
+}
