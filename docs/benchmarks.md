@@ -1,21 +1,26 @@
 # Benchmarks, methods and reproduction
 
+## Connector 3.2 integration validation — 25 October 2026
+
+The expanded Connector/plugin has separate [raw cases and scope](../benchmarks/data/v3.2-connector-2026-10-25.json), including deterministic randomized differential checks against unchanged Core, real editor operations and plugin control callbacks. These are integration/regression checks with one Studio client. They are not new native-network, original-Chrono CPU/FPS or production-security benchmarks. Earlier performance and combat measurements below retain their original labels. See [full controls and reproduction](connector-controls.md).
+
 **Counts below describe recorded evidence, not a promise that every competitive situation has been tested.** Results come from one Roblox Studio workstation. Engine/build and hardware details were not fully recorded in the earlier run, so absolute timings are local observations. Do not treat them as a hardware-independent ranking.
 
 ## Evidence register
 
 | Artifact | Version / date | What it establishes |
 |---|---|---|
-| [Current validation JSON](../benchmarks/data/v3.1-validation.json) | 3.1.0 / 2026-10-21 | Unit, generated practice, timeline regression, installer and Studio GUI results |
+| [Expanded Connector validation](../benchmarks/data/v3.2-connector-2026-10-25.json) | 3.2.0 / 2026-10-25 | 550 passing integration/regression checks, including 160 randomized Core comparisons; source hashes and scope |
+| [Core 3.1 validation JSON](../benchmarks/data/v3.1-validation.json) | 3.1.0 / 2026-10-21 | Unit, generated practice, timeline regression, installer and Studio GUI results |
 | [Connection workflow JSON](../benchmarks/data/v3.1-connections-2026-10-24.json) | 3.1.0 connection build / 2026-10-24 | 39 edit, 165 runtime and 63 unchanged Core checks; supplied learning scene and UI measurements |
 | [Existing combat integration JSON](../benchmarks/data/v3.1-combat-integration-2026-10-24.json) | 3.1.0 connection build / 2026-10-24 | 80 passing game-integration checks, source provenance and zero-added-delay scope |
 | [Earlier numerical JSON](../benchmarks/data/v3.0-numerical.json) | 3.0.0 / 2026-10-21 | Original-code comparison, engine geometry oracle and full-service load measurements |
 | [Historical V2 summary](../benchmarks/data/historical-v2-summary.json) | competitive.2 / 2026-10-20 | Archived comparison-only evidence for a different earlier branch |
-| [Package manifest](../dist/MANIFEST.json) | 3.1.0 packaging / 2026-10-24 | SHA-256 for source, assets and documents shipped here |
+| [Package manifest](../dist/MANIFEST.json) | 3.2.0 packaging / 2026-10-25 | SHA-256 for source, assets and documents shipped here |
 
 The recorded V3.1 evidence says Geometry, Shapes, History, Guard and Contract were unchanged from the earlier V3.0 build. New packaging removes a legacy UI hint and an external legacy-world example; core acceptance logic is preserved. This does not relabel earlier performance runs as current runs. The build checks verify that model assets contain the repository's source.
 
-## Current V3.1 validation
+## Archived Core 3.1 validation — 21 October 2026
 
 - **63 / 63 unit tests.** Tests include contract failures, histories, geometry, action lifetime, duplicate handling, editor validation and readable help. Three mathematical groups internally exercise 4,000 interval cases, 3,600 rotated symmetry/invariance cases and 2,500 swept-capsule scalar-distance cases. Those nested cases are not extra independent unit-test rows.
 - **8,192 / 8,192 timeline scenarios**, with 12,718 assertions and seed 20261021. These are deterministic server-timeline simulations, not packets crossing a native network.
@@ -34,7 +39,7 @@ Expected coverage is derived separately from scalar capture times and state tran
 
 ## Connection workflow and existing combat game
 
-The 24 October connection campaign recorded **39 / 39** Edit-mode checks, **165 / 165** runtime checks and **63 / 63** unchanged Core regression tests. It includes 128 randomized same-shape comparisons against Roblox's box query, event mapping, cancellation, stale evidence, ownership, mixed character/ball data and real-client walking/jumping. The shipped learning-scene installer was also exercised. [Connection methods and reproduction](connections.md#recorded-connection-checks).
+The 24 October connection campaign recorded **39 / 39** Edit-mode checks, **165 / 165** runtime checks and **63 / 63** unchanged Core regression tests. It includes 128 randomized same-shape comparisons against Roblox's box query, event mapping, cancellation, stale evidence, ownership, mixed character/ball data and real-client walking/jumping. The shipped learning-scene installer was also exercised. These same three suites were rerun within the current 550-check campaign. [Current methods and reproduction](connector-controls.md#what-still-belongs-to-the-game).
 
 A separate existing R6 combat game then passed **80 / 80** integration checks: 59 original-versus-connected comparisons (including 48 seeded geometry cases, seed 241031), eight real-client original-input cases, nine accepted/refused-move checks and four actual moving-client flows. The final flows had zero false movement refusals, zero adapter errors and zero Core provider faults. All 27 final installed sources compiled.
 

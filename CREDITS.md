@@ -1,6 +1,6 @@
 # Credits and lineage
 
-**ChronoFork V3.1 is an unofficial Chrono fork, developed with AI assistance.**
+**ChronoFork V3.2 is an unofficial Chrono fork, developed with AI assistance.** The Connector/plugin is 3.2.0 and uses unchanged Core 3.1.0. The repository URL keeps its original ChronoFork-V3.1 name.
 
 | Contributor | Credit |
 |---|---|
@@ -11,9 +11,9 @@
 
 ## What “fork” means here
 
-The competitive work began by studying and extending Parihsz/Chrono. Earlier experimental branches included replication and movement work. The current V3.1 package is the standalone contact-validation branch of that lineage, carrying forward the competitive geometry/history/guard work through the earlier branch. It does **not** contain the entire original replication framework, and its API differs from upstream.
+The competitive work began by studying and extending Parihsz/Chrono. Earlier experimental branches included replication and movement work. The current V3.2 package is the standalone contact-validation branch of that lineage, carrying forward unchanged Core 3.1 geometry/history/guard work. It does **not** contain the entire original replication framework, and its API differs from upstream.
 
-“V3.1” names this independent branch. It does not mean that Parihsz published Chrono 3.1 or endorses this repository. It is not a claim about GitHub's fork-network metadata. Historical V1/V2 code is not shipped here; a labeled comparison appendix preserves selected earlier results.
+“V3.2” names this independent branch's current package. It does not mean that Parihsz published Chrono 3.2 or endorses this repository. It is not a claim about GitHub's fork-network metadata. Historical V1/V2 code is not shipped here; a labeled comparison appendix preserves selected earlier results.
 
 The matched original-code benchmark used upstream revision:
 

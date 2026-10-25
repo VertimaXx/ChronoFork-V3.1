@@ -1,18 +1,19 @@
 {
-  "version": "3.1.0",
-  "sourceDate": "2026-10-21",
-  "packagedDate": "2026-10-24",
-  "connectionBuild": "2026-10-24",
+  "version": "3.2.0",
+  "coreVersion": "3.1.0",
+  "sourceDate": "2026-10-25",
+  "packagedDate": "2026-10-25",
+  "connectionBuild": "2026-10-25",
   "upstreamComparisonRevision": "99e77a35822bca389f25a4d27d4de21249b287e0",
-  "scope": "V3.1 code only; historical comparison data retain earlier labels",
+  "scope": "V3.2 connector and plugin, unchanged V3.1 Core; historical comparison data retain earlier labels",
   "files": {
     ".gitattributes": {
       "bytes": 78,
       "sha256": "0d8306c6fa0ad2be519a996d360149e14f3f2c0d956315ac42f85cf974539c35"
     },
     ".github/ISSUE_TEMPLATE/bug_report.md": {
-      "bytes": 536,
-      "sha256": "39f4a1c1b5fc2f83ae0ccfb3fda6da1564e9641f7da582d4289a98f8d37ff3b6"
+      "bytes": 562,
+      "sha256": "bcca9976766fee8b7d55b6f36ca2c348954cc6e3f679bc047db5c8798faef4ae"
     },
     ".github/ISSUE_TEMPLATE/feature_request.md": {
       "bytes": 398,
@@ -35,16 +36,16 @@
       "sha256": "ae47357a09341d142e5b027ede17835857732a17619b86bcde1df22fb4e15cc6"
     },
     "CHANGELOG.md": {
-      "bytes": 2921,
-      "sha256": "22f896638278b3b3fd2b85427e0a7f68b57e92be0333049f5af6deab6f5121eb"
+      "bytes": 4041,
+      "sha256": "7be5ef398860811347c7c1fdfc984e511bf73665d5f2348d6dbbccd281f5b490"
     },
     "CONTRIBUTING.md": {
-      "bytes": 1447,
-      "sha256": "484bbe9fb7e7aaf61c93e3f1d085cd81734f0f949b9198c683b9395fdd3155ba"
+      "bytes": 1584,
+      "sha256": "6688d3daa2c28f52c7de26d0dbb352aea3fb2c1ad43394cc90b3abe88d0c63c2"
     },
     "CREDITS.md": {
-      "bytes": 2234,
-      "sha256": "96983800fe999ce4e700dfbef154f07d2c52d0d6e397af09202307411075168a"
+      "bytes": 2349,
+      "sha256": "ad069f467e75c25c238b06cf4928fa0be53e503a2bcbb91f37a039427691b041"
     },
     "LICENSE": {
       "bytes": 1064,
@@ -52,11 +53,11 @@
     },
     "NOTICE": {
       "bytes": 509,
-      "sha256": "ddba643f5d59cb06c48a27532d7ff0279df8a879956d8fb60a0fd76f21f93500"
+      "sha256": "83b607ea25c006c6e549707881a780355ece353e1e3fe0ee3be7bccefe414097"
     },
     "README.md": {
-      "bytes": 11929,
-      "sha256": "114ee3cd0b56eccd6cac344195696f3dc0df6b28df50592646969d74b81728f2"
+      "bytes": 13271,
+      "sha256": "edec62675f272008700b046bf70d3a6f91746b7a7646f64a07364cb0fbcdb185"
     },
     "SECURITY.md": {
       "bytes": 827,
@@ -81,6 +82,10 @@
     "benchmarks/data/v3.1-validation.json": {
       "bytes": 12879,
       "sha256": "1031bb9f96e8c8cd1622bf418b354ffb4732f216c0c7d4520c4465a05205a278"
+    },
+    "benchmarks/data/v3.2-connector-2026-10-25.json": {
+      "bytes": 72361,
+      "sha256": "c7435cc28a4033f118eb5e4a74b391bdbd567d6624d58769ae3bc1bb9eaff9f3"
     },
     "benchmarks/harness/combat-20261024/MovementFlow.client.luau": {
       "bytes": 1212,
@@ -111,92 +116,100 @@
       "sha256": "05b0cc84aa94b430fc5854cf7e0473982c03ee2a67214fe9ce6122aaa248e8c9"
     },
     "dist/ChronoV3Guides.rbxmx": {
-      "bytes": 31941,
-      "sha256": "54cacea3b41be1dab68f713d445b0d18d9c1cd21c45b2781308313f0830c18c0"
+      "bytes": 39017,
+      "sha256": "89bfcf3f5fec3c2ac5a30b2681d935db9c70a05a3828f0ffb13a7566116afea2"
     },
     "dist/ChronoV3Setup.rbxmx": {
-      "bytes": 184631,
-      "sha256": "7245e952aacae536b404c428c911a7f8b052490a7aca5ca8fe6ae170e9b82a77"
+      "bytes": 240951,
+      "sha256": "abd0ab6005d83a87c56bca73d069090fcf33d5d4c2ad55cbe44c5b942a5ce400"
     },
     "dist/ChronoV3Tests.rbxmx": {
-      "bytes": 245986,
-      "sha256": "e406cb08a9c00c23fbf392da3d20f7c8368e8c4b655d76a56d7d7e6f4837c8d4"
+      "bytes": 332935,
+      "sha256": "52f1f8c79b9e6d03a51859b2dd1f145e6e30b4a0161175649f7b48d5df850602"
     },
     "dist/ChronoV3Toolkit.rbxmx": {
-      "bytes": 282695,
-      "sha256": "2503c61b798a953dc9064be647c2b7d48bddb9c54bdc1d6e912be2bc77d5261c"
+      "bytes": 346129,
+      "sha256": "85cb811f7e88957370948b18ee18ba6433e8136663a75cae4881881818f7f9ce"
     },
     "docs/benchmarks.md": {
-      "bytes": 13958,
-      "sha256": "00a9ab7846306739f0b86af44aff22e9de255c4a4c88e791362bec6501ce8869"
+      "bytes": 14894,
+      "sha256": "80b8fde6070c6d2ec1bfad152e26c86b201281b9cae0fffb9398d484fae73836"
     },
     "docs/combat-walkthrough.md": {
-      "bytes": 10708,
-      "sha256": "0e5c361c2470b4ac3a56fdf70960cb6c3d1216a2c62685f3dc797616ed97e03e"
+      "bytes": 10919,
+      "sha256": "c2889c958a2112a4faeb41e668491635eba99477c12e3ae76735aac1731f7866"
     },
     "docs/comparison.md": {
-      "bytes": 5976,
-      "sha256": "0e0e1948b2258b921f73a6f4549446b461ee1859c9e99891e8d316431eb7e3b6"
+      "bytes": 6524,
+      "sha256": "5fcc9f5690a9ca9ba5416570d87b201dedff15a6a845fd1891b803db845f08cb"
     },
     "docs/connections.md": {
-      "bytes": 13077,
-      "sha256": "ca9d02893973b721cc9bb0aa37fb6e84c34afdae72b5cb8cdf6e19cf9b418735"
+      "bytes": 8416,
+      "sha256": "e8ad64ce7108d54c34364e1b6876f85861ec7c61f4c3c87bfde42038181d8554"
+    },
+    "docs/connector-controls.md": {
+      "bytes": 12918,
+      "sha256": "211d69cb182c2fe7682bfd5cfaf9aca0ba3538eb365f818b81f49415156892f6"
     },
     "docs/faq.md": {
-      "bytes": 3255,
-      "sha256": "0f8b57d15bd2c2ba6325ac462f64997156852cae80c0081afc0396c38e401b66"
+      "bytes": 4497,
+      "sha256": "01056e10d35b8fd7a5811a8b4318f75c5bced2e6ce0e997b9a0f5b58b66b9345"
     },
     "docs/game-integration.md": {
-      "bytes": 6182,
-      "sha256": "0a37a510e35eede524608337a4edc8787cb174bbe8a8424639e5f3a9844fbcc0"
+      "bytes": 6667,
+      "sha256": "a4bc11db18be31f6916435979927e9d8d2ef654baa5268f782b36749786fa66a"
     },
     "docs/integration.md": {
-      "bytes": 11374,
-      "sha256": "68d24bf05f8e92929b1889d0197a2cf0bfc52556bba9c9d40fee023211bddaee"
+      "bytes": 16221,
+      "sha256": "cdff0f4a58bd75c802f7a75a30a0ff7bb4eb7de979611f26bc4b121d4099819f"
     },
     "docs/math-and-limits.md": {
-      "bytes": 7468,
-      "sha256": "47f2c21c08fae76d087c32302d4e7da111bee5237f3f665a58acd44ce25516fd"
+      "bytes": 7912,
+      "sha256": "1b62d5e340572b67e03da3957f81251f661b3433264a50ae5448a38746d783f3"
     },
     "docs/publishing.md": {
-      "bytes": 2285,
-      "sha256": "e7d6ce224d797566456a40a34779d7f9fbad69b2639912434f2c60cb1a2d8c09"
+      "bytes": 2461,
+      "sha256": "5ab4929e7e89fefba3202e762edea26902dc217360cd99b05ff3d785240509ee"
     },
     "docs/start-here.md": {
-      "bytes": 11209,
-      "sha256": "979bdf3b0b9534e4a9729a1b668e0a1c899b0c71aa5812f071b1cc7c24e28100"
+      "bytes": 11969,
+      "sha256": "cbfc86a323667be75b93263ac2a18b1f08fb3687079881d93aaa91882fa6c6fd"
     },
     "editor/Config.luau": {
-      "bytes": 12742,
-      "sha256": "f0cad81e5aea2506432b98b6961041b7d33865095818a1265fae4520da5753b7"
+      "bytes": 12790,
+      "sha256": "92365fcc3daf2e05c5258ef409d44449842933eeb6f07d8863a1d2a75406a376"
+    },
+    "editor/ConnectionAdvanced.luau": {
+      "bytes": 12467,
+      "sha256": "808146eb1b1e3497104afeb1d75c86ffd606c05abef2df8707885203e0ec171a"
     },
     "editor/ConnectionConfig.luau": {
-      "bytes": 4502,
-      "sha256": "72858c5805ac7e7432eae4318e4c242f2d49b6bcaa122dc2dd86c7fd5304d2e1"
+      "bytes": 59,
+      "sha256": "8bb667673bd0bf0aa33ea9db9b62371223ca795c742ab2db0e20ea45eb809c00"
     },
     "editor/ConnectionExample.luau": {
       "bytes": 4606,
       "sha256": "e52c8f5c2aef9136b1fa001c057ef1507f577a2c1a13bf95384ea9974f003a92"
     },
     "editor/ConnectionInstaller.luau": {
-      "bytes": 11925,
-      "sha256": "4aee4c4252000aed30f2ed454620505a830f0240676231aeced5b042db6bdce3"
+      "bytes": 17017,
+      "sha256": "2fab93617f146a8149fe50791e207178ef2aadf4ea37ab1f89d40a19611289a6"
     },
     "editor/ConnectionView.luau": {
-      "bytes": 18736,
-      "sha256": "e28787dff5e9f9552d47eac98429cfb0070b3529c6ad0c91cda01c84e04d6abd"
+      "bytes": 23284,
+      "sha256": "e00fd587c1fee1db8dea3095b2fa6eed73f29c6dd61036d62de84f1f860e205e"
     },
     "editor/Fields.luau": {
       "bytes": 4534,
       "sha256": "7307731917421ef8d9c54d128ee1199b3dd44194967c6c09462376bd837f2828"
     },
     "editor/HookBuilder.luau": {
-      "bytes": 8392,
-      "sha256": "66b4dc0a682d6eab41892c76487b19c7b96290d20567317eb2d30190e8bdd9bd"
+      "bytes": 11676,
+      "sha256": "19d09fb8a0fe08cbd46b9725c0da60863e9a3b635edf8872659359ed5c94ee03"
     },
     "editor/Installer.luau": {
-      "bytes": 5657,
-      "sha256": "5234e982ce5dc4f824d7f745993b1cb0f783b011e4633db83831f1e711c40ca4"
+      "bytes": 5798,
+      "sha256": "51a854071528a642baed369abca9c543ab0451f62db678fae4c2c1a9145a42d9"
     },
     "editor/PluginMain.luau": {
       "bytes": 1272,
@@ -206,37 +219,61 @@
       "bytes": 3499,
       "sha256": "5e3afe61dbe04232319f563e5cc835ff4d86f3f106660286e4c0624be68d6f73"
     },
+    "editor/ProviderTemplates.luau": {
+      "bytes": 3229,
+      "sha256": "a6246b7d9ed253b7d12d7764f31ddd5ac94d2820ae2a9ca348492615f6ec9344"
+    },
     "editor/View.luau": {
-      "bytes": 21697,
-      "sha256": "6d996f31069a301ae5d0554f9529df47d6df27df95fc2196724e370508ce1628"
+      "bytes": 21839,
+      "sha256": "9f9e57612bf7e639c90c3d7dae1501d349c0c8f19d7ac56febc7b2f80fff0b4e"
+    },
+    "editor/VolumePreview.luau": {
+      "bytes": 2616,
+      "sha256": "871c4964fa36f9729433d846b882e14af8fcfbe80ba2094297dbebcca2873360"
     },
     "examples/CombatMovementHooks.luau": {
       "bytes": 5280,
       "sha256": "1e5fd8885a816ac028f9b1baab3e39e28f6c516d64b41beb43c8ec8742316a16"
     },
     "examples/Guides.luau": {
-      "bytes": 8161,
-      "sha256": "6ca47a9ae78afaa183afcfc57de5070aa7291a2925bacf967b5984a1807d7d66"
+      "bytes": 10897,
+      "sha256": "3cba4582027646079d1f42e77cf5403360ea87db3d40a700b8b762759ab0e434"
     },
     "examples/SportsAdapter.luau": {
       "bytes": 2425,
       "sha256": "5b5ae5c474eb7a895a2e645920e96557e76c7605db7dc54d3e2973a06742b940"
     },
+    "runtime/Configuration.luau": {
+      "bytes": 9846,
+      "sha256": "2e326412c2c05ded9b8c31671e35d2f833823e092dcf721be157ff8d16538496"
+    },
     "runtime/Guide.client.luau": {
-      "bytes": 3236,
-      "sha256": "380fbaa80ebd073c15f6fa6d39b88550c851e3139e85038e599b8bbb0a17fbd9"
+      "bytes": 3628,
+      "sha256": "3394dd195a32ab70606bfa4ebac42040520786fd2fe87f216ec56ce43af2e5e1"
     },
     "runtime/Hooks.luau": {
-      "bytes": 2353,
-      "sha256": "4afbf0fe9cb49d8f83fb8263764040b91a409c07566df2c899f450a654f53339"
+      "bytes": 3496,
+      "sha256": "118b67db0c1d12b1c428242a6c1b0a0cf252758206e210f19853381cc0aef036"
+    },
+    "runtime/Messages.luau": {
+      "bytes": 4166,
+      "sha256": "f4432e8c5d246a00a7c7f0f5fe626326c9909e319b993d9781319a88a964ec68"
     },
     "runtime/Movement.luau": {
       "bytes": 4285,
       "sha256": "d2c7a063ce2afc680ccd88902bdcd01cdada0aeea00efc5fe1be6e38739f742b"
     },
+    "runtime/Volumes.luau": {
+      "bytes": 1347,
+      "sha256": "74ce42d50132065d174a58b7f771b2a435d8195e59ec009ce4e9800c059571c2"
+    },
+    "runtime/World.luau": {
+      "bytes": 1476,
+      "sha256": "0fdb99e3e36b793f853fecae755c73ce6052ba89ad82d12c6d121703eb13c3e8"
+    },
     "runtime/init.luau": {
-      "bytes": 16976,
-      "sha256": "e7f35cacf2f126280591d573ba2763dd2c62916f65b512080d69c161865e7c28"
+      "bytes": 26540,
+      "sha256": "751880b77eee095abe7badcd845fa9dcd50d80116564accb273159036cb65dad"
     },
     "site/.nojekyll": {
       "bytes": 0,
@@ -248,7 +285,7 @@
     },
     "site/assets/banner.svg": {
       "bytes": 4363,
-      "sha256": "817e297a61d239347313e2c183f413310cdfcf079d770c4e1c7158f719244903"
+      "sha256": "51f19f36c3d050e8c540cbea7240112dbe960c0a7acdb6595f8164e33c083d72"
     },
     "site/assets/combat-guide-3.1.png": {
       "bytes": 236963,
@@ -261,6 +298,10 @@
     "site/assets/connections-guide-3.1.png": {
       "bytes": 123249,
       "sha256": "b69a65f9adc5bea52affb8b5b2adb4d3e3643239fb85fa09713b3b034354c8d7"
+    },
+    "site/assets/connector-help.json": {
+      "bytes": 4450,
+      "sha256": "b78fdcb4a0926d67b0111e1b1bfe2f244ef9a757dbe2c042b33fa49b509ee4a5"
     },
     "site/assets/data/historical-v2-summary.json": {
       "bytes": 1665,
@@ -282,6 +323,10 @@
       "bytes": 12879,
       "sha256": "1031bb9f96e8c8cd1622bf418b354ffb4732f216c0c7d4520c4465a05205a278"
     },
+    "site/assets/data/v3.2-connector-2026-10-25.json": {
+      "bytes": 72361,
+      "sha256": "c7435cc28a4033f118eb5e4a74b391bdbd567d6624d58769ae3bc1bb9eaff9f3"
+    },
     "site/assets/guide-3.1.jpg": {
       "bytes": 233653,
       "sha256": "268e2552f4ffce248460850f7a676e2f6af829f325cc7f89e560307d792c2fd8"
@@ -300,7 +345,7 @@
     },
     "site/assets/project-badges.svg": {
       "bytes": 946,
-      "sha256": "4113a959d8846930a71018841bbf52aa093afe9bd4a0b04c840cc6a308d69899"
+      "sha256": "d4d3ecdefe8c43867997e327e42286a24935c5b71bb40c785dab7599cc470a5c"
     },
     "site/assets/setup-3.1.jpg": {
       "bytes": 266632,
@@ -315,56 +360,60 @@
       "sha256": "d92f9354fe73ed68fa42077fc20323fdf0202a292b4a85f841927a00dd921fe5"
     },
     "site/benchmarks.html": {
-      "bytes": 20313,
-      "sha256": "c50f532e73bfc84a9de1bfd0674ce83a2b0422cca4f19cd35a1c548f6b403501"
+      "bytes": 21596,
+      "sha256": "99a3d8e3c1f295ad98e7db4397f22214c474596d9d65e85ed9ac9d6b00e864e0"
     },
     "site/combat-walkthrough.html": {
-      "bytes": 15949,
-      "sha256": "c9d6738e9027f2f0899bff7cf56bbc4377f88ce84c354c13426f5070a3f9a08f"
+      "bytes": 16220,
+      "sha256": "a706019da8509a07463a906d6fdba86326403017a55598babc6de1c2c9f0086c"
     },
     "site/comparison.html": {
-      "bytes": 10108,
-      "sha256": "1f9b6cbe233551ff8c4dbfcee6cd2de6fca1335e51ac2e681de2e9cc55b1ad94"
+      "bytes": 10739,
+      "sha256": "b9fb1d0297922f164ac2702239006dff531ebdcc639759796da9752bc71f4844"
     },
     "site/connections.html": {
-      "bytes": 17700,
-      "sha256": "2e470a3f630f35f4533b26e0f99964a6a280da73e2327f090b476abca0853157"
+      "bytes": 12628,
+      "sha256": "aaea26cb879da62d233bddd5661d9fad5ed5d73a1cae6f8bae9fb7889ef35d05"
+    },
+    "site/connector-controls.html": {
+      "bytes": 16955,
+      "sha256": "0a9fa5942aee29a5cc345533783ace4f96666d8dcbd66317b6eb336cd4b6b0eb"
     },
     "site/credits.html": {
-      "bytes": 4930,
-      "sha256": "0b26d36fd112baeb9a12210297cfa6cf5874bb5e5e8bfba9a299d70b2196fcfb"
+      "bytes": 5089,
+      "sha256": "18ad2a1ae5eb37172f1ab2373cba501c6e06735dd50c6f03262d526048a09687"
     },
     "site/faq.html": {
-      "bytes": 7625,
-      "sha256": "6211d5ff8cc8dda971d7974cf02f07098511ae7f5173b62a977fb6e45e038b25"
+      "bytes": 9508,
+      "sha256": "6108a870870de8eff93312ba6b89b8a66f0111f7e6cfe3671ceab057b84dafc3"
     },
     "site/game-integration.html": {
-      "bytes": 10189,
-      "sha256": "3ee636d4f48ef2b8c46e64f9efd5969d8740eafb6883da2977fe5453e4453ece"
+      "bytes": 10742,
+      "sha256": "b8caf1498720780ffd2058cc279dada82d7f61de53f0db722397777cbb19576b"
     },
     "site/help.html": {
-      "bytes": 41478,
-      "sha256": "e603424ba883bd1c51ed8f9aef78639f5407e43bf2e57dcfe84cb3c204303de2"
+      "bytes": 49213,
+      "sha256": "dd63e00ada937b0547b53d7c71134ea7d32717ae029295fea80d9d15d5cfa35a"
     },
     "site/index.html": {
-      "bytes": 8778,
-      "sha256": "63a07a45af0ad0782675b45c009ae96c5fff44b6b8591ee8fb280f16751b78ee"
+      "bytes": 9912,
+      "sha256": "09bb145f5b22fea47aff874b361e4342d3c120549d035f031820e981a2b7a4aa"
     },
     "site/integration.html": {
-      "bytes": 15503,
-      "sha256": "32befbda39e99d725a6ac3b2c21afb662181a0d8b5c95a943c2727dd375aa805"
+      "bytes": 21368,
+      "sha256": "e097e6216009b3d75d0758485fa568ad0d7dc4e66c0d828ff0fb0393f4a49bf7"
     },
     "site/license.txt": {
       "bytes": 1064,
       "sha256": "4604a131092003c47badec155fff4d63ad90a4fad34a89113664f6dbffa68298"
     },
     "site/math-and-limits.html": {
-      "bytes": 10737,
-      "sha256": "5f81a8e90bdc8c776e12e6bf90ad453d2ea473a8087665fb3004c3184f344acb"
+      "bytes": 11239,
+      "sha256": "1ef204ae0182eb3fa7a141d7ed9ab1ada67116b3775df29169a5b83d020d7ce8"
     },
     "site/start-here.html": {
-      "bytes": 16554,
-      "sha256": "c4699f8eb82abeec04aac28a92b6ab0e7d01bdd5b6ee505f942f5f0e9352aa83"
+      "bytes": 17423,
+      "sha256": "025b0d75487d5d72674142c02cc083cbac503d4bff15cd86a29c5278d9065cfc"
     },
     "src/Contract.luau": {
       "bytes": 1312,
@@ -414,6 +463,18 @@
       "bytes": 5770,
       "sha256": "66041504f54d9fc85d28cd0ff761133bb9725e2e31c978ef5e6d33299344be2d"
     },
+    "tests/ConnectorEditorChecks.luau": {
+      "bytes": 8289,
+      "sha256": "e4725d636347a311d8e623d8721dee0802a1781366da6c2407f81da19a2d579c"
+    },
+    "tests/ConnectorExpansionChecks.luau": {
+      "bytes": 19107,
+      "sha256": "b23a4255130bfc9ac25776762c7350435f79880b8f3df5e4db0b68573eebd351"
+    },
+    "tests/ConnectorExpansionSetup.luau": {
+      "bytes": 2666,
+      "sha256": "3cb968b7c055e13b960f1f41fe99ae646cfec9a61a3ecc686e66f3262f1bb8d1"
+    },
     "tests/EngineOracle.luau": {
       "bytes": 2580,
       "sha256": "2cc218e7e2e994dbc463cab7bc46b98ebc8744567b328c027f1f58e50e377e3a"
@@ -455,20 +516,20 @@
       "sha256": "8ab13d7aebc82a005a92df13b39dd66022907fcd57c87d81bb123ba37976e9de"
     },
     "tools/build.py": {
-      "bytes": 7110,
-      "sha256": "8e5c363ce8510bc793304b689fbf2e2930b17d16833922c257d6f83b00af499b"
+      "bytes": 7784,
+      "sha256": "84df85e091495b91c09b36b18b7361b27ef158a6b78abd89d50ec99039a21edc"
     },
     "tools/check.py": {
-      "bytes": 5687,
-      "sha256": "6c5e052f0d2ce1da55a899ef32e20ebba705d48d43c1ce3250278456ded7ee36"
+      "bytes": 6759,
+      "sha256": "901173907cde801462faa8baa5248ae6efc736c7974589ff0fe6cffcb90355fd"
     },
     "tools/fetch_baseline.py": {
       "bytes": 2734,
       "sha256": "c1882dca4fcfcf8255fd99706e9eb9dd91fd741d0b567670a90bb29b7b030760"
     },
     "tools/site_build.py": {
-      "bytes": 19043,
-      "sha256": "677d5822e68c9ad5dd2b07423d7d7cd1dce08cce7d05005e87c196d2d9ea9a04"
+      "bytes": 21268,
+      "sha256": "44736f5cb1858f38f8c7e76b08b3392730f637205f1e5accae92d48afa04c59e"
     }
   }
 }

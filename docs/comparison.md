@@ -1,12 +1,12 @@
-# Original Chrono and ChronoFork V3.1
+# Original Chrono and ChronoFork V3.2
 
-**Choose by the job you need.** Original Chrono is a physics-replication library. ChronoFork V3.1 checks contacts using server-supplied gameplay records. They can be used in the same game, but combining them still requires checking what data your server can trust.
+**Choose by the job you need.** Original Chrono is a physics-replication library. ChronoFork V3.2 checks contacts using server-supplied gameplay records through Connector/plugin 3.2 and unchanged Core 3.1. They can be used in the same game, but combining them still requires checking what data your server can trust.
 
 The upstream project describes its replication modes and `Chrono.Start()` setup in its [README](https://github.com/Parihsz/Chrono) and [documentation](https://parihsz.github.io/Chrono/). This fork's historical measurements use [one pinned revision](https://github.com/Parihsz/Chrono/tree/99e77a35822bca389f25a4d27d4de21249b287e0), not every version of Chrono.
 
 ## Different responsibilities
 
-| Capability | Original Chrono | ChronoFork V3.1 |
+| Capability | Original Chrono | ChronoFork V3.2 |
 |---|---|---|
 | Custom transform replication | Included | Bring your existing system |
 | Smooth remote-object presentation | Included | Bring your existing system |
@@ -18,10 +18,13 @@ The upstream project describes its replication modes and `Chrono.Start()` setup 
 | Automatic trusted movement / animated pose | Game-specific | Game-specific |
 | Damage, tackles, possession, cooldowns | Game-specific | Game-specific |
 | Installation for its basic purpose | Start replication | Import core or use guided setup; connect game boundaries |
+| Plugin access to timing/recording/contact policies | Replication-focused API | Eight connection tabs, provider templates and generated calls; present/earlier timing, Once/Repeated and custom recording |
 
 “Not included” is a scope distinction. The benchmark does not count upstream's absent combat systems as failed tests.
 
 ## Matched history benchmark — earlier V3.0 run
+
+These are preserved numerical measurements, not a rerun of the 3.2 Connector. The new 550-check integration campaign includes 160 randomized wiring comparisons against unchanged Core, not new performance measurements against original Chrono. See [current methods and scope](benchmarks.md).
 
 Both implementations received **2,000 identical two-endpoint inputs** and **17 covered queries per case** (34,000 total). Endpoint positions span a scalar segment; endpoint velocities are randomized independently. The reference position is deliberately the straight line between endpoints.
 

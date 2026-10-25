@@ -1,6 +1,6 @@
 # Connect the game you already have
 
-For the V3.1 supplied connection runtime, use [Plugin connections](connections.md). It provides the lifecycle below, plus object/event selection and reviewed generated calls. The rest of this page describes the responsibilities and advanced API, not a requirement to build that machinery outside the plugin.
+For Connector/plugin 3.2 with unchanged Core 3.1, start with [Plugin connections](connections.md) and [all controls](connector-controls.md). The plugin supplies tracking, recording and move bookkeeping, including earlier timing, repeated checks, data actors and custom providers. The rest of this page explains game responsibilities and the advanced API.
 
 You do not need to rewrite every animation, effect or cutscene. Connect the places where your **server** records positions, accepts moves and applies their results. Names such as ActorService in the example are your own code, not Roblox services supplied by this package.
 
@@ -29,6 +29,8 @@ These are starting shapes, not automatic exact animation reconstruction. A curve
 
 ## Use the generated files
 
+The usual workflow uses Connector, ConnectionData and Hooks. Use the Bodies/Moves tabs for visual configuration, and provider templates for custom data, clocks, timing or obstacles. The Bindings/low-level constructor below is an alternative; do not start it alongside Connector.
+
 - `Bindings`: connect your object and update functions. A selected Studio reference starts unverified.
 - `Actions`: choose shape, target kinds, hit period and rules using saved state.
 - `Settings`: choose record age, sample-gap tolerance and optional approved rewind.
@@ -54,7 +56,7 @@ Use `Untrack` when an actor leaves. Current policy invalidates active moves glob
 
 Obstacle checking is optional. With `world=false`, the query checks contacts without map obstruction. If your game disallows a tackle through a wall, add that rule explicitly. The optional historical-world callback supports rays and swept spheres; it must establish geometry at the historical time and initial overlap, not just raycast today's map.
 
-Earlier-time compensation, often called **rewind**, starts off. An optional server callback can supply a bounded delay after your timing policy accepts it. A client timestamp alone is insufficient. This package does not measure trustworthy one-way transport delay or reconstruct every animation.
+Earlier-time compensation, often called **rewind**, starts off. Enable measured-ping or provider timing on the Timing tab, set a bounded lookback within saved history, and use Chrono's returned candidates. The measured-ping option estimates one-way delay from half the server's round-trip measurement; it is not exact transport or display reconstruction. A custom timing provider needs a defensible server rule. A client timestamp alone is insufficient.
 
 ## Before shipping your adapter
 

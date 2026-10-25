@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: A reproducible failure in V3.1
+about: A reproducible failure in the current ChronoFork package
 title: ''
 labels: bug
 ---

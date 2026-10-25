@@ -1,5 +1,7 @@
 # Mathematics and remaining limits
 
+Current package: Connector/plugin 3.2 with unchanged Core 3.1. The expanded plugin exposes timing, repeated queries, custom recording, data actors and providers; those controls do not remove the mathematical and trust limits below. See [all connection controls](connector-controls.md).
+
 ## Ranked limitations
 
 | Severity | Limitation | Practical consequence / integration responsibility |
@@ -7,13 +9,13 @@
 | 1 — fundamental | Supplied evidence must already be authoritative or validated | V3 checks coverage, structure and declared bounds; it cannot prove an arbitrary game's movement, animation, timing or ownership claims. A dishonest `serverValidated` declaration defeats the trust boundary. |
 | 2 — fundamental | Game authorization and outcomes remain game-owned | Authenticate input, replay, cooldowns, stamina, possession, round state, cancellations and current eligibility. Deduplication is per handle; it is not global request authentication or an exactly-once outcome transaction. |
 | 3 — accuracy | A snapshot query is not continuous simulation | Linear/spherical interpolation estimates intermediate poses. Fast opposing actors, curved limb paths, acceleration, rotating long shapes or a skipped active window can still miss or invent contacts between captures. Increase authoritative sampling or supply deliberately swept gameplay volumes; V3 does not solve relative-motion CCD. |
-| 4 — accuracy | Timing and animation uncertainty are external | No universal one-way delay estimator, render buffer reconciliation or automatic animation reconstruction. Rewind is off by default. A bounded resolver still needs a defensible server timing policy. |
-| 5 — game policy | Historical obstacles are optional and adapter-owned | With world off, contact checks deliberately ignore obstacles. With it on, only sweeps are supported and the provider must prove cover/initial-overlap history. Sports overlap obstruction needs a game rule. A game-specific provider must establish what geometry existed at the checked time. |
+| 4 — accuracy | Timing and animation uncertainty remain | Present is the default. The plugin can use half measured round-trip ping plus a known display delay, or a custom bounded resolver. Neither establishes exact one-way transport, the player's displayed frame or arbitrary animated pose. Earlier checks need Chrono candidates and covered history. |
+| 5 — game policy | Obstacle coverage is optional and limited | Static boxes conservatively records selected anchored Part bounds and refuses earlier times across observed changes. Moving historical cover/terrain needs a provider. Core cover checks support rays/sweeps; sports overlap obstruction needs a game rule. Unknown cover must not be declared clear. |
 | 6 — availability | Strict uncertainty can reject otherwise harmless actions | All matching actors need trusted covered data. Provider faults quarantine until reset. Joins/removals invalidate active handles globally. These choices favor refusing uncertain evidence and may feel strict in large or unstable games. |
 | 7 — representation | Finite primitive gameplay volumes | Boxes, spheres and capsules, not arbitrary meshes or exact animated skin. Root-relative shapes may intentionally differ from visual limbs. Maximum radius, dimension, reach, actor, state and action capacities apply. |
 | 8 — performance | Full evidence checks cost CPU and allocations | Matching actors/zones are scanned and copied/interpolated. No spatial tree or speculative relevance exclusion. Benchmark this against your real roster and zone count; the 256-actor measurement is a one-zone synthetic workload. |
 | 9 — numerical | Floating-point tolerances and coordinate scale | No codec quantization is added, but Roblox Vector3/CFrame precision remains. Tests use ordinary map scales. Very small radii, nearly parallel axes and very large coordinates need game-specific precision assessment. |
-| 10 — tooling | Integration remains explicit development work | The wizard writes reviewable modules and guides bindings; it does not infer arbitrary moves or retrofit another game's code. No automatic migration/update of existing integrations; namespaces are preserved. |
+| 10 — tooling | Integration remains explicit development work | Eight tabs and generated calls supply the connection framework. Developers identify accepted-move/outcome points and map game rules inside the package. Explicit source-checked upgrades preserve Hooks/Actions and refuse edited runtimes; no silent universal migration is attempted. |
 
 ## Interpolation
 

@@ -1,6 +1,6 @@
 # A real combat connection, step by step
 
-This example records the **24 October 2026** connection of an existing R6 melee game using the current V3.1 plugin. It kept the game's damage, controls, animations, combo, blocking, cancellation and knockback code. Chrono actively refused contacts when its checks failed.
+This historical example records the **24 October 2026 V3.1 build** connecting an existing R6 melee game. Current Connector/plugin is 3.2 with unchanged Core 3.1; use [current connections](connections.md) and [full controls](connector-controls.md) for new work. The example retained damage, controls, animations, combo, blocking, cancellation and knockback code, while actively refusing contacts when checks failed. Its 80 results do not test newly enabled 3.2 policies in that game.
 
 **The external changes were three plugin-generated calls in one existing script.** Game-specific movement mapping was written inside the supplied **Hooks** file. Minimal external work does not mean every game connects without understanding its own rules.
 

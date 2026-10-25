@@ -1,7 +1,7 @@
 -- Edit-time only. New owned namespace, explicit preview, one undo record, no game script rewriting.
 local Config=require(script.Parent.Config)
 local Installer={}
-local OWNER="ChronoV3-3.1.0"
+local OWNER="ChronoV3-3.2.0"
 local plans=setmetatable({}, {__mode="k"})
 function Installer.Preview(config,references,core,service)
 	local ok,why=Config.Validate(config) if not ok then return nil,why end
@@ -36,6 +36,7 @@ function Installer.Apply(handle,dependencies)
 		local function write(object,source) editor:UpdateSourceAsync(object,function() return source end) end
 		write(container,plan.sources.Integration)
 		local clone=plan.core:Clone() clone.Name="Core" clone.Parent=container
+		local setup=Instance.new("StringValue") setup.Name="SetupData" setup.Value=game.HttpService:JSONEncode(plan.config) setup.Parent=container
 		for _,key in {"Actions","Bindings","Settings","Practice"} do local module=Instance.new("ModuleScript") module.Name=key write(module,plan.sources[key]) module.Parent=container end
 		local runner=Instance.new("Script") runner.Name="RunPractice" runner.Enabled=false write(runner,plan.sources.RunPractice) runner.Parent=container
 		local notes=Instance.new("StringValue") notes.Name="StartHere"

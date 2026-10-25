@@ -20,7 +20,31 @@ function H.Generate(root,kind,v)
 		explanation="Insert INSIDE the accepted-attack function, AFTER existing request/cooldown checks and BEFORE animation/windup. The move variable must remain in scope at its hit and cancellation points."
 	elseif kind=="Gate" then
 		code="if not "..ref..".Allows("..token..", "..target..") then "..exit.." end"
-		explanation="Insert immediately BEFORE the existing damage/possession call. Choose 'continue' inside a target loop, or 'return' inside a per-target function. It preserves that existing outcome and permits each target once."
+		explanation="Insert immediately BEFORE the existing damage/possession call. Choose 'continue' inside a target loop, or 'return' inside a per-target function. It permits each target once. This cannot discover a target missed by a present-part search; use Resolve or Query contacts for earlier timing."
+	elseif kind=="Query" then
+		code="local chronoResult, chronoReason = "..ref..".Query("..token..")\nif not chronoResult then return end\n-- chronoResult.contacts contains .target, .zone, .time and .state.\n-- Use these targets; do not filter through a present-part overlap first."
+		explanation="Insert at the hit moment. This returns covered contacts, without applying outcomes. For supplied outcome delivery use Resolve instead. A repeated move may Query again AFTER another Capture; total targets and duplicate prevention span the whole move."
+	elseif kind=="Resolve" then
+		code=ref..".Resolve("..token..")"
+		explanation="Insert at the hit moment, or use automatic checking on Events. Sends Chrono contacts to the selected Outcome event and OnContact inside Hooks, once per target. Supports earlier timing without an external present-part candidate list. Keep current damage, block, parry and possession rules there."
+	elseif kind=="Capture" then
+		local stamp=v.timestamp or "" if stamp~="" and not variable(stamp) then return nil,"Use an existing simulation timestamp variable, or leave it blank." end
+		code=ref..".Capture("..stamp..")"
+		explanation="Manual recording: insert AFTER your server finishes updating ALL participating objects at the same simulation instant. Optional timestamp uses the chosen clock's seconds. The plugin does not create a simulation loop or movement checker."
+	elseif kind=="Track" then
+		local snapshot=v.snapshot or "snapshotFunction" local id=v.id or "actorId" local trust=v.trust or "unverified"
+		if not variable(snapshot) or not variable(id) or not table.find({"unverified","serverValidated","serverSimulated"},trust) then return nil,"Choose existing id/function variables and a valid data trust declaration." end
+		code=ref..".Track("..id..", {kind="..string.format("%q",v.objectKind or "actor")..", trust="..string.format("%q",trust)..", capture="..snapshot.."})"
+		explanation="Data-only alternative to the Registry provider: insert when your server creates an object. id is stable short text; capture(time) returns {ok=true,root,zones,state}. Uses recording limits from the plugin. Choose a trusted declaration only when your server really calculates/checks the data. No Parts are required."
+	elseif kind=="Untrack" or kind=="Reset" then
+		code=ref..(if kind=="Reset" then ".Discontinuity(" else ".Untrack(")..actor..")"
+		explanation=if kind=="Reset" then "After an approved data teleport or position-provider repair, clear interrupted records. Update your server data first; old moves cannot cross this reset." else "When a manually registered data object is removed, unregister its stable text id. Automatic registries/folders handle their own removals."
+	elseif kind=="Inspect" then
+		code="local chronoReport = "..ref..".Inspect()"
+		explanation="Server diagnostics: configuration, per-object limits, counters and unchanged Core inspection. Avoid exposing this information as a client gameplay authority."
+	elseif kind=="Destroy" then
+		code=ref..".Destroy()"
+		explanation="Stop this supplied connection instance and its listeners during deliberate server teardown. Disable StartConnection if it should stay stopped; later public calls start it again."
 	elseif kind=="Cancel" or kind=="Finish" then
 		code=ref.."."..kind.."("..token..")"
 		explanation="Insert on the existing cancellation path, or after the move's hit checks finish. Every early exit after Begin needs Cancel."

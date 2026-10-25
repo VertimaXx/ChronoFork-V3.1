@@ -29,8 +29,10 @@ local meanings={ready_for_moves="Positions are available. Waiting for an accepte
 local function update()
 	local ok,r=pcall(game.HttpService.JSONDecode,game.HttpService,report.Value) if not ok then return end
 	local s=r.stats
-	body.Text=string.format("%s\n\nObjects connected: %d\nPosition updates: %d\nMoves started: %d\nContact checks: %d\nContacts found: %d\nOutcomes permitted: %d\nRefusals: %d   Corrections: %d\n\n%s\n\nCounters describe connections, not successful damage. Earlier-time compensation is off.",
+ body.Text=string.format("%s\n\nObjects connected: %d\nPosition updates: %d\nMoves started: %d\nContact checks: %d\nContacts found: %d\nOutcomes permitted: %d\nRefusals: %d   Corrections: %d\n\n%s\n\nCounters describe connections, not successful damage.",
  script:GetAttribute("ConnectionName"),r.actors,s.captures,s.begun,s.queries,s.contacts,s.applied,s.refused,s.corrections,meanings[s.reason] or s.reason)
+ body.Text..=string.format("\n\nTiming: %s\nLatest approved delay: %.1f ms / %.1f ms maximum\nRecording: %s\nCheck mode: %s\nObstacles: %s",r.timing or "Present",(r.rewind or 0)*1000,(r.maxRewind or 0)*1000,r.recording or "Heartbeat",r.queryMode or "Once",r.world or "None")
+ if r.explanation and r.explanation.known then body.Text..="\n\n"..r.explanation.title.."\n"..r.explanation.meaning.."\nNext: "..r.explanation.fix end
 end
 toggle.Activated:Connect(function() panel.Visible=not panel.Visible update() end)
 report.Changed:Connect(update) update()
