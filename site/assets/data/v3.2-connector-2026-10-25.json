@@ -1,0 +1,2777 @@
+{
+  "version": "3.2.0",
+  "coreVersion": "3.1.0",
+  "date": "2026-10-25",
+  "baselineCommit": "d0eedd5630336766236db8b7e11536ffc13045fb",
+  "coreSourceUnchanged": true,
+  "scope": {
+    "runtime": "Actual ordinary-server Connector; one Studio player; shipped ConnectorExpansionSetup fixture.",
+    "differential": "160 deterministic randomized wiring comparisons against unchanged Core; not original-Chrono performance benchmarks.",
+    "editor": "Real installation, source protection, settings Undo/Redo, and plugin form/control callback checks.",
+    "ui": "Actual current 3.2 View rendered in PlayerGui at 500 and 360 pixel widths; real timing-mode and Add move button clicks. Native toolbar clicking not claimed.",
+    "nativeNetworkBenchmark": false,
+    "productionCertification": false
+  },
+  "expandedRuntime": {
+    "version": "3.2.0",
+    "passed": 222,
+    "scope": "Server Connector integration and 160 Core differential wiring cases; not a network or movement-security certification.",
+    "run": 222,
+    "cases": [
+      {
+        "name": "manual recording does not happen at startup or Begin",
+        "passed": true
+      },
+      {
+        "name": "data-only objects need no Parts",
+        "passed": true
+      },
+      {
+        "name": "unverified data refuses decisions",
+        "passed": true
+      },
+      {
+        "name": "Once is still default and duplicate query refuses",
+        "passed": true
+      },
+      {
+        "name": "Query then Resolve delivers the cached contacts once",
+        "passed": true
+      },
+      {
+        "name": "repeated miss becomes a later hit, never duplicated",
+        "passed": true
+      },
+      {
+        "name": "Repeated Allows refreshes after a missed update",
+        "passed": true
+      },
+      {
+        "name": "repeated Query contacts remain deliverable after a newer capture",
+        "passed": true
+      },
+      {
+        "name": "same recorded instant refuses duplicate, keeps repeated move",
+        "passed": true
+      },
+      {
+        "name": "total target cap is shared across repeated checks",
+        "passed": true
+      },
+      {
+        "name": "Cancel ends or invalidates a move",
+        "passed": true
+      },
+      {
+        "name": "Finish ends or invalidates a move",
+        "passed": true
+      },
+      {
+        "name": "Discontinuity ends or invalidates a move",
+        "passed": true
+      },
+      {
+        "name": "target discontinuity invalidates saved outcome",
+        "passed": true
+      },
+      {
+        "name": "current inactive state blocks a historical contact outcome",
+        "passed": true
+      },
+      {
+        "name": "capture timestamp rejects future",
+        "passed": true
+      },
+      {
+        "name": "capture timestamp rejects backward",
+        "passed": true
+      },
+      {
+        "name": "capture timestamp rejects same",
+        "passed": true
+      },
+      {
+        "name": "manual recording refuses stale evidence",
+        "passed": true
+      },
+      {
+        "name": "shared clock nonfinite refuses safely",
+        "passed": true
+      },
+      {
+        "name": "shared clock yield refuses safely",
+        "passed": true
+      },
+      {
+        "name": "record timestamps may follow a fixed-step server clock",
+        "passed": true
+      },
+      {
+        "name": "begin and query do not add manual captures",
+        "passed": true
+      },
+      {
+        "name": "provider lookback 0 uses earlier positions",
+        "passed": true
+      },
+      {
+        "name": "provider lookback 0.025 uses earlier positions",
+        "passed": true
+      },
+      {
+        "name": "provider lookback 0.05 uses earlier positions",
+        "passed": true
+      },
+      {
+        "name": "provider lookback 0.075 uses earlier positions",
+        "passed": true
+      },
+      {
+        "name": "provider lookback 0.1 uses earlier positions",
+        "passed": true
+      },
+      {
+        "name": "invalid approved lookback refuses -0.01",
+        "passed": true
+      },
+      {
+        "name": "invalid approved lookback refuses nan",
+        "passed": true
+      },
+      {
+        "name": "invalid approved lookback refuses 0.3",
+        "passed": true
+      },
+      {
+        "name": "invalid approved lookback refuses inf",
+        "passed": true
+      },
+      {
+        "name": "larger maximum alone keeps present checks",
+        "passed": true
+      },
+      {
+        "name": "missing history refuses rather than substituting present",
+        "passed": true
+      },
+      {
+        "name": "lookback stays fixed for the move",
+        "passed": true
+      },
+      {
+        "name": "per-kind recording bounds are applied",
+        "passed": true
+      },
+      {
+        "name": "manual binding overrides recording limits",
+        "passed": true
+      },
+      {
+        "name": "untrack updates roster and old actions refuse",
+        "passed": true
+      },
+      {
+        "name": "custom rule and outcome errors refuse or contain failures",
+        "passed": true
+      },
+      {
+        "name": "yielding position callback is quarantined",
+        "passed": true
+      },
+      {
+        "name": "callback cannot destroy or reenter Connector",
+        "passed": true
+      },
+      {
+        "name": "automatic repeated timing delivers a later entering target",
+        "passed": true
+      },
+      {
+        "name": "recording event uses the supplied exact simulation timestamp",
+        "passed": true
+      },
+      {
+        "name": "registry adds, updates and removes pure-data objects",
+        "passed": true
+      },
+      {
+        "name": "measured player ping policy runs through the server API",
+        "passed": true
+      },
+      {
+        "name": "per-move Repeated overrides the default Once mode",
+        "passed": true
+      },
+      {
+        "name": "Heartbeat refreshes provider evidence on accepted-move calls",
+        "passed": true
+      },
+      {
+        "name": "static obstacle policy: clear",
+        "passed": true
+      },
+      {
+        "name": "static obstacle policy: blocked",
+        "passed": true
+      },
+      {
+        "name": "static obstacle policy: initial overlap",
+        "passed": true
+      },
+      {
+        "name": "static obstacle policy: exact cover tie",
+        "passed": true
+      },
+      {
+        "name": "static obstacle policy: changed past",
+        "passed": true
+      },
+      {
+        "name": "static obstacle policy: unanchored",
+        "passed": true
+      },
+      {
+        "name": "static obstacle policy: oversized",
+        "passed": true
+      },
+      {
+        "name": "static obstacle policy: removed past",
+        "passed": true
+      },
+      {
+        "name": "custom obstacle provider {\"covered\":false}",
+        "passed": true
+      },
+      {
+        "name": "custom obstacle provider {\"covered\":true,\"fraction\":2,\"blocked\":false}",
+        "passed": true
+      },
+      {
+        "name": "custom obstacle provider {\"covered\":true,\"fraction\":0.2,\"blocked\":true}",
+        "passed": true
+      },
+      {
+        "name": "custom obstacle provider {\"covered\":true,\"fraction\":1,\"blocked\":false}",
+        "passed": true
+      },
+      {
+        "name": "several target areas return the correct named area",
+        "passed": true
+      },
+      {
+        "name": "physical per-object attribute bounds override defaults",
+        "passed": true
+      },
+      {
+        "name": "manual recording makes a known capture gap refuse rewind",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 1",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 2",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 3",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 4",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 5",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 6",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 7",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 8",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 9",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 10",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 11",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 12",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 13",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 14",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 15",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 16",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 17",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 18",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 19",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 20",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 21",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 22",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 23",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 24",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 25",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 26",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 27",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 28",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 29",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 30",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 31",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 32",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 33",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 34",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 35",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 36",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 37",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 38",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 39",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 40",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 41",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 42",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 43",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 44",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 45",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 46",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 47",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 48",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 49",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 50",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 51",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 52",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 53",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 54",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 55",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 56",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 57",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 58",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 59",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 60",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 61",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 62",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 63",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 64",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 65",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 66",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 67",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 68",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 69",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 70",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 71",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 72",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 73",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 74",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 75",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 76",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 77",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 78",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 79",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 80",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 81",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 82",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 83",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 84",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 85",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 86",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 87",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 88",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 89",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 90",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 91",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 92",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 93",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 94",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 95",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 96",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 97",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 98",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 99",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 100",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 101",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 102",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 103",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 104",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 105",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 106",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 107",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 108",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 109",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 110",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 111",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 112",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 113",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 114",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 115",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 116",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 117",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 118",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 119",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 120",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 121",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 122",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 123",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 124",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 125",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 126",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 127",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 128",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 129",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 130",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 131",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 132",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 133",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 134",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 135",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 136",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 137",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 138",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 139",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 140",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 141",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 142",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 143",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 144",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 145",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 146",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 147",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 148",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 149",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 150",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 151",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 152",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 153",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 154",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 155",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 156",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 157",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 158",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 159",
+        "passed": true
+      },
+      {
+        "name": "Core parity randomized scenario 160",
+        "passed": true
+      }
+    ],
+    "failed": 0
+  },
+  "existingRuntime": {
+    "runtime": {
+      "actors": 3,
+      "stats": {
+        "queries": 139,
+        "captures": 531,
+        "contacts": 44,
+        "reason": "contact_check_completed",
+        "refused": 7,
+        "corrections": 0,
+        "begun": 145,
+        "cancelled": 3,
+        "applied": 39,
+        "errors": 0
+      },
+      "version": "3.2.0",
+      "core": {
+        "actors": [
+          {
+            "id": "actor-1",
+            "latest": 1792938879.007572,
+            "status": "captured",
+            "declaredTrust": "serverSimulated",
+            "faults": 0,
+            "epoch": 5,
+            "kind": "actor",
+            "captured": true
+          },
+          {
+            "id": "actor-2",
+            "latest": 1792938879.007572,
+            "status": "captured",
+            "declaredTrust": "serverSimulated",
+            "faults": 0,
+            "epoch": 134,
+            "kind": "actor",
+            "captured": true
+          },
+          {
+            "id": "actor-3",
+            "latest": 1792938879.007572,
+            "status": "captured",
+            "declaredTrust": "serverSimulated",
+            "faults": 0,
+            "epoch": 134,
+            "kind": "actor",
+            "captured": true
+          }
+        ],
+        "stats": {
+          "queries": 139,
+          "providerFaults": 0,
+          "captures": 531,
+          "lastRejection": "invalid_action",
+          "rejected": 1,
+          "contacts": 44,
+          "accepted": 138
+        },
+        "version": "3.1.0",
+        "activeActions": 0,
+        "time": 1792938879.007572,
+        "maxRewind": 0,
+        "worldEnabled": false
+      },
+      "positions": "ServerPhysics",
+      "configuration": {
+        "autoQuery": false,
+        "correction": false,
+        "body": "Box",
+        "historySeconds": 0.6,
+        "slack": 1.25,
+        "objectLimits": true,
+        "ground": 3,
+        "moveSource": "Actions",
+        "radius": 2,
+        "burst": 0.4,
+        "root": "HumanoidRootPart",
+        "verticalSlack": 3,
+        "queryInterval": 0.016666666666666666,
+        "height": 5,
+        "kind": "actor",
+        "schema": 2,
+        "actors": "Folder",
+        "candidates": "Existing",
+        "timing": "Present",
+        "recordRate": 60,
+        "recording": "Heartbeat",
+        "queryMode": "Once",
+        "walk": 20,
+        "teamAttribute": "",
+        "displayDelay": 0,
+        "recordMaxRadius": 16,
+        "positions": "ServerPhysics",
+        "moves": [],
+        "zones": [],
+        "worldMode": "None",
+        "recordMaxSpeed": 100,
+        "jump": 50,
+        "guide": false,
+        "legacyLimits": false,
+        "maxRewind": 0,
+        "width": 4,
+        "maxGap": 0.075,
+        "maxObstacles": 1024,
+        "wallRadius": 0.7,
+        "kindLimits": [],
+        "depth": 2,
+        "partBodies": false,
+        "activeAttribute": "Active",
+        "tag": "ChronoActor"
+      },
+      "limits": [
+        {
+          "object": "Workspace.__ChronoConnectionActors.Source",
+          "maxRadius": 16,
+          "kind": "actor",
+          "maxSpeed": 100,
+          "source": "physical"
+        },
+        {
+          "object": "Workspace.__ChronoConnectionActors.Target",
+          "maxRadius": 16,
+          "kind": "actor",
+          "maxSpeed": 100,
+          "source": "physical"
+        },
+        {
+          "object": "Workspace.__ChronoConnectionActors.Far",
+          "maxRadius": 16,
+          "kind": "actor",
+          "maxSpeed": 100,
+          "source": "physical"
+        }
+      ]
+    },
+    "passed": 165,
+    "run": 165,
+    "automatic": {
+      "actors": 3,
+      "stats": {
+        "queries": 1,
+        "captures": 235,
+        "contacts": 1,
+        "reason": "move_started",
+        "refused": 52,
+        "corrections": 0,
+        "begun": 2,
+        "cancelled": 1,
+        "applied": 1,
+        "errors": 0
+      },
+      "version": "3.2.0",
+      "core": {
+        "actors": [
+          {
+            "id": "actor-1",
+            "latest": 1792938878.992977,
+            "status": "captured",
+            "declaredTrust": "serverSimulated",
+            "faults": 0,
+            "epoch": 2,
+            "kind": "actor",
+            "captured": true
+          },
+          {
+            "id": "actor-2",
+            "latest": 1792938878.992977,
+            "status": "captured",
+            "declaredTrust": "serverSimulated",
+            "faults": 0,
+            "epoch": 2,
+            "kind": "actor",
+            "captured": true
+          },
+          {
+            "id": "actor-3",
+            "latest": 1792938878.992977,
+            "status": "captured",
+            "declaredTrust": "serverSimulated",
+            "faults": 1,
+            "epoch": 4,
+            "kind": "actor",
+            "captured": true
+          }
+        ],
+        "stats": {
+          "queries": 1,
+          "providerFaults": 1,
+          "captures": 235,
+          "lastRejection": "none",
+          "rejected": 0,
+          "contacts": 1,
+          "accepted": 1
+        },
+        "version": "3.1.0",
+        "activeActions": 0,
+        "time": 1792938878.992977,
+        "maxRewind": 0,
+        "worldEnabled": false
+      },
+      "positions": "ServerPhysics",
+      "configuration": {
+        "autoQuery": true,
+        "correction": false,
+        "body": "Box",
+        "historySeconds": 0.6,
+        "slack": 1.25,
+        "objectLimits": true,
+        "ground": 3,
+        "moveSource": "Actions",
+        "radius": 2,
+        "burst": 0.4,
+        "root": "HumanoidRootPart",
+        "verticalSlack": 3,
+        "queryInterval": 0.016666666666666666,
+        "height": 5,
+        "kind": "actor",
+        "schema": 2,
+        "actors": "Folder",
+        "candidates": "Existing",
+        "timing": "Present",
+        "recordRate": 60,
+        "recording": "Heartbeat",
+        "queryMode": "Once",
+        "walk": 20,
+        "teamAttribute": "",
+        "displayDelay": 0,
+        "recordMaxRadius": 16,
+        "positions": "ServerPhysics",
+        "moves": [],
+        "zones": [],
+        "worldMode": "None",
+        "recordMaxSpeed": 100,
+        "jump": 50,
+        "guide": false,
+        "legacyLimits": false,
+        "maxRewind": 0,
+        "width": 4,
+        "maxGap": 0.075,
+        "maxObstacles": 1024,
+        "wallRadius": 0.7,
+        "kindLimits": [],
+        "depth": 2,
+        "partBodies": false,
+        "activeAttribute": "Active",
+        "tag": "ChronoActor"
+      },
+      "limits": [
+        {
+          "object": "Workspace.__ChronoConnectionActors.Source",
+          "maxRadius": 16,
+          "kind": "actor",
+          "maxSpeed": 100,
+          "source": "physical"
+        },
+        {
+          "object": "Workspace.__ChronoConnectionActors.Target",
+          "maxRadius": 16,
+          "kind": "actor",
+          "maxSpeed": 100,
+          "source": "physical"
+        },
+        {
+          "object": "Workspace.__ChronoConnectionActors.Far",
+          "maxRadius": 16,
+          "kind": "actor",
+          "maxSpeed": 100,
+          "source": "physical"
+        }
+      ]
+    },
+    "failed": 0,
+    "cases": [
+      {
+        "name": "automatic tracking and recording",
+        "passed": true
+      },
+      {
+        "name": "missing move refuses",
+        "passed": true
+      },
+      {
+        "name": "approved target allowed once",
+        "passed": true
+      },
+      {
+        "name": "existing outcome stays game owned",
+        "passed": true
+      },
+      {
+        "name": "distant target refused",
+        "passed": true
+      },
+      {
+        "name": "cancelled move refuses",
+        "passed": true
+      },
+      {
+        "name": "finished move refuses",
+        "passed": true
+      },
+      {
+        "name": "missing profile refuses",
+        "passed": true
+      },
+      {
+        "name": "repeated server key refuses",
+        "passed": true
+      },
+      {
+        "name": "query only once",
+        "passed": true
+      },
+      {
+        "name": "source teleport invalidates move",
+        "passed": true
+      },
+      {
+        "name": "target teleport invalidates cached contacts",
+        "passed": true
+      },
+      {
+        "name": "roster change invalidates move",
+        "passed": true
+      },
+      {
+        "name": "inactive source refuses",
+        "passed": true
+      },
+      {
+        "name": "inactive target cannot receive outcome",
+        "passed": true
+      },
+      {
+        "name": "stale cached contacts refuse",
+        "passed": true
+      },
+      {
+        "name": "expired move refuses",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 1",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 2",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 3",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 4",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 5",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 6",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 7",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 8",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 9",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 10",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 11",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 12",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 13",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 14",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 15",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 16",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 17",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 18",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 19",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 20",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 21",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 22",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 23",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 24",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 25",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 26",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 27",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 28",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 29",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 30",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 31",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 32",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 33",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 34",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 35",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 36",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 37",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 38",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 39",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 40",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 41",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 42",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 43",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 44",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 45",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 46",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 47",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 48",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 49",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 50",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 51",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 52",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 53",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 54",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 55",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 56",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 57",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 58",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 59",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 60",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 61",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 62",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 63",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 64",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 65",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 66",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 67",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 68",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 69",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 70",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 71",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 72",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 73",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 74",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 75",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 76",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 77",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 78",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 79",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 80",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 81",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 82",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 83",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 84",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 85",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 86",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 87",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 88",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 89",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 90",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 91",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 92",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 93",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 94",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 95",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 96",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 97",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 98",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 99",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 100",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 101",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 102",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 103",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 104",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 105",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 106",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 107",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 108",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 109",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 110",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 111",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 112",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 113",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 114",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 115",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 116",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 117",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 118",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 119",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 120",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 121",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 122",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 123",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 124",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 125",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 126",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 127",
+        "passed": true
+      },
+      {
+        "name": "native geometry comparison 128",
+        "passed": true
+      },
+      {
+        "name": "existing checker connects without runtime redesign",
+        "passed": true
+      },
+      {
+        "name": "provider must actually approve",
+        "passed": true
+      },
+      {
+        "name": "provider error pauses evidence",
+        "passed": true
+      },
+      {
+        "name": "explicit resume after provider fix",
+        "passed": true
+      },
+      {
+        "name": "existing server event path applies once",
+        "passed": true
+      },
+      {
+        "name": "existing cancel event stops outcome",
+        "passed": true
+      },
+      {
+        "name": "different existing event arguments adapt inside Hooks",
+        "passed": true
+      },
+      {
+        "name": "existing outcome arguments adapt inside Hooks",
+        "passed": true
+      },
+      {
+        "name": "optional automatic hit timing",
+        "passed": true
+      },
+      {
+        "name": "automatic timing respects cancellation",
+        "passed": true
+      },
+      {
+        "name": "client-owned physics cannot claim server simulation",
+        "passed": true
+      },
+      {
+        "name": "supplied checker accepts approved player teleport",
+        "passed": true
+      },
+      {
+        "name": "supplied checker refuses excessive horizontal movement",
+        "passed": true
+      },
+      {
+        "name": "approved teleport recovers movement evidence",
+        "passed": true
+      },
+      {
+        "name": "server motion allowance uses existing force values",
+        "passed": true
+      },
+      {
+        "name": "ordinary client walking and jumping remain usable",
+        "passed": true
+      },
+      {
+        "name": "players and extra objects discovered together",
+        "passed": true
+      },
+      {
+        "name": "supplied checker also handles server-controlled balls",
+        "passed": true
+      },
+      {
+        "name": "client-controlled ball still needs a genuine checker",
+        "passed": true
+      },
+      {
+        "name": "server-owned ball recovers with an approved reset",
+        "passed": true
+      }
+    ],
+    "provider": {
+      "actors": 3,
+      "stats": {
+        "queries": 2,
+        "captures": 253,
+        "contacts": 2,
+        "reason": "contact_check_completed",
+        "refused": 13,
+        "corrections": 0,
+        "begun": 2,
+        "cancelled": 0,
+        "applied": 2,
+        "errors": 1
+      },
+      "version": "3.2.0",
+      "core": {
+        "actors": [
+          {
+            "id": "actor-1",
+            "latest": 1792938879.000993,
+            "status": "captured",
+            "declaredTrust": "serverValidated",
+            "faults": 0,
+            "epoch": 2,
+            "kind": "actor",
+            "captured": true
+          },
+          {
+            "id": "actor-2",
+            "latest": 1792938879.000993,
+            "status": "captured",
+            "declaredTrust": "serverValidated",
+            "faults": 0,
+            "epoch": 4,
+            "kind": "actor",
+            "captured": true
+          },
+          {
+            "id": "actor-3",
+            "latest": 1792938879.000993,
+            "status": "captured",
+            "declaredTrust": "serverValidated",
+            "faults": 1,
+            "epoch": 4,
+            "kind": "actor",
+            "captured": true
+          }
+        ],
+        "stats": {
+          "queries": 2,
+          "providerFaults": 1,
+          "captures": 253,
+          "lastRejection": "none",
+          "rejected": 0,
+          "contacts": 2,
+          "accepted": 2
+        },
+        "version": "3.1.0",
+        "activeActions": 0,
+        "time": 1792938879.000993,
+        "maxRewind": 0,
+        "worldEnabled": false
+      },
+      "positions": "Provider",
+      "configuration": {
+        "autoQuery": false,
+        "correction": false,
+        "body": "Box",
+        "historySeconds": 0.6,
+        "slack": 1.25,
+        "objectLimits": true,
+        "ground": 3,
+        "moveSource": "Actions",
+        "radius": 2,
+        "burst": 0.4,
+        "root": "HumanoidRootPart",
+        "verticalSlack": 3,
+        "queryInterval": 0.016666666666666666,
+        "height": 5,
+        "kind": "actor",
+        "schema": 2,
+        "actors": "Folder",
+        "candidates": "Existing",
+        "timing": "Present",
+        "recordRate": 60,
+        "recording": "Heartbeat",
+        "queryMode": "Once",
+        "walk": 20,
+        "teamAttribute": "",
+        "displayDelay": 0,
+        "recordMaxRadius": 16,
+        "positions": "Provider",
+        "moves": [],
+        "zones": [],
+        "worldMode": "None",
+        "recordMaxSpeed": 100,
+        "jump": 50,
+        "guide": false,
+        "legacyLimits": false,
+        "maxRewind": 0,
+        "width": 4,
+        "maxGap": 0.075,
+        "maxObstacles": 1024,
+        "wallRadius": 0.7,
+        "kindLimits": [],
+        "depth": 2,
+        "partBodies": false,
+        "activeAttribute": "Active",
+        "tag": "ChronoActor"
+      },
+      "limits": [
+        {
+          "object": "Workspace.__ChronoConnectionActors.Source",
+          "maxRadius": 16,
+          "kind": "actor",
+          "maxSpeed": 100,
+          "source": "physical"
+        },
+        {
+          "object": "Workspace.__ChronoConnectionActors.Target",
+          "maxRadius": 16,
+          "kind": "actor",
+          "maxSpeed": 100,
+          "source": "physical"
+        },
+        {
+          "object": "Workspace.__ChronoConnectionActors.Far",
+          "maxRadius": 16,
+          "kind": "actor",
+          "maxSpeed": 100,
+          "source": "physical"
+        }
+      ]
+    }
+  },
+  "coreTests": {
+    "seconds": 0.1372427999995125,
+    "passed": 63,
+    "run": 63,
+    "failures": [],
+    "cases": [
+      {
+        "seconds": 1.1300000551273115e-05,
+        "name": "Friendly_Test / explanations do not change evidence",
+        "passed": true
+      },
+      {
+        "seconds": 1.2700000297627412e-05,
+        "name": "Friendly_Test / unknown result stays identifiable",
+        "passed": true
+      },
+      {
+        "seconds": 0.0001635999997233739,
+        "name": "Friendly_Test / word search is case insensitive and literal",
+        "passed": true
+      },
+      {
+        "seconds": 3.2500000088475645e-05,
+        "name": "Friendly_Test / form errors point to every relevant page",
+        "passed": true
+      },
+      {
+        "seconds": 8.099999831756577e-06,
+        "name": "Friendly_Test / decimal comma and decimal point",
+        "passed": true
+      },
+      {
+        "seconds": 6.339999890769832e-05,
+        "name": "Friendly_Test / hidden unused dimensions do not block a ray",
+        "passed": true
+      },
+      {
+        "seconds": 4.42000000475673e-05,
+        "name": "Friendly_Test / non English names and target ids",
+        "passed": true
+      },
+      {
+        "seconds": 5.830000009154901e-05,
+        "name": "Friendly_Test / generated practice is clearly separated",
+        "passed": true
+      },
+      {
+        "seconds": 6.300000677583739e-06,
+        "name": "History_Test / empty history rejects",
+        "passed": true
+      },
+      {
+        "seconds": 6.83999987813877e-05,
+        "name": "History_Test / ring wrap bounds",
+        "passed": true
+      },
+      {
+        "seconds": 2.8700000257231295e-05,
+        "name": "History_Test / linear interpolation at bounded interior",
+        "passed": true
+      },
+      {
+        "seconds": 1.759999940986745e-05,
+        "name": "History_Test / range age and future guards",
+        "passed": true
+      },
+      {
+        "seconds": 1.9099999917671084e-05,
+        "name": "History_Test / duplicate sample immutable",
+        "passed": true
+      },
+      {
+        "seconds": 3.2899999496294186e-05,
+        "name": "History_Test / shape transition rejects",
+        "passed": true
+      },
+      {
+        "seconds": 1.4799999917158857e-05,
+        "name": "History_Test / remote zone rejected",
+        "passed": true
+      },
+      {
+        "seconds": 1.8000000636675395e-05,
+        "name": "History_Test / invalid state rejected",
+        "passed": true
+      },
+      {
+        "seconds": 1.3799999578623101e-05,
+        "name": "History_Test / old epoch exact sample rejects",
+        "passed": true
+      },
+      {
+        "seconds": 3.3799999073380604e-05,
+        "name": "Installer_Test / all editable presets validate",
+        "passed": true
+      },
+      {
+        "seconds": 4.2499999835854396e-05,
+        "name": "Installer_Test / invalid configuration rejected",
+        "passed": true
+      },
+      {
+        "seconds": 0.00013250000120024197,
+        "name": "Installer_Test / all primitive templates generate",
+        "passed": true
+      },
+      {
+        "seconds": 3.319999996165279e-05,
+        "name": "Installer_Test / rewind is opt in",
+        "passed": true
+      },
+      {
+        "seconds": 3.219999962311704e-05,
+        "name": "Installer_Test / reference provider cannot claim trust",
+        "passed": true
+      },
+      {
+        "seconds": 0.00025300000015704427,
+        "name": "Service_Test / minimal football contact",
+        "passed": true
+      },
+      {
+        "seconds": 0.00016630000027362257,
+        "name": "Service_Test / outcomes remain game owned",
+        "passed": true
+      },
+      {
+        "seconds": 0.00014069999997445848,
+        "name": "Service_Test / forged and foreign handles",
+        "passed": true
+      },
+      {
+        "seconds": 0.00016739999955461826,
+        "name": "Service_Test / duplicate and spent contacts",
+        "passed": true
+      },
+      {
+        "seconds": 0.00014090000149735715,
+        "name": "Service_Test / speed fault quarantines until lifecycle reset",
+        "passed": true
+      },
+      {
+        "seconds": 8.770000022195745e-05,
+        "name": "Service_Test / source teleport invalidates action",
+        "passed": true
+      },
+      {
+        "seconds": 7.130000085453503e-05,
+        "name": "Service_Test / roster change invalidates action",
+        "passed": true
+      },
+      {
+        "seconds": 0.00011579999954847153,
+        "name": "Service_Test / historical state is immutable",
+        "passed": true
+      },
+      {
+        "seconds": 8.259999958681874e-05,
+        "name": "Service_Test / eligibility predicates",
+        "passed": true
+      },
+      {
+        "seconds": 0.00044439999874157365,
+        "name": "Service_Test / rules yield fails closed",
+        "passed": true
+      },
+      {
+        "seconds": 0.00018619999900693074,
+        "name": "Service_Test / reentrant rules fail closed",
+        "passed": true
+      },
+      {
+        "seconds": 0.0001506000007793773,
+        "name": "Service_Test / active window boundaries",
+        "passed": true
+      },
+      {
+        "seconds": 9.249999857274815e-05,
+        "name": "Service_Test / expired action reclaimed",
+        "passed": true
+      },
+      {
+        "seconds": 8.870000056049321e-05,
+        "name": "Service_Test / capture age checked",
+        "passed": true
+      },
+      {
+        "seconds": 7.77000004745787e-05,
+        "name": "Service_Test / client time ignored by default",
+        "passed": true
+      },
+      {
+        "seconds": 7.670000013604295e-05,
+        "name": "Service_Test / rewind bounds",
+        "passed": true
+      },
+      {
+        "seconds": 5.169999894860666e-05,
+        "name": "Service_Test / rewind callback fault",
+        "passed": true
+      },
+      {
+        "seconds": 0.00015220000022964086,
+        "name": "Service_Test / explicit covered rewind",
+        "passed": true
+      },
+      {
+        "seconds": 0.00030420000075537246,
+        "name": "Service_Test / uncertain discrete state boundary rejects",
+        "passed": true
+      },
+      {
+        "seconds": 0.0001883000004454516,
+        "name": "Service_Test / packet or capture gap rejects",
+        "passed": true
+      },
+      {
+        "seconds": 8.469999920635018e-05,
+        "name": "Service_Test / unverified targets block partial success",
+        "passed": true
+      },
+      {
+        "seconds": 8.08000004326459e-05,
+        "name": "Service_Test / world cover fraction and uncertainty",
+        "passed": true
+      },
+      {
+        "seconds": 0.00023860000146669336,
+        "name": "Service_Test / overlap cover requires game policy",
+        "passed": true
+      },
+      {
+        "seconds": 0.00014270000065153,
+        "name": "Service_Test / clear world includes tangent endpoint",
+        "passed": true
+      },
+      {
+        "seconds": 5.609999971056823e-05,
+        "name": "Service_Test / invalid reach profile",
+        "passed": true
+      },
+      {
+        "seconds": 5.79999996261904e-05,
+        "name": "Service_Test / action profile copied",
+        "passed": true
+      },
+      {
+        "seconds": 6.480000047304202e-05,
+        "name": "Service_Test / provider yield contained",
+        "passed": true
+      },
+      {
+        "seconds": 0.00013659999967785552,
+        "name": "Service_Test / snapshot validation errors contained",
+        "passed": true
+      },
+      {
+        "seconds": 4.149999949731864e-05,
+        "name": "Service_Test / clock reversal rejected",
+        "passed": true
+      },
+      {
+        "seconds": 6.38999990769662e-05,
+        "name": "Service_Test / action capacity and release",
+        "passed": true
+      },
+      {
+        "seconds": 0.00010370000018156134,
+        "name": "Service_Test / destroy lifecycle",
+        "passed": true
+      },
+      {
+        "seconds": 2.950000089185778e-05,
+        "name": "Shapes_Test / box face tangency",
+        "passed": true
+      },
+      {
+        "seconds": 2.370000038354192e-05,
+        "name": "Shapes_Test / rounded sphere box corner",
+        "passed": true
+      },
+      {
+        "seconds": 2.7299998691887595e-05,
+        "name": "Shapes_Test / capsule tip and corner",
+        "passed": true
+      },
+      {
+        "seconds": 1.5499999790336005e-05,
+        "name": "Shapes_Test / degenerate capsule",
+        "passed": true
+      },
+      {
+        "seconds": 2.6399999114801176e-05,
+        "name": "Shapes_Test / sweep earliest and initial overlap",
+        "passed": true
+      },
+      {
+        "seconds": 1.6099998902063817e-05,
+        "name": "Shapes_Test / parallel capsule ray and tangent",
+        "passed": true
+      },
+      {
+        "seconds": 3.710000055434648e-05,
+        "name": "Shapes_Test / invalid primitive inputs",
+        "passed": true
+      },
+      {
+        "seconds": 0.03125290000025416,
+        "name": "Shapes_Test / 4000 independent interval box cases",
+        "passed": true
+      },
+      {
+        "seconds": 0.06067049999910523,
+        "name": "Shapes_Test / 3600 rotated pairing symmetry and invariance cases",
+        "passed": true
+      },
+      {
+        "seconds": 0.029223499999716296,
+        "name": "Shapes_Test / 2500 swept capsule distance oracle cases",
+        "passed": true
+      }
+    ],
+    "failed": 0
+  },
+  "expandedEditor": {
+    "cases": [
+      {
+        "name": "mode validates recording Heartbeat",
+        "passed": true
+      },
+      {
+        "name": "mode validates recording Manual",
+        "passed": true
+      },
+      {
+        "name": "mode validates queryMode Once",
+        "passed": true
+      },
+      {
+        "name": "mode validates queryMode Repeated",
+        "passed": true
+      },
+      {
+        "name": "mode validates timing Present",
+        "passed": true
+      },
+      {
+        "name": "mode validates actors Players",
+        "passed": true
+      },
+      {
+        "name": "mode validates actors Data",
+        "passed": true
+      },
+      {
+        "name": "mode validates actors PlayersAndData",
+        "passed": true
+      },
+      {
+        "name": "invalid finite/range value refused maxRewind",
+        "passed": true
+      },
+      {
+        "name": "invalid finite/range value refused recordRate",
+        "passed": true
+      },
+      {
+        "name": "invalid finite/range value refused maxGap",
+        "passed": true
+      },
+      {
+        "name": "invalid finite/range value refused historySeconds",
+        "passed": true
+      },
+      {
+        "name": "invalid finite/range value refused recordMaxSpeed",
+        "passed": true
+      },
+      {
+        "name": "invalid finite/range value refused recordMaxRadius",
+        "passed": true
+      },
+      {
+        "name": "invalid finite/range value refused queryInterval",
+        "passed": true
+      },
+      {
+        "name": "invalid finite/range value refused maxObstacles",
+        "passed": true
+      },
+      {
+        "name": "earlier timing requires Chrono candidate delivery",
+        "passed": true
+      },
+      {
+        "name": "cycles and sparse settings refuse without crashing",
+        "passed": true
+      },
+      {
+        "name": "duplicate names and excessive reach refuse",
+        "passed": true
+      },
+      {
+        "name": "setup limits are seeded into connector controls",
+        "passed": true
+      },
+      {
+        "name": "nested reviewed connection values are copied",
+        "passed": true
+      },
+      {
+        "name": "expanded modules and all links are supplied",
+        "passed": true
+      },
+      {
+        "name": "settings persist nested move edits and Undo/Redo",
+        "passed": true
+      },
+      {
+        "name": "explicit runtime upgrade preserves custom Hooks and Actions",
+        "passed": true
+      },
+      {
+        "name": "edited Connector refuses an automatic upgrade",
+        "passed": true
+      },
+      {
+        "name": "guide upgrade protects customization false",
+        "passed": true
+      },
+      {
+        "name": "guide upgrade protects customization true",
+        "passed": true
+      },
+      {
+        "name": "all provider templates stay inside the supplied package",
+        "passed": true
+      },
+      {
+        "name": "generated connection call Begin",
+        "passed": true
+      },
+      {
+        "name": "generated connection call Gate",
+        "passed": true
+      },
+      {
+        "name": "generated connection call Query",
+        "passed": true
+      },
+      {
+        "name": "generated connection call Resolve",
+        "passed": true
+      },
+      {
+        "name": "generated connection call Capture",
+        "passed": true
+      },
+      {
+        "name": "generated connection call Track",
+        "passed": true
+      },
+      {
+        "name": "generated connection call Untrack",
+        "passed": true
+      },
+      {
+        "name": "generated connection call Reset",
+        "passed": true
+      },
+      {
+        "name": "generated connection call Inspect",
+        "passed": true
+      },
+      {
+        "name": "generated connection call Destroy",
+        "passed": true
+      },
+      {
+        "name": "generated connection call Cancel",
+        "passed": true
+      },
+      {
+        "name": "generated connection call Finish",
+        "passed": true
+      },
+      {
+        "name": "generated connection call Motion",
+        "passed": true
+      },
+      {
+        "name": "generated connection call Teleport",
+        "passed": true
+      },
+      {
+        "name": "draw plugin controls Objects 360",
+        "passed": true
+      },
+      {
+        "name": "draw plugin controls Bodies 360",
+        "passed": true
+      },
+      {
+        "name": "draw plugin controls Moves 360",
+        "passed": true
+      },
+      {
+        "name": "draw plugin controls Timing 360",
+        "passed": true
+      },
+      {
+        "name": "draw plugin controls Recording 360",
+        "passed": true
+      },
+      {
+        "name": "draw plugin controls Events 360",
+        "passed": true
+      },
+      {
+        "name": "draw plugin controls Calls 360",
+        "passed": true
+      },
+      {
+        "name": "draw plugin controls Test & restore 360",
+        "passed": true
+      },
+      {
+        "name": "draw plugin controls Objects 500",
+        "passed": true
+      },
+      {
+        "name": "draw plugin controls Bodies 500",
+        "passed": true
+      },
+      {
+        "name": "draw plugin controls Moves 500",
+        "passed": true
+      },
+      {
+        "name": "draw plugin controls Timing 500",
+        "passed": true
+      },
+      {
+        "name": "draw plugin controls Recording 500",
+        "passed": true
+      },
+      {
+        "name": "draw plugin controls Events 500",
+        "passed": true
+      },
+      {
+        "name": "draw plugin controls Calls 500",
+        "passed": true
+      },
+      {
+        "name": "draw plugin controls Test & restore 500",
+        "passed": true
+      },
+      {
+        "name": "body builder add/duplicate/remove callbacks update settings",
+        "passed": true
+      },
+      {
+        "name": "move builder imports the saved setup Contact",
+        "passed": true
+      },
+      {
+        "name": "legacy normalization retains old movement and timing policy",
+        "passed": true
+      }
+    ],
+    "failed": 0,
+    "run": 61,
+    "passed": 61
+  },
+  "existingEditor": {
+    "cases": [
+      {
+        "name": "position option ServerPhysics",
+        "passed": true
+      },
+      {
+        "name": "position option Humanoid",
+        "passed": true
+      },
+      {
+        "name": "invalid number walk",
+        "passed": true
+      },
+      {
+        "name": "invalid number jump",
+        "passed": true
+      },
+      {
+        "name": "invalid number ground",
+        "passed": true
+      },
+      {
+        "name": "invalid number burst",
+        "passed": true
+      },
+      {
+        "name": "invalid number slack",
+        "passed": true
+      },
+      {
+        "name": "invalid number radius",
+        "passed": true
+      },
+      {
+        "name": "invalid number height",
+        "passed": true
+      },
+      {
+        "name": "client event refused",
+        "passed": true
+      },
+      {
+        "name": "existing server event accepted",
+        "passed": true
+      },
+      {
+        "name": "missing independent provider refused",
+        "passed": true
+      },
+      {
+        "name": "automatic check needs outcome",
+        "passed": true
+      },
+      {
+        "name": "missing actor folder refused",
+        "passed": true
+      },
+      {
+        "name": "core installs through real plugin installer",
+        "passed": true
+      },
+      {
+        "name": "reviewed connection settings are frozen",
+        "passed": true
+      },
+      {
+        "name": "automatic startup supplied",
+        "passed": true
+      },
+      {
+        "name": "no gameplay remote installed",
+        "passed": true
+      },
+      {
+        "name": "configure adds formerly empty event link",
+        "passed": true
+      },
+      {
+        "name": "configure clears event link",
+        "passed": true
+      },
+      {
+        "name": "wizard settings support actual object Undo and Redo",
+        "passed": true
+      },
+      {
+        "name": "customized hook kept on settings save",
+        "passed": true
+      },
+      {
+        "name": "manual settings source is not overwritten",
+        "passed": true
+      },
+      {
+        "name": "generate Begin",
+        "passed": true
+      },
+      {
+        "name": "generate Gate",
+        "passed": true
+      },
+      {
+        "name": "generate Cancel",
+        "passed": true
+      },
+      {
+        "name": "generate Finish",
+        "passed": true
+      },
+      {
+        "name": "generate Motion",
+        "passed": true
+      },
+      {
+        "name": "generate Teleport",
+        "passed": true
+      },
+      {
+        "name": "unsafe variable syntax refused",
+        "passed": true
+      },
+      {
+        "name": "client hook refused",
+        "passed": true
+      },
+      {
+        "name": "source changed after preview kept",
+        "passed": true
+      },
+      {
+        "name": "actual editor insertion and exact restore",
+        "passed": true
+      },
+      {
+        "name": "explicit source Restore works after object Undo and Redo",
+        "passed": true
+      },
+      {
+        "name": "newer edits prevent destructive restore",
+        "passed": true
+      },
+      {
+        "name": "teleport line replacement restores exactly",
+        "passed": true
+      },
+      {
+        "name": "modified supplied source prevents removal",
+        "passed": true
+      },
+      {
+        "name": "nested developer extensions are kept",
+        "passed": true
+      },
+      {
+        "name": "connection rollback keeps original core",
+        "passed": true
+      }
+    ],
+    "failed": 0,
+    "run": 39,
+    "passed": 39
+  },
+  "summary": {
+    "run": 550,
+    "passed": 550,
+    "failed": 0
+  },
+  "sourceHashes": {
+    "src/Contract.luau": "7d140cc5e6aaf3ba0cf3e12d3fd9a5a040a383d0cd15507426da3f86fa02479b",
+    "src/Geometry.luau": "4bfbb5bab6cb47cc570784fa8e6d3949ccb29c61fdc6dd53478c8cf1342d90d8",
+    "src/Guard.luau": "3e80f91892ee449a1a7a4b8ee1fbaad36af7d5de9192b18a4396d1eda8444f0f",
+    "src/Help.luau": "d0921d971dc390bfa51a68d5ca15346cee0a18ed3a05b7ebdaf2be10da1847ef",
+    "src/History.luau": "36e58f6870e816d6f3a4b0530292cab51fee86a1d6ad6e25f4d5af1ff3219dd8",
+    "src/init.luau": "95b81c59042845352207c72adb95e2ba2edce01d51d4a7bad1d7221d5a6b7e86",
+    "src/Shapes.luau": "4c6ee8af6f3fdb308cf03fe30c56c19a40497ee839b001ea161d0aa9f8e7bd74",
+    "src/Types.luau": "f1fd9b3d1ca8cd306b79d34ff05236a18265eba48a49c887d0c8815255fcf08b",
+    "runtime/Configuration.luau": "2e326412c2c05ded9b8c31671e35d2f833823e092dcf721be157ff8d16538496",
+    "runtime/Guide.client.luau": "3394dd195a32ab70606bfa4ebac42040520786fd2fe87f216ec56ce43af2e5e1",
+    "runtime/Hooks.luau": "118b67db0c1d12b1c428242a6c1b0a0cf252758206e210f19853381cc0aef036",
+    "runtime/init.luau": "751880b77eee095abe7badcd845fa9dcd50d80116564accb273159036cb65dad",
+    "runtime/Messages.luau": "f4432e8c5d246a00a7c7f0f5fe626326c9909e319b993d9781319a88a964ec68",
+    "runtime/Movement.luau": "d2c7a063ce2afc680ccd88902bdcd01cdada0aeea00efc5fe1be6e38739f742b",
+    "runtime/Volumes.luau": "74ce42d50132065d174a58b7f771b2a435d8195e59ec009ce4e9800c059571c2",
+    "runtime/World.luau": "0fdb99e3e36b793f853fecae755c73ce6052ba89ad82d12c6d121703eb13c3e8",
+    "editor/Config.luau": "92365fcc3daf2e05c5258ef409d44449842933eeb6f07d8863a1d2a75406a376",
+    "editor/ConnectionAdvanced.luau": "808146eb1b1e3497104afeb1d75c86ffd606c05abef2df8707885203e0ec171a",
+    "editor/ConnectionConfig.luau": "8bb667673bd0bf0aa33ea9db9b62371223ca795c742ab2db0e20ea45eb809c00",
+    "editor/ConnectionExample.luau": "e52c8f5c2aef9136b1fa001c057ef1507f577a2c1a13bf95384ea9974f003a92",
+    "editor/ConnectionInstaller.luau": "2fab93617f146a8149fe50791e207178ef2aadf4ea37ab1f89d40a19611289a6",
+    "editor/ConnectionView.luau": "e00fd587c1fee1db8dea3095b2fa6eed73f29c6dd61036d62de84f1f860e205e",
+    "editor/Fields.luau": "7307731917421ef8d9c54d128ee1199b3dd44194967c6c09462376bd837f2828",
+    "editor/HookBuilder.luau": "19d09fb8a0fe08cbd46b9725c0da60863e9a3b635edf8872659359ed5c94ee03",
+    "editor/Installer.luau": "51a854071528a642baed369abca9c543ab0451f62db678fae4c2c1a9145a42d9",
+    "editor/PluginMain.luau": "4e3f0bb3ba04e2bbec4d427525f3de1a2f74e14a2ee2e37774a1dacf8a2c0046",
+    "editor/Preview.luau": "5e3afe61dbe04232319f563e5cc835ff4d86f3f106660286e4c0624be68d6f73",
+    "editor/ProviderTemplates.luau": "a6246b7d9ed253b7d12d7764f31ddd5ac94d2820ae2a9ca348492615f6ec9344",
+    "editor/View.luau": "9f9e57612bf7e639c90c3d7dae1501d349c0c8f19d7ac56febc7b2f80fff0b4e",
+    "editor/VolumePreview.luau": "871c4964fa36f9729433d846b882e14af8fcfbe80ba2094297dbebcca2873360",
+    "tests/Campaign.luau": "8f567cb74b354d6ea7b186ac9a92cee5836c9485b47ad3d3b82b250b2da78c91",
+    "tests/ConnectionPlayChecks.luau": "d87fddf4ce683830b853e9964f8ace5885a2fc9078f28f2c99b1d1a76e986256",
+    "tests/ConnectionStudioChecks.luau": "49249f77ad5292d0f1a024e94943d163e7d961be22d43683508194f622311c70",
+    "tests/ConnectionTestSetup.luau": "66041504f54d9fc85d28cd0ff761133bb9725e2e31c978ef5e6d33299344be2d",
+    "tests/ConnectorEditorChecks.luau": "e4725d636347a311d8e623d8721dee0802a1781366da6c2407f81da19a2d579c",
+    "tests/ConnectorExpansionChecks.luau": "b23a4255130bfc9ac25776762c7350435f79880b8f3df5e4db0b68573eebd351",
+    "tests/ConnectorExpansionSetup.luau": "3cb968b7c055e13b960f1f41fe99ae646cfec9a61a3ecc686e66f3262f1bb8d1",
+    "tests/EngineOracle.luau": "2cc218e7e2e994dbc463cab7bc46b98ebc8744567b328c027f1f58e50e377e3a",
+    "tests/Friendly_Test.luau": "64b4fac7fa9fe33146f7285b2fc7514723f1f790500bc08c0469a33d660f7474",
+    "tests/History_Test.luau": "73bcd72a1f0dcb746f5d3964429f9eaca2a0928f699527595a84fe15a051f154",
+    "tests/Installer_Test.luau": "69b24acc3ccfe1e2da950f72a6c050d56ba5f3b731923419f8c525377220bf08",
+    "tests/LiveAdapterSmoke.server.luau": "5db9459baf74f7507ade9c64b725a15952938d8a7fa3281ec7db395829cef064",
+    "tests/LoadBenchmark.luau": "a293d5d5ae350b9d22ca877cb4bbacd106108ee2ecc66168bca91fefbe8a358f",
+    "tests/MatchedBenchmark.luau": "2f4d3cdca8f7eac0dcda8c4b22f8659af3cb371a0a3d63cc9fea9ab25d20b8ac",
+    "tests/RunUnitTest.luau": "52b70ec42b2912352ed2f84ff3b6f5a9b19a2d66eecddb435d89ac72cad984c2",
+    "tests/Service_Test.luau": "8eea61fb5e8cbceab13adf094f8d4ff0f692750209ea9f2d9b03b413671a2f32",
+    "tests/Shapes_Test.luau": "8ab13d7aebc82a005a92df13b39dd66022907fcd57c87d81bb123ba37976e9de"
+  },
+  "publicationNotes": [
+    "Source bytes normalized to UTF-8 LF without BOM for reproducible Windows/Linux builds. Runtime logic and recorded case results unchanged.",
+    "3.2 publication refreshes explanatory documents and the optional learning-guide content. It does not relabel older performance measurements."
+  ]
+}
