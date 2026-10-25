@@ -29,6 +29,22 @@ function H.ProviderSnapshot(provider,object,time)
 	if type(provider)=="function" then return provider(object,time) end
 	return provider.Snapshot(object,time)
 end
+-- Providers are selected in the plugin. Adapt a game's API HERE, inside this package.
+-- Every provider callback must finish immediately: no waits or network requests.
+function H.Clock(provider) return if type(provider)=="function" then provider() else provider.Now() end
+function H.DataSnapshots(provider,time) return provider.Snapshots(time) end
+function H.ResolveRewind(provider,actor,context,time,maximum)
+	return provider.Resolve(actor,context,time,maximum)
+end
+function H.WorldCheck(provider,time,current,shape) return provider.Check(time,current,shape) end
+function H.TimingPlayer(actor,context)
+	return if typeof(actor)=="Instance" and actor:IsA("Model") then game.Players:GetPlayerFromCharacter(actor) else nil
+end
+-- Maximum root travel per second and distance of any target hitbox from that root.
+-- These reject unusable records; they do not prove movement was permitted by game rules.
+function H.RecordingLimits(actor,speed,radius,settings) return speed,radius end
+-- Used only by a move whose rule is "Hook". Supply your game rule here.
+function H.Eligible(sourceState,targetState,targetId,targetKind,moveName) return false end
 -- Optional custom snapshot: use the selected Provider module for existing checked position systems.
 -- Provider.Snapshot(object, time) must return {ok=true, root=CFrame, zones={...}, state={...}}.
 -- 'ok=true' is a declaration by that checker, not an extra check performed by Chrono.
