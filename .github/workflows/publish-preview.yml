@@ -1,0 +1,71 @@
+name: Publish reviewed preview bundle
+on:
+  workflow_dispatch:
+    inputs:
+      sha256:
+        description: SHA-256 of the reviewed .publication-preview.zip uploaded to the repository
+        required: true
+        type: string
+permissions:
+  contents: write
+concurrency:
+  group: reviewed-preview-publication
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Verify and apply only the reviewed files
+        env:
+          EXPECTED_SHA256: ${{ inputs.sha256 }}
+        run: |
+          python3 - <<'PY'
+          import hashlib,json,os,re,subprocess,zipfile
+          from pathlib import Path,PurePosixPath
+          archive=Path('.publication-preview.zip')
+          expected=os.environ['EXPECTED_SHA256']
+          assert re.fullmatch('[0-9a-f]{64}',expected),'A complete lowercase SHA-256 is required'
+          assert hashlib.sha256(archive.read_bytes()).hexdigest()==expected,'Publication checksum mismatch'
+          with zipfile.ZipFile(archive) as z:
+              assert z.testzip() is None
+              names=z.namelist()
+              assert len(names)==len(set(names)),'Duplicate archive entries'
+              manifest=json.loads(z.read('publication-manifest.json'))
+              assert manifest['repository']=='VertimaXx/ChronoFork-V3.1'
+              subprocess.run(['git','merge-base','--is-ancestor',manifest['base'],'HEAD'],check=True)
+              assert sum(i.file_size for i in z.infolist())<150_000_000,'Unexpected publication size'
+              allowed={'.github','benchmarks','dist','dist-preview','docs','editor','examples','framework','replication','runtime','site','src','tests','tools','vendor'}
+              root_files={'.gitattributes','.gitignore','CHANGELOG.md','CONTRIBUTING.md','CREDITS.md','IMPLEMENTATION.md','LICENSE','NOTICE','README.md','SECURITY.md','default.project.json'}
+              pending=[]
+              for name,row in manifest['files'].items():
+                  path=PurePosixPath(name)
+                  assert not path.is_absolute() and '..' not in path.parts and '\\' not in name
+                  assert (len(path.parts)>1 and path.parts[0] in allowed) or name in root_files,name
+                  target=Path(name)
+                  current=hashlib.sha256(target.read_bytes()).hexdigest() if target.is_file() else None
+                  data=z.read('files/'+name)
+                  assert hashlib.sha256(data).hexdigest()==row['after'],name
+                  if current==row['after']: continue
+                  assert current==row['before'],'File changed after preparation: '+name
+                  # Workflow code is reviewed/uploaded separately in GitHub's UI.
+                  assert not name.startswith('.github/workflows/'),'Upload reviewed workflow files separately first'
+                  pending.append((target,data))
+              for target,data in pending:
+                  target.parent.mkdir(parents=True,exist_ok=True)
+                  target.write_bytes(data)
+          archive.unlink()
+          PY
+      - name: Rebuild and verify preview and preserved stable artifacts
+        run: |
+          python3 tools/build.py
+          python3 tools/check.py
+      - name: Commit the reviewed publication
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --all
+          git commit -m 'Publish ChronoFork 3.3 development preview and experimental prediction'
+          git push origin HEAD:main
