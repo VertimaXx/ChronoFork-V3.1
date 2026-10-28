@@ -1,5 +1,14 @@
 # Credits and lineage
 
+This repository additionally includes the **3.3.0-dev development preview**,
+with original Chrono's complete runtime restored from commit
+`90be58b09fe420977afa691396238c7817c1766f`. Exact originals and their MIT notice are
+in `vendor/chrono`; modified runtime sources are in `replication`. The upstream
+Signal implementation's embedded stravant attribution is retained. This work was
+implemented and tested with OpenAI Codex / AI under VertimaXx's direction. It is
+not an upstream release, endorsement or independent security audit. See the
+[preview guide](docs/full/start-here.md) and [current validation](docs/full/validation.md).
+
 **ChronoFork V3.2 is an unofficial Chrono fork, developed with AI assistance.** The Connector/plugin is 3.2.0 and uses unchanged Core 3.1.0. The repository URL keeps its original ChronoFork-V3.1 name.
 
 | Contributor | Credit |

@@ -1,0 +1,7811 @@
+{
+  "date": "2026-10-27",
+  "status": "development preview",
+  "runtimeSha256": "7055a87beb2723513e7631d19773ce758b5a08983f960c50e93e656742e837ce",
+  "upstreamRevision": "90be58b09fe420977afa691396238c7817c1766f",
+  "replay": {
+    "ok": true,
+    "scope": "synthetic packet delivery and lifecycle replay; not live latency or hit fairness",
+    "accepted": 69896,
+    "refused": 10811,
+    "scenarios": 864,
+    "seed": 2026102702,
+    "failures": [],
+    "assertions": 139792,
+    "profiles": {
+      "1": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0
+      },
+      "2": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0
+      },
+      "3": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 95,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "4": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 90,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "5": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "6": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 86,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "7": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 77,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "8": {
+        "refused": 7,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 77,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "9": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0
+      },
+      "10": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0
+      },
+      "11": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 94,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "12": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "13": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "14": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 86,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "15": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 82,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "16": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 74,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "17": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0
+      },
+      "18": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0
+      },
+      "19": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "20": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 89,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "21": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 95,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "22": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 86,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "23": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 75,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "24": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 75,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "25": {
+        "refused": 19,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 81,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0
+      },
+      "26": {
+        "refused": 24,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 76,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0
+      },
+      "27": {
+        "refused": 17,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 83,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "28": {
+        "refused": 23,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 77,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "29": {
+        "refused": 17,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 77,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "30": {
+        "refused": 19,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 78,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "31": {
+        "refused": 16,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 64,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "32": {
+        "refused": 15,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 66,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "33": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0
+      },
+      "34": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0
+      },
+      "35": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 93,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "36": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "37": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 90,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "38": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 85,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "39": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 76,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "40": {
+        "refused": 6,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 71,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "41": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0
+      },
+      "42": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0
+      },
+      "43": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 94,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "44": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 89,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "45": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 92,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "46": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 87,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "47": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 78,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "48": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 67,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "49": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0
+      },
+      "50": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0
+      },
+      "51": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 93,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "52": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "53": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 90,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "54": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 84,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "55": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 76,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "56": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 68,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "57": {
+        "refused": 14,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 86,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0
+      },
+      "58": {
+        "refused": 21,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 79,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0
+      },
+      "59": {
+        "refused": 16,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 82,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "60": {
+        "refused": 20,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 79,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "61": {
+        "refused": 16,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 79,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "62": {
+        "refused": 13,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 83,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "63": {
+        "refused": 14,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 68,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "64": {
+        "refused": 16,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 67,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "65": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0
+      },
+      "66": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0
+      },
+      "67": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 95,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "68": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 90,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "69": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 90,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "70": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 85,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "71": {
+        "refused": 2,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 81,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "72": {
+        "refused": 6,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 68,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "73": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0
+      },
+      "74": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0
+      },
+      "75": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 94,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "76": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "77": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 94,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "78": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "79": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 84,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "80": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 73,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "81": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0
+      },
+      "82": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0
+      },
+      "83": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 95,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "84": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 90,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "85": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 90,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "86": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 86,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "87": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 76,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "88": {
+        "refused": 6,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 76,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "89": {
+        "refused": 20,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 80,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0
+      },
+      "90": {
+        "refused": 25,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 75,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0
+      },
+      "91": {
+        "refused": 18,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 82,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "92": {
+        "refused": 23,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 75,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0
+      },
+      "93": {
+        "refused": 15,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 78,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "94": {
+        "refused": 23,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 72,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0
+      },
+      "95": {
+        "refused": 13,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 70,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "96": {
+        "refused": 13,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 71,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0
+      },
+      "97": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "98": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "99": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 95,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "100": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "101": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 89,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "102": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 86,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "103": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 77,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "104": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 73,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "105": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "106": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "107": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 93,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "108": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 88,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "109": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 92,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "110": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 89,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "111": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 75,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "112": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 68,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "113": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "114": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 92,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "115": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 95,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "116": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 90,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "117": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 95,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "118": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 85,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "119": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 79,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "120": {
+        "refused": 7,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 68,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "121": {
+        "refused": 18,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 82,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "122": {
+        "refused": 23,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 77,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "123": {
+        "refused": 18,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 78,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "124": {
+        "refused": 24,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 76,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "125": {
+        "refused": 15,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 83,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "126": {
+        "refused": 16,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 78,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "127": {
+        "refused": 5,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 64,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "128": {
+        "refused": 11,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 64,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "129": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "130": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "131": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "132": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 90,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "133": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 89,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "134": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 86,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "135": {
+        "refused": 2,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 78,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "136": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 72,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "137": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "138": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "139": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "140": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "141": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 89,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "142": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 85,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "143": {
+        "refused": 2,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 79,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "144": {
+        "refused": 7,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 74,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "145": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "146": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 90,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "147": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "148": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "149": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 93,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "150": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 90,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "151": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 80,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "152": {
+        "refused": 6,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 71,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "153": {
+        "refused": 25,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 75,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "154": {
+        "refused": 24,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 76,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "155": {
+        "refused": 17,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 82,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "156": {
+        "refused": 20,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 80,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "157": {
+        "refused": 13,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 83,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "158": {
+        "refused": 23,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 74,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "159": {
+        "refused": 14,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 60,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "160": {
+        "refused": 15,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 64,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "161": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "162": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "163": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "164": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "165": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 89,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "166": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 85,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "167": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 79,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "168": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 71,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "169": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "170": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "171": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 94,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "172": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "173": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 92,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "174": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "175": {
+        "refused": 2,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 83,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "176": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 76,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "177": {
+        "refused": 6,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 94,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "178": {
+        "refused": 12,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 88,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "179": {
+        "refused": 9,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 88,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "180": {
+        "refused": 13,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 85,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "181": {
+        "refused": 5,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 90,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "182": {
+        "refused": 12,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 80,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "183": {
+        "refused": 6,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 68,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "184": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 67,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "185": {
+        "refused": 26,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 74,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "186": {
+        "refused": 33,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 67,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.02
+      },
+      "187": {
+        "refused": 26,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 73,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "188": {
+        "refused": 23,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 76,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.02
+      },
+      "189": {
+        "refused": 19,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 77,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "190": {
+        "refused": 29,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 65,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.02
+      },
+      "191": {
+        "refused": 15,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 67,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "192": {
+        "refused": 22,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 60,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.02
+      },
+      "193": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "194": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "195": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "196": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "197": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 92,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "198": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 88,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "199": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 76,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "200": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 72,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "201": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "202": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "203": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "204": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "205": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 94,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "206": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 83,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "207": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 80,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "208": {
+        "refused": 6,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 74,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "209": {
+        "refused": 2,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 98,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "210": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "211": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 92,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "212": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "213": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 90,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "214": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 84,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "215": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 73,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "216": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 71,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "217": {
+        "refused": 24,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 76,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "218": {
+        "refused": 24,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 76,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "219": {
+        "refused": 28,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 71,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "220": {
+        "refused": 25,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 75,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "221": {
+        "refused": 19,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 76,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "222": {
+        "refused": 19,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 74,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "223": {
+        "refused": 17,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 62,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "224": {
+        "refused": 16,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 62,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "225": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "226": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "227": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 95,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "228": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 89,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "229": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "230": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 87,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "231": {
+        "refused": 2,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 74,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "232": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 74,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "233": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "234": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "235": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 95,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "236": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 89,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "237": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "238": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 86,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "239": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 78,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "240": {
+        "refused": 6,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 73,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "241": {
+        "refused": 10,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 90,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "242": {
+        "refused": 12,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 88,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "243": {
+        "refused": 9,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "244": {
+        "refused": 16,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 84,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "245": {
+        "refused": 10,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 85,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "246": {
+        "refused": 14,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 80,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "247": {
+        "refused": 2,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 76,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "248": {
+        "refused": 6,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 73,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "249": {
+        "refused": 23,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 77,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "250": {
+        "refused": 31,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 69,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "251": {
+        "refused": 28,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 72,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "252": {
+        "refused": 29,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 71,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "253": {
+        "refused": 20,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 72,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "254": {
+        "refused": 27,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 68,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "255": {
+        "refused": 19,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 60,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "256": {
+        "refused": 27,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 54,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "257": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "258": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "259": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 95,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "260": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 90,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "261": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 92,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "262": {
+        "refused": 7,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 85,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "263": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 75,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "264": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 80,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "265": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "266": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "267": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "268": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "269": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "270": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 86,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "271": {
+        "refused": 2,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 79,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "272": {
+        "refused": 6,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 65,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "273": {
+        "refused": 13,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 87,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "274": {
+        "refused": 12,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 88,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "275": {
+        "refused": 7,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 93,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "276": {
+        "refused": 16,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 81,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "277": {
+        "refused": 11,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 84,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "278": {
+        "refused": 14,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 83,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "279": {
+        "refused": 5,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 72,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "280": {
+        "refused": 11,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 71,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "281": {
+        "refused": 33,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 67,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "282": {
+        "refused": 34,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 66,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.05
+      },
+      "283": {
+        "refused": 26,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 73,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "284": {
+        "refused": 29,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 71,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.05
+      },
+      "285": {
+        "refused": 25,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 72,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "286": {
+        "refused": 26,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 67,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.05
+      },
+      "287": {
+        "refused": 23,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 57,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "288": {
+        "refused": 25,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 55,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.05
+      },
+      "289": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "290": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "291": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 94,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "292": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 88,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "293": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 90,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "294": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 84,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "295": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 79,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "296": {
+        "refused": 7,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 68,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "297": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "298": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "299": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 95,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "300": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "301": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 94,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "302": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 87,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "303": {
+        "refused": 2,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 77,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "304": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 74,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "305": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "306": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 90,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "307": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 94,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "308": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 90,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "309": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 89,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "310": {
+        "refused": 7,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "311": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 81,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "312": {
+        "refused": 7,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 66,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "313": {
+        "refused": 20,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 80,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "314": {
+        "refused": 25,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 75,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "315": {
+        "refused": 18,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 80,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "316": {
+        "refused": 23,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 76,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "317": {
+        "refused": 23,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 71,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "318": {
+        "refused": 20,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 73,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "319": {
+        "refused": 14,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 65,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "320": {
+        "refused": 19,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 65,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "321": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "322": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "323": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 95,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "324": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 90,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "325": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 92,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "326": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 85,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "327": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 78,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "328": {
+        "refused": 7,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 66,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "329": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "330": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "331": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 95,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "332": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "333": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 93,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "334": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 89,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "335": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 77,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "336": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 70,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "337": {
+        "refused": 12,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 88,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "338": {
+        "refused": 16,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 84,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "339": {
+        "refused": 10,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 89,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "340": {
+        "refused": 16,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 84,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "341": {
+        "refused": 9,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 88,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "342": {
+        "refused": 12,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 80,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "343": {
+        "refused": 8,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 62,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "344": {
+        "refused": 6,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 67,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "345": {
+        "refused": 34,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 66,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "346": {
+        "refused": 32,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 68,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "347": {
+        "refused": 29,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 68,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "348": {
+        "refused": 31,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 67,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "349": {
+        "refused": 21,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 73,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "350": {
+        "refused": 30,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 65,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "351": {
+        "refused": 18,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 65,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "352": {
+        "refused": 25,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 58,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "353": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "354": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "355": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 94,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "356": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 87,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "357": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "358": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 88,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "359": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 78,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "360": {
+        "refused": 6,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 68,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "361": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "362": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "363": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "364": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 89,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "365": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 94,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "366": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 86,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "367": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 74,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "368": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 76,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "369": {
+        "refused": 9,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "370": {
+        "refused": 17,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 83,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "371": {
+        "refused": 9,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 90,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "372": {
+        "refused": 20,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 79,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "373": {
+        "refused": 15,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 80,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "374": {
+        "refused": 16,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 76,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "375": {
+        "refused": 7,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 69,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "376": {
+        "refused": 12,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 65,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "377": {
+        "refused": 38,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 62,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "378": {
+        "refused": 35,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 65,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.1
+      },
+      "379": {
+        "refused": 30,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 70,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "380": {
+        "refused": 37,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 62,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.1
+      },
+      "381": {
+        "refused": 32,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 63,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "382": {
+        "refused": 35,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 60,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.1
+      },
+      "383": {
+        "refused": 28,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 58,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "384": {
+        "refused": 25,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 50,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.1
+      },
+      "385": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "386": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "387": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 95,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "388": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "389": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 94,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "390": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 84,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "391": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 77,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "392": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 71,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "393": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "394": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "395": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 94,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "396": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 89,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "397": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "398": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 87,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "399": {
+        "refused": 1,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 76,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "400": {
+        "refused": 7,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 78,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "401": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "402": {
+        "refused": 12,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 88,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "403": {
+        "refused": 7,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "404": {
+        "refused": 12,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 87,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "405": {
+        "refused": 7,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 86,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "406": {
+        "refused": 12,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 85,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "407": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 67,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "408": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 68,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "409": {
+        "refused": 29,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 71,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "410": {
+        "refused": 23,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 77,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "411": {
+        "refused": 22,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 78,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "412": {
+        "refused": 33,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 67,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "413": {
+        "refused": 19,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 75,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "414": {
+        "refused": 23,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 73,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "415": {
+        "refused": 9,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 71,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "416": {
+        "refused": 16,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 66,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "417": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "418": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "419": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "420": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "421": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 92,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "422": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 89,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "423": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 74,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "424": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 73,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "425": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "426": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "427": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "428": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 89,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "429": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 93,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "430": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 87,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "431": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 85,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "432": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 76,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "433": {
+        "refused": 9,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "434": {
+        "refused": 17,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 83,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "435": {
+        "refused": 8,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 89,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "436": {
+        "refused": 12,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 87,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "437": {
+        "refused": 13,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 82,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "438": {
+        "refused": 18,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 82,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "439": {
+        "refused": 9,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 63,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "440": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 68,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "441": {
+        "refused": 32,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 68,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "442": {
+        "refused": 43,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 57,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "443": {
+        "refused": 30,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 69,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "444": {
+        "refused": 41,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 59,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "445": {
+        "refused": 29,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 65,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "446": {
+        "refused": 39,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 56,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "447": {
+        "refused": 23,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 54,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "448": {
+        "refused": 26,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 61,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "449": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "450": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "451": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "452": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 89,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "453": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 86,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "454": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 88,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "455": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 64,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "456": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 71,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "457": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "458": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "459": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 94,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "460": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "461": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "462": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 82,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "463": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 75,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "464": {
+        "refused": 7,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 74,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "465": {
+        "refused": 10,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 90,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "466": {
+        "refused": 17,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 83,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "467": {
+        "refused": 14,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 85,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "468": {
+        "refused": 13,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 84,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "469": {
+        "refused": 11,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 87,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "470": {
+        "refused": 11,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 84,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "471": {
+        "refused": 8,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 69,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "472": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 70,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "473": {
+        "refused": 29,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 71,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "474": {
+        "refused": 39,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 61,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.16
+      },
+      "475": {
+        "refused": 39,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 60,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "476": {
+        "refused": 39,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 61,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.16
+      },
+      "477": {
+        "refused": 32,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 65,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "478": {
+        "refused": 36,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 60,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.16
+      },
+      "479": {
+        "refused": 25,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 54,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "480": {
+        "refused": 19,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 52,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.16
+      },
+      "481": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "482": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "483": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "484": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "485": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 92,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "486": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 87,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "487": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 72,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "488": {
+        "refused": 5,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 71,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "489": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "490": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "491": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 95,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "492": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "493": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 92,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "494": {
+        "refused": 7,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 88,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "495": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 75,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "496": {
+        "refused": 7,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 66,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "497": {
+        "refused": 6,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 94,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "498": {
+        "refused": 16,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 84,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "499": {
+        "refused": 6,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 93,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "500": {
+        "refused": 16,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 84,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "501": {
+        "refused": 9,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 88,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "502": {
+        "refused": 14,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 85,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "503": {
+        "refused": 6,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 70,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "504": {
+        "refused": 7,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 71,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "505": {
+        "refused": 28,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 72,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "506": {
+        "refused": 30,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 70,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "507": {
+        "refused": 19,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 79,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "508": {
+        "refused": 31,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 69,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "509": {
+        "refused": 24,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 72,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "510": {
+        "refused": 25,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 69,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "511": {
+        "refused": 21,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 62,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "512": {
+        "refused": 25,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 61,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "513": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "514": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "515": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 95,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "516": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "517": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 93,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "518": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 86,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "519": {
+        "refused": 2,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 88,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "520": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 72,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "521": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "522": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "523": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 95,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "524": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "525": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 92,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "526": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 87,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "527": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 72,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "528": {
+        "refused": 6,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 76,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "529": {
+        "refused": 13,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 87,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "530": {
+        "refused": 11,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 89,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "531": {
+        "refused": 12,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 88,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "532": {
+        "refused": 14,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 86,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "533": {
+        "refused": 11,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 87,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "534": {
+        "refused": 17,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 76,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "535": {
+        "refused": 9,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 65,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "536": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 68,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "537": {
+        "refused": 36,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 64,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "538": {
+        "refused": 41,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 59,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "539": {
+        "refused": 34,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 64,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "540": {
+        "refused": 43,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 54,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "541": {
+        "refused": 34,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 61,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "542": {
+        "refused": 36,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 58,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "543": {
+        "refused": 26,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 57,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "544": {
+        "refused": 31,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 52,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "545": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "546": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "547": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "548": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "549": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "550": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 86,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "551": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 83,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "552": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 74,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "553": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "554": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "555": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 94,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "556": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 89,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "557": {
+        "refused": 2,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "558": {
+        "refused": 7,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 86,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "559": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 77,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "560": {
+        "refused": 6,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 73,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "561": {
+        "refused": 12,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 88,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "562": {
+        "refused": 16,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 84,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "563": {
+        "refused": 11,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 88,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "564": {
+        "refused": 14,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 85,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "565": {
+        "refused": 10,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 84,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "566": {
+        "refused": 13,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 82,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "567": {
+        "refused": 8,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 75,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "568": {
+        "refused": 15,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 62,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "569": {
+        "refused": 35,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 65,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "570": {
+        "refused": 41,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 59,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.25
+      },
+      "571": {
+        "refused": 42,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 58,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "572": {
+        "refused": 41,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 56,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.25
+      },
+      "573": {
+        "refused": 32,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 62,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "574": {
+        "refused": 43,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 53,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.25
+      },
+      "575": {
+        "refused": 25,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 62,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "576": {
+        "refused": 31,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 51,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.25
+      },
+      "577": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "578": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "579": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "580": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "581": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 93,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "582": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 85,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "583": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 77,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "584": {
+        "refused": 7,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 70,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "585": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "586": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "587": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 94,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "588": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "589": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 93,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "590": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 88,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "591": {
+        "refused": 2,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 78,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "592": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 68,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "593": {
+        "refused": 9,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "594": {
+        "refused": 13,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 87,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "595": {
+        "refused": 8,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 92,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "596": {
+        "refused": 14,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 82,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "597": {
+        "refused": 8,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 86,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "598": {
+        "refused": 14,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 83,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "599": {
+        "refused": 5,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 75,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "600": {
+        "refused": 13,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 71,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "601": {
+        "refused": 28,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 72,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "602": {
+        "refused": 30,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 70,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "603": {
+        "refused": 28,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 71,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "604": {
+        "refused": 27,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 71,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "605": {
+        "refused": 26,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 67,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "606": {
+        "refused": 31,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 62,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "607": {
+        "refused": 16,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 62,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "608": {
+        "refused": 19,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 58,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "609": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "610": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "611": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 94,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "612": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 89,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "613": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 94,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "614": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 84,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "615": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 72,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "616": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 81,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "617": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "618": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "619": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "620": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "621": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "622": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "623": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 78,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "624": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 70,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "625": {
+        "refused": 11,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 89,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "626": {
+        "refused": 18,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 82,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "627": {
+        "refused": 10,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 88,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "628": {
+        "refused": 21,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 79,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "629": {
+        "refused": 11,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 82,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "630": {
+        "refused": 12,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 85,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "631": {
+        "refused": 9,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 75,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "632": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 69,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "633": {
+        "refused": 36,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 64,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "634": {
+        "refused": 35,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 65,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "635": {
+        "refused": 34,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 66,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "636": {
+        "refused": 38,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 62,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "637": {
+        "refused": 28,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 63,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "638": {
+        "refused": 39,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 52,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "639": {
+        "refused": 30,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 53,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "640": {
+        "refused": 24,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 56,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "641": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "642": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "643": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 95,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "644": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "645": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 92,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "646": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 86,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "647": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 64,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "648": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 72,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "649": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "650": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "651": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 95,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "652": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "653": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 89,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "654": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 83,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "655": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 76,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "656": {
+        "refused": 7,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 75,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "657": {
+        "refused": 11,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 89,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "658": {
+        "refused": 17,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 83,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "659": {
+        "refused": 11,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 88,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "660": {
+        "refused": 12,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 87,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "661": {
+        "refused": 9,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 87,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "662": {
+        "refused": 14,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 79,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "663": {
+        "refused": 9,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 73,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "664": {
+        "refused": 12,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 64,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "665": {
+        "refused": 36,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 64,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "666": {
+        "refused": 39,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 61,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.4
+      },
+      "667": {
+        "refused": 38,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 62,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "668": {
+        "refused": 41,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 59,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.4
+      },
+      "669": {
+        "refused": 33,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 57,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "670": {
+        "refused": 38,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 57,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.4
+      },
+      "671": {
+        "refused": 20,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 52,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "672": {
+        "refused": 28,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 51,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.4
+      },
+      "673": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "674": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "675": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 93,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "676": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "677": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 89,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "678": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 89,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "679": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 77,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "680": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 72,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "681": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "682": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "683": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "684": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "685": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 88,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "686": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 83,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "687": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 81,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "688": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 74,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "689": {
+        "refused": 13,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 87,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "690": {
+        "refused": 13,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 87,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "691": {
+        "refused": 10,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 88,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "692": {
+        "refused": 18,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 80,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "693": {
+        "refused": 9,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 86,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "694": {
+        "refused": 17,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 79,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "695": {
+        "refused": 8,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 71,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "696": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 74,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "697": {
+        "refused": 35,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 65,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "698": {
+        "refused": 36,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 64,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "699": {
+        "refused": 33,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 67,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "700": {
+        "refused": 41,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 58,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "701": {
+        "refused": 33,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 60,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "702": {
+        "refused": 35,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 62,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "703": {
+        "refused": 29,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 49,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "704": {
+        "refused": 30,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 50,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "705": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "706": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "707": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 93,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "708": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 90,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "709": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "710": {
+        "refused": 7,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 85,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "711": {
+        "refused": 2,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 80,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "712": {
+        "refused": 6,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 73,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "713": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "714": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "715": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 95,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "716": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 88,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "717": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "718": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 81,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "719": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 78,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "720": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 74,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "721": {
+        "refused": 9,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "722": {
+        "refused": 16,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 84,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "723": {
+        "refused": 9,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 90,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "724": {
+        "refused": 15,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 85,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "725": {
+        "refused": 9,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 89,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "726": {
+        "refused": 21,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 73,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "727": {
+        "refused": 8,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 68,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "728": {
+        "refused": 15,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 62,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "729": {
+        "refused": 31,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 69,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "730": {
+        "refused": 39,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 61,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "731": {
+        "refused": 34,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 66,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "732": {
+        "refused": 40,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 59,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "733": {
+        "refused": 29,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 64,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "734": {
+        "refused": 38,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 59,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "735": {
+        "refused": 23,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 51,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "736": {
+        "refused": 27,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 52,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "737": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "738": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "739": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "740": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 90,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "741": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 93,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "742": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 83,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "743": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 80,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "744": {
+        "refused": 7,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 75,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "745": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "746": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "747": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 95,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "748": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 89,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "749": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "750": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 84,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "751": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 86,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "752": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 71,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "753": {
+        "refused": 9,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "754": {
+        "refused": 17,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 83,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "755": {
+        "refused": 10,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 90,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "756": {
+        "refused": 15,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 85,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "757": {
+        "refused": 11,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 87,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "758": {
+        "refused": 17,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 78,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "759": {
+        "refused": 11,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 69,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "760": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 75,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "761": {
+        "refused": 37,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 63,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "762": {
+        "refused": 38,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 62,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 0.8
+      },
+      "763": {
+        "refused": 37,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 62,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "764": {
+        "refused": 33,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 65,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 0.8
+      },
+      "765": {
+        "refused": 35,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 59,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "766": {
+        "refused": 34,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 63,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 0.8
+      },
+      "767": {
+        "refused": 31,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 52,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "768": {
+        "refused": 30,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 50,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 0.8
+      },
+      "769": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "770": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "771": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 95,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "772": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 90,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "773": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 87,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "774": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 89,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "775": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 83,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 1.6
+      },
+      "776": {
+        "refused": 7,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 75,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 1.6
+      },
+      "777": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "778": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "779": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "780": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "781": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 93,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "782": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 80,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "783": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 82,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 1.6
+      },
+      "784": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 75,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 1.6
+      },
+      "785": {
+        "refused": 9,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 91,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "786": {
+        "refused": 13,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 87,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "787": {
+        "refused": 13,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 87,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "788": {
+        "refused": 18,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 81,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "789": {
+        "refused": 10,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 85,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "790": {
+        "refused": 19,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 74,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "791": {
+        "refused": 7,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 72,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 1.6
+      },
+      "792": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 68,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 1.6
+      },
+      "793": {
+        "refused": 41,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 59,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "794": {
+        "refused": 40,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 60,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "795": {
+        "refused": 31,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 69,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "796": {
+        "refused": 30,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 69,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "797": {
+        "refused": 29,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 65,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "798": {
+        "refused": 35,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 57,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "799": {
+        "refused": 25,
+        "burst": 0,
+        "asymmetry": 0.1,
+        "accepted": 51,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 1.6
+      },
+      "800": {
+        "refused": 29,
+        "burst": 0.3,
+        "asymmetry": 0.1,
+        "accepted": 49,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 1.6
+      },
+      "801": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "802": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "803": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 95,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "804": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "805": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "806": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 88,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "807": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 75,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 1.6
+      },
+      "808": {
+        "refused": 6,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 69,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 1.6
+      },
+      "809": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "810": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "811": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 95,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "812": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 89,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "813": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 93,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "814": {
+        "refused": 7,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 86,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "815": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 70,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 1.6
+      },
+      "816": {
+        "refused": 7,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 71,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 1.6
+      },
+      "817": {
+        "refused": 10,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 90,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "818": {
+        "refused": 16,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 84,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "819": {
+        "refused": 9,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 90,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "820": {
+        "refused": 16,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 82,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "821": {
+        "refused": 11,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 82,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "822": {
+        "refused": 16,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 78,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "823": {
+        "refused": 7,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 72,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 1.6
+      },
+      "824": {
+        "refused": 13,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 65,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 1.6
+      },
+      "825": {
+        "refused": 36,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 64,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "826": {
+        "refused": 43,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 57,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "827": {
+        "refused": 35,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 65,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "828": {
+        "refused": 42,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 58,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "829": {
+        "refused": 27,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 67,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "830": {
+        "refused": 43,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 53,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "831": {
+        "refused": 25,
+        "burst": 0,
+        "asymmetry": 0.5,
+        "accepted": 58,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 1.6
+      },
+      "832": {
+        "refused": 22,
+        "burst": 0.3,
+        "asymmetry": 0.5,
+        "accepted": 52,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 1.6
+      },
+      "833": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "834": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "835": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "836": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "837": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 88,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "838": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 88,
+        "jitter": 0,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "839": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 76,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 1.6
+      },
+      "840": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 76,
+        "jitter": 0,
+        "loss": 0.2,
+        "rtt": 1.6
+      },
+      "841": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 96,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "842": {
+        "refused": 10,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 90,
+        "jitter": 0.01,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "843": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 95,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "844": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 91,
+        "jitter": 0.01,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "845": {
+        "refused": 4,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 92,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "846": {
+        "refused": 8,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 87,
+        "jitter": 0.01,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "847": {
+        "refused": 3,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 79,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 1.6
+      },
+      "848": {
+        "refused": 9,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 77,
+        "jitter": 0.01,
+        "loss": 0.2,
+        "rtt": 1.6
+      },
+      "849": {
+        "refused": 12,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 88,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "850": {
+        "refused": 17,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 83,
+        "jitter": 0.04,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "851": {
+        "refused": 14,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 85,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "852": {
+        "refused": 15,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 83,
+        "jitter": 0.04,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "853": {
+        "refused": 10,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 82,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "854": {
+        "refused": 18,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 80,
+        "jitter": 0.04,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "855": {
+        "refused": 8,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 72,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 1.6
+      },
+      "856": {
+        "refused": 11,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 76,
+        "jitter": 0.04,
+        "loss": 0.2,
+        "rtt": 1.6
+      },
+      "857": {
+        "refused": 30,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 70,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "858": {
+        "refused": 36,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 64,
+        "jitter": 0.1,
+        "loss": 0,
+        "rtt": 1.6
+      },
+      "859": {
+        "refused": 32,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 66,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "860": {
+        "refused": 39,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 60,
+        "jitter": 0.1,
+        "loss": 0.01,
+        "rtt": 1.6
+      },
+      "861": {
+        "refused": 33,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 62,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "862": {
+        "refused": 35,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 63,
+        "jitter": 0.1,
+        "loss": 0.05,
+        "rtt": 1.6
+      },
+      "863": {
+        "refused": 28,
+        "burst": 0,
+        "asymmetry": 0.9,
+        "accepted": 55,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 1.6
+      },
+      "864": {
+        "refused": 29,
+        "burst": 0.3,
+        "asymmetry": 0.9,
+        "accepted": 48,
+        "jitter": 0.1,
+        "loss": 0.2,
+        "rtt": 1.6
+      }
+    }
+  },
+  "suite": {
+    "ok": true,
+    "assertions": 130703,
+    "seed": 20261027,
+    "findings": {
+      "originalHermiteCounterexample": -0.18800000846385956
+    },
+    "failures": [],
+    "passed": 7121,
+    "cases": 7121
+  },
+  "engine": "0.744.0.7441077",
+  "editor": {
+    "ok": true,
+    "fields": 33,
+    "assertions": 50
+  }
+}

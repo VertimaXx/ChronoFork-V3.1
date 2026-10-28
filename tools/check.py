@@ -30,11 +30,14 @@ def main():
     parser.add_argument('--luau-compile')
     args = parser.parse_args()
     manifest = json.loads((ROOT / 'dist/MANIFEST.json').read_text())
+    # V3.2 is immutable release evidence. New preview docs/tools intentionally
+    # differ from its sources; verify the original bytes inside its retained ZIP.
+    stable_archive=zipfile.ZipFile(ROOT / 'dist/ChronoFork-3.2.0.zip')
     for name, row in manifest['files'].items():
         p = ROOT / name
-        assert p.is_file(), name
-        b = p.read_bytes()
+        b = stable_archive.read(name)
         assert hashlib.sha256(b).hexdigest() == row['sha256'] and len(b) == row['bytes'], 'rebuild after editing: ' + name
+    stable_archive.close()
     latest = json.loads((ROOT / 'benchmarks/data/v3.1-validation.json').read_text())
     assert latest['version'] == '3.1.0' and latest['unit']['passed'] == 63
     assert latest['timelineRegression']['passed'] == 8192 and latest['nativeNetworkTested'] is False
@@ -96,7 +99,7 @@ def main():
     for p, tree in pages.items():
         for link in tree.links:
             check_link(p, link)
-    for p in [*ROOT.glob('*.md'), *(ROOT / 'docs').glob('*.md')]:
+    for p in [*ROOT.glob('*.md'), *(ROOT / 'docs').rglob('*.md')]:
         for url in re.findall(r'\]\(([^\s)]+)\)', p.read_text(encoding='utf-8')):
             check_link(p, url)
     archive = ROOT / ('dist/ChronoFork-' + manifest['version'] + '.zip')
@@ -118,6 +121,10 @@ def main():
     print(json.dumps({'manifestFiles': len(manifest['files']), 'embeddedSourcesChecked': model_sources,
                       'htmlPages': len(pages), 'localLinks': local_links, 'luauCompiled': count,
                       'runtimeTestsRerun': False, 'status': 'passed'}))
+    from full_check import verify
+    assert verify(args.luau_compile), 'preview checks failed'
+    for name in ['ChronoFork.rbxmx','ChronoForkSetup.rbxmx','ChronoForkTests.rbxmx','ChronoFork-3.3.0-dev.zip','MANIFEST.json','SHA256SUMS.txt']:
+        assert (ROOT/'dist-preview'/name).read_bytes()==(ROOT/'site/downloads/preview'/name).read_bytes(),'stale website preview download: '+name
 
 
 if __name__ == '__main__':

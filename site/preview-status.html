@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Implementation and release gates · ChronoFork 3.3 preview</title><meta name="description" content="ChronoFork V3.2: an unofficial, AI-assisted Chrono fork for checked gameplay contacts in competitive Roblox games. Setup, math, limitations and reproducible benchmark evidence."><link rel="icon" href="assets/icon.svg?v=400ed9016e9a" type="image/svg+xml"><link rel="stylesheet" href="assets/style.css?v=0d08ecd4e8b6"><script src="assets/app.js" defer></script></head>
+<body><a class="skip" href="#content">Skip to content</a><header class="top"><a class="brand" href="index.html"><img src="assets/icon.svg?v=400ed9016e9a" alt="" width="30" height="30">ChronoFork <span>3.3 preview</span></a><a class="repo-link" href="https://github.com/VertimaXx/ChronoFork-V3.1">View on GitHub ↗</a></header><div class="nav-wrap"><nav aria-label="Main"><a href="index.html">Overview</a><a href="preview.html">3.3 preview</a><a href="start-here.html">Stable 3.2</a><a href="connector-controls.html">Connect</a><a href="comparison.html">Compare</a><a href="benchmarks.html">Benchmarks</a><a href="math-and-limits.html">Limits</a><a href="help.html">Words & errors</a></nav></div>
+<main id="content" class="wide"><article class="prose"><p class="scope-note"><strong>3.3 development preview.</strong> Stable release: 3.2. Prediction is very experimental and off by default. <a href="preview.html">Preview overview</a> · <a href="start-here.html">Stable 3.2 guide</a></p><h1 id="full-runtime-successor-work">Full-runtime successor work</h1>
+<p>Development branch, not a published release. Original source is pinned at <code>90be58b09fe420977afa691396238c7817c1766f</code>; exact files and hashes are retained in <code>vendor/chrono</code>. <code>replication/</code> is the active full-feature fork. Existing Core 3.1 and Connector 3.2 files remain available unchanged.</p>
+<p>Implemented and checked in this development branch:</p>
+<ul><li>Complete pinned original runtime, API forwarding and typed module aliases.</li><li>Wire-v2 bounded decoding, full clocks, lifecycle/revision/sequence guards,</li></ul>
+<p>  elapsed-time byte budgets, protected diagnostic events and teleport boundaries.</p>
+<ul><li>Optional segment/linear/original curves, bounded labeled display prediction,</li></ul>
+<p>  conservative frustum tests, time-based buffer statistics and phased scheduling.</p>
+<ul><li>Immutable graded evidence, separate query times, source recording, authored pose</li></ul>
+<p>  zones, relative sphere CCD, bounded volume refinement, historical obstacles,   outcome reservations and possession/round conflict tokens.</p>
+<ul><li>Full-runtime setup with 46 explained controls, generated in-package hooks,</li></ul>
+<p>  server-private backups, safe removal, child-arrival readiness and F4 diagnostics.</p>
+<ul><li>Existing competitive connector bundled alongside it without changing Core 3.1.</li><li>VERY EXPERIMENTAL prediction service integrated into existing packet/capture</li></ul>
+<p>  paths, off by default, with a separate drawing switch and 13 setup controls.   No extra runtime motion channel and no predicted hit records. Two seeded   algorithm replays cover 2,160 profiles and 682,560 evaluated positions; see   docs/full/prediction-results.md and prediction.md for integration limits.</p>
+<ul><li>7,121 seeded/property/regression cases; 864 synthetic delivery profiles; 50</li></ul>
+<p>  installer assertions; matched single-client original/fork smoke fixtures.</p>
+<p>These checks have practical scope limits. See docs/full/validation.md and raw JSON. Additional release gates remain:</p>
+<ul><li>Full original runtime and public API coverage, including all model/render modes,</li></ul>
+<p>  ownership, mounting, data-only objects, clocks, filters and debugging.</p>
+<ul><li>Atomic bounded packet decoding, lifecycle/ownership generations, state sequences,</li></ul>
+<p>  elapsed-time rate limits and resynchronization.</p>
+<ul><li>Rendering fixes, adaptive buffering, explicitly marked optional estimates,</li></ul>
+<p>  trustworthy covered history, source provenance and bounded timing.</p>
+<ul><li>Relative-motion contact tests, authored pose/zone timelines, historical world</li></ul>
+<p>  providers and conflict-aware/idempotent outcome integration.</p>
+<ul><li>Compatible legacy and engine-server-authority paths; replay-safe effects.</li><li>Plugin installation and setup controls, editable in-package hooks, reversible</li></ul>
+<p>  changes and plain-language guidance.</p>
+<ul><li>Feature parity and regression tests, multiple-client native network testing,</li></ul>
+<p>  fairness/error/performance/bandwidth comparisons and updated documentation.</p>
+<p>Wire protocol changes require the same fork build on clients and server. Public API compatibility does not imply mixed-version wire compatibility. No performance, accuracy, zero-delay or complete-security improvement is claimed before testing.</p></article></main><footer><div><strong>ChronoFork · 3.2 stable / 3.3 preview</strong><p>An unofficial Chrono fork. Original credit: <a href="https://github.com/Parihsz/Chrono">Parihsz & contributors</a>.<br>Developed with <strong>OpenAI Codex / AI</strong> under <a href="https://github.com/VertimaXx">VertimaXx</a>'s direction.</p></div><div class="footer-links"><a href="preview.html">3.3 preview</a><a href="credits.html">Full credits & lineage</a><a href="license.txt">MIT license</a><a href="faq.html">FAQ</a><a href="https://github.com/VertimaXx/ChronoFork-V3.1/issues">Report a problem</a></div><p class="footer-note">Stable 3.2 contact plugin; development 3.3 full runtime. Prediction is very experimental and off by default. Earlier benchmark versions stay labeled. No upstream endorsement or production certification is claimed.</p></footer></body></html>

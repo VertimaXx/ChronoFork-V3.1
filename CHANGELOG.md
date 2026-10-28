@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.3.0-dev — development preview, 2026-10-28
+
+- Restored the full original-compatible Chrono runtime from pinned upstream revision `90be58b09fe420977afa691396238c7817c1766f`, preserving exact originals and attribution in `vendor/chrono`.
+- Added wire-v2 bounded decoding, full source clocks, lifetime/ownership/teleport revisions, modular ordering and elapsed-time rate budgets.
+- Added optional segment/linear drawing, bounded estimates, buffering/scheduling fixes and conservative culling.
+- Added separate immutable graded history, independent source recording, authored pose/obstacle timelines, relative-motion contact and outcome/conflict helpers. These do not automatically validate arbitrary game movement or animations.
+- Added the full-runtime setup plugin, 46 explained controls, private source backups, safe removal, startup readiness and F4 diagnostics. Existing Core 3.1 and Connector 3.2 sources remain unchanged.
+- Integrated VERY EXPERIMENTAL prediction using existing packets, with 13 controls, separate estimate/drawing switches and no predicted hit records. Both switches default off. Engine rollback is separate and not certified by this work.
+- Added matched original/fork single-client smoke results, synthetic transport and prediction replays, per-profile data, comparison examples and reproduction guides. Tested fingerprints and historical version labels are preserved.
+- Kept the published 3.2 artifacts intact. The 3.3 preview is separate, with explicit unfinished release gates and no universal superiority claim.
+
 ## 3.2.0 — 2026-10-25
 
 - Expanded Connector and its eight control tabs to expose existing Core timing, recording, data actor, query and obstacle capabilities. Core 3.1 source/math unchanged.
@@ -41,4 +52,4 @@
 - Published scope is ChronoFork V3.1 only, with portable source builds, Studio assets, a documentation website and explicit upstream/AI credits.
 - Earlier measurements retain their original version labels. Historical branch code and the external legacy-world bridge are excluded.
 
-This file covers the current 3.2 package and dated 3.1 changes. Earlier branch results remain comparison-only evidence.
+This file covers the 3.3 development preview, stable 3.2 package and dated 3.1 changes. Earlier branch results remain comparison-only evidence.

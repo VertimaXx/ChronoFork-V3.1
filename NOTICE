@@ -9,3 +9,12 @@ VertimaXx's direction. This is an independent contact-validation branch,
 not an official upstream release or a bundled copy of its entire replication system.
 
 See CREDITS.md for lineage, roles and benchmark provenance.
+
+Development branch addition: ChronoFork full-runtime 3.3.0-dev.
+This preview DOES include the full original runtime, pinned at
+90be58b09fe420977afa691396238c7817c1766f, with exact original files and licence
+under vendor/chrono and active modifications under replication. The preceding
+standalone description applies to the retained published V3.2 package.
+Original embedded Signal attribution to stravant is retained.
+Additional implementation, analysis, tools and tests: OpenAI Codex / AI under
+VertimaXx's direction. No upstream endorsement or independent audit is claimed.

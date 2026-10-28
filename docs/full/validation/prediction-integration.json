@@ -1,0 +1,1022 @@
+{
+  "date": "2026-10-28",
+  "version": "3.3.0-dev",
+  "status": "VERY EXPERIMENTAL; off by default",
+  "scope": "Packaged configuration/service/lifecycle checks and one native single-client smoke for each mode. Not a fairness, accuracy or load benchmark.",
+  "units": {
+    "ok": true,
+    "assertions": 39
+  },
+  "regressions": {
+    "ok": true,
+    "findings": {
+      "originalHermiteCounterexample": -0.18800000846385956
+    },
+    "seed": 20261027,
+    "passed": 7121,
+    "failures": [],
+    "cases": 7121,
+    "assertions": 130703
+  },
+  "editor": {
+    "ok": true,
+    "fields": 46,
+    "assertions": 68
+  },
+  "live": {
+    "on": {
+      "server": {
+        "FinalMetrics": {
+          "tickerMs": 0.031563636363871134,
+          "sentBytesPerSec": 5116,
+          "rangeMs": 0.0227999998969608,
+          "receivedBytesPerSec": 0,
+          "upstream": false,
+          "packetsPerSec": 31
+        },
+        "OwnedUpdateReceived": true,
+        "TestExperimentalPrediction": true,
+        "OwnerReturned": true,
+        "ExperimentalReport": {
+          "Mounted": {
+            "status": "predicted",
+            "inspect": {
+              "enabled": true,
+              "active": true,
+              "experimental": true,
+              "clockDomain": "server-clock",
+              "sourceTime": 2858.5706871999996,
+              "accepted": 217,
+              "drawing": true,
+              "limits": {
+                "teleportDistance": 8,
+                "learningSeconds": 0.6,
+                "maxHorizon": 0.25,
+                "maxAcceleration": 250,
+                "maxGap": 0.75,
+                "maxDistance": 8,
+                "maxSpeed": 120,
+                "maxTurnRate": 8,
+                "maxAngularSpeed": 12
+              },
+              "lastReason": "accepted",
+              "rejected": 1,
+              "trust": "estimate",
+              "assumedSourceDelay": 0
+            },
+            "model": "straight"
+          },
+          "Custom": {
+            "status": "predicted",
+            "inspect": {
+              "enabled": true,
+              "active": true,
+              "experimental": true,
+              "clockDomain": "server-clock",
+              "sourceTime": 2858.5706871999996,
+              "accepted": 60,
+              "drawing": true,
+              "limits": {
+                "teleportDistance": 8,
+                "learningSeconds": 0.6,
+                "maxHorizon": 0.25,
+                "maxAcceleration": 250,
+                "maxGap": 0.75,
+                "maxDistance": 8,
+                "maxSpeed": 120,
+                "maxTurnRate": 8,
+                "maxAngularSpeed": 12
+              },
+              "lastReason": "accepted",
+              "rejected": 0,
+              "trust": "estimate",
+              "assumedSourceDelay": 0
+            },
+            "model": "straight"
+          },
+          "Locked": {
+            "status": "predicted",
+            "inspect": {
+              "enabled": true,
+              "active": true,
+              "experimental": true,
+              "clockDomain": "server-clock",
+              "sourceTime": 2858.5368316999998,
+              "accepted": 184,
+              "drawing": true,
+              "limits": {
+                "teleportDistance": 8,
+                "learningSeconds": 0.6,
+                "maxHorizon": 0.25,
+                "maxAcceleration": 250,
+                "maxGap": 0.75,
+                "maxDistance": 8,
+                "maxSpeed": 120,
+                "maxTurnRate": 8,
+                "maxAngularSpeed": 12
+              },
+              "lastReason": "speed_limit",
+              "rejected": 34,
+              "trust": "estimate",
+              "assumedSourceDelay": 0
+            },
+            "model": "straight"
+          },
+          "Native": {
+            "status": "predicted",
+            "inspect": {
+              "enabled": true,
+              "active": true,
+              "experimental": true,
+              "clockDomain": "server-clock",
+              "sourceTime": 2858.5706871999996,
+              "accepted": 179,
+              "drawing": true,
+              "limits": {
+                "teleportDistance": 8,
+                "learningSeconds": 0.6,
+                "maxHorizon": 0.25,
+                "maxAcceleration": 250,
+                "maxGap": 0.75,
+                "maxDistance": 8,
+                "maxSpeed": 120,
+                "maxTurnRate": 8,
+                "maxAngularSpeed": 12
+              },
+              "lastReason": "accepted",
+              "rejected": 1,
+              "trust": "estimate",
+              "assumedSourceDelay": 0
+            },
+            "model": "straight"
+          },
+          "Data": {
+            "status": "predicted",
+            "inspect": {
+              "enabled": true,
+              "active": true,
+              "experimental": true,
+              "clockDomain": "server-clock",
+              "sourceTime": 2858.5995036,
+              "accepted": 1113,
+              "drawing": true,
+              "limits": {
+                "teleportDistance": 8,
+                "learningSeconds": 0.6,
+                "maxHorizon": 0.25,
+                "maxAcceleration": 250,
+                "maxGap": 0.75,
+                "maxDistance": 8,
+                "maxSpeed": 120,
+                "maxTurnRate": 8,
+                "maxAngularSpeed": 12
+              },
+              "lastReason": "accepted",
+              "rejected": 0,
+              "trust": "estimate",
+              "assumedSourceDelay": 0
+            },
+            "model": "straight"
+          },
+          "Owned": {
+            "status": "predicted",
+            "inspect": {
+              "enabled": true,
+              "active": true,
+              "experimental": true,
+              "clockDomain": "server-clock",
+              "sourceTime": 2858.5706871999996,
+              "accepted": 120,
+              "drawing": true,
+              "limits": {
+                "teleportDistance": 8,
+                "learningSeconds": 0.6,
+                "maxHorizon": 0.25,
+                "maxAcceleration": 250,
+                "maxGap": 0.75,
+                "maxDistance": 8,
+                "maxSpeed": 120,
+                "maxTurnRate": 8,
+                "maxAngularSpeed": 12
+              },
+              "lastReason": "accepted",
+              "rejected": 0,
+              "trust": "estimate",
+              "assumedSourceDelay": 0
+            },
+            "model": "straight"
+          }
+        },
+        "Complete": true,
+        "Teleported": true,
+        "OwnedId": 6,
+        "OwnerPredictionAccepted": true,
+        "NativeId": 1,
+        "MountedId": 5,
+        "CustomId": 3,
+        "LockedId": 2,
+        "DataId": 4
+      },
+      "states": {
+        "Mounted": {
+          "status": "predicted",
+          "inspect": {
+            "enabled": true,
+            "active": true,
+            "experimental": true,
+            "clockDomain": "server-clock",
+            "sourceTime": 2858.5706871999996,
+            "accepted": 217,
+            "drawing": true,
+            "limits": {
+              "teleportDistance": 8,
+              "learningSeconds": 0.6,
+              "maxHorizon": 0.25,
+              "maxAcceleration": 250,
+              "maxGap": 0.75,
+              "maxDistance": 8,
+              "maxSpeed": 120,
+              "maxAngularSpeed": 12,
+              "maxTurnRate": 8
+            },
+            "lastReason": "accepted",
+            "rejected": 1,
+            "assumedSourceDelay": 0,
+            "trust": "estimate"
+          },
+          "model": "straight"
+        },
+        "Custom": {
+          "status": "predicted",
+          "inspect": {
+            "enabled": true,
+            "active": true,
+            "experimental": true,
+            "clockDomain": "server-clock",
+            "sourceTime": 2858.5706871999996,
+            "accepted": 60,
+            "drawing": true,
+            "limits": {
+              "teleportDistance": 8,
+              "learningSeconds": 0.6,
+              "maxHorizon": 0.25,
+              "maxAcceleration": 250,
+              "maxGap": 0.75,
+              "maxDistance": 8,
+              "maxSpeed": 120,
+              "maxAngularSpeed": 12,
+              "maxTurnRate": 8
+            },
+            "lastReason": "accepted",
+            "rejected": 0,
+            "assumedSourceDelay": 0,
+            "trust": "estimate"
+          },
+          "model": "straight"
+        },
+        "Locked": {
+          "status": "predicted",
+          "inspect": {
+            "enabled": true,
+            "active": true,
+            "experimental": true,
+            "clockDomain": "server-clock",
+            "sourceTime": 2858.5368316999998,
+            "accepted": 184,
+            "drawing": true,
+            "limits": {
+              "teleportDistance": 8,
+              "learningSeconds": 0.6,
+              "maxHorizon": 0.25,
+              "maxAcceleration": 250,
+              "maxGap": 0.75,
+              "maxDistance": 8,
+              "maxSpeed": 120,
+              "maxAngularSpeed": 12,
+              "maxTurnRate": 8
+            },
+            "lastReason": "speed_limit",
+            "rejected": 34,
+            "assumedSourceDelay": 0,
+            "trust": "estimate"
+          },
+          "model": "straight"
+        },
+        "Native": {
+          "status": "predicted",
+          "inspect": {
+            "enabled": true,
+            "active": true,
+            "experimental": true,
+            "clockDomain": "server-clock",
+            "sourceTime": 2858.5706871999996,
+            "accepted": 179,
+            "drawing": true,
+            "limits": {
+              "teleportDistance": 8,
+              "learningSeconds": 0.6,
+              "maxHorizon": 0.25,
+              "maxAcceleration": 250,
+              "maxGap": 0.75,
+              "maxDistance": 8,
+              "maxSpeed": 120,
+              "maxAngularSpeed": 12,
+              "maxTurnRate": 8
+            },
+            "lastReason": "accepted",
+            "rejected": 1,
+            "assumedSourceDelay": 0,
+            "trust": "estimate"
+          },
+          "model": "straight"
+        },
+        "Data": {
+          "status": "predicted",
+          "inspect": {
+            "enabled": true,
+            "active": true,
+            "experimental": true,
+            "clockDomain": "server-clock",
+            "sourceTime": 2858.5995036,
+            "accepted": 1113,
+            "drawing": true,
+            "limits": {
+              "teleportDistance": 8,
+              "learningSeconds": 0.6,
+              "maxHorizon": 0.25,
+              "maxAcceleration": 250,
+              "maxGap": 0.75,
+              "maxDistance": 8,
+              "maxSpeed": 120,
+              "maxAngularSpeed": 12,
+              "maxTurnRate": 8
+            },
+            "lastReason": "accepted",
+            "rejected": 0,
+            "assumedSourceDelay": 0,
+            "trust": "estimate"
+          },
+          "model": "straight"
+        },
+        "Owned": {
+          "status": "predicted",
+          "inspect": {
+            "enabled": true,
+            "active": true,
+            "experimental": true,
+            "clockDomain": "server-clock",
+            "sourceTime": 2858.5706871999996,
+            "accepted": 120,
+            "drawing": true,
+            "limits": {
+              "teleportDistance": 8,
+              "learningSeconds": 0.6,
+              "maxHorizon": 0.25,
+              "maxAcceleration": 250,
+              "maxGap": 0.75,
+              "maxDistance": 8,
+              "maxSpeed": 120,
+              "maxAngularSpeed": 12,
+              "maxTurnRate": 8
+            },
+            "lastReason": "accepted",
+            "rejected": 0,
+            "assumedSourceDelay": 0,
+            "trust": "estimate"
+          },
+          "model": "straight"
+        }
+      },
+      "client": {
+        "Reports": {
+          "Mounted": {
+            "render": "capped",
+            "revision": 0,
+            "experimentalSamples": 247,
+            "samples": 1010,
+            "data": {
+              "label": "Mounted",
+              "build": "wire-v2"
+            },
+            "predictedSamples": 247,
+            "mounted": false,
+            "position": [
+              38.58443069458008,
+              20.998798370361328,
+              -0.08492279797792435
+            ],
+            "model": true,
+            "modes": {
+              "NATIVE": true
+            },
+            "generation": 5,
+            "owner": 0
+          },
+          "Custom": {
+            "render": "predicted",
+            "revision": 0,
+            "experimentalSamples": 1009,
+            "samples": 1010,
+            "data": {
+              "label": "Custom",
+              "build": "wire-v2"
+            },
+            "predictedSamples": 996,
+            "mounted": false,
+            "position": [
+              44.94425964355469,
+              18,
+              8
+            ],
+            "model": true,
+            "modes": {
+              "CUSTOM": true
+            },
+            "generation": 3,
+            "owner": 0
+          },
+          "Locked": {
+            "render": "predicted",
+            "revision": 0,
+            "experimentalSamples": 1009,
+            "samples": 1010,
+            "data": {
+              "label": "Locked",
+              "build": "wire-v2"
+            },
+            "predictedSamples": 999,
+            "mounted": false,
+            "position": [
+              44.94425964355469,
+              18,
+              0
+            ],
+            "model": true,
+            "modes": {
+              "NATIVE_WITH_LOCK": true
+            },
+            "generation": 2,
+            "owner": 0
+          },
+          "Native": {
+            "render": "predicted",
+            "revision": 1,
+            "experimentalSamples": 1009,
+            "samples": 1010,
+            "data": {
+              "label": "Native",
+              "build": "wire-v2"
+            },
+            "predictedSamples": 995,
+            "mounted": false,
+            "position": [
+              44.94425964355469,
+              18,
+              0
+            ],
+            "model": true,
+            "modes": {
+              "NATIVE": true
+            },
+            "generation": 1,
+            "owner": 0
+          },
+          "Data": {
+            "render": "local",
+            "revision": 0,
+            "samples": 1010,
+            "data": {
+              "label": "Data",
+              "build": "wire-v2"
+            },
+            "mounted": false,
+            "position": [
+              5.988852024078369,
+              18,
+              0
+            ],
+            "model": false,
+            "modes": {
+              "NATIVE": true
+            },
+            "generation": 4,
+            "owner": 0
+          },
+          "Owned": {
+            "render": "capped",
+            "revision": 2,
+            "experimentalSamples": 579,
+            "samples": 1010,
+            "data": {
+              "label": "Owned",
+              "build": "wire-v2"
+            },
+            "predictedSamples": 579,
+            "mounted": false,
+            "position": [
+              9.51568603515625,
+              18,
+              0
+            ],
+            "model": true,
+            "modes": {
+              "NATIVE": true
+            },
+            "generation": 6,
+            "owner": 0
+          }
+        },
+        "Started": true,
+        "Metrics": {
+          "statePackets": 223,
+          "seconds": 7.690625799999907,
+          "statePayloadBytes": 42033,
+          "scope": "received state buffers; excludes reliable lifecycle, Roblox physics and headers"
+        },
+        "Complete": true,
+        "Ready": true
+      },
+      "f4": {
+        "enabled": true,
+        "labels": [
+          "VERY EXPERIMENTAL PREDICTION: ON\nDrawing: ON | Limits: 250 ms / 8.00 studs\nAssumed source delay: 0 ms (not a measurement). Estimates are not hit evidence. Change settings after stopping Play."
+        ]
+      }
+    },
+    "off": {
+      "server": {
+        "FinalMetrics": {
+          "tickerMs": 0.01721000000240262,
+          "sentBytesPerSec": 5157,
+          "rangeMs": 0.01970000039364095,
+          "receivedBytesPerSec": 0,
+          "upstream": false,
+          "packetsPerSec": 31
+        },
+        "OwnedUpdateReceived": true,
+        "TestExperimentalPrediction": false,
+        "OwnerReturned": true,
+        "ExperimentalReport": {
+          "Mounted": {
+            "status": "experimental_disabled",
+            "inspect": {
+              "enabled": false,
+              "active": false,
+              "experimental": true,
+              "accepted": 0,
+              "drawing": false,
+              "limits": {
+                "teleportDistance": 8,
+                "learningSeconds": 0.6,
+                "maxHorizon": 0.25,
+                "maxAcceleration": 250,
+                "maxGap": 0.75,
+                "maxDistance": 8,
+                "maxSpeed": 120,
+                "maxTurnRate": 8,
+                "maxAngularSpeed": 12
+              },
+              "rejected": 0,
+              "trust": "estimate",
+              "assumedSourceDelay": 0
+            }
+          },
+          "Custom": {
+            "status": "experimental_disabled",
+            "inspect": {
+              "enabled": false,
+              "active": false,
+              "experimental": true,
+              "accepted": 0,
+              "drawing": false,
+              "limits": {
+                "teleportDistance": 8,
+                "learningSeconds": 0.6,
+                "maxHorizon": 0.25,
+                "maxAcceleration": 250,
+                "maxGap": 0.75,
+                "maxDistance": 8,
+                "maxSpeed": 120,
+                "maxTurnRate": 8,
+                "maxAngularSpeed": 12
+              },
+              "rejected": 0,
+              "trust": "estimate",
+              "assumedSourceDelay": 0
+            }
+          },
+          "Locked": {
+            "status": "experimental_disabled",
+            "inspect": {
+              "enabled": false,
+              "active": false,
+              "experimental": true,
+              "accepted": 0,
+              "drawing": false,
+              "limits": {
+                "teleportDistance": 8,
+                "learningSeconds": 0.6,
+                "maxHorizon": 0.25,
+                "maxAcceleration": 250,
+                "maxGap": 0.75,
+                "maxDistance": 8,
+                "maxSpeed": 120,
+                "maxTurnRate": 8,
+                "maxAngularSpeed": 12
+              },
+              "rejected": 0,
+              "trust": "estimate",
+              "assumedSourceDelay": 0
+            }
+          },
+          "Native": {
+            "status": "experimental_disabled",
+            "inspect": {
+              "enabled": false,
+              "active": false,
+              "experimental": true,
+              "accepted": 0,
+              "drawing": false,
+              "limits": {
+                "teleportDistance": 8,
+                "learningSeconds": 0.6,
+                "maxHorizon": 0.25,
+                "maxAcceleration": 250,
+                "maxGap": 0.75,
+                "maxDistance": 8,
+                "maxSpeed": 120,
+                "maxTurnRate": 8,
+                "maxAngularSpeed": 12
+              },
+              "rejected": 0,
+              "trust": "estimate",
+              "assumedSourceDelay": 0
+            }
+          },
+          "Data": {
+            "status": "experimental_disabled",
+            "inspect": {
+              "enabled": false,
+              "active": false,
+              "experimental": true,
+              "accepted": 0,
+              "drawing": false,
+              "limits": {
+                "teleportDistance": 8,
+                "learningSeconds": 0.6,
+                "maxHorizon": 0.25,
+                "maxAcceleration": 250,
+                "maxGap": 0.75,
+                "maxDistance": 8,
+                "maxSpeed": 120,
+                "maxTurnRate": 8,
+                "maxAngularSpeed": 12
+              },
+              "rejected": 0,
+              "trust": "estimate",
+              "assumedSourceDelay": 0
+            }
+          },
+          "Owned": {
+            "status": "experimental_disabled",
+            "inspect": {
+              "enabled": false,
+              "active": false,
+              "experimental": true,
+              "accepted": 0,
+              "drawing": false,
+              "limits": {
+                "teleportDistance": 8,
+                "learningSeconds": 0.6,
+                "maxHorizon": 0.25,
+                "maxAcceleration": 250,
+                "maxGap": 0.75,
+                "maxDistance": 8,
+                "maxSpeed": 120,
+                "maxTurnRate": 8,
+                "maxAngularSpeed": 12
+              },
+              "rejected": 0,
+              "trust": "estimate",
+              "assumedSourceDelay": 0
+            }
+          }
+        },
+        "Complete": true,
+        "Teleported": true,
+        "OwnedId": 6,
+        "OwnerPredictionAccepted": false,
+        "NativeId": 1,
+        "MountedId": 5,
+        "CustomId": 3,
+        "LockedId": 2,
+        "DataId": 4
+      },
+      "states": {
+        "Mounted": {
+          "status": "experimental_disabled",
+          "inspect": {
+            "enabled": false,
+            "active": false,
+            "experimental": true,
+            "assumedSourceDelay": 0,
+            "accepted": 0,
+            "drawing": false,
+            "limits": {
+              "teleportDistance": 8,
+              "learningSeconds": 0.6,
+              "maxHorizon": 0.25,
+              "maxAcceleration": 250,
+              "maxGap": 0.75,
+              "maxDistance": 8,
+              "maxSpeed": 120,
+              "maxAngularSpeed": 12,
+              "maxTurnRate": 8
+            },
+            "rejected": 0,
+            "trust": "estimate"
+          }
+        },
+        "Custom": {
+          "status": "experimental_disabled",
+          "inspect": {
+            "enabled": false,
+            "active": false,
+            "experimental": true,
+            "assumedSourceDelay": 0,
+            "accepted": 0,
+            "drawing": false,
+            "limits": {
+              "teleportDistance": 8,
+              "learningSeconds": 0.6,
+              "maxHorizon": 0.25,
+              "maxAcceleration": 250,
+              "maxGap": 0.75,
+              "maxDistance": 8,
+              "maxSpeed": 120,
+              "maxAngularSpeed": 12,
+              "maxTurnRate": 8
+            },
+            "rejected": 0,
+            "trust": "estimate"
+          }
+        },
+        "Locked": {
+          "status": "experimental_disabled",
+          "inspect": {
+            "enabled": false,
+            "active": false,
+            "experimental": true,
+            "assumedSourceDelay": 0,
+            "accepted": 0,
+            "drawing": false,
+            "limits": {
+              "teleportDistance": 8,
+              "learningSeconds": 0.6,
+              "maxHorizon": 0.25,
+              "maxAcceleration": 250,
+              "maxGap": 0.75,
+              "maxDistance": 8,
+              "maxSpeed": 120,
+              "maxAngularSpeed": 12,
+              "maxTurnRate": 8
+            },
+            "rejected": 0,
+            "trust": "estimate"
+          }
+        },
+        "Native": {
+          "status": "experimental_disabled",
+          "inspect": {
+            "enabled": false,
+            "active": false,
+            "experimental": true,
+            "assumedSourceDelay": 0,
+            "accepted": 0,
+            "drawing": false,
+            "limits": {
+              "teleportDistance": 8,
+              "learningSeconds": 0.6,
+              "maxHorizon": 0.25,
+              "maxAcceleration": 250,
+              "maxGap": 0.75,
+              "maxDistance": 8,
+              "maxSpeed": 120,
+              "maxAngularSpeed": 12,
+              "maxTurnRate": 8
+            },
+            "rejected": 0,
+            "trust": "estimate"
+          }
+        },
+        "Data": {
+          "status": "experimental_disabled",
+          "inspect": {
+            "enabled": false,
+            "active": false,
+            "experimental": true,
+            "assumedSourceDelay": 0,
+            "accepted": 0,
+            "drawing": false,
+            "limits": {
+              "teleportDistance": 8,
+              "learningSeconds": 0.6,
+              "maxHorizon": 0.25,
+              "maxAcceleration": 250,
+              "maxGap": 0.75,
+              "maxDistance": 8,
+              "maxSpeed": 120,
+              "maxAngularSpeed": 12,
+              "maxTurnRate": 8
+            },
+            "rejected": 0,
+            "trust": "estimate"
+          }
+        },
+        "Owned": {
+          "status": "experimental_disabled",
+          "inspect": {
+            "enabled": false,
+            "active": false,
+            "experimental": true,
+            "assumedSourceDelay": 0,
+            "accepted": 0,
+            "drawing": false,
+            "limits": {
+              "teleportDistance": 8,
+              "learningSeconds": 0.6,
+              "maxHorizon": 0.25,
+              "maxAcceleration": 250,
+              "maxGap": 0.75,
+              "maxDistance": 8,
+              "maxSpeed": 120,
+              "maxAngularSpeed": 12,
+              "maxTurnRate": 8
+            },
+            "rejected": 0,
+            "trust": "estimate"
+          }
+        }
+      },
+      "client": {
+        "Reports": {
+          "Mounted": {
+            "render": "held",
+            "revision": 0,
+            "samples": 1066,
+            "data": {
+              "label": "Mounted",
+              "build": "wire-v2"
+            },
+            "mounted": false,
+            "position": [
+              38.583744049072266,
+              20.998796463012695,
+              -0.08496392518281937
+            ],
+            "model": true,
+            "modes": {
+              "NATIVE": true
+            },
+            "generation": 5,
+            "owner": 0
+          },
+          "Custom": {
+            "render": "interpolated",
+            "revision": 0,
+            "samples": 1066,
+            "data": {
+              "label": "Custom",
+              "build": "wire-v2"
+            },
+            "mounted": false,
+            "position": [
+              44.94499969482422,
+              18,
+              8
+            ],
+            "model": true,
+            "modes": {
+              "CUSTOM": true
+            },
+            "generation": 3,
+            "owner": 0
+          },
+          "Locked": {
+            "render": "interpolated",
+            "revision": 0,
+            "samples": 1066,
+            "data": {
+              "label": "Locked",
+              "build": "wire-v2"
+            },
+            "mounted": false,
+            "position": [
+              44.94499969482422,
+              18,
+              0
+            ],
+            "model": true,
+            "modes": {
+              "NATIVE_WITH_LOCK": true
+            },
+            "generation": 2,
+            "owner": 0
+          },
+          "Native": {
+            "render": "interpolated",
+            "revision": 1,
+            "samples": 1066,
+            "data": {
+              "label": "Native",
+              "build": "wire-v2"
+            },
+            "mounted": false,
+            "position": [
+              44.94499969482422,
+              18,
+              0
+            ],
+            "model": true,
+            "modes": {
+              "NATIVE": true
+            },
+            "generation": 1,
+            "owner": 0
+          },
+          "Data": {
+            "render": "local",
+            "revision": 0,
+            "samples": 1066,
+            "data": {
+              "label": "Data",
+              "build": "wire-v2"
+            },
+            "mounted": false,
+            "position": [
+              5.988999843597412,
+              18,
+              0
+            ],
+            "model": false,
+            "modes": {
+              "NATIVE": true
+            },
+            "generation": 4,
+            "owner": 0
+          },
+          "Owned": {
+            "render": "held",
+            "revision": 2,
+            "samples": 1066,
+            "data": {
+              "label": "Owned",
+              "build": "wire-v2"
+            },
+            "mounted": false,
+            "position": [
+              9.0003662109375,
+              18,
+              0
+            ],
+            "model": true,
+            "modes": {
+              "NATIVE": true
+            },
+            "generation": 6,
+            "owner": 0
+          }
+        },
+        "Started": true,
+        "Metrics": {
+          "statePackets": 228,
+          "seconds": 7.85788569999977,
+          "statePayloadBytes": 43165,
+          "scope": "received state buffers; excludes reliable lifecycle, Roblox physics and headers"
+        },
+        "Complete": true,
+        "Ready": true
+      },
+      "f4": {
+        "enabled": true,
+        "labels": [
+          "VERY EXPERIMENTAL PREDICTION: OFF (default). Setup → Experimental to opt in."
+        ]
+      },
+      "noActiveModels": true,
+      "noExperimentalDrawing": true
+    }
+  },
+  "limitations": [
+    "Locked-transform fixture still rejects some source pose changes exceeding the configured prediction speed; these are excluded from estimates, not gameplay.",
+    "No added native network impairment profiles or multi-client validation in this integration run.",
+    "Prior synthetic algorithm comparisons use accurately supplied velocities. This integration often derives velocities from source poses.",
+    "EstimateCurrent adds receipt elapsed time and an explicit assumed source delay; it is not an independent uplink-delay measurement.",
+    "Existing root comparison remains a separate enabled Studio diagnostic. Published GitHub and installed local plugins were not replaced."
+  ],
+  "cleanup": {
+    "editMode": true,
+    "disposableFixtureRemoved": true,
+    "originalComparisonPreserved": true
+  }
+}

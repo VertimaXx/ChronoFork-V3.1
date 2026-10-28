@@ -1,0 +1,15 @@
+local C={}
+C.Core=require(script.Parent.Core)
+C.new=C.Core.new
+C.History=require(script.History)
+C.Continuous=require(script.Continuous)
+C.ClockBounds=require(script.Parent.Shared.ClockBounds)
+C.Outcomes=require(script.Outcomes)
+C.EvidenceWorld=require(script.EvidenceWorld)
+C.PoseTimeline=require(script.PoseTimeline)
+C.Simulation=require(script.Simulation)
+C.SourceRecorder=require(script.SourceRecorder)
+C.Motion=require(script.Motion)
+C.WorldHistory=require(script.WorldHistory)
+C.Versions=require(script.Versions)
+return table.freeze(C)

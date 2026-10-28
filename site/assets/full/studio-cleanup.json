@@ -1,0 +1,63 @@
+{
+  "playRunning": false,
+  "httpEnabled": false,
+  "scriptStates": {
+    "1": {
+      "enabled": false,
+      "path": "ServerScriptService.ChronoLabBoot"
+    },
+    "2": {
+      "enabled": false,
+      "path": "ServerScriptService.ChronoMatchedBenchBoot"
+    },
+    "3": {
+      "enabled": false,
+      "path": "ServerScriptService.ChronoConnectionExample.RunPractice"
+    },
+    "4": {
+      "enabled": false,
+      "path": "ServerScriptService.ChronoConnectionExample.StartConnection"
+    },
+    "5": {
+      "enabled": false,
+      "path": "ServerScriptService.ChronoConnectionExample.RunLearningScene"
+    },
+    "6": {
+      "enabled": true,
+      "path": "ServerScriptService.ChronoRootComparison.RunComparison"
+    },
+    "7": {
+      "enabled": false,
+      "path": "StarterPlayer.StarterPlayerScripts.ChronoLabBoot"
+    },
+    "8": {
+      "enabled": false,
+      "path": "StarterPlayer.StarterPlayerScripts.ChronoDebugger"
+    },
+    "9": {
+      "enabled": false,
+      "path": "StarterPlayer.StarterPlayerScripts.ChronoMatchedBenchBoot"
+    },
+    "10": {
+      "enabled": false,
+      "path": "StarterPlayer.StarterPlayerScripts.ChronoConnectionExampleConnectionGuide"
+    },
+    "11": {
+      "enabled": true,
+      "path": "StarterPlayer.StarterPlayerScripts.ChronoRootComparisonClient"
+    }
+  },
+  "testLeftovers": [],
+  "savedOrPublished": false,
+  "networkRestored": {
+    "InboundNetworkJitterMs": 70,
+    "OutboundNetworkJitterMs": 90,
+    "InboundNetworkMinDelayMs": 150,
+    "OutboundNetworkLossPercent": 0.5,
+    "InboundNetworkLossPercent": 0.5,
+    "OutboundNetworkMinDelayMs": 180
+  },
+  "restoredScripts": 11,
+  "mismatch": [],
+  "installedPluginReplaced": false
+}

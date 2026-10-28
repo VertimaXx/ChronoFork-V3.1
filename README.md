@@ -1,3 +1,15 @@
+> **New: full-runtime 3.3.0-dev preview. Stable release: 3.2.0.** The preview restores original Chrono replication alongside the competitive library. Start with [everything new since 3.2](docs/full/overview.md), [installation](docs/full/start-here.md), [validation and costs](docs/full/validation.md), and [release gates](IMPLEMENTATION.md). The stable release documentation below remains labeled V3.2.
+
+> **VERY EXPERIMENTAL movement prediction is now integrated into the 3.3 preview, off by default.** Enable it in **ChronoSetup → Experimental**; remote drawing is a separate opt-in switch. It uses existing replication packets and keeps guesses out of hit-validation records. Read the [controls, API and limits](docs/full/prediction.md) and [synthetic replay comparison](docs/full/prediction-results.md).
+
+| Choose a package | Downloads and guide |
+|---|---|
+| **3.3 development preview** — full replication, separate evidence helpers, very experimental prediction | [Setup plugin](dist-preview/ChronoForkSetup.rbxmx) · [Complete ZIP](dist-preview/ChronoFork-3.3.0-dev.zip) · [Preview guide](docs/full/overview.md) |
+| **3.2 stable release** — existing contact-checking plugin and Connector | [Stable release](https://github.com/VertimaXx/ChronoFork-V3.1/releases/tag/v3.2.0) · [Stable guide](docs/start-here.md) |
+
+The [current build](tools/build.py) produces the preview and website. Stable 3.2
+artifacts stay unchanged; to reproduce that release, use its `v3.2.0` tag.
+
 <p align="center"><img src="site/assets/banner.svg?v=3.2-style" alt="ChronoFork V3.2 — checked contacts for competitive Roblox games" width="100%"></p>
 
 <p align="center"><img src="site/assets/project-badges.svg" alt="Version 3.2.0 · Roblox / Luau · MIT license · AI-assisted development" width="600"></p>

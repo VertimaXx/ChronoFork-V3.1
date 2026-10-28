@@ -1,0 +1,415 @@
+{
+  "date": "2026-10-27",
+  "engine": "0.744.0.7441077",
+  "runtimeSha256": "7055a87beb2723513e7631d19773ce758b5a08983f960c50e93e656742e837ce",
+  "upstreamRevision": "90be58b09fe420977afa691396238c7817c1766f",
+  "scope": "single-client matched functional smoke; received state buffer payload only; not fairness, total wire bandwidth or statistical CPU comparison",
+  "ok": true,
+  "runs": [
+    {
+      "implementation": "fork",
+      "profile": "zero",
+      "network": {
+        "InboundNetworkMinDelayMs": 0,
+        "OutboundNetworkMinDelayMs": 0,
+        "InboundNetworkJitterMs": 0,
+        "OutboundNetworkJitterMs": 0,
+        "InboundNetworkLossPercent": 0,
+        "OutboundNetworkLossPercent": 0
+      },
+      "result": {
+        "server": {
+          "FinalMetrics": "{\"tickerMs\":0.03616666678378048,\"sentBytesPerSec\":5116,\"rangeMs\":0.019999999494757505,\"receivedBytesPerSec\":0,\"upstream\":false,\"packetsPerSec\":31}",
+          "OwnedUpdateReceived": true,
+          "Complete": true,
+          "Teleported": true,
+          "OwnedId": 6,
+          "OwnerReturned": true,
+          "NativeId": 1,
+          "LockedId": 2,
+          "CustomId": 3,
+          "MountedId": 5,
+          "DataId": 4
+        },
+        "client": {
+          "Reports": "{\"Mounted\":{\"render\":\"held\",\"revision\":0,\"samples\":1139,\"data\":{\"label\":\"Mounted\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[38.59840393066406,20.998821258544923,-0.08408477157354355],\"model\":true,\"modes\":{\"NATIVE\":true},\"generation\":5,\"owner\":0},\"Custom\":{\"render\":\"interpolated\",\"revision\":0,\"samples\":1139,\"data\":{\"label\":\"Custom\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[44.948360443115237,18,8],\"model\":true,\"modes\":{\"CUSTOM\":true},\"generation\":3,\"owner\":0},\"Locked\":{\"render\":\"interpolated\",\"revision\":0,\"samples\":1139,\"data\":{\"label\":\"Locked\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[44.948360443115237,4.739397048950195,0],\"model\":true,\"modes\":{\"NATIVE_WITH_LOCK\":true},\"generation\":2,\"owner\":0},\"Native\":{\"render\":\"interpolated\",\"revision\":1,\"samples\":1139,\"data\":{\"label\":\"Native\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[44.948360443115237,18,0],\"model\":true,\"modes\":{\"NATIVE\":true},\"generation\":1,\"owner\":0},\"Data\":{\"render\":\"local\",\"revision\":0,\"samples\":1139,\"data\":{\"label\":\"Data\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[5.98967170715332,18,0],\"model\":false,\"modes\":{\"NATIVE\":true},\"generation\":4,\"owner\":0},\"Owned\":{\"render\":\"held\",\"revision\":2,\"samples\":1139,\"data\":{\"label\":\"Owned\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[12.5819091796875,18,0],\"model\":true,\"modes\":{\"NATIVE\":true},\"generation\":6,\"owner\":0}}",
+          "Metrics": "{\"statePackets\":242,\"seconds\":7.946589200000744,\"statePayloadBytes\":46146,\"scope\":\"received state buffers; excludes reliable lifecycle, Roblox physics and headers\"}",
+          "Complete": true,
+          "Started": true,
+          "Ready": true
+        }
+      },
+      "detach": {
+        "retained": true,
+        "position": "44.941612243652344, 18, 0",
+        "notHidden": true
+      },
+      "metrics": {
+        "statePackets": 242,
+        "seconds": 7.946589200000744,
+        "statePayloadBytes": 46146,
+        "scope": "received state buffers; excludes reliable lifecycle, Roblox physics and headers"
+      },
+      "serverMetrics": {
+        "tickerMs": 0.03616666678378048,
+        "sentBytesPerSec": 5116,
+        "rangeMs": 0.019999999494757503,
+        "receivedBytesPerSec": 0,
+        "upstream": false,
+        "packetsPerSec": 31
+      }
+    },
+    {
+      "implementation": "original",
+      "profile": "zero",
+      "network": {
+        "InboundNetworkMinDelayMs": 0,
+        "OutboundNetworkMinDelayMs": 0,
+        "InboundNetworkJitterMs": 0,
+        "OutboundNetworkJitterMs": 0,
+        "InboundNetworkLossPercent": 0,
+        "OutboundNetworkLossPercent": 0
+      },
+      "result": {
+        "server": {
+          "FinalMetrics": "{\"tickerMs\":0.012414285915188625,\"sentBytesPerSec\":2540,\"rangeMs\":0.02029999996011611,\"receivedBytesPerSec\":0,\"upstream\":true,\"packetsPerSec\":30}",
+          "OwnedUpdateReceived": true,
+          "Complete": true,
+          "Teleported": true,
+          "OwnedId": 6,
+          "OwnerReturned": true,
+          "NativeId": 1,
+          "LockedId": 2,
+          "CustomId": 3,
+          "MountedId": 5,
+          "DataId": 4
+        },
+        "client": {
+          "Reports": "{\"Mounted\":{\"mounted\":false,\"owner\":0,\"data\":{\"label\":\"Mounted\",\"build\":\"wire-v2\"},\"model\":true,\"render\":\"local\",\"modes\":{\"NATIVE\":true},\"samples\":1138,\"position\":[38.57279586791992,20.998777389526368,-0.08562055230140686]},\"Custom\":{\"mounted\":false,\"owner\":0,\"data\":{\"label\":\"Custom\",\"build\":\"wire-v2\"},\"model\":true,\"render\":\"local\",\"modes\":{\"CUSTOM\":true},\"samples\":1138,\"position\":[44.94610595703125,18,8]},\"Locked\":{\"mounted\":false,\"owner\":0,\"data\":{\"label\":\"Locked\",\"build\":\"wire-v2\"},\"model\":true,\"render\":\"local\",\"modes\":{\"NATIVE_WITH_LOCK\":true},\"samples\":1138,\"position\":[44.94610595703125,18,0]},\"Native\":{\"mounted\":false,\"owner\":0,\"data\":{\"label\":\"Native\",\"build\":\"wire-v2\"},\"model\":true,\"render\":\"local\",\"modes\":{\"NATIVE\":true},\"samples\":1138,\"position\":[44.94610595703125,18,0]},\"Data\":{\"mounted\":false,\"owner\":0,\"data\":{\"label\":\"Data\",\"build\":\"wire-v2\"},\"model\":false,\"render\":\"local\",\"modes\":{\"NATIVE\":true},\"samples\":1138,\"position\":[5.989221572875977,18,0]},\"Owned\":{\"mounted\":false,\"owner\":0,\"data\":{\"label\":\"Owned\",\"build\":\"wire-v2\"},\"model\":true,\"render\":\"local\",\"modes\":{\"NATIVE\":true},\"samples\":1138,\"position\":[9.01275634765625,18,0]}}",
+          "Metrics": "{\"statePackets\":232,\"seconds\":7.949314800000138,\"statePayloadBytes\":22392,\"scope\":\"received state buffers; excludes reliable lifecycle, Roblox physics and headers\"}",
+          "Complete": true,
+          "Started": true,
+          "Ready": true
+        }
+      },
+      "metrics": {
+        "statePackets": 232,
+        "seconds": 7.949314800000138,
+        "statePayloadBytes": 22392,
+        "scope": "received state buffers; excludes reliable lifecycle, Roblox physics and headers"
+      },
+      "serverMetrics": {
+        "tickerMs": 0.012414285915188625,
+        "sentBytesPerSec": 2540,
+        "rangeMs": 0.02029999996011611,
+        "receivedBytesPerSec": 0,
+        "upstream": true,
+        "packetsPerSec": 30
+      }
+    },
+    {
+      "implementation": "fork",
+      "profile": "rtt150",
+      "network": {
+        "InboundNetworkMinDelayMs": 75,
+        "OutboundNetworkMinDelayMs": 75,
+        "InboundNetworkJitterMs": 0,
+        "OutboundNetworkJitterMs": 0,
+        "InboundNetworkLossPercent": 0,
+        "OutboundNetworkLossPercent": 0
+      },
+      "result": {
+        "server": {
+          "FinalMetrics": "{\"tickerMs\":0.016800000230432489,\"sentBytesPerSec\":5116,\"rangeMs\":0.020899999071843923,\"receivedBytesPerSec\":0,\"upstream\":false,\"packetsPerSec\":31}",
+          "OwnedUpdateReceived": true,
+          "Complete": true,
+          "Teleported": true,
+          "OwnedId": 6,
+          "OwnerReturned": true,
+          "NativeId": 1,
+          "LockedId": 2,
+          "CustomId": 3,
+          "MountedId": 5,
+          "DataId": 4
+        },
+        "client": {
+          "Reports": "{\"Mounted\":{\"render\":\"held\",\"revision\":0,\"samples\":1109,\"data\":{\"label\":\"Mounted\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[38.58128356933594,20.99879264831543,-0.08511165529489517],\"model\":true,\"modes\":{\"NATIVE\":true},\"generation\":5,\"owner\":0},\"Custom\":{\"render\":\"interpolated\",\"revision\":0,\"samples\":1109,\"data\":{\"label\":\"Custom\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[44.96460723876953,18,8],\"model\":true,\"modes\":{\"CUSTOM\":true},\"generation\":3,\"owner\":0},\"Locked\":{\"render\":\"interpolated\",\"revision\":0,\"samples\":1109,\"data\":{\"label\":\"Locked\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[44.96460723876953,4.7598347663879398,0],\"model\":true,\"modes\":{\"NATIVE_WITH_LOCK\":true},\"generation\":2,\"owner\":0},\"Native\":{\"render\":\"interpolated\",\"revision\":1,\"samples\":1109,\"data\":{\"label\":\"Native\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[44.96460723876953,18,0],\"model\":true,\"modes\":{\"NATIVE\":true},\"generation\":1,\"owner\":0},\"Data\":{\"render\":\"local\",\"revision\":0,\"samples\":1109,\"data\":{\"label\":\"Data\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[5.992920875549316,18,0],\"model\":false,\"modes\":{\"NATIVE\":true},\"generation\":4,\"owner\":0},\"Owned\":{\"render\":\"held\",\"revision\":2,\"samples\":1109,\"data\":{\"label\":\"Owned\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[13.74139404296875,18,0],\"model\":true,\"modes\":{\"NATIVE\":true},\"generation\":6,\"owner\":0}}",
+          "Metrics": "{\"statePackets\":235,\"seconds\":7.8945977999992469,\"statePayloadBytes\":44635,\"scope\":\"received state buffers; excludes reliable lifecycle, Roblox physics and headers\"}",
+          "Complete": true,
+          "Started": true,
+          "Ready": true
+        }
+      },
+      "detach": {
+        "retained": true,
+        "position": "44.94528579711914, 18, 0",
+        "notHidden": true
+      },
+      "metrics": {
+        "statePackets": 235,
+        "seconds": 7.8945977999992465,
+        "statePayloadBytes": 44635,
+        "scope": "received state buffers; excludes reliable lifecycle, Roblox physics and headers"
+      },
+      "serverMetrics": {
+        "tickerMs": 0.016800000230432488,
+        "sentBytesPerSec": 5116,
+        "rangeMs": 0.020899999071843922,
+        "receivedBytesPerSec": 0,
+        "upstream": false,
+        "packetsPerSec": 31
+      }
+    },
+    {
+      "implementation": "original",
+      "profile": "rtt150",
+      "network": {
+        "InboundNetworkMinDelayMs": 75,
+        "OutboundNetworkMinDelayMs": 75,
+        "InboundNetworkJitterMs": 0,
+        "OutboundNetworkJitterMs": 0,
+        "InboundNetworkLossPercent": 0,
+        "OutboundNetworkLossPercent": 0
+      },
+      "result": {
+        "server": {
+          "FinalMetrics": "{\"tickerMs\":0.011399999721106724,\"sentBytesPerSec\":2520,\"rangeMs\":0.018200000340584667,\"receivedBytesPerSec\":0,\"upstream\":true,\"packetsPerSec\":30}",
+          "OwnedUpdateReceived": true,
+          "Complete": true,
+          "Teleported": true,
+          "OwnedId": 6,
+          "OwnerReturned": true,
+          "NativeId": 1,
+          "LockedId": 2,
+          "CustomId": 3,
+          "MountedId": 5,
+          "DataId": 4
+        },
+        "client": {
+          "Reports": "{\"Mounted\":{\"render\":\"local\",\"samples\":1109,\"data\":{\"label\":\"Mounted\",\"build\":\"wire-v2\"},\"position\":[38.590415954589847,20.998807907104493,-0.08456394076347351],\"mounted\":false,\"modes\":{\"NATIVE\":true},\"owner\":0,\"model\":true},\"Custom\":{\"render\":\"local\",\"samples\":1109,\"data\":{\"label\":\"Custom\",\"build\":\"wire-v2\"},\"position\":[44.944610595703128,18,8],\"mounted\":false,\"modes\":{\"CUSTOM\":true},\"owner\":0,\"model\":true},\"Locked\":{\"render\":\"local\",\"samples\":1109,\"data\":{\"label\":\"Locked\",\"build\":\"wire-v2\"},\"position\":[44.944610595703128,18,0],\"mounted\":false,\"modes\":{\"NATIVE_WITH_LOCK\":true},\"owner\":0,\"model\":true},\"Native\":{\"render\":\"local\",\"samples\":1109,\"data\":{\"label\":\"Native\",\"build\":\"wire-v2\"},\"position\":[44.944610595703128,18,0],\"mounted\":false,\"modes\":{\"NATIVE\":true},\"owner\":0,\"model\":true},\"Data\":{\"render\":\"local\",\"samples\":1109,\"data\":{\"label\":\"Data\",\"build\":\"wire-v2\"},\"position\":[5.988922595977783,18,0],\"mounted\":false,\"modes\":{\"NATIVE\":true},\"owner\":0,\"model\":false},\"Owned\":{\"render\":\"local\",\"samples\":1109,\"data\":{\"label\":\"Owned\",\"build\":\"wire-v2\"},\"position\":[14.2310791015625,18,0],\"mounted\":false,\"modes\":{\"NATIVE\":true},\"owner\":0,\"model\":true}}",
+          "Metrics": "{\"statePackets\":226,\"seconds\":7.913851900000736,\"statePayloadBytes\":21756,\"scope\":\"received state buffers; excludes reliable lifecycle, Roblox physics and headers\"}",
+          "Complete": true,
+          "Started": true,
+          "Ready": true
+        }
+      },
+      "metrics": {
+        "statePackets": 226,
+        "seconds": 7.913851900000736,
+        "statePayloadBytes": 21756,
+        "scope": "received state buffers; excludes reliable lifecycle, Roblox physics and headers"
+      },
+      "serverMetrics": {
+        "tickerMs": 0.011399999721106724,
+        "sentBytesPerSec": 2520,
+        "rangeMs": 0.018200000340584666,
+        "receivedBytesPerSec": 0,
+        "upstream": true,
+        "packetsPerSec": 30
+      }
+    },
+    {
+      "implementation": "fork",
+      "profile": "asymmetric330",
+      "network": {
+        "InboundNetworkMinDelayMs": 150,
+        "OutboundNetworkMinDelayMs": 180,
+        "InboundNetworkJitterMs": 70,
+        "OutboundNetworkJitterMs": 90,
+        "InboundNetworkLossPercent": 0.5,
+        "OutboundNetworkLossPercent": 0.5
+      },
+      "result": {
+        "server": {
+          "FinalMetrics": "{\"tickerMs\":0.021893877434491998,\"sentBytesPerSec\":5116,\"rangeMs\":0.02010000025620684,\"receivedBytesPerSec\":0,\"upstream\":false,\"packetsPerSec\":31}",
+          "OwnedUpdateReceived": true,
+          "Complete": true,
+          "Teleported": true,
+          "OwnedId": 6,
+          "OwnerReturned": true,
+          "NativeId": 1,
+          "LockedId": 2,
+          "CustomId": 3,
+          "MountedId": 5,
+          "DataId": 4
+        },
+        "client": {
+          "Reports": "{\"Mounted\":{\"render\":\"held\",\"revision\":0,\"samples\":1013,\"data\":{\"label\":\"Mounted\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[38.5874137878418,20.998802185058595,-0.08474385738372803],\"model\":true,\"modes\":{\"NATIVE\":true},\"generation\":5,\"owner\":0},\"Custom\":{\"render\":\"held\",\"revision\":0,\"samples\":1013,\"data\":{\"label\":\"Custom\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[44.94407272338867,18,8],\"model\":true,\"modes\":{\"CUSTOM\":true},\"generation\":3,\"owner\":0},\"Locked\":{\"render\":\"held\",\"revision\":0,\"samples\":1013,\"data\":{\"label\":\"Locked\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[44.94407272338867,18,0],\"model\":true,\"modes\":{\"NATIVE_WITH_LOCK\":true},\"generation\":2,\"owner\":0},\"Native\":{\"render\":\"held\",\"revision\":1,\"samples\":1013,\"data\":{\"label\":\"Native\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[44.94407272338867,18,0],\"model\":true,\"modes\":{\"NATIVE\":true},\"generation\":1,\"owner\":0},\"Data\":{\"render\":\"local\",\"revision\":0,\"samples\":1013,\"data\":{\"label\":\"Data\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[5.988814353942871,18,0],\"model\":false,\"modes\":{\"NATIVE\":true},\"generation\":4,\"owner\":0},\"Owned\":{\"render\":\"held\",\"revision\":2,\"samples\":1013,\"data\":{\"label\":\"Owned\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[13.68096923828125,18,0],\"model\":true,\"modes\":{\"NATIVE\":true},\"generation\":6,\"owner\":0}}",
+          "Metrics": "{\"statePackets\":215,\"seconds\":7.627163700000892,\"statePayloadBytes\":40353,\"scope\":\"received state buffers; excludes reliable lifecycle, Roblox physics and headers\"}",
+          "Complete": true,
+          "Started": true,
+          "Ready": true
+        }
+      },
+      "detach": {
+        "retained": true,
+        "position": "44.94407272338867, 18, 0",
+        "notHidden": true
+      },
+      "metrics": {
+        "statePackets": 215,
+        "seconds": 7.627163700000892,
+        "statePayloadBytes": 40353,
+        "scope": "received state buffers; excludes reliable lifecycle, Roblox physics and headers"
+      },
+      "serverMetrics": {
+        "tickerMs": 0.021893877434491997,
+        "sentBytesPerSec": 5116,
+        "rangeMs": 0.02010000025620684,
+        "receivedBytesPerSec": 0,
+        "upstream": false,
+        "packetsPerSec": 31
+      }
+    },
+    {
+      "implementation": "original",
+      "profile": "asymmetric330",
+      "network": {
+        "InboundNetworkMinDelayMs": 150,
+        "OutboundNetworkMinDelayMs": 180,
+        "InboundNetworkJitterMs": 70,
+        "OutboundNetworkJitterMs": 90,
+        "InboundNetworkLossPercent": 0.5,
+        "OutboundNetworkLossPercent": 0.5
+      },
+      "result": {
+        "server": {
+          "FinalMetrics": "{\"tickerMs\":0.01141428557665287,\"sentBytesPerSec\":2520,\"rangeMs\":0.018799999452312478,\"receivedBytesPerSec\":0,\"upstream\":true,\"packetsPerSec\":30}",
+          "OwnedUpdateReceived": true,
+          "Complete": true,
+          "Teleported": true,
+          "OwnedId": 6,
+          "OwnerReturned": true,
+          "NativeId": 1,
+          "LockedId": 2,
+          "CustomId": 3,
+          "MountedId": 5,
+          "DataId": 4
+        },
+        "client": {
+          "Reports": "{\"Mounted\":{\"render\":\"local\",\"samples\":1015,\"data\":{\"label\":\"Mounted\",\"build\":\"wire-v2\"},\"position\":[38.575477600097659,20.998783111572267,-0.08545985072851181],\"mounted\":false,\"modes\":{\"NATIVE\":true},\"owner\":0,\"model\":true},\"Custom\":{\"render\":\"local\",\"samples\":1015,\"data\":{\"label\":\"Custom\",\"build\":\"wire-v2\"},\"position\":[44.94618225097656,18,8],\"mounted\":false,\"modes\":{\"CUSTOM\":true},\"owner\":0,\"model\":true},\"Locked\":{\"render\":\"local\",\"samples\":1015,\"data\":{\"label\":\"Locked\",\"build\":\"wire-v2\"},\"position\":[44.94618225097656,18,0],\"mounted\":false,\"modes\":{\"NATIVE_WITH_LOCK\":true},\"owner\":0,\"model\":true},\"Native\":{\"render\":\"local\",\"samples\":1015,\"data\":{\"label\":\"Native\",\"build\":\"wire-v2\"},\"position\":[44.94618225097656,18,0],\"mounted\":false,\"modes\":{\"NATIVE\":true},\"owner\":0,\"model\":true},\"Data\":{\"render\":\"local\",\"samples\":1015,\"data\":{\"label\":\"Data\",\"build\":\"wire-v2\"},\"position\":[5.989236354827881,18,0],\"mounted\":false,\"modes\":{\"NATIVE\":true},\"owner\":0,\"model\":false},\"Owned\":{\"render\":\"local\",\"samples\":1015,\"data\":{\"label\":\"Owned\",\"build\":\"wire-v2\"},\"position\":[14.306640625,18,0],\"mounted\":false,\"modes\":{\"NATIVE\":true},\"owner\":0,\"model\":true}}",
+          "Metrics": "{\"statePackets\":205,\"seconds\":7.577266500000405,\"statePayloadBytes\":19570,\"scope\":\"received state buffers; excludes reliable lifecycle, Roblox physics and headers\"}",
+          "Complete": true,
+          "Started": true,
+          "Ready": true
+        }
+      },
+      "metrics": {
+        "statePackets": 205,
+        "seconds": 7.577266500000405,
+        "statePayloadBytes": 19570,
+        "scope": "received state buffers; excludes reliable lifecycle, Roblox physics and headers"
+      },
+      "serverMetrics": {
+        "tickerMs": 0.01141428557665287,
+        "sentBytesPerSec": 2520,
+        "rangeMs": 0.018799999452312477,
+        "receivedBytesPerSec": 0,
+        "upstream": true,
+        "packetsPerSec": 30
+      }
+    },
+    {
+      "implementation": "fork",
+      "profile": "severe900",
+      "network": {
+        "InboundNetworkMinDelayMs": 400,
+        "OutboundNetworkMinDelayMs": 500,
+        "InboundNetworkJitterMs": 120,
+        "OutboundNetworkJitterMs": 150,
+        "InboundNetworkLossPercent": 2,
+        "OutboundNetworkLossPercent": 2
+      },
+      "result": {
+        "server": {
+          "FinalMetrics": "{\"tickerMs\":0.0319500004479778,\"sentBytesPerSec\":5116,\"rangeMs\":0.021100000594742597,\"receivedBytesPerSec\":0,\"upstream\":false,\"packetsPerSec\":31}",
+          "OwnedUpdateReceived": true,
+          "Complete": true,
+          "Teleported": true,
+          "OwnedId": 6,
+          "OwnerReturned": true,
+          "NativeId": 1,
+          "LockedId": 2,
+          "CustomId": 3,
+          "MountedId": 5,
+          "DataId": 4
+        },
+        "client": {
+          "Reports": "{\"Mounted\":{\"render\":\"held\",\"revision\":0,\"samples\":815,\"data\":{\"label\":\"Mounted\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[38.58359909057617,20.998796463012697,-0.08497258275747299],\"model\":true,\"modes\":{\"NATIVE\":true},\"generation\":5,\"owner\":0},\"Custom\":{\"render\":\"interpolated\",\"revision\":0,\"samples\":815,\"data\":{\"label\":\"Custom\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[44.94415283203125,18,8],\"model\":true,\"modes\":{\"CUSTOM\":true},\"generation\":3,\"owner\":0},\"Locked\":{\"render\":\"interpolated\",\"revision\":0,\"samples\":815,\"data\":{\"label\":\"Locked\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[44.94415283203125,18,0],\"model\":true,\"modes\":{\"NATIVE_WITH_LOCK\":true},\"generation\":2,\"owner\":0},\"Native\":{\"render\":\"interpolated\",\"revision\":1,\"samples\":815,\"data\":{\"label\":\"Native\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[44.94415283203125,18,0],\"model\":true,\"modes\":{\"NATIVE\":true},\"generation\":1,\"owner\":0},\"Data\":{\"render\":\"local\",\"revision\":0,\"samples\":815,\"data\":{\"label\":\"Data\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[5.98883056640625,18,0],\"model\":false,\"modes\":{\"NATIVE\":true},\"generation\":4,\"owner\":0},\"Owned\":{\"render\":\"held\",\"revision\":2,\"samples\":815,\"data\":{\"label\":\"Owned\",\"build\":\"wire-v2\"},\"mounted\":false,\"position\":[14.448486328125,18,0],\"model\":true,\"modes\":{\"NATIVE\":true},\"generation\":6,\"owner\":0}}",
+          "Metrics": "{\"statePackets\":173,\"seconds\":6.772695699999531,\"statePayloadBytes\":31861,\"scope\":\"received state buffers; excludes reliable lifecycle, Roblox physics and headers\"}",
+          "Complete": true,
+          "Started": true,
+          "Ready": true
+        }
+      },
+      "detach": {
+        "retained": true,
+        "position": "44.94415283203125, 18, 0",
+        "notHidden": true
+      },
+      "metrics": {
+        "statePackets": 173,
+        "seconds": 6.772695699999531,
+        "statePayloadBytes": 31861,
+        "scope": "received state buffers; excludes reliable lifecycle, Roblox physics and headers"
+      },
+      "serverMetrics": {
+        "tickerMs": 0.0319500004479778,
+        "sentBytesPerSec": 5116,
+        "rangeMs": 0.021100000594742596,
+        "receivedBytesPerSec": 0,
+        "upstream": false,
+        "packetsPerSec": 31
+      }
+    },
+    {
+      "implementation": "original",
+      "profile": "severe900",
+      "network": {
+        "InboundNetworkMinDelayMs": 400,
+        "OutboundNetworkMinDelayMs": 500,
+        "InboundNetworkJitterMs": 120,
+        "OutboundNetworkJitterMs": 150,
+        "InboundNetworkLossPercent": 2,
+        "OutboundNetworkLossPercent": 2
+      },
+      "result": {
+        "server": {
+          "FinalMetrics": "{\"tickerMs\":0.010999999566203249,\"sentBytesPerSec\":2434,\"rangeMs\":0.017500000467407518,\"receivedBytesPerSec\":0,\"upstream\":true,\"packetsPerSec\":29}",
+          "OwnedUpdateReceived": true,
+          "Complete": true,
+          "Teleported": true,
+          "OwnedId": 6,
+          "OwnerReturned": true,
+          "NativeId": 1,
+          "LockedId": 2,
+          "CustomId": 3,
+          "MountedId": 5,
+          "DataId": 4
+        },
+        "client": {
+          "Reports": "{\"Mounted\":{\"render\":\"local\",\"samples\":846,\"data\":{\"label\":\"Mounted\",\"build\":\"wire-v2\"},\"position\":[38.6007194519043,20.998825073242189,-0.08394598215818405],\"mounted\":false,\"modes\":{\"NATIVE\":true},\"owner\":0,\"model\":true},\"Custom\":{\"render\":\"local\",\"samples\":846,\"data\":{\"label\":\"Custom\",\"build\":\"wire-v2\"},\"position\":[44.94186782836914,18,8],\"mounted\":false,\"modes\":{\"CUSTOM\":true},\"owner\":0,\"model\":true},\"Locked\":{\"render\":\"local\",\"samples\":846,\"data\":{\"label\":\"Locked\",\"build\":\"wire-v2\"},\"position\":[44.94186782836914,18,0],\"mounted\":false,\"modes\":{\"NATIVE_WITH_LOCK\":true},\"owner\":0,\"model\":true},\"Native\":{\"render\":\"local\",\"samples\":846,\"data\":{\"label\":\"Native\",\"build\":\"wire-v2\"},\"position\":[44.94186782836914,18,0],\"mounted\":false,\"modes\":{\"NATIVE\":true},\"owner\":0,\"model\":true},\"Data\":{\"render\":\"local\",\"samples\":846,\"data\":{\"label\":\"Data\",\"build\":\"wire-v2\"},\"position\":[5.988373279571533,18,0],\"mounted\":false,\"modes\":{\"NATIVE\":true},\"owner\":0,\"model\":false},\"Owned\":{\"render\":\"local\",\"samples\":846,\"data\":{\"label\":\"Owned\",\"build\":\"wire-v2\"},\"position\":[9.02294921875,18,0],\"mounted\":false,\"modes\":{\"NATIVE\":true},\"owner\":0,\"model\":true}}",
+          "Metrics": "{\"statePackets\":168,\"seconds\":7.531850800000029,\"statePayloadBytes\":15708,\"scope\":\"received state buffers; excludes reliable lifecycle, Roblox physics and headers\"}",
+          "Complete": true,
+          "Started": true,
+          "Ready": true
+        }
+      },
+      "metrics": {
+        "statePackets": 168,
+        "seconds": 7.531850800000029,
+        "statePayloadBytes": 15708,
+        "scope": "received state buffers; excludes reliable lifecycle, Roblox physics and headers"
+      },
+      "serverMetrics": {
+        "tickerMs": 0.010999999566203249,
+        "sentBytesPerSec": 2434,
+        "rangeMs": 0.017500000467407517,
+        "receivedBytesPerSec": 0,
+        "upstream": true,
+        "packetsPerSec": 29
+      }
+    }
+  ],
+  "failures": []
+}

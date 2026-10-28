@@ -1,0 +1,24 @@
+{
+  "ok": true,
+  "originalModulesPresent": 36,
+  "retainedReleaseSourcesVerified": 30,
+  "artifacts": {
+    "ChronoFork.rbxmx": {
+      "instances": 129,
+      "scripts": 112,
+      "sha256": "bad072f088d4576a4fe5b62f5bbef55ce3ce41f23431108fa924ee67d6d40bff"
+    },
+    "ChronoForkSetup.rbxmx": {
+      "instances": 164,
+      "scripts": 145,
+      "sha256": "2a9b76c09c2a7a708d23afdb60602421dc5f5b1d2babecf6e629adccda2701ef"
+    },
+    "ChronoForkTests.rbxmx": {
+      "instances": 192,
+      "scripts": 159,
+      "sha256": "e62c21183fb495cae45e8cc54cd93288d082ed643e138f06816c87c7c364eecc"
+    }
+  },
+  "problems": [],
+  "scope": "static/packaging checks; runtime evidence is in docs/full/validation"
+}

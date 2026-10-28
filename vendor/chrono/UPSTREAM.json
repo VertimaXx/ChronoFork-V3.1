@@ -1,0 +1,192 @@
+{
+  "repository": "https://github.com/Parihsz/Chrono",
+  "revision": "90be58b09fe420977afa691396238c7817c1766f",
+  "imported": "2026-10-27",
+  "purpose": "Exact unmodified upstream baseline; active fork is replication/.",
+  "files": {
+    "LICENSE": {
+      "bytes": 1064,
+      "sha256": "4604a131092003c47badec155fff4d63ad90a4fad34a89113664f6dbffa68298"
+    },
+    "src/Client/AlignDriver.luau": {
+      "bytes": 4850,
+      "sha256": "63a7768bfbdc434224732ea852605f263d2f7189cff3afb5b20861aa90c8dd4e"
+    },
+    "src/Client/ClientClock.luau": {
+      "bytes": 5940,
+      "sha256": "9ab9cf0fb9e2ee61855fed24c192114dfca98ebfa660b191b0e4b01f41a80a10"
+    },
+    "src/Client/EntityStats.luau": {
+      "bytes": 2461,
+      "sha256": "0dc4e6f8a039ef158ae06034979d074e32f7de9cacb7c0fcd2e654fccfc77471"
+    },
+    "src/Client/Frustum.luau": {
+      "bytes": 4054,
+      "sha256": "b080d8c39b0dd590f556f8e93140fd8a6a401805d1be0435d80f4afa7069c17b"
+    },
+    "src/Client/InterpolationBuffer.luau": {
+      "bytes": 3008,
+      "sha256": "947bf4c966e8f7b7b7a1684ee8cc6e007b72f23c4691b0cce4a818f854e21634"
+    },
+    "src/Client/ModelResolver.luau": {
+      "bytes": 691,
+      "sha256": "404ec5eabb7255fbc08ddbd120215999698585a0806dc3cdd1c2841204f1a753"
+    },
+    "src/Client/Player.luau": {
+      "bytes": 3591,
+      "sha256": "b5382063d993402b6017b6fba753bbc69dd9ccc0a2172bd3bcbe2ce843eb9ae1"
+    },
+    "src/Client/Receiver.luau": {
+      "bytes": 12013,
+      "sha256": "af934e44abd7c6786945bba2ead676a8f336ca9c456d081cabdf5bdac8a632dc"
+    },
+    "src/Client/Replicate.luau": {
+      "bytes": 6492,
+      "sha256": "7250735685b37fbd4c85792eb796d8e54fd31085a53e785b9c89453b9b078394"
+    },
+    "src/Client/Sender.luau": {
+      "bytes": 5382,
+      "sha256": "279770a872bf3292ab4d39a3806d1e02a3b4470ef05aa160516ead3cb42144b1"
+    },
+    "src/Server/EntityGrid.luau": {
+      "bytes": 6721,
+      "sha256": "9d8e6854b8501afcef1411b0e2c62ed17452fb02bab968fa6950d94ec0d8ed85"
+    },
+    "src/Server/EntityStats.luau": {
+      "bytes": 1688,
+      "sha256": "70f175f285165a3b39e6742f76b2b43be36b370f8526c4d7c83fb51e50b78e69"
+    },
+    "src/Server/Player.luau": {
+      "bytes": 4722,
+      "sha256": "7a01082ba44835039f7a4d7ce42c6fd550cd3ed94b0b941cccd2510c0d5b0adc"
+    },
+    "src/Server/Receiver.luau": {
+      "bytes": 9032,
+      "sha256": "524ee01b0b02e1fd1bf802dfdd0cb47a635c58521829776125a91fd57651b951"
+    },
+    "src/Server/Replicate.luau": {
+      "bytes": 10276,
+      "sha256": "88d695f648c78b352e4f91019e2af8349cf8399228baaea4696d371f85de0cba"
+    },
+    "src/Server/Sender.luau": {
+      "bytes": 9002,
+      "sha256": "61217ccfc3c6478c948ea3e8a2ca080c50cd49da2288d4d863b8ff489be3107a"
+    },
+    "src/Server/ServerClock.luau": {
+      "bytes": 1859,
+      "sha256": "f0b6c98e9abde00786e3e9228f4cde8df4be4dc04be1f692e7e4e93d4f0057ae"
+    },
+    "src/Shared/ApplyMounts.luau": {
+      "bytes": 3895,
+      "sha256": "d36bdf9f51f87a8edbadc0fffa400171f2fafcd34dca8879711d89a9ee5f09f5"
+    },
+    "src/Shared/Bin.luau": {
+      "bytes": 994,
+      "sha256": "949b50efb408f4825cc70d28e9bbf1c82cb85a20c0d1d5157052c710122b8045"
+    },
+    "src/Shared/CFrameLock.luau": {
+      "bytes": 2333,
+      "sha256": "0c74cb4da4a6ed6b8508b75a98f799cf03ec9530210a5a2b9ed4c0c940762a87"
+    },
+    "src/Shared/ClockUnwrap.luau": {
+      "bytes": 1678,
+      "sha256": "0a6300bb27390230d880f9e126549c4438b35ce61a5c3fcb7906768595cc4437"
+    },
+    "src/Shared/Config.luau": {
+      "bytes": 13791,
+      "sha256": "8be4b000637ec7754644cea4ee58833c0cfba187bb3ddb8bf34cc813c7df3456"
+    },
+    "src/Shared/Entity.luau": {
+      "bytes": 31421,
+      "sha256": "d437dd91e38ecdf668d39eb02448bad1d50dcda905850d7b6c1290e7b01bb66b"
+    },
+    "src/Shared/Events.luau": {
+      "bytes": 1542,
+      "sha256": "0b8aa703394ec7f447c19d9f9a74a47cf479679e49c9c5971951c46afbae1bc1"
+    },
+    "src/Shared/Holder.luau": {
+      "bytes": 6010,
+      "sha256": "74918966ff366a80faa5b7b2b7d8f4a51d4bfb73beac08fa30fee8cb871e349a"
+    },
+    "src/Shared/HumanoidState.luau": {
+      "bytes": 3573,
+      "sha256": "bea5ea47a3b8b0f8e36f42ece582074061a29606c3b68fb890921bd476d826ea"
+    },
+    "src/Shared/InterpolationMath.luau": {
+      "bytes": 2852,
+      "sha256": "a0451684b63df62d0d3ecf025fd7bcde7021bd342a7ce01b5a8688422a322a5c"
+    },
+    "src/Shared/ModelHelper.luau": {
+      "bytes": 2870,
+      "sha256": "d7094070d50c3c9476d855702f228017a1fb4a6503e8215b5b425dc08aae0086"
+    },
+    "src/Shared/Remotes/ClientClockRelay.model.json": {
+      "bytes": 35,
+      "sha256": "7cd33207ca11af7aff377bff0a05791b935025c3a3c856ca9928660ca2977d7b"
+    },
+    "src/Shared/Remotes/ClientHeartbeat.model.json": {
+      "bytes": 35,
+      "sha256": "7cd33207ca11af7aff377bff0a05791b935025c3a3c856ca9928660ca2977d7b"
+    },
+    "src/Shared/Remotes/ClientLoaded.model.json": {
+      "bytes": 34,
+      "sha256": "813642c4f2d145ffb0f0a87d23c91be866f3313562554c84ec4855b7d40f21b5"
+    },
+    "src/Shared/Remotes/Death.model.json": {
+      "bytes": 44,
+      "sha256": "bb42628ab5c2b73d977177cbca88404934bbdf00c2aabcbc33e85f0fad5b2b9a"
+    },
+    "src/Shared/Remotes/Heartbeat.model.json": {
+      "bytes": 45,
+      "sha256": "13f78f03fbe6fb1df5a86c8afd510272f617a74ceacf1dc45d2390173e8dd665"
+    },
+    "src/Shared/Remotes/Replicate.model.json": {
+      "bytes": 44,
+      "sha256": "bb42628ab5c2b73d977177cbca88404934bbdf00c2aabcbc33e85f0fad5b2b9a"
+    },
+    "src/Shared/Remotes/ReplicateFull.model.json": {
+      "bytes": 34,
+      "sha256": "813642c4f2d145ffb0f0a87d23c91be866f3313562554c84ec4855b7d40f21b5"
+    },
+    "src/Shared/Remotes/SafeReplicate.model.json": {
+      "bytes": 33,
+      "sha256": "484d1c0ae8da3b045522c39f62d40386522db296b9bebf1bf440b7ab2bd0fa8b"
+    },
+    "src/Shared/ReplicationRules.luau": {
+      "bytes": 2760,
+      "sha256": "a6232edbafb8cba57a226a2312b44e53591905f7c469bb21fba4e879f02ca279"
+    },
+    "src/Shared/Signal.luau": {
+      "bytes": 7459,
+      "sha256": "420228712ca42bc9833c338c5da41dc6ee7763e7984020be39dee84f7f18f8e7"
+    },
+    "src/Shared/Snapshots.luau": {
+      "bytes": 7182,
+      "sha256": "233ea07fd3e6e96364c5bce60c692678fec2482eab822507881a084e43e4a9df"
+    },
+    "src/Shared/Stats.luau": {
+      "bytes": 6059,
+      "sha256": "6548eca352548a218be9e3f3db29f56e69f6774309ac089552d5d0261c20a26c"
+    },
+    "src/Shared/Ticker.luau": {
+      "bytes": 2440,
+      "sha256": "4fdd98af92a96a2437e545fe865e89c1a84f90d90b23c8f7bc12c120a94927de"
+    },
+    "src/Shared/Types.luau": {
+      "bytes": 8264,
+      "sha256": "09d8398c16e5f282b095809f99c1085d1e2825b8a2f9c886bc87d01f052be8f3"
+    },
+    "src/Shared/Warn.luau": {
+      "bytes": 863,
+      "sha256": "8959d766bf75124fb4ba522c030ba6b89e583c8ebe06b86d84f89934f74cad11"
+    },
+    "src/Shared/_CUSTOM_MODEL_REP/init.model.json": {
+      "bytes": 28,
+      "sha256": "7542676787c575be8fc2d30e209408051fbc233a403e9197da27a35b53a1ee41"
+    },
+    "src/init.luau": {
+      "bytes": 3144,
+      "sha256": "5e2b6d21a6aff4df1a8b1abe78eedad3576677943d313f1c813a3345eb7abbeb"
+    }
+  }
+}
