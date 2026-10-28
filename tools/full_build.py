@@ -11,7 +11,7 @@ def tree(directory,path):
     cls=json.loads(source(model))['ClassName'] if model.exists() else ('ModuleScript' if init.exists() else 'Folder')
     rows=[dict(path=path,**{'class':cls})]
     if init.exists(): rows[0]['source']=source(init)
-    for p in sorted(directory.iterdir()):
+    for p in sorted(directory.iterdir(),key=lambda p:p.name):
         if p.is_dir(): rows+=tree(p,path+[p.name])
         elif p.suffix=='.luau' and p.name!='init.luau':
             is_client=p.stem.endswith('.client') and 'tests' in p.parts and 'full' in p.parts
@@ -37,7 +37,7 @@ def runtime():
     for name in ['Bootstrap','Hooks','DebugUI','Await']:
         rows.append(dict(path=['ChronoFork',name],**{'class':'ModuleScript'},source=source(ROOT/f'framework/{name}.luau')))
     # Original public child paths continue resolving to the same module instances.
-    for path in sorted((ROOT/'replication/Shared').glob('*.luau')):
+    for path in sorted((ROOT/'replication/Shared').glob('*.luau'),key=lambda p:p.name):
         alias=f'local API=require(script.Parent.Parent.Replication.Shared.{path.stem})\n'
         for match in re.finditer(r'export type (\w+)(<[^>]*>)?\s*=',source(path)):
             name,params=match.groups()
@@ -47,7 +47,7 @@ def runtime():
         rows.append(dict(path=['ChronoFork','Shared',path.stem],**{'class':'ModuleScript'},source=alias))
     for name in ['Client','Server']:
         rows.append(dict(path=['ChronoFork',name],**{'class':'Folder'}))
-        for path in sorted((ROOT/'replication'/name).glob('*.luau')):
+        for path in sorted((ROOT/'replication'/name).glob('*.luau'),key=lambda p:p.name):
             rows.append(dict(path=['ChronoFork',name,path.stem],**{'class':'ModuleScript'},source=f'return require(script.Parent.Parent.Replication.{name}.{path.stem})\n'))
     rows.append(dict(path=['ChronoFork','ReadyPaths'],**{'class':'StringValue'},value=json.dumps(['/'.join(r['path'][1:]) for r in rows if len(r['path'])>1],separators=(',',':'))))
     return rows
@@ -74,9 +74,9 @@ def build():
     (OUT/'studio-fixture.json').write_text(json.dumps(validation,separators=(',',':')),encoding='utf-8',newline='\n')
     files=[p for d in ['framework','replication','vendor/chrono','tests','docs','src','runtime','editor','examples','benchmarks','tools','.github','dist','site'] for p in (ROOT/d).rglob('*') if p.is_file() and '__pycache__' not in p.parts and not ('site' in p.relative_to(ROOT).parts and 'downloads' in p.relative_to(ROOT).parts)]
     files += [p for p in ROOT.iterdir() if p.is_file() and (p.suffix in ['.md','.json'] or p.name in ['LICENSE','NOTICE','.gitignore','.gitattributes'])]
-    files=sorted(set(files))
+    files=sorted(set(files),key=lambda p:p.relative_to(ROOT).as_posix())
     manifest={'version':VERSION,'wireVersion':2,'coreVersion':'3.1.0','upstream':json.loads(source(ROOT/'vendor/chrono/UPSTREAM.json'))['revision'],
-              'status':'development preview; see IMPLEMENTATION.md for validation gates','files':{p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(files)}}
+              'status':'development preview; see IMPLEMENTATION.md for validation gates','files':{p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}}
     (OUT/'MANIFEST.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8',newline='\n')
     for name in ['LICENSE','NOTICE','CREDITS.md']: shutil.copyfile(ROOT/name,OUT/name)
     archive=OUT/'ChronoFork-3.3.0-dev.zip'
@@ -86,6 +86,6 @@ def build():
             info.create_system=3;info.compress_type=zipfile.ZIP_DEFLATED;info.external_attr=0o100644<<16
             z.writestr(info,p.read_bytes(),compress_type=zipfile.ZIP_DEFLATED,compresslevel=9)
     checksummed=list(OUT.glob('*.rbxmx'))+[OUT/'MANIFEST.json',archive]
-    (OUT/'SHA256SUMS.txt').write_text(''.join(hashlib.sha256(p.read_bytes()).hexdigest()+'  '+p.name+'\n' for p in sorted(checksummed)),encoding='utf-8',newline='\n')
+    (OUT/'SHA256SUMS.txt').write_text(''.join(hashlib.sha256(p.read_bytes()).hexdigest()+'  '+p.name+'\n' for p in sorted(checksummed,key=lambda p:p.name)),encoding='utf-8',newline='\n')
     print(json.dumps({'runtimeInstances':len(rows),'fixtureInstances':len(validation),'version':VERSION}))
 if __name__=='__main__': build()

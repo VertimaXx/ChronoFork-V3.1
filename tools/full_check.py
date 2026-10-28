@@ -20,7 +20,7 @@ def verify(compiler=None):
         for name in sorted(old-new): problems.append('original public function missing: '+str(p)+' '+name)
         count+=1
     artifacts={}
-    for path in OUT.glob('*.rbxmx'):
+    for path in sorted(OUT.glob('*.rbxmx'),key=lambda p:p.name):
         tree=ET.parse(path).getroot();paths=set();sources=[]
         def walk(item,parent):
             props=item.find('Properties');name=props.find("string[@name='Name']").text;key=parent+(name,)
